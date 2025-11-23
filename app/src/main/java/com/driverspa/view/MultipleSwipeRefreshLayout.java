@@ -35,7 +35,7 @@ public class MultipleSwipeRefreshLayout extends SwipeRefreshLayout {
      * This method controls when the swipe-to-refresh gesture is triggered. By returning false here
      * we are signifying that the view is in a state where a refresh gesture can start.
      *
-     * <p>As {@link android.support.v4.widget.SwipeRefreshLayout} only supports one direct child by
+     * <p>As {@link androidx.swiperefreshlayout.widget.SwipeRefreshLayout} only supports one direct child by
      * default, we need to manually iterate through our swipeable children to see if any are in a
      * state to trigger the gesture. If so we return false to start the gesture.
      */

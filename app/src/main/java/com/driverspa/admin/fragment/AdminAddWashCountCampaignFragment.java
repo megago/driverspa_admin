@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;

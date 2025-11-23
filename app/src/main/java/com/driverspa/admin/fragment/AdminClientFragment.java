@@ -1,5 +1,6 @@
 package com.driverspa.admin.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,6 +30,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.driverspa.adapter.CarsGridAdapter;
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 
@@ -346,7 +349,8 @@ public class AdminClientFragment extends AdminBaseFragment{
 		loadData();
 	}
 
-	private void setData(){
+	@SuppressLint("SuspiciousIndentation")
+    private void setData(){
 
       if(client != null){
 		  if(!TextUtils.isEmpty(client.getProfileImageUrl())){

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import com.driverspa.adapter.GroupServicesGridAdapter;
 import com.driverspa.adapter.OfflineBoxesGridAdapter;
 import com.driverspa.adapter.ServicesGridAdapter;
+import com.driverspa.assist.BaseAssist;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;

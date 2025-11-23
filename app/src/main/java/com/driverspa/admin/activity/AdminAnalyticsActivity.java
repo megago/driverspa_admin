@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Gallery;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 

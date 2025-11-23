@@ -1,5 +1,6 @@
 package com.driverspa.admin.fragment;
 
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import org.codepond.wizardroid.WizardFlow;

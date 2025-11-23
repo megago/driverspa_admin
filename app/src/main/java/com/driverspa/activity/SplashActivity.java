@@ -12,9 +12,11 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.driverspa.assist.UserSelfAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.driverspa.BA;
@@ -39,7 +41,7 @@ import com.driverspa.util.otto.ws.UserGetSelfRequestEvent;
 //fa7fe554
 public class SplashActivity extends BaseActivity implements AnimationListener{
 
-	@BindView (R.id.noConnectionLayout)
+	@BindView(R.id.noConnectionLayout)
 	View noConnectionLayout;
 	@BindView (R.id.logo)
 	View logo;

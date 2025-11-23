@@ -7,6 +7,6 @@
         android:title="@android:string/search_go"
         android:icon="@drawable/ic_search"
         washme:showAsAction="always|collapseActionView"
-        washme:actionViewClass="android.support.v7.widget.SearchView" />
+        washme:actionViewClass="android.widget.SearchView" />
 
 </menu>

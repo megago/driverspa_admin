@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;

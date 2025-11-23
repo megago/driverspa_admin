@@ -4,7 +4,7 @@ import static com.driverspa.util.Constants.VIEW_FOOTER;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;

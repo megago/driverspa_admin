@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.driverspa.adapter.PriceDefinitionDetailAdapter;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 

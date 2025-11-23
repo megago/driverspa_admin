@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 

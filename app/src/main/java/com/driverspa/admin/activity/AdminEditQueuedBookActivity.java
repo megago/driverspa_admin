@@ -23,6 +23,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.driverspa.adapter.GroupServicesGridAdapter;
+import com.driverspa.adapter.OfflineBoxesGridAdapter;
+import com.driverspa.adapter.ServicesGridAdapter;
+import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 

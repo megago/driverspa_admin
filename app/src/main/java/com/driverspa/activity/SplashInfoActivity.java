@@ -2,10 +2,11 @@ package com.driverspa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.driverspa.adapter.SplashInfoPagerAdapter;
 import com.splunk.mint.Mint;
 
 import butterknife.ButterKnife;

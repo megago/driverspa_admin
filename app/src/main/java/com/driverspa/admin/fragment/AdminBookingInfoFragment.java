@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.driverspa.assist.BaseAssist;
+import com.driverspa.assist.UserSelfAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;

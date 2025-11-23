@@ -31,6 +31,10 @@ import android.widget.Filter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.driverspa.adapter.GroupServicesGridAdapter;
+import com.driverspa.adapter.OfflineBoxesGridAdapter;
+import com.driverspa.adapter.ServicesGridAdapter;
+import com.driverspa.assist.BaseAssist;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
@@ -62,7 +66,7 @@ import com.driverspa.model.Staff;
 import com.driverspa.model.WashCountCampaign;
 import com.driverspa.model.Washer;
 import com.driverspa.model.api.request.BookingRequest;
-import com.driverspa.ocr.OcrCaptureActivity;
+//import com.driverspa.ocr.OcrCaptureActivity;
 import com.driverspa.util.ActivityForResult;
 import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
@@ -1596,10 +1600,10 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
 
     @OnClick(R.id.plateDetection)
     public void plateDetectionClicked() {
-        Intent intent = new Intent(this, OcrCaptureActivity.class);
-        intent.putExtra(OcrCaptureActivity.AutoFocus, true);
-        intent.putExtra(OcrCaptureActivity.UseFlash, false);
-        startActivityForResult(intent, RC_OCR_CAPTURE);
+//        Intent intent = new Intent(this, OcrCaptureActivity.class);
+//        intent.putExtra(OcrCaptureActivity.AutoFocus, true);
+//        intent.putExtra(OcrCaptureActivity.UseFlash, false);
+//        startActivityForResult(intent, RC_OCR_CAPTURE);
     }
 
     @Subscribe
@@ -1635,7 +1639,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         if (requestCode == RC_OCR_CAPTURE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
-                    textPrediction = data.getStringExtra(OcrCaptureActivity.TextBlockObject);
+//                    textPrediction = data.getStringExtra(OcrCaptureActivity.TextBlockObject);
                     if (!TextUtils.isEmpty(textPrediction))
                         textPrediction = textPrediction.replaceAll(" ", "").trim().replaceAll("\n", "");
                     setWaitScreen(true);

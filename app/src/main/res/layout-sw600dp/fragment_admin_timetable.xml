@@ -166,7 +166,7 @@
             android:src="@drawable/ic_timer_white_24dp" />
     </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/forwardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
         android:visibility="gone"
         app:fabSize="normal" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/rewardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

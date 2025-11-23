@@ -8,7 +8,7 @@ xmlns:washme="http://schemas.android.com/apk/res-auto">
     android:icon="@drawable/ic_search"
     washme:showAsAction="always|collapseActionView"
     android:background="@android:color/transparent"
-    washme:actionViewClass="android.support.v7.widget.SearchView" />
+    washme:actionViewClass="android.widget.SearchView" />
 
 <!--<item-->
     <!--android:id="@+id/menu_map"-->

@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.driverspa.adapter.GroupServicesGridAdapter;
+import com.driverspa.adapter.OfflineBoxesGridAdapter;
+import com.driverspa.adapter.ServicesGridAdapter;
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -32,7 +36,7 @@ import com.driverspa.model.ServiceItem;
 import com.driverspa.model.Staff;
 import com.driverspa.model.Washer;
 import com.driverspa.model.api.request.BookingRequest;
-import com.driverspa.ocr.OcrCaptureActivity;
+//import com.driverspa.ocr.OcrCaptureActivity;
 import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
 import com.driverspa.util.MaskedWatcher;
@@ -705,10 +709,10 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 
 	@OnClick(R.id.plateDetection)
 	public void plateDetectionClicked() {
-		Intent intent = new Intent(this, OcrCaptureActivity.class);
-		intent.putExtra(OcrCaptureActivity.AutoFocus, true);
-		intent.putExtra(OcrCaptureActivity.UseFlash, false);
-		startActivityForResult(intent, RC_OCR_CAPTURE);
+//		Intent intent = new Intent(this, OcrCaptureActivity.class);
+//		intent.putExtra(OcrCaptureActivity.AutoFocus, true);
+//		intent.putExtra(OcrCaptureActivity.UseFlash, false);
+//		startActivityForResult(intent, RC_OCR_CAPTURE);
 	}
 
 	@Subscribe

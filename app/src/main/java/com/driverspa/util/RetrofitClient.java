@@ -123,8 +123,8 @@ public class RetrofitClient {
 //	public static String API_URL = "http://192.168.1.178:8000/api/"; // api url
 //	public static String API_URL_IMAGES = "http://192.168.1.178:8000"; // api url
 
-	public static String API_URL = "http://192.168.31.201:8001/api/"; // api url
-	public static String API_URL_IMAGES = "http://1192.168.31.201:8001"; // api url
+	public static String API_URL = "http://192.168.31.177:8000/api/"; // api url
+	public static String API_URL_IMAGES = "http://192.168.31.177:8000"; // api url
 
 //
 //	public static String API_URL = "http://192.168.31.73:8000/api/"; // api url

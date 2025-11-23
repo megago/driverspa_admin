@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;

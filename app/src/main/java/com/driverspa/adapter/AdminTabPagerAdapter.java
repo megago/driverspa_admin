@@ -1,8 +1,8 @@
 package com.driverspa.adapter;
 
 import androidx.fragment.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.driverspa.admin.fragment.AdminBooksFragment;
 import com.driverspa.admin.fragment.AdminFareRequestFragment;

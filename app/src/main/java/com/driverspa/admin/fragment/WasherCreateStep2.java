@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.driverspa.adapter.AdminBoxesAdapter;
 import com.squareup.otto.Subscribe;
 
 import org.codepond.wizardroid.WizardStep;

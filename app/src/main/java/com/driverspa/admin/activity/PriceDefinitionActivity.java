@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.driverspa.adapter.PriceDefinitionAdapter;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
