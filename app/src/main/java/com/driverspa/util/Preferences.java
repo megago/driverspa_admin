@@ -24,6 +24,14 @@ public class Preferences {
 	public static void putInt(Context context, String key, int value) {
 		getPreferences(context).edit().putInt(key, value).commit();
 	}
+	
+	public static int getInt(Context context, String key) {
+		return getInt(context, key, 0);
+	}
+	
+	public static int getInt(Context context, String key, int defaultValue) {
+		return getPreferences(context).getInt(key, defaultValue);
+	}
 
 	public static long getLong(Context context, String key) {
 		return getLong(context, key, 0);
@@ -37,24 +45,7 @@ public class Preferences {
 		getPreferences(context).edit().putLong(key, value).commit();
 	}
 
-	public static Double getFloat(Context context, String key) {
-		return getFloat(context, key);
-	}
 
-
-	public static void putFloat(Context context, String key, float value) {
-		getPreferences(context).edit().putFloat(key, value).commit();
-	}
-
-
-	public static int getInt(Context context, String key) {
-		return getInt(context, key, 0);
-	}
-	
-	public static int getInt(Context context, String key, int defaultValue) {
-		return getPreferences(context).getInt(key, defaultValue);
-	}
-	
 	public static void putBoolean(Context context, String key, boolean value) {
 		getPreferences(context).edit().putBoolean(key, value).commit();
 	}

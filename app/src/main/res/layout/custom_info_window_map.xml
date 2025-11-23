@@ -1,294 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:id="@+id/infoWindowLayout">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/vertical_margin"
+    android:layout_marginRight="@dimen/vertical_margin">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fefdfd"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="от 500 ₸"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/text_normal" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/horizontal_margin_half"
+                    android:src="@drawable/ic_time_table_blue" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/horizontal_margin_half"
+                    android:src="@drawable/ic_time_table_blue" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_time_table_blue" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:background="@color/LightGrey" />
 
     <RelativeLayout
-        android:id="@+id/infoWindowLayout"
+        android:id="@+id/washerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/map_dy"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vertical_margin_half">
 
         <ImageView
-            android:id="@+id/arrowDown"
+            android:id="@+id/imgWasherAvatar"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/txtWasherNameTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_info_window_arrow" />
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:layout_toRightOf="@+id/imgWasherAvatar"
+            android:lines="1"
+            android:text="Автомойка"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/text_normal" />
 
-        <RelativeLayout
-            android:id="@+id/mainLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtWasherCity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/arrowDown"
-            android:layout_marginBottom="-2dp"
-            android:layout_marginLeft="@dimen/vertical_margin_double"
-            android:layout_marginRight="@dimen/vertical_margin_double">
+            android:layout_below="@id/txtWasherNameTitle"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:layout_toRightOf="@+id/imgWasherAvatar"
+            android:lines="1"
+            android:text="Автомойка"
+            android:textColor="@color/LightGrey"
+            android:textSize="@dimen/text_normal" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:background="@drawable/rounded_rectangle_white"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="от 500 ₸"
-                        android:layout_weight="1"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/text_small" />
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/layoutTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_time_table_blue" />
-
-                            <TextView
-                                android:id="@+id/txtWasherTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="@dimen/horizontal_margin_third"
-                                android:clickable="true"
-                                android:text="Круглосуточно"
-                                android:textColor="@color/Black"
-                                android:textColorLink="@color/White"
-                                android:textSize="@dimen/text_small" />
-                        </LinearLayout>
-                    </FrameLayout>
-
-
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/vertical_margin_half"
-                    android:background="@color/LightGrey" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/vertical_margin_third"
-                    android:orientation="horizontal">
-
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <RatingBar
-                            android:id="@+id/review"
-                            android:layout_width="wrap_content"
-                            android:layout_height="12dp"
-                            android:layout_gravity="center|left"
-                            android:clickable="false"
-                            android:focusable="false"
-                            android:isIndicator="true"
-                            android:numStars="5"
-                            android:progressDrawable="@drawable/custom_ratingbar_map_selector"
-                            android:rating="3.0"
-                            android:stepSize="0.2" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/horizontal_margin_half">
-
-                            <ImageView
-                                android:id="@+id/imgAvailability"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center|right"
-                                android:layout_marginRight="@dimen/horizontal_margin"
-                                android:src="@drawable/ic_flag_online_list"
-                                android:visibility="visible" />
-                        </FrameLayout>
-                    </FrameLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/washerLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/vertical_margin_half"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/imgWasherAvatar"
-                            android:layout_width="70dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginRight="@dimen/horizontal_margin_half"
-                            android:clickable="true"
-                            android:scaleType="centerCrop" />
-
-                        <TextView
-                            android:id="@+id/txtWasherNameTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/imgWasherAvatar"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/text_small" />
-
-                        <TextView
-                            android:id="@+id/txtWasherCity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/txtWasherNameTitle"
-                            android:layout_toRightOf="@+id/imgWasherAvatar"
-                            android:ellipsize="end"
-                            android:gravity="top|left"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="@color/DarkGray"
-                            android:textSize="@dimen/text_small" />
-
-                        <TextView
-                            android:id="@+id/txtWasherComment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/txtWasherCity"
-                            android:layout_toRightOf="@+id/imgWasherAvatar"
-                            android:ellipsize="end"
-                            android:gravity="top|left"
-                            android:maxLines="2"
-                            android:text=""
-                            android:textColor="@color/DarkGray"
-                            android:textSize="@dimen/text_small" />
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_info_map_arrow_right" />
-                </LinearLayout>
-
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/vertical_margin_half"
-                    android:background="@color/LightGrey" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/layoutPhone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="@dimen/horizontal_margin_third"
-                        android:paddingTop="@dimen/horizontal_margin_third">
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="20dp"
-                            android:layout_height="17dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:src="@drawable/ic_phone_blue" />
-
-                        <TextView
-                            android:id="@+id/txtWasherPhone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/horizontal_margin_third"
-                            android:text=""
-                            android:textColor="@color/Black"
-                            android:textColorLink="@color/White"
-                            android:textSize="@dimen/text_small" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="@dimen/horizontal_margin_third"
-                        android:paddingTop="@dimen/horizontal_margin_third">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginTop="2dp"
-                            android:src="@drawable/ic_comment_blue_24dp" />
-
-                        <TextView
-                            android:id="@+id/reviewCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/horizontal_margin_half"
-                            android:clickable="true"
-                            android:text="3 отзывов"
-                            android:textColor="@color/Black"
-                            android:textColorLink="@color/White"
-                            android:textSize="@dimen/text_small" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/vertical_margin_half"
-                    android:layout_marginTop="@dimen/vertical_margin_half"
-                    android:background="@drawable/background_blue_button"
-                    android:paddingLeft="@dimen/horizontal_margin"
-                    android:paddingRight="@dimen/horizontal_margin"
-                    android:text="ЗАБРОНИРОВАТЬ"
-                    android:textColor="@drawable/button_state_color"
-                    android:textSize="@dimen/text_small" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
+        <TextView
+            android:id="@+id/txtWasherAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtWasherCity"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:layout_toRightOf="@+id/imgWasherAvatar"
+            android:lines="1"
+            android:text="Автомойка"
+            android:textColor="@color/LightGrey"
+            android:textSize="@dimen/text_normal" />
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:background="@color/LightGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layoutPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/ic_time_table_blue" />
+
+            <TextView
+                android:id="@+id/txtWasherPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:clickable="true"
+                android:text="+77076744674"
+                android:textColor="@color/RosyBrown"
+                android:textColorLink="@color/White"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/ic_time_table_blue" />
+
+            <TextView
+                android:id="@+id/txtWasherTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:clickable="true"
+                android:text="Круглосуточно"
+                android:textColor="@color/RosyBrown"
+                android:textColorLink="@color/White"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnMapRoute"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/vertical_margin_double"
+        android:background="@drawable/background_blue_button"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:text="ПРОЛОЖИТЬ МАРШРУТ"
+        android:textColor="@drawable/button_state_color"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:textSize="@dimen/text_small" />
+
+</LinearLayout>
+
 </RelativeLayout>
+    </LinearLayout>

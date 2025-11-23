@@ -1,5 +1,7 @@
 package com.driverspa.adapter;
 
+import static com.driverspa.util.Constants.*;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Display;
@@ -18,10 +20,8 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
 import com.driverspa.model.BookInfo;
+import com.driverspa.model.Washer;
 import com.driverspa.util.Functions;
-import com.driverspa.util.L;
-
-import static com.driverspa.util.Constants.*;
 
 public class AdminWasherTimeTableAdapter extends BaseAdapter {
     private Context context;
@@ -29,10 +29,13 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
     private View selectedView;
     private int selectedPosition;
 	HashMap<String,BookInfo> bookingObjects;
-    public AdminWasherTimeTableAdapter(Context c, List<HashMap<String, String>> gridList,HashMap<String,BookInfo> bookingObjects) {
+	private Washer washer;
+
+    public AdminWasherTimeTableAdapter(Context c, List<HashMap<String, String>> gridList,HashMap<String,BookInfo> bookingObjects, Washer washer) {
     	context = c;
         this.gridList = gridList;
 		this.bookingObjects = bookingObjects;
+		this.washer = washer;
     }
 
     public int getCount() {
@@ -115,7 +118,12 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
 
 			if(gridList.get(position).get(GRID_BOOK_ID) != null && bookingObjects.get(gridList.get(position).get(GRID_BOOK_ID)) != null) {
 				BookInfo bookItem = bookingObjects.get(gridList.get(position).get(GRID_BOOK_ID));
-				if(!bookItem.isQueued()) holder.online.setVisibility(View.VISIBLE);
+				if(!bookItem.isQueued()) {
+					if(!item.isOffline())
+						holder.online.setVisibility(View.VISIBLE);
+					else
+						holder.online.setVisibility(View.GONE);
+				}
 				else holder.online.setVisibility(View.GONE);
 				holder.txtFree.setText(bookStatus.get(bookingObjects.get(gridList.get(position).get(GRID_BOOK_ID)).getStatus()));
 				holder.txtStatus.setText(bookStatus.get(bookingObjects.get(gridList.get(position).get(GRID_BOOK_ID)).getStatus()));
@@ -124,6 +132,10 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
 				else
 					holder.txtStatus.setTextColor(context.getResources().getColor(R.color.BlueLight));
 			}
+
+//			holder.txtStatus.setTextColor(context.getResources().getColor(R.color.BlueLight));
+			holder.txtStatus.setBackground(Functions.getBookStatusBGColor(context,item.getStatus()));
+			holder.txtStatus.setTextColor(Functions.getBookStatusTextColor(context,item.getStatus()));
 
 			holder.innerLayout.setBackgroundColor(context.getResources().getColor(R.color.admin_grid_item_busy));
 
@@ -134,9 +146,13 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		boolean tabletSize = context.getResources().getBoolean(R.bool.isTablet);
+		boolean tabletBigSize = context.getResources().getBoolean(R.bool.isBigTablet);
 		int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/4;
-		if(tabletSize)
+		if(tabletSize && !tabletBigSize)
 			width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/6;
+		if(tabletSize && tabletBigSize)
+			width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/8;
+
 		layoutParams.width = width; //this is in pixels
 		layoutParams.height = width; //this is in pixels
 		holder.gridItem.setLayoutParams(layoutParams);

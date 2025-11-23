@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_custom_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/vertical_margin">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/bonus_for_new_clients"
+                style="@style/EditText.Transparent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Бонусный процент новым клиентам"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="3"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/White"
+                android:textColorHint="@color/BlueLight"
+                android:textCursorDrawable="@null"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_normal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:background="@color/BlueTransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_list_item_buttons"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/vertical_margin_half">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                android:text="Принимать брони не раньше чем"
+                android:textColor="@drawable/button_state_color"
+                android:textColorHint="@color/BlueLight"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_normal" />
+
+            <com.driverspa.view.NDSpinner
+                android:id="@+id/availableAfter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center|left"
+                android:layout_marginBottom="@dimen/vertical_margin_third"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:clickable="true"
+                android:drawSelectorOnTop="true"
+                android:popupBackground="@color/background_main"
+                android:spinnerMode="dropdown"
+                android:textColor="@drawable/button_state_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BlueTransparent" />
+
+        <LinearLayout
+            android:id="@+id/auto_accept_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_list_item_buttons"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/vertical_margin_half"
+            android:paddingTop="@dimen/vertical_margin_half">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                android:layout_weight="5"
+                android:text="Автоподтверждение брони"
+                android:textColor="@drawable/button_state_color"
+                android:textColorHint="@color/BlueLight"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0.4"
+                android:gravity="right">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_checkmark_off" />
+
+                    <ImageView
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/background_list_item_checkmark" />
+                </FrameLayout>
+
+                <CheckBox
+                    android:id="@+id/auto_accept_books"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/background_checkbox"
+                    android:checked="true"
+                    android:gravity="right|center"
+                    android:padding="0dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BlueTransparent" />
+    </LinearLayout>
+
+</LinearLayout>

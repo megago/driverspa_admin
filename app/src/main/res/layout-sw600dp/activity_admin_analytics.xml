@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomLayout"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar_admin_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+        <com.driverspa.view.NDSpinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:drawSelectorOnTop="true"
+            android:popupBackground="@color/background_main"
+            android:spinnerMode="dropdown"
+            android:textColor="@drawable/button_state_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/dateIntervalLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="От"
+                    android:textColor="@color/AntiqueWhite"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="20/10/2009"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="До"
+                    android:textColor="@color/AntiqueWhite"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="20/10/2009"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/vertical_margin_five"
+            android:layout_marginBottom="@dimen/vertical_margin_five"
+            android:gravity="center">
+
+            <Gallery
+                android:id="@+id/tabView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center" />
+        </FrameLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/forwardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="140dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_forward_timetable"
+        app:backgroundTint="@color/BlueTransparent2"
+        android:tint="@android:color/transparent"
+        android:visibility="gone"
+        app:fabSize="normal" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/rewardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="140dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_reward_timetable"
+        app:backgroundTint="@color/BlueTransparent2"
+        android:tint="@android:color/transparent"
+        android:visibility="gone"
+        app:fabSize="normal" />
+
+</FrameLayout>

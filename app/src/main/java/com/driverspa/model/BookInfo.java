@@ -12,9 +12,6 @@ public class BookInfo {
 
 	private ArrayList<Integer> services;
 
-	@SerializedName("book_tz")
-	private String timeZone;
-
 	@DatabaseField
 	@SerializedName("client_key")
 	private String clientKey;
@@ -31,9 +28,6 @@ public class BookInfo {
 	@DatabaseField
 	private String cartype;
 
-	@DatabaseField
-	private String carwash;
-
 	@SerializedName("group_services")
 	private List<String> groupServices;
 
@@ -42,6 +36,9 @@ public class BookInfo {
 
 	@SerializedName("group_menu_services")
 	private List<Integer> groupMenuServices;
+
+	@DatabaseField
+	private String carwash;
 
 	@DatabaseField(id = true)
 	private String id;
@@ -111,13 +108,29 @@ public class BookInfo {
 	String comment;
 	@DatabaseField
 	Integer discount;
+	@DatabaseField(columnName = "discount_amount")
+	@SerializedName("discount_amount")
+	Integer discountAmount;
 	@DatabaseField
 	@SerializedName("is_paid")
 	Boolean paid;
-
+	@DatabaseField
+	@SerializedName("is_nocash")
+	Boolean nocash;
 	@SerializedName("price_details")
 	List<PriceDetail> priceDetails;
+	List<String> staffs;
 
+	@SerializedName("company_client_detail")
+	ClientInfo companyClient;
+
+	public List<String> getStaffs() {
+		return staffs;
+	}
+
+	public void setStaffs(List<String> staffs) {
+		this.staffs = staffs;
+	}
 
 	public String getClientKey() {
 		return clientKey;
@@ -375,12 +388,28 @@ public class BookInfo {
 		this.groupMenuServices = groupMenuServices;
 	}
 
-	public String getTimeZone() {
-		return timeZone;
+	public Integer getDiscountAmount() {
+		return discountAmount;
 	}
 
-	public void setTimeZone(String timeZone) {
-		this.timeZone = timeZone;
+	public void setDiscountAmount(Integer discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
+	public Boolean getNocash() {
+		return nocash;
+	}
+
+	public void setNocash(Boolean nocash) {
+		this.nocash = nocash;
+	}
+
+	public List<PriceDetail> getPriceDetails() {
+		return priceDetails;
+	}
+
+	public void setPriceDetails(List<PriceDetail> priceDetails) {
+		this.priceDetails = priceDetails;
 	}
 
 	public static class PriceDetail{
@@ -405,12 +434,12 @@ public class BookInfo {
 		}
 	}
 
-	public List<PriceDetail> getPriceDetails() {
-		return priceDetails;
+	public ClientInfo getCompanyClient() {
+		return companyClient;
 	}
 
-	public void setPriceDetails(List<PriceDetail> priceDetails) {
-		this.priceDetails = priceDetails;
+	public void setCompanyClient(ClientInfo companyClient) {
+		this.companyClient = companyClient;
 	}
 
 	// GSON

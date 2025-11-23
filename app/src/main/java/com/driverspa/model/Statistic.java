@@ -1,5 +1,8 @@
 package com.driverspa.model;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,6 +11,7 @@ import java.util.List;
 public class Statistic {
 
     String title;
+    @SerializedName("statistics")
     List<StatisticDetail> statisticsList;
 
     public String getTitle() {
@@ -27,8 +31,14 @@ public class Statistic {
     }
 
     public static class StatisticDetail{
+        @SerializedName("item_name")
         String itemName;
+        @SerializedName("item_value")
         String itemValue;
+        @SerializedName("item_value_string")
+        String itemValueString;
+        @SerializedName("manual_info")
+        Boolean manualInfo;
 
         public StatisticDetail(String itemName, String itemValue) {
             this.itemName = itemName;
@@ -50,5 +60,34 @@ public class Statistic {
         public void setItemValue(String itemValue) {
             this.itemValue = itemValue;
         }
+
+        public String getItemValueString() {
+            return itemValueString;
+        }
+
+        public void setItemValueString(String itemValueString) {
+            this.itemValueString = itemValueString;
+        }
+
+        public Boolean getManualInfo() {
+            return manualInfo;
+        }
+
+        public void setManualInfo(Boolean manualInfo) {
+            this.manualInfo = manualInfo;
+        }
     }
+
+
+    // GSON
+    public String serialize() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static Statistic deserialize(String serializedData) {
+        Gson gson = new Gson();
+        return gson.fromJson(serializedData, Statistic.class);
+    }
+
 }

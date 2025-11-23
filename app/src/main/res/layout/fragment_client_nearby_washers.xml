@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/WhiteSmoke">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,10 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#f3efd3"
-            android:divider="@drawable/line_divider_gray"
+            android:divider="@color/list_divider"
             android:dividerHeight="1dp"
-            xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            ptr:ptrHeaderTextColor="@color/Black"
             android:fadingEdge="vertical"
             android:fadingEdgeLength="30dp"
             android:scrollbars="none" />
@@ -26,7 +23,8 @@
         android:id="@+id/noInternetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="gone">
@@ -55,7 +53,8 @@
         android:id="@+id/noRecords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/horizontal_margin_double"
         android:layout_marginRight="@dimen/horizontal_margin_double"
         android:gravity="center"
@@ -68,8 +67,9 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
         android:layout_marginTop="80dp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
-</FrameLayout>
+</RelativeLayout>

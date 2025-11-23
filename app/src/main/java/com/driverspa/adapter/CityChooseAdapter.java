@@ -9,11 +9,8 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
-import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.Reference;
-import com.driverspa.model.Washer.Prices;
-import com.driverspa.util.L;
 
 public class CityChooseAdapter extends BaseDataAdapter<Reference.City> {
 

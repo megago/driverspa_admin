@@ -12,11 +12,37 @@
         android:layout_above="@+id/bottomLayout"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/txtWasherNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="Тап таза автомойка"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_medium" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:drawableLeft="@drawable/ic_timer_white_24dp"
+            android:drawablePadding="@dimen/horizontal_margin_third"
+            android:gravity="center"
+            android:paddingLeft="@dimen/horizontal_margin_half"
+            android:text="0 мин"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/horizontal_margin_third">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/btnToday"
@@ -86,7 +112,7 @@
                     android:layout_marginTop="@dimen/vertical_margin"
                     android:gravity="center"
                     android:text="Бронь не может быть продолжен. Нет данных на сегодня, или произошла ошибка при получении график работы мойки"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/White"
                     android:textSize="@dimen/text_medium"
                     android:visibility="gone" />
 
@@ -105,5 +131,36 @@
 
             </LinearLayout>
         </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BlueTransparent" />
+
+        <Button
+            android:id="@+id/btnBookNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:background="@drawable/background_button_border"
+            android:paddingBottom="10dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:text="Бронировать"
+            android:textColor="@drawable/button_state_color"
+            android:textSize="@dimen/text_normal" />
+
     </LinearLayout>
 </RelativeLayout>

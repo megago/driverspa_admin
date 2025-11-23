@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation" >
 
-    <string name="app_name">DriverSpa</string>
-    <string name="facebook_app_id">609265849262620</string>
+    <string name="app_name">driverSpaAdmin</string>
 
     <!-- translatable -->
 
@@ -13,9 +12,9 @@
     
     <!-- registration -->
     <string name="hint_login">Логин</string>
-    <string name="enter_number_text">Пожалуйста, введите\n 
+    <string name="enter_number_text">Пожалуйста, введите\n
 	Ваш номер телефона:</string>
-	<string name="enter_code_text">Пожалуйста, введите код,\n отправленный по смс:</string>	    
+	<string name="enter_code_text">Пожалуйста, введите код,\n отправленный по смс:</string>
     <string name="kazakhstan_number_text">Казахстан (+7)</string>
     <string name="button_ok">ОК</string>
     <string name="button_next">Продолжить</string>
@@ -28,12 +27,15 @@
     <string name="retry">ПОВТОРИТЬ</string>
     <string name="connection_error">Ошибка соединения</string>
     <string name="textview_loading_data">загрузка…</string>
-    
+
     <string name="list_empty">Ничего не найдено</string>
 
 
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
+
+
+
 
     <string name="gcm_defaultSenderId">817450629503</string>
     <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to

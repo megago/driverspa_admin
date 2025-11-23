@@ -1,5 +1,10 @@
 package com.driverspa.adapter;
 
+import static com.driverspa.util.Constants.GRID_STATUS;
+import static com.driverspa.util.Constants.GRID_TITLE;
+import static com.driverspa.util.Constants.SLOT_AVAILABLE;
+import static com.driverspa.util.Constants.SLOT_NOT_AVAILABLE;
+
 import android.content.Context;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -17,12 +22,6 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
 import com.driverspa.util.Functions;
-import com.driverspa.util.L;
-
-import static com.driverspa.util.Constants.GRID_STATUS;
-import static com.driverspa.util.Constants.GRID_TITLE;
-import static com.driverspa.util.Constants.SLOT_AVAILABLE;
-import static com.driverspa.util.Constants.SLOT_NOT_AVAILABLE;
 
 public class WasherTimeTableAdapter extends BaseAdapter {
     private Context context;
@@ -80,7 +79,7 @@ public class WasherTimeTableAdapter extends BaseAdapter {
 			view.setEnabled(false);
 			holder.gridItem.setEnabled(false);
 			holder.imageCar.setVisibility(View.GONE); 
-			holder.txtTime.setVisibility(View.GONE);
+			holder.txtTime.setVisibility(View.GONE);			
 		}
 		else{
 			view.setEnabled(false);
@@ -88,26 +87,16 @@ public class WasherTimeTableAdapter extends BaseAdapter {
 			holder.imageCar.setVisibility(View.VISIBLE); 
 			holder.txtTime.setVisibility(View.GONE);			
 		}
-
-//		ViewGroup.LayoutParams layoutParams = holder.gridItem.getLayoutParams();
-//		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//		Display display = wm.getDefaultDisplay();
-//		int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/4;
-//		layoutParams.width = width; //this is in pixels
-//		layoutParams.height = width; //this is in pixels
-//		holder.gridItem.setLayoutParams(layoutParams);
-
-
+		
 		ViewGroup.LayoutParams layoutParams = holder.gridItem.getLayoutParams();
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		int width = ((display.getWidth()-(int) Functions.dipToPixels(context, 32)))/4;
+		int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/4;
 		layoutParams.width = width; //this is in pixels
-		layoutParams.height = width*2/4; //this is in pixels
+		layoutParams.height = width; //this is in pixels
 		holder.gridItem.setLayoutParams(layoutParams);
-
-
-		return view;
+				
+        return view;
     }
 
     static class ViewHolder {

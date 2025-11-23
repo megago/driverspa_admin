@@ -7,18 +7,17 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomLayout"
-        android:background="@drawable/background"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <include
             android:id="@+id/toolbar_actionbar"
-            layout="@layout/toolbar_admin_detail_activity"
+            layout="@layout/toolbar_admin_detail_custom_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -43,7 +42,8 @@
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:divider="@color/list_divider"
-            android:dividerHeight="1dp" />
+            android:dividerHeight="1dp"
+            android:scrollbars="none" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -56,6 +56,7 @@
 
     <LinearLayout
         android:id="@+id/bottomLayout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -67,7 +68,6 @@
             android:background="@color/BlueTransparent" />
 
         <Button
-            android:id="@+id/btnAddBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -84,5 +84,19 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnAddBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/vertical_margin_double"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_add_white_18dp"
+            app:backgroundTint="@color/Red"
+            app:fabSize="normal" />
+    </FrameLayout>
 </RelativeLayout>

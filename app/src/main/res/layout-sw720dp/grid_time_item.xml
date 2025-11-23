@@ -3,7 +3,7 @@
     android:id="@+id/layoutGridItem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="vertical"     
     android:background="@drawable/background_button_grid_item">
 
     <TextView
@@ -14,9 +14,10 @@
         android:minHeight="10dp"
         android:minWidth="10dp"
         android:text="08:00"
-        android:textColor="@color/Black"
-        android:textSize="@dimen/text_small" />
-    <!--android:textColor="@drawable/button_state_color"-->
+        android:textColor="@drawable/button_state_color"
+        android:textSize="@dimen/text_small"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/imgCar"
         android:layout_width="wrap_content"
@@ -25,6 +26,6 @@
         android:visibility="gone"
         android:minHeight="10dp"
         android:minWidth="10dp"        
-        android:src="@drawable/ic_car_black" />
+        android:src="@drawable/ic_car" />
 
 </FrameLayout>

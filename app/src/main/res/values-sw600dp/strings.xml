@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation" >
 
-    <string name="app_name">DriverSpa</string>
+    <string name="app_name">driverSpaAdmin</string>
 
     <!-- translatable -->
 
@@ -9,12 +9,12 @@
     <string name="welcome_text">Добро пожаловать!</string>
     <string name="user_start">Я автомобилист, хочу помыть машину</string>
     <string name="washer_start">Я администратор автомойки</string>
-    
+
     <!-- registration -->
     <string name="hint_login">Логин</string>
-    <string name="enter_number_text">Пожалуйста, введите\n 
+    <string name="enter_number_text">Пожалуйста, введите\n
 	Ваш номер телефона:</string>
-	<string name="enter_code_text">Пожалуйста, введите код,\n отправленный по смс:</string>	    
+	<string name="enter_code_text">Пожалуйста, введите код,\n отправленный по смс:</string>
     <string name="kazakhstan_number_text">Казахстан (+7)</string>
     <string name="button_ok">ОК</string>
     <string name="button_next">Продолжить</string>
@@ -22,12 +22,12 @@
     <string name="button_retry">Отправить код еще раз</string>
     <string name="login_phone">Номер телефона</string>
     <string name="login_company_name">Название компании</string>
-    
+
     <string name="no_records">Ничего не найдено</string>
     <string name="retry">ПОВТОРИТЬ</string>
     <string name="connection_error">Ошибка соединения</string>
     <string name="textview_loading_data">загрузка…</string>
-    
+
     <string name="list_empty">Ничего не найдено</string>
 
 

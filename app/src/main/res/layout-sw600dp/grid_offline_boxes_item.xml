@@ -8,18 +8,17 @@
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:minHeight="10dp"
         android:minWidth="10dp"
-        android:paddingTop="3dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:text="Бокс 1"
         android:gravity="center"
         android:textColor="@color/White"
-        android:textSize="@dimen/text_normal" />
+        android:textSize="@dimen/text_small" />
 
     <TextView
         android:id="@+id/item_desc"
@@ -28,10 +27,10 @@
         android:layout_gravity="center"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:paddingBottom="3dp"
-        android:lines="3"
+        android:maxLines="3"
         android:text="оффлайн"
-        android:gravity="center"
+        android:visibility="gone"
+        android:gravity="top|center"
         android:textColor="@color/White"
         android:textSize="@dimen/text_smallest" />
 

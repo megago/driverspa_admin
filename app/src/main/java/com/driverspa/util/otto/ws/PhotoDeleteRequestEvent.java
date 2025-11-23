@@ -2,6 +2,7 @@ package com.driverspa.util.otto.ws;
 
 public class PhotoDeleteRequestEvent {
 
+
 	String photoId;
 
 	public PhotoDeleteRequestEvent(String photoId) {

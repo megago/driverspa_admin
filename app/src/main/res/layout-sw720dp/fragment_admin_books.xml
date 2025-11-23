@@ -80,12 +80,12 @@
             android:layout_marginTop="@dimen/vertical_margin_third"
             android:background="@color/BlueTransparent" />
 
+        <!--android:background="@drawable/background"-->
         <com.driverspa.view.TwoWayView
             android:id="@+id/queue_horizontal_list"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_queue_height"
             android:layout_below="@+id/line"
-            android:background="@drawable/background"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
             android:paddingTop="@dimen/vertical_margin_third"
@@ -153,7 +153,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginRight="@dimen/horizontal_margin_double"
         android:text="Нет заказов"
+        android:gravity="center"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"
         android:visibility="gone" />

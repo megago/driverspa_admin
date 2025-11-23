@@ -1,0 +1,1256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomLayout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/washCountCampaignDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/Red"
+            android:gravity="center"
+            android:paddingBottom="@dimen/vertical_margin_third"
+            android:paddingLeft="@dimen/horizontal_margin_double"
+            android:paddingRight="@dimen/horizontal_margin_double"
+            android:paddingTop="@dimen/vertical_margin_third"
+            android:text=""
+            android:textColor="@color/White"
+            android:textColorHint="@color/BlueLight"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/text_smaller"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar_admin_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#50000000"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/toQueue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:gravity="center"
+                                android:src="@drawable/background_menu_timer_button2"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="В очередь"
+                                android:textColor="@drawable/button_bar_state_color"
+                                android:textSize="@dimen/text_normal"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/toBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:src="@drawable/background_menu_carwashes_button2"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="В бокс"
+                                android:textColor="@drawable/button_bar_state_color"
+                                android:textSize="@dimen/text_normal"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@color/BlueTransparent"
+                    android:visibility="gone"></FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:orientation="horizontal">
+
+                    <!--<com.google.android.material.textfield.TextInputLayout-->
+                    <!--android:id="@+id/carNoWrapper"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center">-->
+
+                    <!--<EditText-->
+                    <!--android:id="@+id/carNo"-->
+                    <!--style="@style/EditText.Transparent"-->
+                    <!--android:layout_width="170dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Гос. номер авто*"-->
+                    <!--android:imeOptions="actionNext"-->
+                    <!--android:inputType="textCapCharacters|textAutoComplete"-->
+                    <!--android:lines="1"-->
+                    <!--android:maxLength="10"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:textColor="@color/White"-->
+                    <!--android:textColorHint="@color/BlueLight"-->
+                    <!--android:textCursorDrawable="@null"-->
+                    <!--android:textIsSelectable="false"-->
+                    <!--android:textSize="@dimen/text_small" />-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.driverspa.view.DelayAutoCompleteTextView
+                                android:id="@+id/carNo"
+                                style="@style/EditText.Transparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:background="@android:color/transparent"
+                                android:gravity="bottom"
+                                android:hint="Гос. номер авто*"
+                                android:imeOptions="flagNoExtractUi|actionSearch"
+                                android:inputType="textCapCharacters"
+                                android:lines="1"
+                                android:maxLength="10"
+                                android:maxLines="1"
+                                android:paddingTop="@dimen/vertical_margin"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_small" />
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                style="?android:attr/progressBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|right"
+                                android:layout_marginRight="16dp"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <ImageView
+                            android:id="@+id/plateDetection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/horizontal_margin_half"
+                            android:src="@drawable/ic_text_detection_camera" />
+                    </LinearLayout>
+                    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+                    <LinearLayout
+                        android:id="@+id/client_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/vertical_margin_half"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_add_circle_outline_white_18dp" />
+
+                        <TextView
+                            android:id="@+id/clients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/horizontal_margin_third"
+                            android:ellipsize="end"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:text="клиенты"
+                            android:textSize="@dimen/text_normal"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@color/BlueTransparent"></FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:orientation="horizontal">
+
+                    <!--<com.google.android.material.textfield.TextInputLayout-->
+                    <!--android:id="@+id/mobileNoWrapper"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="@dimen/horizontal_margin"-->
+                    <!--android:layout_marginRight="@dimen/horizontal_margin">-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:text="+7"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_small" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        style="@style/EditText.Transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="(***) ___ __-__ (Для смс уведомления)"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textCursorDrawable="@null"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+                    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:background="@color/BlueTransparent"></FrameLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin">
+
+                    <EditText
+                        android:id="@+id/clientName"
+                        style="@style/EditText.Transparent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Имя клиента"
+                        android:imeOptions="actionNext"
+                        android:inputType="textAutoComplete|textCapWords"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textCursorDrawable="@null"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:background="@color/BlueTransparent"></FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageView1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+                    android:gravity="left"
+                    android:padding="@dimen/vertical_margin_half"
+                    android:text="Дополнительно"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="gone" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@color/BlueTransparent"
+                    android:visibility="gone"></FrameLayout>
+
+                <TextView
+                    android:id="@+id/txtBookTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/vertical_margin"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:gravity="center"
+                    android:text="Бронь на 08:00"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_medium"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/detailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/vertical_margin">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/clientNameWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/clientNameOld"
+                            style="@style/EditText.Transparent"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:hint="Имя клиента"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:textColor="@color/White"
+                            android:textColorHint="@color/BlueLight"
+                            android:textCursorDrawable="@null"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"
+                        android:visibility="gone"></FrameLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/btnMini"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView112"
+                                    android:layout_width="42dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_crossover" />
+
+                                <TextView
+                                    android:id="@+id/textView111"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView112"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Мини"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnSedan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView1"
+                                    android:layout_width="47dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_sedan" />
+
+                                <TextView
+                                    android:id="@+id/textView1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView1"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Седан"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnUniversal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView114"
+                                    android:layout_width="50dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_crossover" />
+
+                                <TextView
+                                    android:id="@+id/textView115"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView114"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Универсал"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnCrossover"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView2"
+                                    android:layout_width="@dimen/book_cars_width"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_crossover" />
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView2"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Кроссовер"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnMiniJeep"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView44"
+                                    android:layout_width="48dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_jeep" />
+
+                                <TextView
+                                    android:id="@+id/textView33"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView44"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Мини джип"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnBigJeep"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView4"
+                                    android:layout_width="@dimen/book_cars_width"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_jeep" />
+
+                                <TextView
+                                    android:id="@+id/textView3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView4"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Джип"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnMoto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView33"
+                                    android:layout_width="45dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_moto" />
+
+                                <TextView
+                                    android:id="@+id/textView99"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView33"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Мотоцикл"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnMinivan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView36"
+                                    android:layout_width="48dp"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_minbus" />
+
+                                <TextView
+                                    android:id="@+id/textView999"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView36"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Минивэн"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/btnMinbus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/horizontal_margin"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:id="@+id/imageView3"
+                                    android:layout_width="@dimen/book_cars_width"
+                                    android:layout_height="@dimen/book_cars_height"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/vertical_margin_five"
+                                    android:src="@drawable/background_button_minbus" />
+
+                                <TextView
+                                    android:id="@+id/textView9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView3"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Микроавтобус"
+                                    android:textColor="@drawable/button_state_color_cars"
+                                    android:textSize="@dimen/text_smaller" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/vertical_margin_third"
+                        android:background="#0257a7"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/horizontal_margin">
+
+                        <TextView
+                            android:id="@+id/groupBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:padding="@dimen/horizontal_margin_third"
+                            android:text="Комплексные"
+                            android:textColor="@drawable/button_bar_state_color"
+                            android:textColorHint="@color/BlueLight"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_normal"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/serviceBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:padding="@dimen/horizontal_margin_third"
+                            android:paddingLeft="@dimen/horizontal_margin_half"
+                            android:text="Услуги"
+                            android:textColor="@color/White"
+                            android:textColorHint="@color/BlueLight"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_normal"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <com.driverspa.view.ExpandableGridView
+                        android:id="@+id/grid_group_services"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:horizontalSpacing="5dp"
+                        android:isScrollContainer="false"
+                        android:listSelector="@android:color/transparent"
+                        android:numColumns="auto_fit"
+                        android:padding="1dp"
+                        android:stretchMode="none"
+                        android:verticalSpacing="5dp"
+                        android:visibility="gone" />
+
+                    <com.driverspa.view.ExpandableGridView
+                        android:id="@+id/grid_services"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/vertical_margin_third"
+                        android:adjustViewBounds="true"
+                        android:horizontalSpacing="5dp"
+                        android:isScrollContainer="false"
+                        android:listSelector="@android:color/transparent"
+                        android:numColumns="auto_fit"
+                        android:padding="1dp"
+                        android:stretchMode="none"
+                        android:verticalSpacing="5dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/no_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:text="Нет доступных услуг"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="@dimen/vertical_margin_half"
+                        android:layout_marginTop="@dimen/vertical_margin_third"
+                        android:background="#50000000"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/horizontal_margin">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:padding="@dimen/horizontal_margin_third"
+                            android:text="Боксы"
+                            android:textColor="@color/White"
+                            android:textColorHint="@color/White"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_normal"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/no_offline_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_weight="5"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:text="Нет боксов для создания очереди"
+                        android:textColor="@drawable/button_state_color"
+                        android:textColorHint="@color/BlueLight"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+
+                    <com.driverspa.view.ExpandableGridView
+                        android:id="@+id/grid_boxes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/horizontal_margin_half"
+                        android:layout_marginRight="@dimen/horizontal_margin_half"
+                        android:adjustViewBounds="true"
+                        android:horizontalSpacing="5dp"
+                        android:isScrollContainer="false"
+                        android:listSelector="@android:color/transparent"
+                        android:numColumns="auto_fit"
+                        android:padding="1dp"
+                        android:stretchMode="none"
+                        android:verticalSpacing="5dp"
+                        android:visibility="gone" />
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@drawable/background_list_item_buttons"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/paid_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin_half"
+                            android:layout_weight="5"
+                            android:paddingBottom="@dimen/vertical_margin_half"
+                            android:paddingTop="@dimen/vertical_margin"
+                            android:text="Клиент оплатил за мойку"
+                            android:textColor="@drawable/button_state_color"
+                            android:textColorHint="@color/BlueLight"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_small" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="0.4"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/vertical_margin_half"
+                            android:paddingTop="@dimen/vertical_margin">
+
+                            <CheckBox
+                                android:id="@+id/paid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/background_checkbox"
+                                android:checked="false"
+                                android:gravity="left|center"
+                                android:padding="0dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/nocashLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_list_item_buttons"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:background="@color/BlueTransparent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:background="@drawable/background_list_item_buttons"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/nocashText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                                android:layout_weight="5"
+                                android:paddingBottom="@dimen/vertical_margin_half"
+                                android:paddingTop="@dimen/vertical_margin"
+                                android:text="Оплата по карте"
+                                android:textColor="@drawable/button_state_color"
+                                android:textColorHint="@color/BlueLight"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_small" />
+
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="0.4"
+                                android:gravity="center"
+                                android:paddingBottom="@dimen/vertical_margin_half"
+                                android:paddingTop="@dimen/vertical_margin">
+
+                                <CheckBox
+                                    android:id="@+id/nocash"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:button="@drawable/background_checkbox"
+                                    android:checked="false"
+                                    android:gravity="left|center"
+                                    android:padding="0dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <TextView
+                        android:id="@+id/extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+                        android:gravity="left"
+                        android:padding="@dimen/vertical_margin_half"
+                        android:text="Скидки и прочее"
+                        android:textColor="@drawable/button_state_color"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="gone" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@color/BlueTransparent"
+                        android:visibility="gone"></FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/extraLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/vertical_margin">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|left"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:gravity="center"
+                                android:paddingBottom="@dimen/vertical_margin_third"
+                                android:paddingTop="@dimen/vertical_margin_third"
+                                android:text="Скидка:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <EditText
+                                android:id="@+id/discount"
+                                style="@style/EditText.Transparent.WhiteBorder"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLength="3"
+                                android:maxLines="1"
+                                android:paddingBottom="@dimen/vertical_margin_third"
+                                android:paddingTop="@dimen/vertical_margin_third"
+                                android:singleLine="true"
+                                android:text="0"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/text_small"></EditText>
+
+                            <EditText
+                                android:id="@+id/discountAmount"
+                                style="@style/EditText.Transparent.WhiteBorder"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLength="5"
+                                android:maxLines="1"
+                                android:paddingBottom="@dimen/vertical_margin_third"
+                                android:paddingTop="@dimen/vertical_margin_third"
+                                android:singleLine="true"
+                                android:text="0"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/text_small"
+                                android:visibility="gone"></EditText>
+
+
+                            <com.driverspa.view.NDSpinner
+                                android:id="@+id/discountSpinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:clickable="true"
+                                android:drawSelectorOnTop="true"
+                                android:entries="@array/newsTarget"
+                                android:gravity="center"
+                                android:popupBackground="@color/background_main"
+                                android:spinnerMode="dropdown"
+                                android:textColor="@drawable/button_state_color"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/text_normal" />
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:background="@color/BlueTransparent"></FrameLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin">
+
+                            <EditText
+                                android:id="@+id/comment"
+                                style="@style/EditText.Transparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Комментарий"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_small" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:background="@color/BlueTransparent"></FrameLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin">
+
+                            <EditText
+                                android:id="@+id/carMark"
+                                style="@style/EditText.Transparent"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Марка автомобиля"
+                                android:imeOptions="actionNext"
+                                android:inputType="textAutoComplete|textCapWords"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_small" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/horizontal_margin"
+                            android:layout_marginRight="@dimen/horizontal_margin"
+                            android:layout_marginTop="@dimen/vertical_margin_half"
+                            android:background="@color/BlueTransparent"></FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BlueTransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/priceLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/BlackTransparent2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:drawableLeft="@drawable/ic_timer_white_24dp"
+                    android:drawablePadding="@dimen/horizontal_margin_third"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/horizontal_margin_half"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="0 мин"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/horizontal_margin_half"
+                    android:text="0 ₸"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnQueue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/vertical_margin"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin"
+                    android:background="@drawable/background_button_border"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:text="Добавить в очередь"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnBook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/vertical_margin"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin"
+                    android:background="@drawable/background_button_border"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Отправить в бокс"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

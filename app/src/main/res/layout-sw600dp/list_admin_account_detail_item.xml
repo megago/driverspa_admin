@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/vertical_margin_half"
+    android:paddingBottom="@dimen/vertical_margin_half"
+    android:background="@drawable/background_list_item">
+
+    <TextView
+        android:id="@+id/accountName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cash current account"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accountName"
+        android:layout_marginTop="@dimen/vertical_margin_third"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Раз.:"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:text="1000"
+                android:textStyle="bold"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                android:text="Нач.:"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:text="2000"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                android:text="Кон.:"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:text="2000"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

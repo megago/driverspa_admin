@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLayout"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <com.driverspa.view.NDSpinner
+                        android:id="@+id/spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:drawSelectorOnTop="true"
+                        android:popupBackground="@color/background_main"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@drawable/button_state_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/text_small" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/dateIntervalLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="От"
+                                android:textColor="@color/AntiqueWhite"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/startTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="20/10/2009"
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="До"
+                                android:textColor="@color/AntiqueWhite"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/endTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="20/10/2009"
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Количество машин:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/carCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                                android:text="На сумму:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/totalCarAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text=""
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                                android:text="Начис.:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/carAccruedSalary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Другие услуги:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/otherServicesCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                                android:text="На сумму:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/otherServicesTotalAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text=""
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_half"
+                                android:text="Начис.:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/otherServicesAccruedSalary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Вручные начисления:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/manualAccrual"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Общие начисления:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/accruedSalary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Списано:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/wroteOff"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin"
+                                android:text="Выдано:"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/text_small" />
+
+                            <TextView
+                                android:id="@+id/salaryPayment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                                android:text=""
+                                android:textColor="@drawable/button_state_color"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_half"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/vertical_margin_double"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_add_white_18dp"
+            android:visibility="gone"
+            app:backgroundTint="@color/Red"
+            app:fabSize="normal" />
+    </FrameLayout>
+</RelativeLayout>

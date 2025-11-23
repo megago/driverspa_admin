@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="@dimen/washer_profile_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <com.driverspa.view.ImageViewSquared
+            android:id="@+id/clientAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtClientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/vertical_margin_third"
+        android:layout_marginBottom="@dimen/vertical_margin_third"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:autoLink="phone"
+        android:gravity="center"
+        android:textColorLink="@color/GreenYellow"
+        android:text=""
+        android:textColor="@color/GreenYellow"
+        android:textSize="@dimen/text_normal" />
+
+
+    <TextView
+        android:id="@+id/txtDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:textColorLink="@color/White"
+        android:text="Скидка 20%"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/disableBonusAccrual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:textColorLink="@color/White"
+        android:text="Запрещен начисление бонусов"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/bonusPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:textColorLink="@color/White"
+        android:text="Процент начисление бонуса 20%"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/accruedBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:textColorLink="@color/White"
+        android:text="Начислено 200тг"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/depositAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/horizontal_margin_half"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:textColorLink="@color/White"
+        android:text="Депозит клиента 0тг"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+    <com.driverspa.view.ExpandableGridView
+        android:id="@+id/grid_cars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:adjustViewBounds="true"
+        android:horizontalSpacing="5dp"
+        android:isScrollContainer="false"
+        android:listSelector="@drawable/background_button_grid_item_cars"
+        android:numColumns="auto_fit"
+        android:padding="1dp"
+        android:stretchMode="none"
+        android:verticalSpacing="5dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:background="@color/BlueTransparent" />
+    <TextView
+        android:id="@+id/txtClientOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginRight="@dimen/horizontal_margin_double"
+        android:text=""
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:background="@color/BlueTransparent" />
+
+    <TextView
+        android:id="@+id/finishedBooksLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_marginBottom="@dimen/vertical_margin_half"
+        android:paddingBottom="@dimen/vertical_margin_third"
+        android:paddingTop="@dimen/vertical_margin_third"
+        android:background="#50000000"
+        android:text="Завершенные мойки"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal" />
+
+</LinearLayout>

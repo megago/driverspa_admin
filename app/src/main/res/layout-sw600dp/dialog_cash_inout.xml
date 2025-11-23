@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginRight="@dimen/horizontal_margin_double"
+        android:layout_marginTop="@dimen/vertical_margin_triple"
+        android:background="@drawable/background_dialog_rounded">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:clickable="true"
+            android:padding="@dimen/vertical_margin"
+            android:src="@drawable/ic_close_white_24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingTop="@dimen/vertical_margin">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Инкассация"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/amount"
+                    style="@style/EditText.Transparent.WhiteBorder"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/horizontal_margin_third"
+                    android:gravity="right"
+                    android:hint=""
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingRight="@dimen/horizontal_margin_third"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal"></EditText>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnPop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_double"
+                android:background="@drawable/background_button_borderless"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Изъять"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_small" />
+
+            <Button
+                android:id="@+id/btnPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:background="@drawable/background_button_borderless"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Внести"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_small" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

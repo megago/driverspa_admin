@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
 import com.squareup.picasso.Callback;
+
 import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.model.PhotoParcelable;

@@ -10,6 +10,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -18,10 +19,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
-rootProject.name = "DriverSpa"
+rootProject.name = "DriverSpaAdmin"
 include(":app")
 include(":photoView")
 include(":ProgressWheel")

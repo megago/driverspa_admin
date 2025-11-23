@@ -51,12 +51,10 @@ public class MaskedWatcher implements TextWatcher {
             s.replace(0, s.length(), value);
 
         } catch (ParseException e) {
-
             //the entered value does not match a mask
             int offset = e.getErrorOffset();
             value = removeCharAt(value, offset);
             s.replace(0, s.length(), value);
-
         }
 
 

@@ -2,29 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/parentView"
     android:paddingBottom="@dimen/vertical_margin"
     android:paddingTop="@dimen/vertical_margin" >
 
-    <TextView
-        android:id="@+id/txtReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Качество радует! Одна из моих любимых автомоек!"
-        android:textColor="@color/White"
-        android:layout_alignParentTop="true"
-        android:textSize="@dimen/text_small" />
-
     <LinearLayout
+        android:id="@+id/starLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtReview"
-        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:gravity="center"
         android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/star1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            
+            android:layout_height="wrap_content"
             android:src="@drawable/background_image_star_small" />
 
         <ImageView
@@ -55,5 +47,26 @@
             android:layout_marginLeft="@dimen/horizontal_margin_third"
             android:src="@drawable/background_image_star_small" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/authorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_toRightOf="@id/starLayout"
+        android:gravity="center"
+        android:text="Роман"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/txtReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/starLayout"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:text="Качество радует! Одна из моих любимых автомоек!"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    
-    <string-array name="astrology_names">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation" >
+
+    <string-array name="astrology_names"  translatable="false">
         <item>Овен</item>
         <item>Телец</item>
         <item>Близнецы</item>
@@ -16,95 +16,114 @@
         <item>Водолей</item>
         <item>Рыбы</item>
     </string-array>
-    
-    <string-array name="photo_options">
+
+    <!--<item>Выбрать фото для аватара</item>-->
+    <string-array name="photo_options"  translatable="false">
         <item>Добавить фото</item>
         <item>Открыть фото</item>
     </string-array>
 
-    <string-array name="admin_approved_book_options">
+    <string-array name="admin_approved_book_detail_options"  translatable="false">
         <item>Да, услуга оказана</item>
         <item>Клиент не явился</item>
+        <item>Отклонить бронь</item>
+    </string-array>
+
+
+    <string-array name="admin_approved_book_options"  translatable="false">
+        <item>Услуга оказана</item>
+        <item>Клиент не явился</item>
         <item>Отменить бронь</item>
+        <item>Изменить бронь</item>
         <item>Детали</item>
     </string-array>
 
-    <string-array name="admin_pending_book_options">
+    <string-array name="campaign_options"  translatable="false">
+        <item>Удалить</item>
+    </string-array>
+
+
+    <string-array name="admin_pending_book_options"  translatable="false">
         <item>Принять бронь</item>
         <item>Отклонить бронь</item>
         <item>Детали</item>
     </string-array>
-    <string-array name="admin_approved_queue_options">
+    <string-array name="admin_approved_queue_options"  translatable="false">
         <item>Продлить на 10 минут</item>
-        <item>Завершить вручную</item>
+        <item>Услуга оказана (завершить)</item>
         <item>Отклонить</item>
+        <item>Изменить</item>
         <item>Детали</item>
     </string-array>
-    <string-array name="admin_approved_queue_not_paid_options">
+    <string-array name="admin_approved_queue_not_paid_options"  translatable="false">
         <item>Клиент оплатил за мойку</item>
         <item>Продлить на 10 минут</item>
-        <item>Завершить вручную</item>
+        <item>Услуга оказана (завершить)</item>
         <item>Отклонить</item>
+        <item>Изменить</item>
         <item>Детали</item>
     </string-array>
-    <string-array name="admin_not_paid_options">
+    <string-array name="admin_not_paid_options"  translatable="false">
         <item>Клиент оплатил за мойку</item>
         <item>Детали</item>
     </string-array>
-    <string-array name="add_to_favs">
+    <string-array name="add_to_favs"  translatable="false">
         <item>Добавить в избранное</item>
         <item>Детали мойки</item>
     </string-array>
 
-
-    <string-array name="campaign_info_options">
-        <item>Забронировать</item>
+    <string-array name="client_options"  translatable="false">
+        <item>Отправить в бокс</item>
+        <item>Добавить в очередь</item>
+        <item>Детали</item>
     </string-array>
 
-
-    <string-array name="approved_washer_info_options">
-        <item>Забронировать</item>
-        <item>Позвонить</item>
-        <item>Проложить маршрут</item>
-        <item>Оставить отзыв</item>
-        <item>Пожаловаться</item>
+    <string-array name="client_not_registered_options"  translatable="false">
+        <item>Отправить в бокс</item>
+        <item>Добавить в очередь</item>
     </string-array>
 
-    <string-array name="information_washer_info_options">
-        <item>Позвонить</item>
-        <item>Проложить маршрут</item>
-        <item>Оставить отзыв</item>
-        <item>Пожаловаться</item>
-    </string-array>
-
-    <string-array name="cancel_washer_book_options">
-        <item>Отменить бронь</item>
-        <item>Позвонить</item>
-        <item>Проложить маршрут</item>
-        <item>Оставить отзыв</item>
-        <item>Пожаловаться</item>
-    </string-array>
-
-
-    <array name="day">
+    <array name="day"  translatable="false">
         <item>день</item>
         <item>дня</item>
         <item>дней</item>
     </array>
-    <array name="hour">
+    <array name="hour"  translatable="false">
         <item>час</item>
         <item>часа</item>
         <item>часов</item>
     </array>
-    <array name="minute">
+    <array name="minute"  translatable="false">
         <item>минута</item>
         <item>минуты</item>
         <item>минут</item>
     </array>
-    <array name="second">
+    <array name="second"  translatable="false">
         <item>секунда</item>
         <item>секунды</item>
         <item>секунд</item>
     </array>
+
+    <array name="newsTarget"  translatable="false">
+        <item>СМС всем клиентам</item>
+        <item>Пуш зарегистрированным клиентам</item>
+        <item>СМС не зарегистрированным клиентам</item>
+    </array>
+
+
+    <string-array name="company_client_options"  translatable="false">
+        <item>Изменить данные клиента</item>
+        <item>Предоплата наличными</item>
+        <item>Списание внутренних средств клиента</item>
+        <item>Удалить клиента</item>
+    </string-array>
+
+
+    <string-array name="staff_options"  translatable="false">
+        <item>Изменить</item>
+        <item>Начислить зарплату</item>
+        <item>Выдать зарплату</item>
+    </string-array>
+
 
 </resources>

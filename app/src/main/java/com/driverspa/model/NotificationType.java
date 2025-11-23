@@ -13,9 +13,6 @@ public enum NotificationType {
     @SerializedName("NOTHING")
     NOTHING("NOTHING"),
 
-    @SerializedName("FARE_REQUEST")
-    FARE_REQUEST("FARE_REQUEST"),
-
     Unknown("unknown");
 
     public static NotificationType toEnum (String enumString) {

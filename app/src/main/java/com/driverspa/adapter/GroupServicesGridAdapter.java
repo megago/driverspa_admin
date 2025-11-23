@@ -24,12 +24,14 @@ import com.driverspa.R;
 import com.driverspa.dialog.MultipleSelectDialog;
 import com.driverspa.model.Washer;
 import com.driverspa.util.Functions;
+import com.driverspa.util.otto.GroupServiceUnselectClicked;
 
 public class GroupServicesGridAdapter extends BaseAdapter {
     private Context context;
     List<Washer.GroupMenu> gridList;
     private View selectedView;
-    private HashMap<Integer,Boolean> selectedPosition = new HashMap<Integer,Boolean>();;
+    private HashMap<Integer,Boolean> selectedPosition = new HashMap<Integer,Boolean>();
+    private HashMap<Integer,Integer> selectedPositionCount = new HashMap<Integer,Integer>();
     final List<HashMap<String,String>> servicesMapList = new ArrayList<HashMap<String,String>>();
     final HashMap<Integer,String> allServices = BA.getReference().getServices();
 
@@ -63,9 +65,20 @@ public class GroupServicesGridAdapter extends BaseAdapter {
     }
     
     public void setSelectedPosition(Integer position, boolean selected){
+        //Commented to handle multiple services
 //        selectedPosition.clear();
         selectedPosition.put(position, selected);
+        selectedPositionCount.put(position, (selectedPositionCount.get(position)!=null?selectedPositionCount.get(position):0)+1);
     }
+
+    public void unSelectSelectedPosition(Integer position){
+        if((selectedPositionCount.get(position)!=null?selectedPositionCount.get(position):0)-1 >= 0)
+           selectedPositionCount.put(position, (selectedPositionCount.get(position)!=null?selectedPositionCount.get(position):0)-1);
+        if((selectedPositionCount.get(position)!=null?selectedPositionCount.get(position):0) == 0){
+            selectedPosition.put(position, false);
+        }
+    }
+
 
     public List<Washer.GroupMenu> getData(){
         return gridList;
@@ -74,21 +87,30 @@ public class GroupServicesGridAdapter extends BaseAdapter {
     public HashMap<Integer,Boolean> getSelectedPosition(){
     	return selectedPosition;
     }
-    
+    public HashMap<Integer,Integer> getSelectedPositionCount(){
+    	return selectedPositionCount;
+    }
+
     public View getSelectedView(){
     	return selectedView;
     }
     
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
     	view = LayoutInflater.from(context).inflate(R.layout.grid_group_service_item, parent, false);
 		ViewHolder holder = new ViewHolder(view);			 			
 		view.setTag(holder);
 
         final View gridLayoutView = view.findViewById(R.id.layoutGridItem);
         if(selectedPosition.get(position) != null && selectedPosition.get(position)) {
+            holder.unSelectService.setVisibility(View.VISIBLE);
+            holder.serviceCountView.setVisibility(View.VISIBLE);
+            holder.serviceCountText.setText(selectedPositionCount.get(position)+"");
             holder.gridItem.setBackgroundResource(R.drawable.button_grid_item_drawable_cars_pressed);
         }
         else{
+            holder.unSelectService.setVisibility(View.GONE);
+            holder.serviceCountView.setVisibility(View.GONE);
+            holder.serviceCountText.setText("0");
             holder.gridItem.setBackgroundResource(R.drawable.background_button_grid_item_cars);
         }
 
@@ -115,13 +137,18 @@ public class GroupServicesGridAdapter extends BaseAdapter {
                 dialog.show();
             }
         });
-        if(TextUtils.isEmpty(serviceNames)){
-            holder.dotDetail.setVisibility(View.GONE);
-        }
-        else{
-            holder.dotDetail.setVisibility(View.VISIBLE);
-        }
-
+        holder.unSelectService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BA.getEventBus().post(new GroupServiceUnselectClicked(position));
+            }
+        });
+       if(TextUtils.isEmpty(serviceNames)){
+           holder.dotDetail.setVisibility(View.GONE);
+       }
+       else{
+           holder.dotDetail.setVisibility(View.VISIBLE);
+       }
 
 //        if(item.ge() == 0){
 //            holder.serviceName.setTextColor(context.getResources().getColor(R.color.BlueLight));
@@ -132,8 +159,15 @@ public class GroupServicesGridAdapter extends BaseAdapter {
 		ViewGroup.LayoutParams layoutParams = holder.gridItem.getLayoutParams();
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		int width = ((display.getWidth()-(int) Functions.dipToPixels(context, 32)))/4;
-		layoutParams.width = width; //this is in pixels
+        boolean tabletSize = context.getResources().getBoolean(R.bool.isTablet);
+        boolean tabletBigSize = context.getResources().getBoolean(R.bool.isBigTablet);
+        int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/4;
+        if(tabletSize && !tabletBigSize)
+            width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/6;
+        if(tabletSize && tabletBigSize)
+            width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/8;
+
+        layoutParams.width = width; //this is in pixels
 		layoutParams.height = width*2/3; //this is in pixels
 		holder.gridItem.setLayoutParams(layoutParams);
 
@@ -151,6 +185,13 @@ public class GroupServicesGridAdapter extends BaseAdapter {
 		View gridItem;
 		@BindView(R.id.dot_detail)
 		View dotDetail;
+		@BindView(R.id.unselect_service)
+		View unSelectService;
+		@BindView(R.id.service_count)
+		View serviceCountView;
+		@BindView(R.id.service_count_text)
+		TextView serviceCountText;
+
 
 		public ViewHolder(View view) {
 			ButterKnife.bind(this, view);

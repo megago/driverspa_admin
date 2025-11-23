@@ -61,14 +61,43 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/btnMini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/imageView112"
+                            android:layout_width="42dp"
+                            android:layout_height="@dimen/book_cars_height"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/vertical_margin_five"
+                            android:src="@drawable/background_button_crossover" />
+
+                        <TextView
+                            android:id="@+id/textView111"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView112"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="Мини"
+                            android:textColor="@drawable/button_state_color_cars"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/btnSedan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/horizontal_margin"
                         android:clickable="true">
 
                         <ImageView
                             android:id="@+id/imageView1"
-                            android:layout_width="@dimen/book_cars_width"
+                            android:layout_width="47dp"
                             android:layout_height="@dimen/book_cars_height"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
@@ -88,10 +117,38 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/btnJeep"
+                        android:id="@+id/btnUniversal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/imageView114"
+                            android:layout_width="50dp"
+                            android:layout_height="@dimen/book_cars_height"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/vertical_margin_five"
+                            android:src="@drawable/background_button_crossover" />
+
+                        <TextView
+                            android:id="@+id/textView115"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView114"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="Универсал"
+                            android:textColor="@drawable/button_state_color_cars"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/btnCrossover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/horizontal_margin"
                         android:clickable="true">
 
                         <ImageView
@@ -116,10 +173,38 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/btnMiniJeep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/imageView44"
+                            android:layout_width="48dp"
+                            android:layout_height="@dimen/book_cars_height"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/vertical_margin_five"
+                            android:src="@drawable/background_button_jeep" />
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView44"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="Мини джип"
+                            android:textColor="@drawable/button_state_color_cars"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/btnBigJeep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
                         android:clickable="true">
 
                         <ImageView
@@ -147,7 +232,7 @@
                         android:id="@+id/btnMoto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
                         android:clickable="true">
 
                         <ImageView
@@ -172,10 +257,38 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/btnMinivan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/imageView36"
+                            android:layout_width="48dp"
+                            android:layout_height="@dimen/book_cars_height"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/vertical_margin_five"
+                            android:src="@drawable/background_button_minbus" />
+
+                        <TextView
+                            android:id="@+id/textView999"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView36"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="Минивэн"
+                            android:textColor="@drawable/button_state_color_cars"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/btnMinbus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
                         android:clickable="true">
 
                         <ImageView
@@ -208,69 +321,72 @@
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="@dimen/horizontal_margin"
-                    android:layout_marginRight="@dimen/horizontal_margin"
-                    android:background="@color/BlueTransparent"></FrameLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/horizontal_margin"
-                    android:layout_marginRight="@dimen/horizontal_margin"
-                    android:theme="@style/TextLabel">
-                    <EditText
-                        android:id="@+id/carNo"
-                        style="@style/EditText.Transparent"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Гос. номер авто*"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapCharacters"
-                        android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
-                        android:textCursorDrawable="@null"
-                        android:textIsSelectable="false"
-                        android:maxLines="1"
-                        android:maxLength="10"
-                        android:lines="1"
-                        android:textSize="@dimen/text_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Гос. номер авто*"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                <EditText
+                    android:id="@+id/carNo"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_half"
-                    android:background="@color/BlueTransparent"></FrameLayout>
+                    android:hint="Гос. номер авто*"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters"
+                    android:lines="1"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <TextView
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:layout_marginTop="@dimen/horizontal_margin_half"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Марка авто*"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <EditText
+                    android:id="@+id/carMark"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
                     android:layout_marginRight="@dimen/horizontal_margin"
-                    android:theme="@style/TextLabel">
-
-                    <EditText
-                        android:id="@+id/carMark"
-                        style="@style/EditText.Transparent"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Марка авто*"
-                        android:imeOptions="actionNext"
-                        android:textColor="@color/White"
-                        android:maxLines="1"
-                        android:maxLength="15"
-                        android:lines="1"
-                        android:inputType="textCapWords"
-                        android:textColorHint="@color/BlueLight"
-                        android:textCursorDrawable="@null"
-                        android:textIsSelectable="false"
-                        android:textSize="@dimen/text_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:hint="Марка авто*"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    android:lines="1"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

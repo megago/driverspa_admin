@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/vertical_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:background="#50000000"
+                android:gravity="left"
+                android:paddingBottom="@dimen/vertical_margin_third"
+                android:paddingLeft="@dimen/horizontal_margin"
+                android:paddingTop="@dimen/vertical_margin_third"
+                android:text="Выберите получателей"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+
+            <com.driverspa.view.NDSpinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginBottom="@dimen/vertical_margin_third"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_third"
+                android:clickable="true"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/newsTarget"
+                android:popupBackground="@color/background_main"
+                android:spinnerMode="dropdown"
+                android:textColor="@drawable/button_state_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/vertical_margin_half"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/clientsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Выбранные клиенты"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <LinearLayout
+                    android:id="@+id/clients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@drawable/background_list_item_buttons"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/vertical_margin_half"
+                    android:paddingTop="@dimen/vertical_margin_half">
+
+                    <TextView
+                        android:id="@+id/txtClients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="Выберите клиентов"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:background="#50000000"
+                android:gravity="left"
+                android:paddingBottom="@dimen/vertical_margin_third"
+                android:paddingLeft="@dimen/horizontal_margin"
+                android:paddingTop="@dimen/vertical_margin_third"
+                android:text="Краткое сообщение (100 символов)"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+
+            <EditText
+                android:id="@+id/text"
+                style="@style/EditText.Transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_third"
+                android:gravity="top|left"
+                android:hint="Сообщение"
+                android:imeOptions="actionNext"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:maxLength="100"
+                android:text=""
+                android:textColor="@color/White"
+                android:textColorHint="@color/BlueLight"
+                android:textCursorDrawable="@null"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_normal" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_double"
+                android:background="@drawable/background_button_border"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:text="Отправить"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_normal" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

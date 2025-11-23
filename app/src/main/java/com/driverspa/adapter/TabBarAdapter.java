@@ -1,5 +1,7 @@
 package com.driverspa.adapter;
 
+import static com.driverspa.util.Constants.*;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.driverspa.R;
-import com.driverspa.model.Washer;
-import com.driverspa.model.api.response.WasherTimeTableResponse;
-import static com.driverspa.util.Constants.*;
+import com.driverspa.model.Box;
 
 /**
  * Created by Yerzhan Tanatov on 22/12/15.
@@ -20,10 +20,10 @@ import static com.driverspa.util.Constants.*;
 public class TabBarAdapter extends BaseAdapter {
 
     Context context;
-    protected List<Washer.BoxSettings> tabBars;
+    protected List<Box> tabBars;
     int selectedTab = 0;
 
-    public TabBarAdapter(Context context, List<Washer.BoxSettings> tabBars){
+    public TabBarAdapter(Context context, List<Box> tabBars){
         this.context = context;
         this.tabBars = tabBars;
     }
@@ -52,7 +52,11 @@ public class TabBarAdapter extends BaseAdapter {
 
         tabItemTxt.setText(tabBars.get(position).getBoxName());
         tabItemTxtDetail.setVisibility(View.VISIBLE);
-        tabItemTxtDetail.setText(boxTypeMap.get(tabBars.get(position).getBookingType().getValue()));
+        if(tabBars.get(position).getBookingType().getValue().equals("online"))
+          tabItemTxtDetail.setText("Онлайн/Живая оч.");
+        else{
+            tabItemTxtDetail.setText("Живая оч.");
+        }
 
         if(position == selectedTab){
             tabItemTxt.setTextColor(context.getResources().getColor(R.color.White));

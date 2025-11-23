@@ -14,10 +14,13 @@ public class ActivityForResult {
 	public static final int ACTIVITY_PRICE = 22;
 	public static final int ACTIVITY_PRICE_DETAIL = 23;
 	public static final int ACTIVITY_ADDITIONAL_INFO = 24;
-	
+
+	public static final int ACTIVITY_SEARCH = 77;
+	public static final int ACTIVITY_SEARCH_HAS_RESULT = 78;
+	public static final int ACTIVITY_SEARCH_HAS_NO_RESULT = 78;
+
 	
 	public static final int ACTIVITY_WASHER_INFO= 40;
-	public static final int ACTIVITY_CAMPAIGN_INFO= 41;
 	public static final int ACTIVITY_TIMETABLE_BOOK = 25;
 	public static final int ACTIVITY_TIMETABLE_INFO = 26;
 	

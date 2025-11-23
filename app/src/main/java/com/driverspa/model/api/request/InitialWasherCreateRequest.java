@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import com.driverspa.model.Washer.BoxSettings;
+import com.driverspa.model.Box;
 
-public class InitialWasherCreateRequest {
+public class InitialWasherCreateRequest{
 
 	public InitialWasherCreateRequest(){
 		
@@ -23,7 +23,9 @@ public class InitialWasherCreateRequest {
 	ArrayList<Double> lonLat;
 	String city;
 	@SerializedName("box_settings")
-	private ArrayList<BoxSettings> boxSettings;
+	private ArrayList<Box> boxSettings;
+
+	private String address;
 
 
 	public String getName() {
@@ -44,11 +46,81 @@ public class InitialWasherCreateRequest {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public ArrayList<BoxSettings> getBoxSettings() {
+	public ArrayList<Box> getBoxSettings() {
 		return boxSettings;
 	}
-	public void setBoxSettings(ArrayList<BoxSettings> boxSettings) {
+	public void setBoxSettings(ArrayList<Box> boxSettings) {
 		this.boxSettings = boxSettings;
 	}
+
+	@SerializedName("role_tran")
+	RoleTran roleTransactions;
+
+	public static class RoleTran {
+		@SerializedName("director_role")
+		ArrayList<Transactions> directorRole;
+		@SerializedName("operator_role")
+		ArrayList<Transactions> operatorRole;
+
+		public ArrayList<Transactions> getDirectorRole() {
+			return directorRole;
+		}
+
+		public void setDirectorRole(ArrayList<Transactions> directorRole) {
+			this.directorRole = directorRole;
+		}
+
+		public ArrayList<Transactions> getOperatorRole() {
+			return operatorRole;
+		}
+
+		public void setOperatorRole(ArrayList<Transactions> operatorRole) {
+			this.operatorRole = operatorRole;
+		}
+	}
+
+	public static class Transactions{
+		@SerializedName("tran_cd")
+		String transactionCode;
+		boolean enabled;
+
+		public Transactions(String transactionCode, boolean enabled) {
+			this.transactionCode = transactionCode;
+			this.enabled = enabled;
+		}
+
+		public String getTransactionCode() {
+			return transactionCode;
+		}
+
+		public void setTransactionCode(String transactionCode) {
+			this.transactionCode = transactionCode;
+		}
+
+		public boolean isEnabled() {
+			return enabled;
+		}
+
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
+	}
+
+	public RoleTran getRoleTransactions() {
+		return roleTransactions;
+	}
+
+	public void setRoleTransactions(RoleTran roleTransactions) {
+		this.roleTransactions = roleTransactions;
+	}
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 
 }

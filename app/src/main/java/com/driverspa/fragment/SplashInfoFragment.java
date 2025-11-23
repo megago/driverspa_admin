@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
 
@@ -29,8 +28,6 @@ public class SplashInfoFragment extends BaseFragment {
 	ImageView image;
 	@BindView(R.id.main_text)
 	TextView mainText;
-	@BindView(R.id.parentView)
-	View parentView;
 	int index = 0;
 
 	public static SplashInfoFragment init(int index) {
@@ -55,17 +52,14 @@ public class SplashInfoFragment extends BaseFragment {
 		ButterKnife.bind(this,view);
 		switch (index){
 			case 0:
-				parentView.setVisibility(View.VISIBLE);
 				image.setImageResource(R.drawable.ic_splash_info_1);
 				mainText.setText("Находите ближайшие автомойки и бронируйте удобное для вас время");
 				break;
 			case 1:
-				parentView.setVisibility(View.VISIBLE);
 				image.setImageResource(R.drawable.ic_splash_info_2);
 				mainText.setText("Сравнивайте цены и качество обслуживания в автомойках вашего города");
 				break;
 			case 2:
-				parentView.setVisibility(View.VISIBLE);
 				title.setText("Владельцам автомоек");
 				image.setImageResource(R.drawable.ic_splash_info_3);
 				mainText.setText("Привлекайте дополнительных клиентов, сообщайте об акциях и новостях!");
@@ -102,5 +96,6 @@ public class SplashInfoFragment extends BaseFragment {
 	public void onDestroy() {
 		super.onDestroy();
 	}
+
 
 }

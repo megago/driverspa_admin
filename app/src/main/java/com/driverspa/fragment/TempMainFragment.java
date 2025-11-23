@@ -2,16 +2,12 @@ package com.driverspa.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-
 import butterknife.ButterKnife;
-import butterknife.BindView;
-import butterknife.OnClick;
-import com.driverspa.BA;
 import com.driverspa.R;
 
 /**

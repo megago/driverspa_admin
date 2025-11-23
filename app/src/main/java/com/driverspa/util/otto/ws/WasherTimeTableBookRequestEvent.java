@@ -3,10 +3,12 @@ package com.driverspa.util.otto.ws;
 public class WasherTimeTableBookRequestEvent {
      private String washerId;
      private String day;
+	 private Long date;
 
-	 public WasherTimeTableBookRequestEvent(String washerId, String day){
+	 public WasherTimeTableBookRequestEvent(String washerId, String day, Long date){
     	 this.washerId = washerId;
     	 this.day = day;
+		 this.date = date;
      }
 	
 	public String getDay(){
@@ -21,4 +23,11 @@ public class WasherTimeTableBookRequestEvent {
 		this.washerId = washerId;
 	}
 
+	public Long getDate() {
+		return date;
+	}
+
+	public void setDate(Long date) {
+		this.date = date;
+	}
 }

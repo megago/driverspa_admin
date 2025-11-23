@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:washme="http://schemas.android.com/apk/res-auto">
+xmlns:washme="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_search"
-        android:background="@android:color/transparent"
-        android:icon="@drawable/ic_search"
-        android:title="@android:string/search_go"
-        washme:actionViewClass="androidx.appcompat.widget.SearchView"
-        washme:showAsAction="always|collapseActionView" />
+<item
+    android:id="@+id/action_search"
+    android:title="@android:string/search_go"
+    android:icon="@drawable/ic_search"
+    washme:showAsAction="always|collapseActionView"
+    android:background="@android:color/transparent"
+    washme:actionViewClass="android.support.v7.widget.SearchView" />
 
-    <item
-        android:id="@+id/action_filter"
-        android:icon="@drawable/background_list_filter"
-        android:title="Фильтр"
-        washme:showAsAction="always" />
+<!--<item-->
+    <!--android:id="@+id/menu_map"-->
+    <!--android:title="Карта"-->
+    <!--android:visible="true"-->
+    <!--android:icon="@drawable/ic_map"-->
+    <!--washme:showAsAction="always" />-->
+   <item
+       android:id="@+id/more"
+       android:title="Опции"
+       android:visible="false"
+       android:icon="@drawable/icon">
+       <menu>
+           <item  android:id="@+id/messages"
+               android:title="Уведомления"/>
+       </menu>
 
-    <item
-        android:id="@+id/action_filtered"
-        android:icon="@drawable/ic_filter_list_filtered"
-        android:title="Фильтр"
-        android:visible="false"
-        washme:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_map"
-        android:icon="@drawable/ic_map"
-        android:title="На карте"
-        washme:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_list"
-        android:icon="@drawable/ic_list_data"
-        android:title="Списком"
-        washme:showAsAction="always" />
+   </item>
 
 </menu>

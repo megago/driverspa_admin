@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<color name="background_color">#008bcc</color>
-
 	<color name="statusbarColor">#2269b3</color>
 	<color name="apptheme_color">#ffffff</color>
 	<color name="background_transparent_main">#334184c5</color>
-
 
 	<color name="Light">#70ffffff</color>
 
@@ -31,6 +27,9 @@
 	<color name="tab_inactive">#7cabd7</color>
 
 	<color name="background_main">#4184c5</color>
+
+	<color name="background_color">#008bcc</color>
+
 	<color name="ppt_orange">#FFFFA400</color>
 	<color name="ppt_gray_light">#FFC6C6C6</color>
 
@@ -77,16 +76,13 @@
 	<color name="chat_background_partner">#6657B9F0</color>
 	<color name="chat_background_own">#66CDE9CC</color>
 	<color name="chat_background_self">#6673C578</color>
-
 	<color name="border_directions_country_add">@color/ppt_gray_light</color>
 
 	<!-- custom -->
-
 	<color name="BlueTransparent2">#BF4184c5</color>
 	<color name="BlackTransparent">#66000000</color>
 	<color name="BlackTransparent3">#99000000</color>
 	<color name="WhiteTransparent">#33FFFFFF</color>
-	<color name="WhiteTransparent2">#A6FFFFFF</color>
 	<color name="BlackTransparent2">#33000000</color>
 	<color name="GrayLightTransparent">#88DDDDDD</color>
 
@@ -153,7 +149,7 @@
 	<color name="Goldenrod">#DAA520</color>
 	<color name="Orchid">#DA70D6</color>
 	<color name="Thistle">#D8BFD8</color>
-	<color name="LightGrey">#66D3D3D3</color>
+	<color name="LightGrey">#D3D3D3</color>
 	<color name="LightGrey2">#edeef0</color>
 	<color name="LessLightGrey">#D3D3D3</color>
 	<color name="Tan">#D2B48C</color>

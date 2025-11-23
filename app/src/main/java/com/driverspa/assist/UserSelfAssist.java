@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +12,12 @@ import java.util.List;
 import com.driverspa.BA;
 import com.driverspa.db.WashmeOrmLiteSqlHelper;
 import com.driverspa.model.CarItem;
-import com.driverspa.model.Device;
 import com.driverspa.model.Image;
 import com.driverspa.model.PhotoOrm;
 import com.driverspa.model.PhotoParcelable;
-import com.driverspa.model.Settings;
 import com.driverspa.model.User;
 import com.driverspa.model.api.response.BaseResponseHolder;
 import com.driverspa.model.api.response.UserResponseHolder;
-import com.driverspa.util.L;
 import com.driverspa.util.RetrofitClient.WashmeApi;
 import com.driverspa.util.otto.ws.DeleteDeviceRequestEvent;
 import com.driverspa.util.otto.ws.DeleteDeviceResponseEvent;
@@ -70,7 +68,6 @@ public class UserSelfAssist extends BaseAssist {
 	@Subscribe
 	public void onUserSelfUpdateRequested(final UserUpdateSelfRequestEvent event) {
 
-		L.d("Fuck it "+event.getUserRequest().serialize());
 		getApi().userUpdate(event.getId(),
 				event.getUserRequest(),
 				new Callback<UserResponseHolder>() {
@@ -234,6 +231,7 @@ public class UserSelfAssist extends BaseAssist {
 					}
 				});
 	}
+
 
 	@Subscribe
 	public void onDeleteDeviceReceived(DeleteDeviceRequestEvent event) {

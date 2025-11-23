@@ -9,8 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import androidx.core.content.ContextCompat;
-
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
@@ -20,6 +18,7 @@ import com.driverspa.BA;
 import com.driverspa.assist.AuthRegistrationAssist;
 import com.driverspa.assist.AuthVerificationAssist;
 import com.driverspa.assist.BookAssist;
+import com.driverspa.assist.BoxAssist;
 import com.driverspa.assist.ClientReviewAssist;
 import com.driverspa.assist.InitilizeAssist;
 import com.driverspa.assist.LocationAssist;
@@ -31,7 +30,6 @@ import com.driverspa.model.NewPushInformation;
 import com.driverspa.model.PushData;
 import com.driverspa.model.SearchFilter;
 import com.driverspa.model.User;
-import com.driverspa.model.WantedWashers;
 import com.driverspa.model.Washer;
 import com.driverspa.service.Service;
 import com.driverspa.util.otto.BookingPushUpdateRequestEvent;
@@ -44,7 +42,6 @@ import com.driverspa.util.otto.RemoveBulkBookingPushRequestEvent;
 import com.driverspa.util.otto.ReviewPushUpdateRequestEvent;
 import com.driverspa.util.otto.StartPlayRingtoneRequestEvent;
 import com.driverspa.util.otto.StopPlayRingtoneRequestEvent;
-import com.driverspa.util.otto.WantedWashersResponseEvent;
 import com.driverspa.util.otto.ws.AuthAdminLogoutRequestEvent;
 import com.driverspa.util.otto.ws.AuthClientLogoutRequestEvent;
 import com.driverspa.util.otto.ws.FilterGetResponseEvent;
@@ -67,13 +64,13 @@ public class Singleton {
 	private UserPhotoPostAssist clientPhotoPostAssist;
 	private ClientReviewAssist clientReviewAssist;
 	private UserSelfAssist userSelfAssist;
+	private BoxAssist boxAssist;
 	private User user;
 	private Washer washer;
 	private SearchFilter searchFilter;
     private NewPushInformation bookingPush;
     private NewPushInformation reviewPush;
-	private Ringtone r;
-	HashMap<String, String> wantedWashers;
+	private static Ringtone r;
 
 	public Singleton() {				
 		authClientRegistrationAssist = new AuthRegistrationAssist(RetrofitClient.getRestAdapter(), BA.getEventBus());
@@ -85,7 +82,8 @@ public class Singleton {
 		clientPhotoPostAssist = new UserPhotoPostAssist(RetrofitClient.getRestAdapterForUpload(), BA.getEventBus());
 		clientReviewAssist = new ClientReviewAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		userSelfAssist = new UserSelfAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
-
+		boxAssist = new BoxAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
+		
 		BA.getEventBus().register(authClientRegistrationAssist);
 		BA.getEventBus().register(authClientVerificationAssist);
 		BA.getEventBus().register(washerGetAssist);
@@ -95,17 +93,14 @@ public class Singleton {
 		BA.getEventBus().register(clientPhotoPostAssist);
 		BA.getEventBus().register(clientReviewAssist);
 		BA.getEventBus().register(userSelfAssist);
+		BA.getEventBus().register(boxAssist);
 		BA.getEventBus().register(this);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			ContextCompat.startForegroundService(BA.getContext(),new Intent(BA.getContext(), Service.class));
-//			context.startForegroundService(new Intent(context, ServedService.class));
+			BA.getContext().startForegroundService(new Intent(BA.getContext(), Service.class));
 		} else {
 			BA.getContext().startService(new Intent(BA.getContext(), Service.class));
-//			context.startService(new Intent(context, ServedService.class));
 		}
-
-
 	}
 	
 	/**
@@ -120,6 +115,7 @@ public class Singleton {
 		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
 		dbHelper.removeAll();
 		dbHelper.close();
+		BA.restart();
 	}
 
 	@Subscribe
@@ -174,37 +170,21 @@ public class Singleton {
 		  user = event.getData().getResponse();
 	}
 
-	//Search filter
 	@Subscribe
 	public void onFilterUpdateReceived(FilterUpdateRequestEvent event) {
 		this.searchFilter = event.getSearchFilter();
-		searchFilter.setMobile(null);
-//		searchFilter.setMobile(UserPreferences.getUserPhone(BA.getContext()));
-		UserPreferences.putSearchFilter(BA.getContext(),searchFilter.serialize());
+		searchFilter.setMobile(UserPreferences.getUserPhone(BA.getContext()));
 		BA.getEventBus().post(new FilterGetResponseEvent(searchFilter));
-	}
-
-	@Produce
-	public WantedWashersResponseEvent produceWantedWashers() {
-		if(wantedWashers == null){
-			if(!TextUtils.isEmpty(UserPreferences.getWantedWashers(BA.getContext()))) wantedWashers = WantedWashers.deserialize(UserPreferences.getWantedWashers(BA.getContext())).getWantedWashers();
-			else wantedWashers = new HashMap<String,String>();
-		}
-		return new WantedWashersResponseEvent(wantedWashers);
 	}
 
 	@Produce
 	public FilterResponseEvent produceFilter() {
 		if(searchFilter == null){
-			if(TextUtils.isEmpty(UserPreferences.getSearchFilter(BA.getContext()))) searchFilter = new SearchFilter();
-			else searchFilter = SearchFilter.deserialize(UserPreferences.getSearchFilter(BA.getContext()));
-			searchFilter.setMobile(null);
-//			searchFilter.setMobile(UserPreferences.getUserPhone(BA.getContext()));
+			searchFilter = new SearchFilter();
+			searchFilter.setMobile(UserPreferences.getUserPhone(BA.getContext()));
 		}
 		return new FilterResponseEvent(searchFilter);
 	}
-
-
 
 	@Subscribe
 	public void onNewBookingPushReceived(NewBookingPushRequestEvent event) {
@@ -293,7 +273,7 @@ public class Singleton {
 	@Subscribe
 	public void onPlayRingtoneRequested(StartPlayRingtoneRequestEvent event){
 		//TODO Temproary solution for long ringtone
-		Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+		Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 		if(alert == null){
 			// alert is null, using backup
 			alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -302,11 +282,13 @@ public class Singleton {
 			// but just incase
 			if(alert == null) {
 				// alert backup is null, using 2nd backup
-				alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+				alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 			}
 		}
-		r = RingtoneManager.getRingtone(BA.getContext(), alert);
-		r.play();
+		if(r == null || !(r != null && r.isPlaying())) {
+			r = RingtoneManager.getRingtone(BA.getContext(), alert);
+			r.play();
+		}
 	}
 
 	@Subscribe
@@ -328,5 +310,4 @@ public class Singleton {
 		}; // This is your code
 		mainHandler.post(myRunnable);
 	}
-
 }

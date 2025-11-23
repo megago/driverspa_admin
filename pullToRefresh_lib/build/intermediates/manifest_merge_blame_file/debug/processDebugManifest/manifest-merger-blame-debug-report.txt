@@ -5,10 +5,10 @@
 5    android:versionName="2.1.1" >
 6
 7    <uses-sdk android:minSdkVersion="1" />
-7-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\pullToRefresh_lib\src\main\AndroidManifest.xml:7:5-44
-7-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\pullToRefresh_lib\src\main\AndroidManifest.xml:7:15-41
+7-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\pullToRefresh_lib\src\main\AndroidManifest.xml:7:5-44
+7-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\pullToRefresh_lib\src\main\AndroidManifest.xml:7:15-41
 8
 9    <application />
-9-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\pullToRefresh_lib\src\main\AndroidManifest.xml:9:5-20
+9-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\pullToRefresh_lib\src\main\AndroidManifest.xml:9:5-20
 10
 11</manifest>

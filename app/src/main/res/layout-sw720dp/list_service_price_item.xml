@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="left"
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:text=""
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/item_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin_third"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text=""
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingBottom="2dp"
+            android:paddingLeft="@dimen/vertical_margin"
+            android:paddingRight="@dimen/vertical_margin_third"
+            android:paddingTop="2dp"
+            android:text="Изменить"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+</FrameLayout>

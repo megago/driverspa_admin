@@ -11,4 +11,8 @@ public class ClientsResponseHolder extends BaseResponseHolder {
 		return response;
 	}
 
+	public void setResponse(ClientsResponse response) {
+		this.response = response;
+	}
+
 }

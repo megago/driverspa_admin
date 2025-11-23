@@ -1,9 +1,8 @@
 package com.driverspa.adapter;
 
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.driverspa.fragment.SplashInfoFragment;
 import com.driverspa.fragment.TempMainFragment;
@@ -12,7 +11,7 @@ import com.driverspa.fragment.TempMainFragment;
  * Created by Yerzhan Tanatov on 19/10/15.
  */
 
-public class SplashInfoPagerAdapter extends androidx.fragment.app.FragmentStatePagerAdapter {
+public class SplashInfoPagerAdapter extends FragmentStatePagerAdapter {
 
     public SplashInfoPagerAdapter(FragmentManager fm) {
         super(fm);

@@ -2,18 +2,18 @@ package com.driverspa.model.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import com.driverspa.model.api.response.AdminBoxesResponse.BoxType;
+import com.driverspa.model.Box;
 
 public class AdminBoxResponseHolder extends BaseResponseHolder {
 	
 	@SerializedName("data")
-	private AdminBoxesResponse.BoxType response;
+	private Box response;
 
-	public BoxType getResponse() {
+	public Box getResponse() {
 		return response;
 	}
 
-	public void setResponse(BoxType response) {
+	public void setResponse(Box response) {
 		this.response = response;
 	}	 
 }

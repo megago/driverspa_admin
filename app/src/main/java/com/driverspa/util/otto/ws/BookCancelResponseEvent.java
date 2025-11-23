@@ -1,19 +1,22 @@
 package com.driverspa.util.otto.ws;
 
-import com.driverspa.model.api.response.BaseResponse;
 import com.driverspa.model.api.response.BookResponse;
-import com.driverspa.model.api.response.BookResponseHolder;
 
 public class BookCancelResponseEvent {
 
 	
-	BookResponseHolder data;
+	private BookResponse response;
 
-	public BookCancelResponseEvent(BookResponseHolder data) {
-		this.data = data;
+	public BookCancelResponseEvent(BookResponse bookResponse) {
+		this.response = bookResponse;
 	}
 
-	public BookResponseHolder getData() {
-		return data;
+	public BookResponse getResponse() {
+		return response;
 	}
+
+	public void setBookResponse(BookResponse response) {
+		this.response = response;
+	}
+
 }

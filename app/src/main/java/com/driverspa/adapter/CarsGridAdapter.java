@@ -9,7 +9,9 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
@@ -21,8 +23,9 @@ public class CarsGridAdapter extends BaseAdapter {
     List<CarItem> gridList;
     private View selectedView;
     private int selectedPosition;
-    private boolean booking;
+    private boolean withoutAddButton;
     View views [];
+
 
     public CarsGridAdapter(Context c, List<CarItem> gridList) {
     	context = c;
@@ -30,10 +33,10 @@ public class CarsGridAdapter extends BaseAdapter {
         views = new View[gridList.size()];
     }
 
-    public CarsGridAdapter(Context c, List<CarItem> gridList, boolean booking) {
+    public CarsGridAdapter(Context c, List<CarItem> gridList, boolean withoutAddButton) {
     	context = c;
         this.gridList = gridList;
-        this.booking = booking;
+        this.withoutAddButton = withoutAddButton;
         views = new View[gridList.size()];
     }
 
@@ -85,18 +88,26 @@ public class CarsGridAdapter extends BaseAdapter {
 		int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 45)))/4;
 		layoutParams.width = width; //this is in pixels
 		layoutParams.height = width; //this is in pixels
-        if(position == 0){
+        if(position == 0 && !withoutAddButton){
             holder.carNumber.setVisibility(View.GONE);
-            holder.delete.setVisibility(View.GONE);
             holder.car.setBackgroundResource(R.drawable.ic_add);
-
         }
         else {
-            holder.delete.setVisibility(View.VISIBLE);
-            holder.carNumber.setText(item.getCarNumber());
+            holder.carNumber.setText(item.getCarNumber()+"\n"+item.getCarModel());
             holder.gridItem.setLayoutParams(layoutParams);
-            switch (item.getCarType()){
+
+            switch ((item.getCarType()!=null?item.getCarType():1)){
                 case 1:
+                    holder.car.setBackgroundResource(R.drawable.background_button_sedan);
+                    if(position == selectedPosition)
+                        holder.car.setBackgroundResource(R.drawable.ic_sedan_selected);
+                    break;
+                case 10:
+                    holder.car.setBackgroundResource(R.drawable.background_button_sedan);
+                    if(position == selectedPosition)
+                        holder.car.setBackgroundResource(R.drawable.ic_sedan_selected);
+                    break;
+                case 11:
                     holder.car.setBackgroundResource(R.drawable.background_button_sedan);
                     if(position == selectedPosition)
                         holder.car.setBackgroundResource(R.drawable.ic_sedan_selected);
@@ -106,12 +117,21 @@ public class CarsGridAdapter extends BaseAdapter {
                     if(position == selectedPosition)
                         holder.car.setBackgroundResource(R.drawable.ic_crossover_selected);
                     break;
+                case 30:
+                    holder.car.setBackgroundResource(R.drawable.background_button_jeep);
+                    if(position == selectedPosition)
+                        holder.car.setBackgroundResource(R.drawable.ic_jeep_selected);
+                    break;
                 case 3:
                     holder.car.setBackgroundResource(R.drawable.background_button_jeep);
                     if(position == selectedPosition)
                         holder.car.setBackgroundResource(R.drawable.ic_jeep_selected);
                     break;
                 case 4:
+                    holder.car.setBackgroundResource(R.drawable.background_button_minbus);
+                    if(position == selectedPosition)
+                        holder.car.setBackgroundResource(R.drawable.ic_minbus_selected);
+                case 41:
                     holder.car.setBackgroundResource(R.drawable.background_button_minbus);
                     if(position == selectedPosition)
                         holder.car.setBackgroundResource(R.drawable.ic_minbus_selected);
@@ -146,8 +166,6 @@ public class CarsGridAdapter extends BaseAdapter {
 		View gridItem;
 		@BindView(R.id.car)
         ImageView car;
-		@BindView(R.id.delete)
-        ImageView delete;
 		public ViewHolder(View view) {
 			ButterKnife.bind(this, view);
 		}

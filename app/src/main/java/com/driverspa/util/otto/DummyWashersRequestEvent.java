@@ -1,7 +1,7 @@
 package com.driverspa.util.otto;
 
 import java.util.List;
-import com.driverspa.model.TmpMyWash;
+
 import com.driverspa.model.Washer;
 
 /**

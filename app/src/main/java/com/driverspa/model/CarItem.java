@@ -17,9 +17,8 @@ public class CarItem {
     @DatabaseField
     @SerializedName("car_model")
     String  carModel;
-    @DatabaseField
     @SerializedName("status_disabled")
-    Boolean statusDisabled;
+    boolean statusDisabled;
 
     public Integer getCarType() {
         return carType;
@@ -43,13 +42,5 @@ public class CarItem {
 
     public void setCarModel(String carModel) {
         this.carModel = carModel;
-    }
-
-    public Boolean getStatusDisabled() {
-        return statusDisabled;
-    }
-
-    public void setStatusDisabled(Boolean statusDisabled) {
-        this.statusDisabled = statusDisabled;
     }
 }

@@ -7,10 +7,10 @@
 7    <uses-sdk android:minSdkVersion="1" />
 8
 9    <application
-9-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\photoView\src\main\AndroidManifest.xml:7:5-82
+9-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:5-82
 10        android:allowBackup="true"
-10-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\photoView\src\main\AndroidManifest.xml:7:53-79
+10-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:53-79
 11        android:hardwareAccelerated="true" />
-11-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpa\photoView\src\main\AndroidManifest.xml:7:18-52
+11-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:18-52
 12
 13</manifest>

@@ -1,7 +1,6 @@
 package com.driverspa.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +15,16 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
-import com.driverspa.model.ServiceItem;
-import com.driverspa.model.Washer;
-import com.driverspa.model.api.response.WasherTimeTableResponse;
-import com.driverspa.util.Constants;
+import com.driverspa.model.Box;
 import com.driverspa.util.Functions;
 
 public class OfflineBoxesGridAdapter extends BaseAdapter {
     private Context context;
-    List<Washer.BoxSettings> gridList;
+    List<Box> gridList;
     private View selectedView;
     private HashMap<Integer,Boolean> selectedPosition = new HashMap<Integer,Boolean>();;
 
-    public OfflineBoxesGridAdapter(Context c, List<Washer.BoxSettings> gridList) {
+    public OfflineBoxesGridAdapter(Context c, List<Box> gridList) {
     	context = c;
         this.gridList = gridList;
     }
@@ -53,7 +49,7 @@ public class OfflineBoxesGridAdapter extends BaseAdapter {
         selectedPosition.put(position, selected);
     }
 
-    public List<Washer.BoxSettings> getData(){
+    public List<Box> getData(){
         return gridList;
     }
     
@@ -78,20 +74,28 @@ public class OfflineBoxesGridAdapter extends BaseAdapter {
             holder.gridItem.setBackgroundResource(R.drawable.background_button_grid_item_cars);
         }
 
-        Washer.BoxSettings item = gridList.get(position);
+        Box item = gridList.get(position);
         holder.itemName.setText(item.getBoxName());
-        if(!TextUtils.isEmpty(item.getWasherPerson()))
-           holder.itemBookingType.setText(item.getWasherPerson()+" ("+Constants.boxTypeMap.get(item.getBookingType().getValue())+")");
-        else
-           holder.itemBookingType.setText("Мойщик не указан ("+Constants.boxTypeMap.get(item.getBookingType().getValue())+")");
+        holder.itemBookingType.setVisibility(View.GONE);
+//        if(!TextUtils.isEmpty(item.getWasherPerson()))
+//           holder.itemBookingType.setText(item.getWasherPerson());//+" \n("+Constants.boxTypeMap.get(item.getBookingType().getValue())+")");
+//        else
+//           holder.itemBookingType.setText("Мойщик не указан");// \n("+Constants.boxTypeMap.get(item.getBookingType().getValue())+")");
 
 //        holder.itemBookingType.setText(Constants.boxTypeMap.get(item.getBookingType().getValue()));
 
 		ViewGroup.LayoutParams layoutParams = holder.gridItem.getLayoutParams();
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 45)))/4;
-		layoutParams.width = width; //this is in pixels
+        boolean tabletSize = context.getResources().getBoolean(R.bool.isTablet);
+        boolean tabletBigSize = context.getResources().getBoolean(R.bool.isBigTablet);
+        int width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/4;
+        if(tabletSize && !tabletBigSize)
+            width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/6;
+        if(tabletSize && tabletBigSize)
+            width = ((display.getWidth()-(int)Functions.dipToPixels(context, 40)))/8;
+
+        layoutParams.width = width; //this is in pixels
 		layoutParams.height = width*2/3; //this is in pixels
 		holder.gridItem.setLayoutParams(layoutParams);
 

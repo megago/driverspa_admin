@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomLayout"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar_admin_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--android:background="#55000000"-->
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+        <com.driverspa.view.NDSpinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:drawSelectorOnTop="true"
+            android:popupBackground="@color/background_main"
+            android:spinnerMode="dropdown"
+            android:textColor="@drawable/button_state_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/dateIntervalLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="От"
+                    android:textColor="@color/AntiqueWhite"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="20/10/2009"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="До"
+                    android:textColor="@color/AntiqueWhite"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:text="20/10/2009"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:background="@color/BlueTransparent"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:orientation="horizontal">
+
+            <FrameLayout android:id="@+id/cash"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:src="@drawable/background_menu_timer_button2"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="@dimen/text_normal"
+                        android:text="Касса"
+                        android:textColor="@drawable/button_bar_state_color"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:src="@drawable/background_menu_timer_button2"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="@dimen/text_normal"
+                        android:text="Деньги"
+                        android:textColor="@drawable/button_bar_state_color"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+
+            <FrameLayout android:id="@+id/incomeExpense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:src="@drawable/background_menu_timer_button2"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="@dimen/text_normal"
+                        android:text="Прочие доходы/расходы"
+                        android:textColor="@drawable/button_bar_state_color"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

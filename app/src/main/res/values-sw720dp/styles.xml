@@ -3,51 +3,52 @@
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
     -->
-
-    <style name="AppTheme.Base" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowActionBarOverlay">true</item>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/background</item>
-
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
         <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/statusbarColor</item>
     </style>
 
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar"/>
+    <style name="AppTheme" parent="AppTheme.Base"/>
     <!-- Application theme. -->
-    <style name="DrawerArrowStyle" parent="android:Theme.Material.Light.NoActionBar">
-        <!--        <item name="spinBars">true</item>-->
-        <!--        <item name="color">@android:color/white</item>-->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
-
-    <!--    <item name="popupTheme"></item>-->
-    <!--    <item name="theme">@style/WashmeHomeActionBar</item>-->
 
     <style name="ToolBarStyle" parent="">
-    </style>
-    <style name="AppTheme.WhiteAccent">
-        <!--        <item name="colorAccent">@color/White</item> &lt;!&ndash; Whatever color you want&ndash;&gt;-->
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/WashmeHomeActionBar</item>
     </style>
 
-    <style name="WashmeHomeActionBar" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="MyPopupMenu"
+        parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@color/background_main</item>
+    </style>
+
+    <style name="WashmeHomeActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <!--    <item name="colorPrimary">@color/BlueLight2</item>-->
-    <!--    <item name="colorPrimaryDark">@color/BlueLight2</item>-->
-    <!--    <item name="colorAccent">@color/BlueLight2</item>-->
-    <!--    <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
+    <style name="AppTheme.WhiteAccent">
+        <item name="colorAccent">@color/White</item> <!-- Whatever color you want-->
+    </style>
 
-    <style name="WashmeAppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="WashmeAppTheme" parent="AppTheme.Base">
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:itemBackground">@color/background_main</item>
+        <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:textColorPrimary">@color/BlueLight2</item>
+        <item name="colorPrimary">@color/BlueLight</item>
+        <item name="colorPrimaryDark">@color/BlueLight</item>
+        <item name="colorAccent">@color/BlueLight</item>
+        <item name="android:textColorPrimary">@color/BlueLight</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textViewStyle">@style/WashmeTextViewStyle</item>
         <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
         <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
@@ -63,20 +64,18 @@
     <!--<item name="android:overlapAnchor">false</item>-->
     <!--</style>-->
 
-    <style name="OverflowMenu" parent="android:Widget.PopupMenu">
-        <!--        <item name="overlapAnchor">false</item>-->
+    <style name="OverflowMenu" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="overlapAnchor">false</item>
         <item name="android:dropDownVerticalOffset">-36dip</item>
     </style>
-
     <style name="mySpinnerStyle" parent="android:Widget.ListView.DropDown">
-        <item name="android:divider">@color/DarkGray</item>
+        <item name="android:divider">@color/BlueLight</item>
         <item name="android:dividerHeight">1dp</item>
-
     </style>
 
-    <!--    <style name="CustomTextInputLayoutStyle.ErrorTextStyle" parent="TextAppearance.Design.Error">-->
-    <!--        <item name="android:textSize">6sp</item>-->
-    <!--    </style>-->
+    <style name="CustomTextInputLayoutStyle.ErrorTextStyle" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">6sp</item>
+    </style>
 
     <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/White</item>
@@ -88,6 +87,11 @@
         <item name="android:paddingLeft">5dp</item>
     </style>
 
+    <style name="EditText2">
+        <item name="android:paddingLeft">5dp</item>
+    </style>
+
+
     <style name="EditText.White" parent="EditText">
         <item name="android:background">@color/White</item>
     </style>
@@ -98,14 +102,6 @@
 
     <style name="EditText.Transparent" parent="EditText">
         <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="TextLabel" parent="android:TextAppearance">
-        <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/BlueLight</item>
-        <!--        <item name="colorAccent">@color/BlueLight</item>-->
-        <!--        <item name="colorControlNormal">@color/BlueLight</item>-->
-        <!--        <item name="colorControlActivated">@color/BlueLight</item>-->
     </style>
 
     <style name="EditText.Transparent.WhiteBorder" parent="EditText">
@@ -121,6 +117,9 @@
         <item name="android:backgroundDimEnabled">false</item> <!-- отключаем затемнение -->
     </style>
 
+    <style name="DialogWithNoActionBar" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/White</item>
+    </style>
 
     <style name="SeekBarAppTheme" parent="android:Widget.SeekBar">
         <item name="android:progressDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
@@ -150,5 +149,7 @@
         <item name="android:maxHeight">25dip</item>
     </style>
 
-
+    <style name="EditText.RoundedTransparent" parent="EditText">
+        <item name="android:background">@drawable/background_input_transparent</item>
+    </style>
 </resources>

@@ -1,13 +1,12 @@
 package com.driverspa.adapter;
 
 import android.content.Context;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class WasherAdminReviewAdapter extends  RecyclerViewAdapter<WasherAdminRe
 
 	private List<Review> mData;
 	private Context context;
-
+	OnItemClickListener mItemClickListener;
 
 	public WasherAdminReviewAdapter(Context context, List<Review> data) {
 		super(context);
@@ -50,6 +49,8 @@ public class WasherAdminReviewAdapter extends  RecyclerViewAdapter<WasherAdminRe
 
 		Review item = mData.get(position);
 		holder.washerReviewText.setText(item.getText());
+		holder.authorName.setText(item.getAuthor());
+
 		if(item.getMark() > 0 && item.getMark() < 2){
 			holder.star1.setSelected(true);
 		}
@@ -105,10 +106,12 @@ public class WasherAdminReviewAdapter extends  RecyclerViewAdapter<WasherAdminRe
 		notifyDataSetChanged();
 	}
 
-	public class WasherReviewViewHolder extends RecyclerView.ViewHolder {
+	public class WasherReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 		@BindView(R.id.txtReview)
 		TextView washerReviewText;
+		@BindView(R.id.authorName)
+		TextView authorName;
 		@BindView(R.id.star1)
 		ImageView star1;
 		@BindView(R.id.star2)
@@ -120,9 +123,26 @@ public class WasherAdminReviewAdapter extends  RecyclerViewAdapter<WasherAdminRe
 		@BindView(R.id.star5)
 		ImageView star5;
 
+		@BindView(R.id.parentView)
+		View parentView;
+
+
 		public WasherReviewViewHolder(View view) {
 			super(view);
 			ButterKnife.bind(this, view);
+			parentView.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View view) {
+			if (mItemClickListener != null) {
+				mItemClickListener.onItemClick(view, getPosition());
+			}
 		}
 	}
+
+	public void setOnItemClickListener(final OnItemClickListener listener) {
+		this.mItemClickListener = listener;
+	}
+
 }

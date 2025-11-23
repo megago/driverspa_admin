@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="@dimen/horizontal_margin"
-    android:insetRight="@dimen/horizontal_margin">
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
 
-    <shape>
-        <size
-            android:width="0.5dp"
-            android:height="0.5dp" />
+    <size
+        android:width="0.5dp"
+        android:height="0.5dp" />
 
-        <solid android:color="@color/list_divider" />
-        <corners android:radius="2.0dip" />
-    </shape>
+    <solid android:color="@android:color/transparent" />
 
-</inset>
+</shape>

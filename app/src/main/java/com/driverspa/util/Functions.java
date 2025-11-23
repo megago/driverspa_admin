@@ -21,8 +21,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -30,6 +33,9 @@ import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.Reference;
 import com.driverspa.model.BookInfo;
+import com.driverspa.model.Box;
+import com.driverspa.model.Staff;
+import com.driverspa.model.User;
 import com.driverspa.model.Washer;
 
 public class Functions {
@@ -39,54 +45,15 @@ public class Functions {
 	public static final String TIME = "TIME";
 
 	static public void savePreferences(Context context, String key, String value) {
-		SharedPreferences mySharedPreferences = context.getSharedPreferences(
-				PREF, Activity.MODE_PRIVATE);
+		SharedPreferences mySharedPreferences = context.getSharedPreferences(PREF, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = mySharedPreferences.edit();
 		editor.putString(key, value);
 		editor.commit();
 	}
 
 	static public String loadPreferences(Context context, String key) {
-		SharedPreferences mySharedPreferences = context.getSharedPreferences(
-				PREF, Activity.MODE_PRIVATE);
+		SharedPreferences mySharedPreferences = context.getSharedPreferences(PREF, Activity.MODE_PRIVATE);
 		return mySharedPreferences.getString(key, null);
-	}
-
-	public static String formatPriceDetail(List<BookInfo.PriceDetail> priceDetails, Double price){
-		DecimalFormat decimalFormatter = new DecimalFormat("#,###.##");
-		String result = "";
-		if(priceDetails != null ){
-			for(int i = 0; i < priceDetails.size(); i++){
-				BookInfo.PriceDetail p = priceDetails.get(i);
-				if(i==0) result += "(";
-				switch(p.getPaymentType()){
-					case "C":
-						result += "налич. ";
-						break;
-					case "DA":
-						result += "переч. ";
-						break;
-					case "T":
-						result += "переч. ";
-						break;
-					case "B":
-						result += "бон. ";
-						break;
-					case "CD":
-						result += "карт. ";
-						break;
-				}
-				result += decimalFormatter.format(p.getAmount())+" ₸"+", ";
-				if(i == priceDetails.size()-1) {
-					result = result.substring(0,result.length()-2);
-					result += ")";
-				}
-			}
-		}
-		else{
-			result = "(налич.: "+ decimalFormatter.format(price)+")";
-		}
-		return result;
 	}
 
 	public static String Split(String str, String delim, int valindx) {
@@ -105,6 +72,108 @@ public class Functions {
 		}
 		return "";
 	}
+
+	public static String shortenName(String name){
+		if(!TextUtils.isEmpty(name)){
+			if(name.length() >=20 ){
+				return name.substring(0,20);
+			}
+		}
+		return name;
+	}
+
+	public static String getUserRole(Washer washer,String userId){
+		String result = "";
+		 if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			 for(Staff staff : washer.getStaffs()) {
+				 if (staff.getUser() != null && staff.getUser().contains(userId)) {
+					 return staff.getRole();
+				 }
+			 }
+		 }
+		return result;
+	}
+
+	public static String getUserStatus(Washer washer,String userId){
+		String result = "";
+		 if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			 for(Staff staff : washer.getStaffs()) {
+				 if (staff.getUser().contains(userId)) {
+					 return staff.getStatus();
+				 }
+			 }
+		 }
+		return result;
+	}
+
+	public static boolean isUserHasAccess(Washer washer, User user,Context context){
+		if(user != null && !user.isOwner() && washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			for(Staff staff : washer.getStaffs()) {
+				if (staff.getUser().contains(user.getId()) && staff.getRole().equals("operator")) {
+					ToastUtil.display(context,"У вас нет прав доступа");
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+
+
+
+	public static boolean isUserHasAccess(Washer washer, User user){
+		if(user != null && !user.isOwner() && washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			for(Staff staff : washer.getStaffs()) {
+				if (staff.getUser().contains(user.getId()) && staff.getRole().equals("operator")) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static Staff getWasherStaff(Washer washer,String userId){
+		Staff result = null;
+		if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			for(Staff staff : washer.getStaffs()) {
+				if (staff.getUser().contains(userId)) {
+					return staff;
+				}
+			}
+		}
+		return result;
+	}
+
+	public static LinkedHashMap<Integer,Integer> getGroupedServices(List<Integer> services){
+		LinkedHashMap<Integer,Integer> groupServices = new LinkedHashMap<>();
+
+		if(services != null)
+		   for(Integer service : services){
+			  groupServices.put(service,groupServices.get(service)!=null?groupServices.get(service)+1:1);
+		   }
+
+		return groupServices;
+	}
+
+	public static String getStaffName(List<Staff> staffs, String staffId){
+		if(staffs != null)
+			for(Staff staff : staffs){
+				if(staffId.equals(staff.getUid()))
+					return staff.getFirstName()+" "+(!TextUtils.isEmpty(staff.getLastName().trim())?staff.getLastName():"");
+			}
+		return "";
+	}
+
+
+	public static LinkedHashMap<String,Integer> getGroupedGroupServices(List<String> services){
+		LinkedHashMap<String,Integer> groupServices = new LinkedHashMap<>();
+		if(services != null)
+			for(String service : services){
+				groupServices.put(service,groupServices.get(service)!=null?groupServices.get(service)+1:1);
+			}
+		return groupServices;
+	}
+
 
 	public boolean isValidEmailAddress(String email) {
 		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
@@ -235,34 +304,6 @@ public class Functions {
       return returnMap;
 	}
 
-	public static HashMap<String,String> formatTZDate(Date date, String timeZone){
-		HashMap<String,String> returnMap = new HashMap<String,String>();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		String utcTimeStr = formatter.format(date.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date utcDate;
-		try {
-			utcDate = df.parse(utcTimeStr);
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-			dateFormatter.setTimeZone(TimeZone.getTimeZone(timeZone));
-			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-			timeFormatter.setTimeZone(TimeZone.getTimeZone(timeZone));
-
-			String dateStr = dateFormatter.format(utcDate);
-			String timeStr = timeFormatter.format(utcDate);
-
-			returnMap.put(DATE, dateStr);
-			returnMap.put(TIME, timeStr);
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return returnMap;
-	}
-
 	public static Date getUTCDate(Date date){
 		HashMap<String,String> returnMap = new HashMap<String,String>();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -271,40 +312,25 @@ public class Functions {
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Date utcDate = null;
 		try {
+
 			utcDate = df.parse(utcTimeStr);
+//			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+//			dateFormatter.setTimeZone(TimeZone.getDefault());
+//			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+//			timeFormatter.setTimeZone(TimeZone.getDefault());
+//
+//			String dateStr = dateFormatter.format(utcDate);
+//			String timeStr = timeFormatter.format(utcDate);
+//
+//			returnMap.put(DATE, dateStr);
+//			returnMap.put(TIME, timeStr);
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return utcDate;
-	}
-
-	public static Date getTZDate(Date date,String timeZone){
-		HashMap<String,String> returnMap = new HashMap<String,String>();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
-		String utcTimeStr = formatter.format(date.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date utcDate = null;
-		try {
-			utcDate = df.parse(utcTimeStr);
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-			dateFormatter.setTimeZone(TimeZone.getTimeZone(timeZone));
-			String dateTimeStr = dateFormatter.format(utcDate);
-			utcDate = dateFormatter.parse(dateTimeStr);
-		} catch (ParseException e) {
-
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return utcDate;
-	}
-
-
-	public static Date getDate(Date date){
-		return date;
 	}
 
 
@@ -346,7 +372,7 @@ public class Functions {
 	public static String getBoxName(Washer washer, String boxId){
 		String boxName = "";
 		if (washer != null && washer.getBoxSettings() != null) {
-			for (Washer.BoxSettings bs : washer.getBoxSettings()) {
+			for (Box bs : washer.getBoxSettings()) {
 				if (bs.getUid().equals(boxId)) {
 					boxName = bs.getBoxName();
 					break;
@@ -355,7 +381,6 @@ public class Functions {
 		}
 		return boxName;
 	}
-
 
 	public static String getRussianFineLabel(String digitStr, String [] labels) {
 		long n = 0;
@@ -373,9 +398,35 @@ public class Functions {
 		return labels[2];
 	}
 
+	public static String stripNonDigits(
+			final CharSequence input /* inspired by seh's comment */){
+		final StringBuilder sb = new StringBuilder(
+				input.length() /* also inspired by seh's comment */);
+		for(int i = 0; i < input.length(); i++){
+			final char c = input.charAt(i);
+			if(c > 47 && c < 58){
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+    public static ArrayList<Box> filterDisableddBoxes(ArrayList<Box> boxes){
+		if(boxes != null && boxes.size() > 0){
+			ArrayList<Box> filteredBoxes = new ArrayList<>();
+			for(Box b : boxes){
+				if(!b.isStatusDisabled())
+					filteredBoxes.add(b);
+			}
+			return filteredBoxes;
+		}
+		else
+			return boxes;
+	}
+
 	public static String formatPhoneNumber(String mask, String phoneNumber){
 		if(!TextUtils.isEmpty(phoneNumber) && phoneNumber.length() > 2 && phoneNumber.substring(0,1).equals("+"))
-			phoneNumber = phoneNumber.substring(2,phoneNumber.length());
+		    phoneNumber = phoneNumber.substring(2,phoneNumber.length());
 		String formatted = phoneNumber;
 		try {
 			MaskedFormatter formatter = new MaskedFormatter(mask);
@@ -407,6 +458,51 @@ public class Functions {
 		return formatted;
 	}
 
+	public static String formatPriceDetail(List<BookInfo.PriceDetail> priceDetails, Double price){
+		    DecimalFormat decimalFormatter = new DecimalFormat("#,###.##");
+		     String result = "";
+		     if(priceDetails != null ){
+				 for(int i = 0; i < priceDetails.size(); i++){
+					BookInfo.PriceDetail p = priceDetails.get(i);
+					if(i==0) result += "(";
+					switch(p.getPaymentType()){
+						case "C":
+							result += "налич. ";
+							break;
+						case "DA":
+							result += "переч. ";
+							break;
+						case "T":
+							result += "переч. ";
+							break;
+						case "B":
+							result += "бон. ";
+							break;
+						case "CD":
+							result += "карт. ";
+							break;
+					}
+					result += decimalFormatter.format(p.getAmount())+" ₸"+", ";
+					if(i == priceDetails.size()-1) {
+						result = result.substring(0,result.length()-2);
+						result += ")";
+					}
+				  }
+			 }
+		    else{
+				result = "(налич.: "+ decimalFormatter.format(price)+")";
+			}
+		return result;
+	}
+
+	public static String removeCharAt(String s, int pos) {
+
+		StringBuffer buffer = new StringBuffer(s.length() - 1);
+		buffer.append(s.substring(0, pos)).append(s.substring(pos + 1));
+		return buffer.toString();
+
+	}
+
 	public static Drawable getBookStatusBGColor(Context context, String status){
 		switch(status){
 			case Constants.APPROVED:
@@ -431,33 +527,54 @@ public class Functions {
 				return context.getResources().getDrawable(R.drawable.background_tag_item_blue_light);
 		}
 
-		return context.getResources().getDrawable(R.drawable.background_tag_item_orange);
+		return context.getResources().getDrawable(R.drawable.background_tag_item_white);
 	}
 
 	public static Integer getBookStatusTextColor(Context context, String status){
 		switch(status){
 			case Constants.APPROVED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.Green);
 			case Constants.QUEUED_APPROVED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.Green);
 			case Constants.QUEUED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.OrangeRed);
 			case Constants.REJECTED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.DarkRed);
 			case Constants.NOCOME:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.DarkRed);
 			case Constants.QUEUED_REJECTED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.DarkRed);
 			case Constants.CANCELED:
-				return context.getResources().getColor(R.color.White);
+				return context.getResources().getColor(R.color.DarkRed);
 			case Constants.PENDING:
-				return context.getResources().getColor(R.color.Black);
+				return context.getResources().getColor(R.color.OrangeRed);
 			case Constants.FINISHED:
-				return context.getResources().getColor(R.color.Gray);
+				return context.getResources().getColor(R.color.DarkBlue);
 			case Constants.QUEUED_FINISHED:
-				return context.getResources().getColor(R.color.Gray);
+				return context.getResources().getColor(R.color.DarkBlue);
 		}
 
 		return context.getResources().getColor(R.color.BlueLight);
+	}
+
+
+	public static Date getEndOfDay(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 999);
+		return calendar.getTime();
+	}
+
+	public static Date getStartOfDay(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
 	}
 }

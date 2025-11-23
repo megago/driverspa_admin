@@ -88,4 +88,78 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/versionUpdateWarning"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C6000000"
+        android:visibility="gone"
+        android:clickable="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/home_menu_sub_height"
+            android:background="@drawable/background" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/warningText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/horizontal_margin_double"
+                android:layout_marginRight="@dimen/horizontal_margin_double"
+                android:gravity="center"
+                android:text="К сожалению версия вашей программы устарела. Для стабильной работы необходимо обновить приложение."
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+
+            <TextView
+                android:id="@+id/update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:padding="@dimen/vertical_margin_half"
+                android:text="Обновить"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/button_state_color"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/vertical_margin_double"
+                android:layout_weight="1"
+                android:text="Служба поддержки:"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/vertical_margin_third"
+                android:layout_weight="1"
+                android:autoLink="phone"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="@dimen/horizontal_margin_third"
+                android:text="+7 778 373 6069"
+                android:textColor="@android:color/white"
+                android:textColorLink="@color/GreenYellow"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+    </FrameLayout>
+
 </FrameLayout>

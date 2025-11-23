@@ -4,47 +4,6 @@ package com.driverspa.fcm;
  * Created by Yerzhan Tanatov on 08.01.2025.
  */
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
-
-import androidx.core.app.NotificationCompat;
-
-import com.driverspa.client.activity.ClientHomeActivity;
-import com.driverspa.model.NotificationId;
-import com.driverspa.model.PushData;
-import com.driverspa.util.UserPreferences;
-import static com.driverspa.util.Constants.EXTRA_BOOKING_ID;
-import static com.driverspa.util.Constants.EXTRA_WASHER_ID;
-import static com.driverspa.util.Constants.PUSH_DATA;
-import static com.driverspa.util.Constants.PUSH_TYPE;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.driverspa.BA;
-import com.driverspa.R;
-import com.driverspa.assist.UserSelfAssist;
-import com.driverspa.client.activity.ClientHomeActivity;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
-import com.driverspa.model.FareRequest;
-import com.driverspa.model.NotificationId;
-import com.driverspa.model.NotificationType;
-import com.driverspa.model.PushData;
-import com.driverspa.model.User;
-import com.driverspa.util.Constants;
-import com.driverspa.util.Singleton;
-import com.driverspa.util.UserPreferences;
-import com.driverspa.util.otto.NewBookingPushRequestEvent;
-import com.driverspa.util.otto.NewFareRequestBidEvent;
-import com.driverspa.util.otto.ws.AuthClientLogoutRequestEvent;
-import com.driverspa.util.otto.ws.UserGetSelfRequestEvent;
-import com.driverspa.util.otto.ws.UserGetSelfResponseEvent;
 
 //public class MyFirebaseMessagingService extends FirebaseMessagingService {
 public class MyFirebaseMessagingService {

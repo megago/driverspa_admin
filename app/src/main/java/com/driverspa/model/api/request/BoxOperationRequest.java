@@ -25,7 +25,7 @@ public class BoxOperationRequest {
 	public String getBookingType(){
 		return bookingType;
 	}
-	
+
 	public void setBookingType(String bookingType){
 		this.bookingType = bookingType;
 	}

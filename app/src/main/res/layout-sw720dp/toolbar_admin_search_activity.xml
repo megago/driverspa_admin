@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar style="@style/ToolBarStyle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_scrollFlags="scroll|enterAlways|snap"
+    android:background="@android:color/transparent"
+    android:minHeight="@dimen/abc_action_bar_default_height_material"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/search"
+        style="@style/EditText.Transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/text_small"
+        android:hint="Фильтр (например 707 или 701)"
+        android:textColorHint="@color/BlueLight"
+        android:transitionName="title_transition"
+        android:textColor="@drawable/button_state_color"/>
+
+    </android.support.v7.widget.Toolbar>

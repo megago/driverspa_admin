@@ -17,7 +17,39 @@
         android:paddingLeft="2dp"
         android:text="Moika kovrov"
         android:gravity="center"
-        android:textColor="@color/Black"
+        android:textColor="@color/White"
         android:textSize="@dimen/text_smaller" />
+
+    <FrameLayout
+        android:id="@+id/service_count"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/horizontal_margin_third"
+        android:layout_marginLeft="@dimen/horizontal_margin_third"
+        android:background="@drawable/service_counter">
+
+        <TextView
+            android:id="@+id/service_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_smaller"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/unselect_service"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right|top"
+        android:paddingRight="@dimen/horizontal_margin_third"
+        android:paddingTop="@dimen/horizontal_margin_third"
+        android:paddingBottom="@dimen/horizontal_margin_half"
+        android:paddingLeft="@dimen/horizontal_margin_half"
+        android:src="@drawable/ic_exit" />
 
 </FrameLayout>

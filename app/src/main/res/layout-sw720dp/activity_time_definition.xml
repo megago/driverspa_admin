@@ -73,17 +73,17 @@
                   android:id="@+id/allweek"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="с 00 до 24"/>
+                  android:text="круглосуточно(с 00 до 23:59)"/>
               <RadioButton
                   android:id="@+id/daytime"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="с 09 до 21"/>
+                  android:text="с 08 до 21"/>
               <RadioButton
                   android:id="@+id/daytime2"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="с 09 до 23"/>
+                  android:text="с 08 до 24"/>
               <RadioButton
                   android:id="@+id/other"
                   android:layout_width="wrap_content"

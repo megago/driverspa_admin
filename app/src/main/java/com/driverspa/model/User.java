@@ -1,5 +1,7 @@
 package com.driverspa.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
@@ -74,10 +76,12 @@ public class User{
 	@SerializedName("mobile")
     private String phone;
 
-    private String city;
+    @DatabaseField
+    @SerializedName("default_carwash_id")
+    private String defaultCarwashId;
 
-    @SerializedName("lonlat")
-    private ArrayList<Double> lonLat;
+    @DatabaseField
+    private String city;
 
     List<CarItem> cars;
 
@@ -247,12 +251,24 @@ public class User{
         this.phone = phone;
     }
 
-    public ArrayList<Double> getLonLat() {
-        return lonLat;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLonLat(ArrayList<Double> lonLat) {
-        this.lonLat = lonLat;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getDefaultCarwashId() {
+        return defaultCarwashId;
+    }
+
+    public void setDefaultCarwashId(String defaultCarwashId) {
+        this.defaultCarwashId = defaultCarwashId;
+    }
+
+    public boolean isOwner(){
+        return TextUtils.isEmpty(this.defaultCarwashId);
     }
 
     // GSON

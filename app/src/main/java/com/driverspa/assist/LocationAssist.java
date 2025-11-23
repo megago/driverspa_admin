@@ -1,5 +1,6 @@
 package com.driverspa.assist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -69,7 +70,8 @@ public class LocationAssist extends BaseAssist {
 		BA.getEventBus().post(new LocationResponseEvent(location));
 	}
 
-	@Subscribe
+	@SuppressLint("MissingPermission")
+    @Subscribe
 	public void onLocationRequested(LocationRequestEvent event) {
 		// Register the listener with the Location Manager to receive location updates
 		try{

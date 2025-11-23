@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_custom_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:text="Добавление акции"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/vertical_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:gravity="center"
+                android:paddingBottom="@dimen/vertical_margin_third"
+                android:paddingTop="@dimen/vertical_margin_third"
+                android:text="Краткое описание акции (100 символов)"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+                <EditText
+                    android:id="@+id/description"
+                    style="@style/EditText.Transparent.WhiteBorder"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:maxLength="100"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:gravity="top|left"
+                    android:text=""
+                    android:lines="3"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_small" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:visibility="gone"
+                android:background="@color/BlueTransparent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:gravity="center"
+                android:paddingBottom="@dimen/vertical_margin_third"
+                android:paddingTop="@dimen/vertical_margin_third"
+                android:text="Дата окончания акции(включительно)"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+
+            <TextView
+                    android:id="@+id/endDate"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:hint="01.01.2016"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_small" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="@dimen/horizontal_margin_half"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Скидка:"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small" />
+
+                <EditText
+                    android:id="@+id/discount"
+                    style="@style/EditText.Transparent.WhiteBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/horizontal_margin_third"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small"></EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="@dimen/horizontal_margin_third"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/vertical_margin_half"
+                    android:paddingTop="@dimen/vertical_margin_half"
+                    android:text="%"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:gravity="center"
+                android:paddingBottom="@dimen/vertical_margin_third"
+                android:paddingTop="@dimen/vertical_margin_third"
+                android:text="Распространяется:"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <LinearLayout
+                android:id="@+id/both"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:background="@drawable/background_list_item_buttons"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/vertical_margin_half"
+                android:paddingTop="@dimen/vertical_margin_half">
+
+                <TextView
+                    android:id="@+id/txtBoth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:paddingLeft="@dimen/horizontal_margin_half"
+                    android:text="На все виды заказов"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/bothImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/background_list_item_checkmark" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/offline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@drawable/background_list_item_buttons"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/vertical_margin_half"
+                    android:paddingTop="@dimen/vertical_margin_half">
+
+                    <TextView
+                        android:id="@+id/txtOffline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:text="Живая очередь"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+
+                    <ImageView
+                        android:id="@+id/offlineImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/background_list_item_checkmark" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@color/BlueTransparent"></FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/online"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@drawable/background_list_item_buttons"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/vertical_margin_half"
+                    android:paddingTop="@dimen/vertical_margin_half">
+
+                    <TextView
+                        android:id="@+id/txtOnline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:text="Онлайн бронирование"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+
+                    <ImageView
+                        android:id="@+id/onlineImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/background_list_item_checkmark" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:background="@color/BlueTransparent"></FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

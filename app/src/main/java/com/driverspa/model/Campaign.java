@@ -3,10 +3,14 @@ package com.driverspa.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Campaign {
+	@SerializedName("uid")
+	String id;
 
 	@SerializedName("end_time")
-	Long endTime;
+	Date endTime;
 
 	@SerializedName("campaign_type")
 	CampaignType campaignType;
@@ -14,7 +18,7 @@ public class Campaign {
 	@SerializedName("description")
 	String description;
 	@SerializedName("ts")
-	Long ts;
+	Date ts;
 
 	@SerializedName("campaign_discount")
 	Integer campaignDiscount;
@@ -28,6 +32,14 @@ public class Campaign {
 		this.campaignType = campaignType;
 	}
 
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -36,6 +48,9 @@ public class Campaign {
 		this.description = description;
 	}
 
+	public Date getTs() {
+		return ts;
+	}
 
 	public Integer getCampaignDiscount() {
 		return campaignDiscount;
@@ -45,20 +60,16 @@ public class Campaign {
 		this.campaignDiscount = campaignDiscount;
 	}
 
-	public Long getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Long endTime) {
-		this.endTime = endTime;
-	}
-
-	public Long getTs() {
-		return ts;
-	}
-
-	public void setTs(Long ts) {
+	public void setTs(Date ts) {
 		this.ts = ts;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	// GSON

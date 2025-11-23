@@ -5,15 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import com.driverspa.R;
-import com.driverspa.model.ServiceMenuModel;
 import com.driverspa.model.Statistic;
-import com.driverspa.model.Washer.Prices;
-import com.driverspa.util.Constants;
 
 public class StatisticsExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -89,14 +87,15 @@ public class StatisticsExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_statistics_group, null);
         }
 
+        ExpandableListView eLV = (ExpandableListView) parent;
+        eLV.expandGroup(groupPosition);
+
 //        if(groupPosition == 0) {
-//            ExpandableListView eLV = (ExpandableListView) parent;
-//            eLV.expandGroup(groupPosition);
 //        }
 //
         TextView parentTextTitle = (TextView) convertView.findViewById(R.id.item_title);
         parentTextTitle.setText(statistics.get(groupPosition).getTitle());
-         
+        parentTextTitle.setVisibility(View.GONE);
         return convertView;
     }
  

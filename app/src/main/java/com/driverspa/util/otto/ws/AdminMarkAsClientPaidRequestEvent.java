@@ -1,0 +1,20 @@
+package com.driverspa.util.otto.ws;
+
+import com.driverspa.model.api.request.BookingRequest;
+
+public class AdminMarkAsClientPaidRequestEvent {
+
+     private BookingRequest bookingRequest;
+
+     public AdminMarkAsClientPaidRequestEvent(BookingRequest bookingRequest){
+    	 this.bookingRequest = bookingRequest; 
+     }
+	 public BookingRequest getBookingRequest() {
+		return bookingRequest;
+	}
+
+	public void setBookingRequest(BookingRequest bookingRequest) {
+		this.bookingRequest = bookingRequest;
+	}
+
+}

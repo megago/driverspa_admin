@@ -33,8 +33,8 @@ public class HttpClient {
 		}
 		
 		httpClient = new OkHttpClient();				
-		httpClient.setConnectTimeout(10, TimeUnit.SECONDS); // connect timeout
-		httpClient.setReadTimeout(10, TimeUnit.SECONDS);    // socket timeout
+		httpClient.setConnectTimeout(25, TimeUnit.SECONDS); // connect timeout
+		httpClient.setReadTimeout(25, TimeUnit.SECONDS);    // socket timeout
 		httpClient.setResponseCache(responseCache);
 		
 		picasso = new Picasso.Builder(context).downloader(new OkHttpDownloader(httpClient)).build();

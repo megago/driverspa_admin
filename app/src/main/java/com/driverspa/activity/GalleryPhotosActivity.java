@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
@@ -22,7 +23,6 @@ import java.util.Iterator;
 
 import com.driverspa.BA;
 import com.driverspa.R;
-import com.driverspa.assist.BaseAssist;
 import com.driverspa.fragment.GalleryFragment;
 import com.driverspa.model.PhotoParcelable;
 import com.driverspa.util.ActivityForResult;

@@ -27,13 +27,48 @@ public class AdminSearchFilter implements Cloneable {
 	private String maxPrice;
 	private String city;
 	private String date;
-
+	private String carNo;
+	private String companyClient;
 	private String carwash;
 	private String clientType;
 	private String bookId;
 	private String clientKey;
+	private String username;
+	private String orderBy;
+	private String startDate;
+	private String endDate;
+
+	private String startDatePure;
+	private String endDatePure;
+
+	private String operationType;
+	private String id;
 
 	public AdminSearchFilter() {
+	}
+
+	public String getCompanyClient() {
+		return companyClient;
+	}
+
+	public void setCompanyClient(String companyClient) {
+		this.companyClient = companyClient;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
 	}
 
 	public String getMaxPrice() {
@@ -117,10 +152,10 @@ public class AdminSearchFilter implements Cloneable {
 	}
 
 	private String limit;
-
+	
 	@SerializedName("lonlat__max_distance")
 	private String maxDistance;
-
+	
 	public String getLimit() {
 		return limit;
 	}
@@ -160,6 +195,14 @@ public class AdminSearchFilter implements Cloneable {
 		this.searchText = searchText;
 	}
 
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getCity() {
 		return city;
@@ -201,6 +244,59 @@ public class AdminSearchFilter implements Cloneable {
 		this.carwash = carwash;
 	}
 
+
+	public static int getDefaultOffset() {
+		return DEFAULT_OFFSET;
+	}
+
+	public String getCarNo() {
+		return carNo;
+	}
+
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getStartDatePure() {
+		return startDatePure;
+	}
+
+	public void setStartDatePure(String startDatePure) {
+		this.startDatePure = startDatePure;
+	}
+
+	public String getEndDatePure() {
+		return endDatePure;
+	}
+
+	public void setEndDatePure(String endDatePure) {
+		this.endDatePure = endDatePure;
+	}
+
+	public String getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(String operationType) {
+		this.operationType = operationType;
+	}
+
 	/**
 	 * This map will be used to query search from server
 	 * @return map - data to query
@@ -211,11 +307,28 @@ public class AdminSearchFilter implements Cloneable {
 		if( offset != null )
 			result.put("offset", offset);
 
-		if( searchText != null )
-			result.put("name__icontains", searchText);
+//		if( searchText != null )
+//			result.put("name__icontains", searchText);
+		if(!TextUtils.isEmpty(carNo))
+			result.put("car_no", carNo);
+
+		if(!TextUtils.isEmpty(operationType) && !operationType.contains(","))
+			result.put("operation_type", operationType);
+		else if(!TextUtils.isEmpty(operationType) && operationType.contains(",")){
+			result.put("operation_type__in", operationType);
+		}
+
+		if(!TextUtils.isEmpty(companyClient))
+			result.put("company_client", companyClient);
 
 		if( maxDistance != null )
 			result.put("lonlat__max_distance", maxDistance);
+
+		if( startDate != null )
+			result.put("tran_date__gte", startDate);
+
+		if( endDate != null )
+			result.put("tran_date__lte", endDate);
 
 		if( limit != null )
 			result.put("limit", limit);
@@ -223,12 +336,18 @@ public class AdminSearchFilter implements Cloneable {
 		if( status != null )
 			result.put("status", status);
 
+		if( startDatePure != null )
+			result.put("start_date", startDatePure);
+
+		if( endDatePure != null )
+			result.put("end_date", endDatePure);
+
 		if( maxPrice != null )
 			result.put("max_price", maxPrice);
 
 		if( day != null )
 			result.put("day", day);
-
+		
 		if( washerId != null )
 			result.put("carwash", washerId);
 
@@ -274,8 +393,19 @@ public class AdminSearchFilter implements Cloneable {
 			result.put("type", clientType);
 		}
 
+		if(!TextUtils.isEmpty(searchText)){
+			result.put("search", searchText);
+		}
+
 		if(!TextUtils.isEmpty(clientKey)){
 			result.put("client_key", clientKey);
+		}
+		if(!TextUtils.isEmpty(username)){
+			result.put("username", username);
+		}
+
+		if(!TextUtils.isEmpty(orderBy)){
+			result.put("order_by", orderBy);
 		}
 
 		return result;
@@ -315,4 +445,7 @@ public class AdminSearchFilter implements Cloneable {
 		}
 		return null;
 	}
+
+
+
 }

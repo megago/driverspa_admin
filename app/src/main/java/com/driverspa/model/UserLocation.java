@@ -1,6 +1,7 @@
 package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**

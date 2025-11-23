@@ -15,16 +15,19 @@ import java.util.List;
 import com.driverspa.BA;
 import com.driverspa.db.WashmeOrmLiteSqlHelper;
 import com.driverspa.model.BookInfo;
+import com.driverspa.model.BooksDataHolder;
 import com.driverspa.model.CarItem;
 import com.driverspa.model.Image;
 import com.driverspa.model.PhotoOrm;
 import com.driverspa.model.PhotoParcelable;
 import com.driverspa.model.User;
 import com.driverspa.model.api.response.BaseResponseHolder;
-import com.driverspa.util.L;
+import com.driverspa.model.api.response.QueuedBooksResponseHolder;
 import com.driverspa.util.LogUtil;
 import com.driverspa.util.RetrofitClient.WashmeApi;
 import com.driverspa.util.ToastUtil;
+import com.driverspa.util.UserPreferences;
+import com.driverspa.util.otto.ws.AdminStatisticsResponseEvent;
 import com.driverspa.util.otto.ws.ApiErrorEvent;
 import retrofit.RetrofitError;
 
@@ -112,16 +115,24 @@ public abstract class BaseAssist {
 			photos.add(PhotoParcelable.newPhoto(photoOrm));
 		}
 		// insert if already data exists
-		try {
-			userDao.createOrUpdate(user);
-			insertCars(user.getCars());
-			insertPhotos(photos);
-		}
-		catch(Exception e){
-			displayToast("Ошибка при входе");
-			e.printStackTrace();
+		userDao.createOrUpdate(user);
+		insertCars(user.getCars());
+		insertPhotos(photos);
+		dbHelper.close();
+	}
+
+	protected void writeBooks(List<BookInfo> books, QueuedBooksResponseHolder data) {
+		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		RuntimeExceptionDao<BookInfo, String> bookingDao = dbHelper.getBookingRuntimeDao();
+		WashmeOrmLiteSqlHelper db = new WashmeOrmLiteSqlHelper(BA.getContext());
+		db.deleteAllBooksData();
+		BooksDataHolder holder = new BooksDataHolder(books);
+		UserPreferences.putBooksData(BA.getContext(),holder.serialize());
+		for(BookInfo book : books){
+			bookingDao.createOrUpdate(book);
 		}
 		dbHelper.close();
+		BA.getEventBus().post(new AdminStatisticsResponseEvent(data));
 	}
 
 	protected void writeBooks(List<BookInfo> books) {
@@ -129,7 +140,8 @@ public abstract class BaseAssist {
 		RuntimeExceptionDao<BookInfo, String> bookingDao = dbHelper.getBookingRuntimeDao();
 		WashmeOrmLiteSqlHelper db = new WashmeOrmLiteSqlHelper(BA.getContext());
 		db.deleteAllBooksData();
-
+		BooksDataHolder holder = new BooksDataHolder(books);
+		UserPreferences.putBooksData(BA.getContext(),holder.serialize());
 		for(BookInfo book : books){
 			bookingDao.createOrUpdate(book);
 		}
@@ -169,8 +181,8 @@ public abstract class BaseAssist {
 	 */
 	protected static void insertPhotos(final ArrayList<PhotoParcelable> photos) {
 		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
-		dbHelper.removePhotos();
 		final RuntimeExceptionDao<PhotoOrm, String> photoOrmDao = dbHelper.getUserPhotoRuntimeExceptionDao();
+		dbHelper.removePhotos();
 		for( PhotoParcelable photoParcelable : photos ) {
 			PhotoOrm photoOrm = (PhotoOrm)photoParcelable;
 			photoOrmDao.createOrUpdate(photoOrm);

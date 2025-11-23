@@ -1,5 +1,5 @@
 #
-# generated on 2018/07/04 12:04:20
+# generated on 2017/04/24 07:59:09
 #
 # --table-start--
 dataClass=com.driverspa.model.User
@@ -48,6 +48,12 @@ fieldName=resourceUri
 # --field-start--
 fieldName=phone
 # --field-end--
+# --field-start--
+fieldName=defaultCarwashId
+# --field-end--
+# --field-start--
+fieldName=city
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -88,6 +94,99 @@ id=true
 # --field-end--
 # --field-start--
 fieldName=carModel
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.driverspa.model.BookInfo
+tableName=bookinfo
+# --table-fields-start--
+# --field-start--
+fieldName=clientKey
+# --field-end--
+# --field-start--
+fieldName=mobile
+# --field-end--
+# --field-start--
+fieldName=client
+# --field-end--
+# --field-start--
+fieldName=status
+# --field-end--
+# --field-start--
+fieldName=cartype
+# --field-end--
+# --field-start--
+fieldName=carwash
+# --field-end--
+# --field-start--
+fieldName=id
+id=true
+# --field-end--
+# --field-start--
+fieldName=time
+# --field-end--
+# --field-start--
+fieldName=ts
+# --field-end--
+# --field-start--
+fieldName=duration
+# --field-end--
+# --field-start--
+fieldName=price
+# --field-end--
+# --field-start--
+fieldName=endTime
+# --field-end--
+# --field-start--
+fieldName=serverTime
+# --field-end--
+# --field-start--
+fieldName=carwashName
+# --field-end--
+# --field-start--
+fieldName=boxId
+# --field-end--
+# --field-start--
+fieldName=resourceUri
+# --field-end--
+# --field-start--
+fieldName=finishTime
+# --field-end--
+# --field-start--
+fieldName=startTime
+# --field-end--
+# --field-start--
+fieldName=directWash
+# --field-end--
+# --field-start--
+fieldName=offline
+# --field-end--
+# --field-start--
+fieldName=queued
+# --field-end--
+# --field-start--
+fieldName=order
+# --field-end--
+# --field-start--
+fieldName=carMark
+# --field-end--
+# --field-start--
+fieldName=comment
+# --field-end--
+# --field-start--
+fieldName=discount
+# --field-end--
+# --field-start--
+fieldName=discountAmount
+columnName=discount_amount
+# --field-end--
+# --field-start--
+fieldName=paid
+# --field-end--
+# --field-start--
+fieldName=nocash
 # --field-end--
 # --table-fields-end--
 # --table-end--

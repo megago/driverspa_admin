@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight="@dimen/horizontal_margin"
-    android:paddingLeft="@dimen/horizontal_margin"
-    android:paddingBottom="@dimen/vertical_margin"
-    android:background="@drawable/background_list_item_white"
-    android:paddingTop="@dimen/vertical_margin">
-
-    <ImageView
-        android:id="@+id/arrowRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:src="@drawable/ic_info_map_arrow_right"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    android:id="@+id/parentView"
+    android:paddingBottom="@dimen/vertical_margin_half"
+    android:paddingTop="@dimen/vertical_margin_half" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/arrowRight"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
         android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_width="65dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:paddingTop="@dimen/vertical_margin_half"
             android:orientation="vertical">
 
             <TextView
@@ -38,206 +28,63 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="10:30"
-                android:textColor="@color/Black"
-                android:textSize="@dimen/text_smaller" />
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/txtBookTS"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:lines="2"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:text="01.01.2016"
-                android:textColor="@color/DarkGray"
-                android:textSize="@dimen/text_smaller" />
+                android:text="01.01.2016\n16:00"
+                android:textColor="@color/Light"
+                android:textSize="@dimen/text_small" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutQueue"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/header_queue_height"
-            android:paddingTop="@dimen/vertical_margin_half"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:paddingLeft="3dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_button_queue"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/order"
-                    android:layout_width="@dimen/queue_height"
-                    android:layout_height="@dimen/queue_height"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:minHeight="10dp"
-                    android:minWidth="10dp"
-                    android:visibility="gone"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="10dp"
-                    android:text="123"
-                    android:textColor="@drawable/button_state_color"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"
-                    android:transitionName="title_transition" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/queue_car_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/vertical_margin_third"
-                android:gravity="center"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:minHeight="10dp"
-                android:minWidth="10dp"
-                android:text="A001BBB"
-                android:textColor="@color/Black"
-                android:textSize="@dimen/text_smallest" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/horizontal_margin_half"
-            android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtWasherName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtCarwashName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center"
-                    android:gravity="left|center"
-                    android:text=""
-                    android:layout_weight="1"
-                    android:maxLines="3"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_small" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:paddingRight="@dimen/horizontal_margin_half">
-                    <ImageView
-                        android:id="@+id/imgAvailability"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top|right"
-                        android:src="@drawable/ic_flag_online_list"
-                        android:visibility="visible" />
-                </FrameLayout>
-            </LinearLayout>
-
+                android:layout_weight="1.5"
+                android:text="Мойка"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
             <TextView
                 android:id="@+id/txtBookKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="left|center"
-                android:gravity="bottom"
-                android:text=""
-                android:textColor="@color/Black"
-                android:textSize="@dimen/text_smaller" />
+                android:layout_weight="1.5"
+                android:text="Номер машины: x001xxx"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtBookStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background_tag_item_orange"
-                    android:gravity="bottom"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="Закончен"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <TextView
-                    android:id="@+id/txtBoxName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_half"
-                    android:gravity="center"
-                    android:text="Box 1"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <ImageView
-                    android:id="@+id/notPaid"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:src="@drawable/ic_dollar_paid"
-                    android:visibility="gone" />
-
-                <FrameLayout
-                    android:id="@+id/remainingTimeLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingRight="@dimen/horizontal_margin">
-                    <TextView
-                        android:id="@+id/remainingTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="@dimen/horizontal_margin"
-                        android:layout_marginRight="@dimen/horizontal_margin_half"
-                        android:text="00:00"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/text_small" />
-                </FrameLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/txtBookStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Закончен"
+                android:textColor="@color/Light"
+                android:textSize="@dimen/text_small" />
         </LinearLayout>
-
-        <!--<LinearLayout-->
-        <!--android:id="@+id/remainingTimeLayout"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_weight="0.2"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/remainingTime"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/vertical_margin_third"-->
-        <!--android:text="00:00"-->
-        <!--android:textColor="@color/White"-->
-        <!--android:textSize="@dimen/text_medium" />-->
-
-        <!--</LinearLayout>-->
-
     </LinearLayout>
 
-
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/horizontal_margin_third"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:src="@drawable/ic_arrow_right" />
 
 </RelativeLayout>

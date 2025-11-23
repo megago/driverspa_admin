@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobileNoWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin">
+
+                <EditText
+                    android:id="@+id/companyName"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Название мойки"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textColor="@color/AntiqueWhite"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin">
+
+                <EditText
+                    android:id="@+id/streetName"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Улица, Дом"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <ListView
+                android:id="@+id/autoCompleteList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/mapThis"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

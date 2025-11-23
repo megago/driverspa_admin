@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_list_item"
+    android:clickable="true"
+    android:paddingBottom="@dimen/vertical_margin_half"
+    android:paddingTop="@dimen/vertical_margin_half">
+
+    <FrameLayout
+        android:id="@+id/avatarLayout"
+        android:layout_width="@dimen/client_avatar_view_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true">
+
+        <com.driverspa.view.ImageViewSquared
+            android:id="@+id/imgClientAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtClientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_toRightOf="@id/avatarLayout"
+        android:text=""
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin_half"
+        android:layout_toRightOf="@id/txtClientName"
+        android:text=""
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColorLink="@color/GreenYellow"
+        android:autoLink="phone"
+        android:textColor="@color/GreenYellow"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/txtFinishedBooksCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin_third"
+        android:layout_below="@+id/txtClientName"
+        android:layout_toLeftOf="@id/checkbox"
+        android:layout_toRightOf="@id/avatarLayout"
+        android:gravity="left"
+        android:text=""
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_smaller" />
+
+    <ImageView
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:src="@drawable/background_list_item_checkmark" />
+</RelativeLayout>

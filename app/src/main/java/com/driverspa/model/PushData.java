@@ -8,15 +8,29 @@ import com.google.gson.annotations.SerializedName;
  */
 public class PushData {
 
+//    {
+//        "carwash_id": "57749b42da85ee251f81e845",
+//            "mark": 4,
+//            "object_id": "577c9667da85eed26e4a20a9",
+//            "text": "abc",
+//            "type": "review_created"
+//    }
+//
+//    {
+//        "object_id": "577c9671da85eed26e4a20ab",
+//            "text": null,
+//            "type": "booking_created"
+//    }
+
     @SerializedName("carwash_id")
     String carwashId;
     Integer mark;
     @SerializedName("object_id")
     String objectId;
+    @SerializedName("request_object")
+    FareRequest fareRequest;
     String text;
     String type;
-    @SerializedName("bid_object")
-    FareRequest.BidObject bidObject;
 
     public PushData(String objectId) {
         this.objectId = objectId;
@@ -62,12 +76,12 @@ public class PushData {
         this.type = type;
     }
 
-    public FareRequest.BidObject getBidObject() {
-        return bidObject;
+    public FareRequest getFareRequest() {
+        return fareRequest;
     }
 
-    public void setBidObject(FareRequest.BidObject bidObject) {
-        this.bidObject = bidObject;
+    public void setFareRequest(FareRequest fareRequest) {
+        this.fareRequest = fareRequest;
     }
 
     public String serialize() {

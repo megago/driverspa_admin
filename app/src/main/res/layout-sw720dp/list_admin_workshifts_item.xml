@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_list_item">
+
+    <LinearLayout
+        android:id="@+id/txtLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/vertical_margin_half"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Открытие"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:text="-"
+            android:textColor="@color/AntiqueWhite"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/openedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:text="дата "
+            android:textColor="@color/AntiqueWhite"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txtLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtLayout"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Закрытие"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:text="-"
+            android:textColor="@color/AntiqueWhite"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/closedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin_half"
+            android:text="дата "
+            android:textColor="@color/AntiqueWhite"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/arrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/horizontal_margin_third"
+        android:src="@drawable/ic_arrow_right" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtLayout2"
+        android:layout_weight="1.5"
+        android:text="Закрыт"
+        android:paddingBottom="@dimen/vertical_margin_half"
+        android:textColor="@color/Light"
+        android:textSize="@dimen/text_small" />
+
+</RelativeLayout>

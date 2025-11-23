@@ -28,7 +28,6 @@ import com.driverspa.Reference;
 import com.driverspa.adapter.CityChooseAdapter;
 import com.driverspa.util.Functions;
 import com.driverspa.util.GPSTracker;
-import com.driverspa.util.L;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.CityChangeEvent;
@@ -36,7 +35,6 @@ import com.driverspa.util.otto.LocationRequestEndEvent;
 import com.driverspa.util.otto.TurnOnGPSRequestEvent;
 import android.widget.AdapterView.OnItemClickListener;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.splunk.mint.Mint;

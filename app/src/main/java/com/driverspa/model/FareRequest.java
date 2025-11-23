@@ -2,7 +2,6 @@ package com.driverspa.model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.field.DatabaseField;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +19,6 @@ public class FareRequest {
 	private String carNo;
 	@SerializedName("carmark")
 	private String carMark;
-	private String clientName;
 	private String mobile;
 	private String comment;
 	@SerializedName("lonlat")
@@ -30,7 +28,12 @@ public class FareRequest {
 	private String city;
 	private String status;
 	private String client;
+	@SerializedName("client_name")
+	private String clientName;
+	@SerializedName("client_avatar")
+	private String clientAvatar;
 	private Date ts;
+	private Date initialDate = new Date();
 
 	List<BidObject> bids;
 	List<BidObject> actgiveBids;
@@ -269,6 +272,22 @@ public class FareRequest {
 
 	public void setAcceptedBid(String acceptedBid) {
 		this.acceptedBid = acceptedBid;
+	}
+
+	public String getClientAvatar() {
+		return clientAvatar;
+	}
+
+	public void setClientAvatar(String clientAvatar) {
+		this.clientAvatar = clientAvatar;
+	}
+
+	public Date getInitialDate() {
+		return initialDate;
+	}
+
+	public void setInitialDate(Date initialDate) {
+		this.initialDate = initialDate;
 	}
 
 	// GSON

@@ -41,7 +41,7 @@
                     android:gravity="center"
                     android:text="Фильтры"
                     android:textColor="@drawable/button_state_color"
-                    android:textSize="@dimen/text_normal"
+                    android:textSize="@dimen/text_medium"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -58,15 +58,8 @@
                 android:background="@drawable/background_list_item"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/vertical_margin_half">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_city_white" />
+                android:paddingTop="@dimen/vertical_margin_half"
+                android:paddingBottom="@dimen/vertical_margin_half">
 
                 <TextView
                     android:id="@+id/txtCity"
@@ -76,7 +69,7 @@
                     android:layout_weight="1"
                     android:text="Астана"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -97,49 +90,15 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:visibility="gone"
                 android:background="@color/BlueTransparent" />
 
             <LinearLayout
-                android:id="@+id/sortingLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/vertical_margin_half">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_sorting_white" />
-
-                <com.driverspa.view.NDSpinner
-                    android:id="@+id/spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:drawSelectorOnTop="true"
-                    android:popupBackground="@color/background_main"
-                    android:spinnerMode="dropdown"
-                    android:textColor="@drawable/button_state_color"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/text_small" />
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/BlueTransparent"
-                android:visibility="gone" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
@@ -147,7 +106,7 @@
                     android:layout_weight="1"
                     android:text="Отображать мойки в рудиусе:"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <TextView
                     android:id="@+id/distance"
@@ -157,7 +116,7 @@
                     android:gravity="right"
                     android:text="4 км"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
             </LinearLayout>
 
@@ -166,30 +125,28 @@
                 style="@style/SeekBarAppTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/vertical_margin_half" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/BlueTransparent"
-                android:visibility="gone" />
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="Кузов-салон не более"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -218,7 +175,7 @@
                         android:padding="0dp"
                         android:text="1000"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/text_normal" />
+                        android:textSize="@dimen/text_medium" />
 
                     <ImageView
                         android:id="@+id/tenge"
@@ -245,16 +202,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:background="@color/BlueTransparent"
-                android:visibility="gone"></FrameLayout>
+                android:visibility="gone"
+                android:background="@color/BlueTransparent"></FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
@@ -263,7 +220,7 @@
                     android:layout_weight="1"
                     android:text="Рейтинг более"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -336,71 +293,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:background="@color/BlueTransparent"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/campaignLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Скидки"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ToggleButton
-                        android:id="@+id/toggle_campaign"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_gravity="right"
-                        android:background="@null"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/toggle_button"
-                        android:gravity="right"
-                        android:minWidth="0dp"
-                        android:padding="0dp"
-                        android:textOff=""
-                        android:textOn="" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/vertical_margin_half"
                 android:background="@color/BlueTransparent" />
 
             <LinearLayout
-                android:id="@+id/cafeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_cafe_white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -411,7 +311,7 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -441,20 +341,11 @@
                 android:background="@color/BlueTransparent" />
 
             <LinearLayout
-                android:id="@+id/coffeeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_coffee_white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -465,7 +356,7 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -495,20 +386,11 @@
                 android:background="@color/BlueTransparent" />
 
             <LinearLayout
-                android:id="@+id/wifiLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_wifi_white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -519,7 +401,7 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -546,24 +428,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:background="@color/BlueTransparent" />
+                android:background="@color/BlueTransparent"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:id="@+id/roomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_restroom_white" />
-
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -574,68 +448,16 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <ToggleButton
                         android:id="@+id/toggle_room"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_gravity="right"
-                        android:background="@null"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/toggle_button"
-                        android:gravity="right"
-                        android:minWidth="0dp"
-                        android:padding="0dp"
-                        android:textOff=""
-                        android:textOn="" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:background="@color/BlueTransparent" />
-
-            <LinearLayout
-                android:id="@+id/gameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_playstation_white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Игровые приставки"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ToggleButton
-                        android:id="@+id/toggle_games"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_gravity="right"
@@ -674,7 +496,7 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -704,20 +526,11 @@
                 android:background="@color/BlueTransparent" />
 
             <LinearLayout
-                android:id="@+id/nocashLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/horizontal_margin_third"
-                    android:gravity="center|right"
-                    android:src="@drawable/ic_cardpayment_white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -728,11 +541,12 @@
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
+                    android:textSize="@dimen/text_medium" />
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
                     <ToggleButton
                         android:id="@+id/toggle_nocash"

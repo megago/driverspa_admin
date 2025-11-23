@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
@@ -22,8 +22,6 @@ import com.driverspa.R;
 public class MainFragment extends BaseFragment {
 
 	public interface ActivityActions {
-		public void openClientRegistration();
-		public void openClientHomeActivity();
 		public void openAdminRegistration();
 		public void openAdminHomeActivity();		
 	}
@@ -42,7 +40,6 @@ public class MainFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 		ButterKnife.bind(this, view);
-
 		return view;
 	}
 
@@ -61,11 +58,6 @@ public class MainFragment extends BaseFragment {
 	public void onDetach() {
 		super.onDetach();
 		activityActions = null;
-	}
-
-	@OnClick(R.id.btnUserStart)
-	protected void processUserStartClicked() {
-		activityActions.openClientRegistration();
 	}
 
 	@OnClick(R.id.btnWasherStart)

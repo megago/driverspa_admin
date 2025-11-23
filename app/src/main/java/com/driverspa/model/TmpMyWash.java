@@ -1,12 +1,14 @@
 package com.driverspa.model;
 
 import android.os.Environment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import com.driverspa.BA;
 import com.driverspa.util.L;
 import com.driverspa.util.otto.DummyWashersRequestEvent;
@@ -18,6 +20,10 @@ public class TmpMyWash {
 
     public static void createInfoWashers(String city){
         String data = getFileIput("washme/"+city+"/carwashes.json");
+        L.d("data is "+data);
+//        data = data.substring(1,data.length()-1);
+        data = "{\"washers\":"+data+"}";
+        L.d("new data is "+data);
         TmpGoWash goWash = TmpGoWash.deserialize(data.toString());
         List<Washer> request = new ArrayList<Washer>();
         for(TmpGoWash.GWash washer:goWash.getWashers()) {
@@ -31,9 +37,9 @@ public class TmpMyWash {
             contacts.add(contact);
             myWash.setContacts(contacts);
 
-            ArrayList<Washer.BoxSettings> boxSettings = new ArrayList<Washer.BoxSettings>();
+            ArrayList<Box> boxSettings = new ArrayList<Box>();
             for (int i = 0; i < 1; i++) {
-                Washer.BoxSettings boxSetting = new Washer.BoxSettings();
+                Box boxSetting = new Box();
                 boxSetting.setBookingType(BookingType.Offline);
                 boxSettings.add(boxSetting);
             }
@@ -202,16 +208,19 @@ public class TmpMyWash {
                 //Menu
                 if(tmpCarType == 0){
                     prices = new ArrayList<Washer.Prices>();
+                    L.d("*****************************************");
                 }
                 else
                 if((tmpCarType != carType)){
                     carTypeMenu.put(tmpCarType, prices);
                     prices = new ArrayList<Washer.Prices>();
+                    L.d("=========================================");
                 }
 
                if(serviceType != 0 || carType != 0) {
                    Washer.Prices price = new Washer.Prices();
                    price.setTime(service.getDuration());
+                   L.d("car type vs service " + carType + " " + serviceType);
                    price.setType(serviceType);
                    price.setPrice(Double.parseDouble(service.getPrice()));
                    prices.add(price);

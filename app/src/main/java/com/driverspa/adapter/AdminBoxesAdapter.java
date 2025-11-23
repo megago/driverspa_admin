@@ -10,10 +10,10 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
-import com.driverspa.model.api.response.AdminBoxesResponse.BoxType;
+import com.driverspa.model.Box;
 import com.driverspa.util.Constants;
 
-public class AdminBoxesAdapter extends BaseDataAdapter<BoxType> {
+public class AdminBoxesAdapter extends BaseDataAdapter<Box> {
 
 	public AdminBoxesAdapter(Context context) {
 		super(context);
@@ -32,10 +32,14 @@ public class AdminBoxesAdapter extends BaseDataAdapter<BoxType> {
 		 holder = (ViewHolder) view.getTag();
 	 }
 
-	  BoxType item = getItem(position);
+	  Box item = getItem(position);
 	  holder.boxNumber.setText(item.getBoxName());
-	  holder.boxType.setText(Constants.boxTypeMap.get(item.getBookingType()));
-		holder.washerPerson.setVisibility(View.VISIBLE);
+	  holder.boxType.setText("");
+
+ 	  if(item.getBookingType() != null)
+	    holder.boxType.setText(Constants.boxTypeMap.get(item.getBookingType().getValue()));
+
+	  holder.washerPerson.setVisibility(View.GONE);
 
 	  if(!TextUtils.isEmpty(item.getWasherPerson())){
 		  holder.washerPerson.setText(item.getWasherPerson());

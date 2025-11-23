@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:text="20/10/2009"
+                        android:textColor="@drawable/button_state_color"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin_half"
+                        android:text="в"
+                        android:textColor="@drawable/button_state_color"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin_half"
+                        android:text="16:40"
+                        android:textColor="@drawable/button_state_color"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Вид операции"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <com.driverspa.view.NDSpinner
+                    android:id="@+id/operationType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:clickable="true"
+                    android:drawSelectorOnTop="true"
+                    android:popupBackground="@color/background_main"
+                    android:spinnerMode="dropdown"
+                    android:textColor="@drawable/button_state_color"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal" />
+
+                <LinearLayout
+                    android:id="@+id/paymentTypeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|left"
+                        android:background="#50000000"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/vertical_margin_third"
+                        android:paddingLeft="@dimen/horizontal_margin"
+                        android:paddingTop="@dimen/vertical_margin_third"
+                        android:text="Тип оплаты"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_normal" />
+
+                    <com.driverspa.view.NDSpinner
+                        android:id="@+id/paymentType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_marginBottom="@dimen/vertical_margin_third"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginTop="@dimen/vertical_margin_third"
+                        android:clickable="true"
+                        android:drawSelectorOnTop="true"
+                        android:popupBackground="@color/background_main"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@drawable/button_state_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/text_normal" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Назначение"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <EditText
+                    android:id="@+id/description"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint="Назначение"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:lines="1"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <LinearLayout
+                    android:id="@+id/clientLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|left"
+                        android:background="#50000000"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/vertical_margin_third"
+                        android:paddingLeft="@dimen/horizontal_margin"
+                        android:paddingTop="@dimen/vertical_margin_third"
+                        android:text="Клиент"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_normal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/horizontal_margin">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.driverspa.view.DelayAutoCompleteTextView
+                                android:id="@+id/client"
+                                style="@style/EditText.Transparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:background="@android:color/transparent"
+                                android:gravity="bottom"
+                                android:hint="начните набирать..."
+                                android:imeOptions="flagNoExtractUi|actionSearch"
+                                android:inputType="textCapWords"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="@dimen/vertical_margin_half"
+                                android:paddingTop="@dimen/vertical_margin_half"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_normal" />
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                style="?android:attr/progressBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|right"
+                                android:layout_marginRight="16dp"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/staffLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|left"
+                        android:background="#50000000"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/vertical_margin_third"
+                        android:paddingLeft="@dimen/horizontal_margin"
+                        android:paddingTop="@dimen/vertical_margin_third"
+                        android:text="Сотрудник"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_normal" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/horizontal_margin">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.driverspa.view.DelayAutoCompleteTextView
+                                android:id="@+id/staff"
+                                style="@style/EditText.Transparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:background="@android:color/transparent"
+                                android:gravity="bottom"
+                                android:hint="начните набирать..."
+                                android:imeOptions="flagNoExtractUi|actionSearch"
+                                android:inputType="textCapWords"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="@dimen/vertical_margin_half"
+                                android:paddingTop="@dimen/vertical_margin_half"
+                                android:textColor="@color/White"
+                                android:textColorHint="@color/BlueLight"
+                                android:textCursorDrawable="@null"
+                                android:textIsSelectable="false"
+                                android:textSize="@dimen/text_normal" />
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar2"
+                                style="?android:attr/progressBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|right"
+                                android:layout_marginRight="16dp"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Сумма"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <EditText
+                    android:id="@+id/amount"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint="Сумма"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <Button
+                    android:id="@+id/btnSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/vertical_margin"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_double"
+                    android:background="@drawable/background_button_border"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
+                    android:text="Сохранить"
+                    android:textColor="@drawable/button_state_color"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

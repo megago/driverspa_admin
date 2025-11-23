@@ -1,16 +1,26 @@
 package com.driverspa.adapter;
 
+import static com.driverspa.util.Constants.PENDING;
+import static com.driverspa.util.Constants.QUEUED_APPROVED;
+import static com.driverspa.util.Constants.QUEUED_FINISHED;
+import static com.driverspa.util.Constants.QUEUED_REJECTED;
+import static com.driverspa.util.Constants.bookStatus;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Handler;
+import androidx.recyclerview.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import org.ocpsoft.prettytime.PrettyTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,26 +28,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import butterknife.ButterKnife;
+import butterknife.BindView;
+import com.driverspa.BA;
 import com.driverspa.R;
+import com.driverspa.model.BookInfo;
+import com.driverspa.model.Box;
 import com.driverspa.model.PushData;
 import com.driverspa.model.Washer;
-import com.driverspa.model.BookInfo;
 import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
-import butterknife.BindView;
-
-import static com.driverspa.util.Constants.PENDING;
-import static com.driverspa.util.Constants.QUEUED_APPROVED;
-import static com.driverspa.util.Constants.QUEUED_FINISHED;
-import static com.driverspa.util.Constants.QUEUED_REJECTED;
-import static com.driverspa.util.Constants.bookStatus;
-
-import androidx.recyclerview.widget.RecyclerView;
+import com.driverspa.util.otto.BookOptionClickEvent;
 
 
 public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.BookInfoViewHolder>  {
-
 
 	public static final int ITEM_TYPE_BOOK = 0;
 	public static final int ITEM_TYPE_QUEUE = 1;
@@ -111,8 +116,8 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 			lstHolders.add(holder);
 		}
 		final BookInfo item = mData.get(position);
+		Date bookDateTime = Functions.getUTCDate(item.getTime());
 		HashMap<String,String> timeMap = Functions.formatUTCDate(item.getTime());
-		HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
 		holder.parentView.setHasTransientState(true);
 		if(holder.parentView.getAnimation() != null)
 			holder.parentView.getAnimation().cancel();
@@ -128,31 +133,61 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 
 		holder.bookTime.setText(""+timeMap.get(Functions.TIME));
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		holder.bookTS.setText(p.format(Functions.getUTCDate(item.getTs())));
+		Date bookTS = Functions.getUTCDate(item.getTs());
+		holder.bookTS.setVisibility(View.VISIBLE);
+		if(DateUtils.isToday(Functions.getUTCDate(item.getTime()).getTime())) {
+			holder.bookTS.setText(p.format(bookTS));
+		}
+		else{
+			HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
+			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\nв "+timeTSMap.get(Functions.TIME));
+		}
+
+		//For tomorrow or different date bookings
+		if(!DateUtils.isToday(bookDateTime.getTime()) && (new Date()).getTime() < bookDateTime.getTime()) {
+			holder.bookTS.setText(""+timeMap.get(Functions.TIME));
+			holder.bookTime.setText("Завтра");
+		}
+//		else if(!DateUtils.isToday(Functions.getUTCDate(item.getTs()).getTime()) && !DateUtils.isToday(Functions.getUTCDate(item.getTime()).getTime())){
+////		   holder.bookTS.setVisibility(View.GONE);
+//		   holder.bookTime.setText(timeMap.get(Functions.DATE)+"\nв "+timeMap.get(Functions.TIME));
+//		}
+
+		holder.errorOutline.setVisibility(View.GONE);
+
 		if (washer != null && washer.getBoxSettings() != null) {
-			for (Washer.BoxSettings bs : washer.getBoxSettings()) {
+			for (Box bs : washer.getBoxSettings()) {
 				if (bs.getUid().equals(item.getBoxId())) {
 					holder.txtBoxName.setVisibility(View.VISIBLE);
 					holder.txtBoxName.setText(bs.getBoxName());
 					break;
 				}
 			}
+
+			if(washer.getStaffs()!=null && washer.getStaffs().size() > 0){
+				if(!(item.getStaffs() != null && item.getStaffs().size() > 0))
+				    holder.errorOutline.setVisibility(View.VISIBLE);
+			}
 		}
+
 		holder.bookStatus.setText("" + bookStatus.get(item.getStatus()));
+		holder.bookStatus.setBackground(Functions.getBookStatusBGColor(context,item.getStatus()));
+		holder.bookStatus.setTextColor(Functions.getBookStatusTextColor(context,item.getStatus()));
 
 		if(!item.isQueued()) {
-			holder.onlineBook.setVisibility(View.VISIBLE);
+			if(!item.isOffline())
+			    holder.onlineBook.setVisibility(View.VISIBLE);
+			else
+				holder.onlineBook.setVisibility(View.GONE);
 			holder.remainingTimeLayout.setVisibility(View.VISIBLE);
 			holder.layoutQueue.setVisibility(View.GONE);
 			holder.arrowRight.setVisibility(View.VISIBLE);
 			holder.bookStatus.setVisibility(View.VISIBLE);
 			holder.bookKey.setText("" + item.getClientKey());
 
-
 			if (!item.getStatus().equals(PENDING)) {
 				holder.remainingTime.setVisibility(View.GONE);
 			}
-
 		}else{
 			holder.onlineBook.setVisibility(View.GONE);
   			holder.layoutQueue.setVisibility(View.VISIBLE);
@@ -161,19 +196,28 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 
 			holder.order.setText(""+item.getOrder());
 			holder.queueCarNo.setText(""+item.getClientKey().replaceAll("\\(","").replaceAll("\\)",""));
+			if(item.getClientKey().contains("("))
+				holder.queueCarNo.setText(item.getClientKey().toUpperCase().substring(0,item.getClientKey().indexOf("(")));
 
 			if(item.getStatus().equals(QUEUED_APPROVED)){
-				holder.bookKey.setText("Автозавершение через ");
+				holder.bookKey.setText("Загрузка...");
 			}
 			else if(item.getStatus().equals(QUEUED_REJECTED)){
-				holder.bookKey.setText("Очередь отменена");
+				holder.bookKey.setText("Заказ отменен");
 			}
 			else if(item.getStatus().equals(QUEUED_FINISHED)){
-				holder.bookKey.setText("Очередь завершена");
+				holder.bookKey.setText("Заказ завершен");
 			}
 
 		}
 
+		holder.arrowRight.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(item != null)
+				 BA.getEventBus().post(new BookOptionClickEvent(item));
+			}
+		});
 
 		holder.setBookInfo(item);
 
@@ -190,19 +234,19 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 	public void add(BookInfo book, int position) {
 		position = position == -1 ? getItemCount() : position;
 		mData.add(position, book);
-//		notifyItemInserted(position);
+		notifyItemInserted(position);
 	}
 
 	public void remove(int position) {
 		if (position < getItemCount()) {
 			mData.remove(position);
-//			notifyItemRemoved(position);
+			notifyItemRemoved(position);
 		}
 	}
 
 	public void refreshData(List<BookInfo> data){
 		this.mData = data;
-//		notifyDataSetChanged();
+		notifyDataSetChanged();
 	}
 
 	public class BookInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -238,11 +282,13 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 		View onlineBook;
 		@BindView(R.id.notPaid)
 		View notPaid;
-
+		@BindView(R.id.errorOutline)
+		View errorOutline;
 
 		public void updateTimeRemaining(long currentTime) {
 			if(!bookInfo.isQueued()) {
 				long timeDiff = currentTime - bookInfo.getTs().getTime();
+
 				if (timeDiff > 0) {
 					int seconds = (int) (timeDiff / 1000) % 60;
 					int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
@@ -287,9 +333,9 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 							mAnimationSet.start();
 						  }
 
-							if(bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime()){
-								bookStatus.setText("Время мойки вышло");
-							}
+//							if(bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime()){
+//								bookStatus.setText("К завершению");
+//							}
 						}
 						else {
 							parentView.setSelected(false);
@@ -306,20 +352,23 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 					int seconds = (int) (timeDiff / 1000) % 60;
 					int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
 					int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-					if (bookInfo.getStatus().equals(QUEUED_APPROVED) && minutes > 0) {
+					minutes = hours*60 + minutes;
+					if (bookInfo.getStatus().equals(QUEUED_APPROVED) //&& minutes > 0
+						) {
 						bookKey.setText("Автозавершение через "+String.format("%02d", (minutes)) + ":" + String.format("%02d", (seconds)));
 						bookStatus.setText(Constants.bookStatus.get(QUEUED_APPROVED));
 					}
 					else{
-						if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Очередь отменена");
-						else bookKey.setText("Очередь завершена");
+						if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Заказ отменен");
+						else bookKey.setText("");
 					}
 				}
 				else{
-					if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Очередь отменена");
+					if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Заказ отменен");
+					else if(bookInfo.getStatus().equals(QUEUED_FINISHED)) bookKey.setText("Заказ завершен");
 					else {
-						bookKey.setText("Очередь завершена");
-						bookStatus.setText(Constants.bookStatus.get(QUEUED_FINISHED));
+						bookKey.setText("Время вышло");
+						bookStatus.setText(Constants.bookStatus.get(bookInfo.getStatus()));
 					}
 				}
 			}
@@ -348,12 +397,15 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 			if (mItemLongClickListener != null) {
 				mItemLongClickListener.onItemLongClick(view, getPosition());
 			}
-
 			return false;
 		}
 	}
 
-		public void setOnItemClickListener(final OnItemClickListener listener) {
+	public void setWasher(Washer washer){
+		this.washer = washer;
+	}
+
+    public void setOnItemClickListener(final OnItemClickListener listener) {
 			this.mItemClickListener = listener;
 		}
 

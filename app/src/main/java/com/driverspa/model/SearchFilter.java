@@ -2,7 +2,6 @@ package com.driverspa.model;
 
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
@@ -25,14 +24,10 @@ public class SearchFilter implements Cloneable {
 	private String wifi;
 	private String cafe;
 	private String coffee;
-	private String restroom;
-	private String games;
 	private String maxPrice;
 	private String city;
 	private String mobile;
-	private String orderBy;
 
-	private boolean hasCampaign;
 	private String lonLat;
 
 	public SearchFilter () {
@@ -41,16 +36,14 @@ public class SearchFilter implements Cloneable {
 		setOffset("10000");
 		setMaxPrice("3500");
 		setRating("0");
-		setOrderBy("nearest");
 	}
 
-	public boolean isDefaultFilter(String limit, String distance, String offset, String price, String rating, String orderBy){
+	public boolean isDefaultFilter(String limit, String distance, String offset, String price, String rating){
 		 if(getLimit().equals(limit)
 				 && getMaxDistance().equals(distance)
 				 && getOffset().equals(offset)
 				 &&	getMaxPrice().equals(price)
 				 && getRating().equals(rating)
-				 && getOrderBy().equals(orderBy)
 				 )
 			 return true;
 		return false;
@@ -201,38 +194,6 @@ public class SearchFilter implements Cloneable {
 		this.lonLat = lonLat;
 	}
 
-	public String getComforts() {
-		return comforts;
-	}
-
-	public void setComforts(String comforts) {
-		this.comforts = comforts;
-	}
-
-	public String getGames() {
-		return games;
-	}
-
-	public void setGames(String games) {
-		this.games = games;
-	}
-
-	public String getRestroom() {
-		return restroom;
-	}
-
-	public void setRestroom(String restroom) {
-		this.restroom = restroom;
-	}
-
-	public String getOrderBy() {
-		return orderBy;
-	}
-
-	public void setOrderBy(String orderBy) {
-		this.orderBy = orderBy;
-	}
-
 	/**
 	 * This map will be used to query search from server
 	 * @return map - data to query
@@ -264,18 +225,14 @@ public class SearchFilter implements Cloneable {
 		if( washerId != null )
 			result.put("carwash", washerId);
 
-		if(!TextUtils.isEmpty(comforts))
-			result.put("comforts", comforts);
-        /*
 		if(!TextUtils.isEmpty(wifi))
-			result.put("comforts", result.get("comforts").toString().contains("wifi")?result.get("comforts"):result.get("comforts")+",wifi");
+			result.put("comforts", result.get("comforts").toString().contains("wifi")?result.get("comforts"):result.get("comforts")+"wifi");
 
 		if(!TextUtils.isEmpty(cafe))
-			result.put("comforts", result.get("comforts").toString().contains("cafe")?result.get("comforts"):result.get("comforts")+",cafe");
+			result.put("comforts", result.get("comforts").toString().contains("cafe")?result.get("comforts"):result.get("comforts")+"cafe");
 
 		if(!TextUtils.isEmpty(coffee))
 			result.put("comforts", result.get("comforts").toString().contains("coffee")?result.get("comforts"):result.get("comforts")+"coffee");
-         */
 
 		if(!TextUtils.isEmpty(payments) && payments.equals("noncash"))
 			result.put("payments", "noncash");
@@ -285,9 +242,6 @@ public class SearchFilter implements Cloneable {
 
 		if(!TextUtils.isEmpty(rating) && !rating.equals("1"))
 			result.put("rating__gte",rating);
-
-		if(hasCampaign)
-			result.put("has_campaign",Boolean.toString(hasCampaign));
 
 		if(TextUtils.isEmpty(result.get("comforts"))){
 			result.remove("comforts");
@@ -302,57 +256,9 @@ public class SearchFilter implements Cloneable {
 		if(!TextUtils.isEmpty(lonLat)){
 			result.put("lonlat__near", lonLat);
 		}
-
-		if(!TextUtils.isEmpty(orderBy)){
-			result.put("sort_by", orderBy);
-		}
-
 		return result;
 	}
 
-	public boolean isDefaultValues(){
-		if(TextUtils.isEmpty(getOrderBy()))
-			setOrderBy("nearest");
-		if(!(getMaxDistance().equals("50000")
-				&& getMaxPrice().equals("3500")
-				&& getOrderBy().equals("nearest")
-				&& TextUtils.isEmpty(getCafe())
-				&& TextUtils.isEmpty(getCoffee())
-				&& TextUtils.isEmpty(getWifi())
-				&& TextUtils.isEmpty(getGames())
-				&& TextUtils.isEmpty(getRestroom())
-				&& TextUtils.isEmpty(getPayments())
-				&& !TextUtils.isEmpty(getRating())
-				&& !isHasCampaign()
-				&& getRating().equals("0")
-				&& TextUtils.isEmpty(getSearchText()))
-				){
-			 return false;
-		}
-		else
-			return true;
-	}
-	public boolean isMapDefaultValues(){
-		if(TextUtils.isEmpty(getOrderBy()))
-			setOrderBy("nearest");
-		if(!(getMaxDistance().equals("50000")
-				&& getMaxPrice().equals("3500")
-				&& TextUtils.isEmpty(getCafe())
-				&& TextUtils.isEmpty(getCoffee())
-				&& TextUtils.isEmpty(getWifi())
-				&& TextUtils.isEmpty(getGames())
-				&& TextUtils.isEmpty(getRestroom())
-				&& TextUtils.isEmpty(getPayments())
-				&& !TextUtils.isEmpty(getRating())
-				&& !isHasCampaign()
-				&& getRating().equals("0")
-				&& TextUtils.isEmpty(getSearchText()))
-				){
-			 return false;
-		}
-		else
-			return true;
-	}
 
 	public String getWasherId() {
 		return washerId;
@@ -381,31 +287,10 @@ public class SearchFilter implements Cloneable {
 			cloned.setStatus(cloned.getStatus());
 			cloned.setWasherId(cloned.getWasherId());
 			cloned.setWifi(cloned.getWifi());
-			cloned.setOrderBy(cloned.getOrderBy());
 			return cloned;
 		}
 		catch (CloneNotSupportedException e){
 		}
 		return null;
-	}
-
-	public boolean isHasCampaign() {
-		return hasCampaign;
-	}
-
-	public void setHasCampaign(boolean hasCampaign) {
-		this.hasCampaign = hasCampaign;
-	}
-
-
-	// GSON
-	public String serialize() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
-	}
-
-	public static SearchFilter deserialize(String serializedData) {
-		Gson gson = new Gson();
-		return gson.fromJson(serializedData, SearchFilter.class);
 	}
 }

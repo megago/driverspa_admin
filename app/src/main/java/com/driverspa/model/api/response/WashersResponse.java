@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import com.driverspa.model.Washer;
 import com.driverspa.model.WasherPublic;
 
 public class WashersResponse extends BaseResponse {

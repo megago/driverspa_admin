@@ -17,7 +17,6 @@ import butterknife.BindView;
 import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.adapter.UserPhotosAdapter;
-import com.driverspa.assist.BaseAssist;
 import com.driverspa.model.PhotoParcelable;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.otto.ws.UserPhotoChangeRequestEvent;
@@ -119,8 +118,7 @@ public class UserPhotoChangeFragment extends BaseFragment {
 	@Override 
 	public void onDestroyView() {
 		super.onDestroyView();
-		//TODO come here and check
-		//ButterKnife.reset(this);
+//		ButterKnife.reset(this);
 	}
 
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_list_item"
+    android:clickable="true"
+    android:paddingBottom="@dimen/vertical_margin_half"
+    android:paddingTop="@dimen/vertical_margin_half">
+
+    <TextView
+        android:id="@+id/newsTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_toRightOf="@id/avatarLayout"
+        android:text="ToWhom"
+        android:textColor="@color/White"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/newsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_below="@+id/newsTarget"
+        android:text="sdfgd"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/newsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_below="@+id/newsType"
+        android:layout_toRightOf="@id/avatarLayout"
+        android:gravity="left"
+        android:text="sfgsdfgsdf"
+        android:textColor="@color/White"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_smaller" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10.15.2016 в 20:30"
+        android:textColor="@color/BlueLight"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/newsText"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:textSize="@dimen/text_smaller" />
+
+</RelativeLayout>

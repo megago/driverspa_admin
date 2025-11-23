@@ -1,6 +1,5 @@
 package com.driverspa.util.otto;
 
-import com.driverspa.model.NewPushInformation;
 import com.driverspa.model.PushData;
 
 /**

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -53,7 +54,7 @@ public class PricesExpandableListAdapter extends BaseExpandableListAdapter {
                            
         Prices item = carItems.get(groupPosition).getPrices().get(childPosition);
         childTextTitle.setText(services.get(item.getType()));
-        childTextPrice.setText(Math.round(item.getPrice())+" ₸.");
+        childTextPrice.setText(Math.round(item.getPrice())+" ₸");
         return convertView;
     }
  
@@ -85,8 +86,8 @@ public class PricesExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_cars_group, null);
         }
         
-//        ExpandableListView eLV = (ExpandableListView) parent;
-//        eLV.expandGroup(groupPosition);
+        ExpandableListView eLV = (ExpandableListView) parent;
+        eLV.expandGroup(groupPosition);
                 
         TextView parentTextTitle = (TextView) convertView.findViewById(R.id.text_car_type);
         parentTextTitle.setText(cars.get(carItems.get(groupPosition).getCarType()));

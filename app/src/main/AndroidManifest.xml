@@ -41,9 +41,9 @@
         android:theme="@style/Theme.DriverSpa"
         tools:targetApi="31">
         <activity
-            android:exported="true"
             android:name=".activity.SplashActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,49 +54,13 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ocr.OcrCaptureActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".client.activity.ClientHomeActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".client.activity.ClientMapActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".client.activity.ClientWasherInfoActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".client.activity.ClientBookingActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".client.activity.ClientBookingTimeTableActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".client.activity.ClientBookingInfoActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".client.activity.ClientProfileActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".client.activity.ClientSettingsActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".client.activity.ClientBooksActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".client.activity.ClientWasherReviewActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".client.activity.ClientAddWasherReviewActivity"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
+
+
         <activity
             android:name=".activity.UserPhotoChangeActivity"
             android:screenOrientation="sensorPortrait"
@@ -105,38 +69,295 @@
             android:name=".activity.GalleryPhotosActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan" />
+
+
+
+        <!--Admin activities starts-->
         <activity
-            android:name=".client.activity.ClientAddressMapActivity"
+            android:name=".admin.activity.AdminHomeActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan" />
+
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminRegistrationActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminVerificationActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
         <activity
-            android:name=".client.activity.ClientPriceDetailActivity"
+            android:name=".admin.activity.AdminProfileActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
-            android:name=".client.activity.ClientCampaignInfoActivity"
+            android:name=".admin.activity.AdminNewWasherActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminSettingsActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
         <activity
-            android:name=".client.activity.ClientAboutUSActivity"
+            android:name=".admin.activity.AddressActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".client.activity.ClientActiveBookingInfoActivity"
+            android:name=".admin.activity.AddressMapActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.PriceDefinitionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.PriceDefinitionDetailActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdditionalInformationActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.TimeDefinitionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminBooksActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminWasherReviewActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
+        <activity
+            android:name=".admin.activity.AdminBookingInfoActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.SplashInfoActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan" />
+        <!--<activity-->
+        <!--android:name=".client.activity.ClientFavouritesActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
+
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminTimeTableBoxesActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity-->
+        <!--android:name=".admin.activity.AdminTimeTableActivity"-->
+        <!--android:screenOrientation="sensorPortrait"-->
+        <!--android:windowSoftInputMode="adjustPan" />-->
+        <activity
+            android:name=".admin.activity.AdminChangeBoxTypeActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminAddBoxActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminBoxesActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddBookActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddQueuedBookActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminEditQueuedBookActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminEditEntryActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminStatisticsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminServicePriceActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminServicePriceDetailActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminGroupServicePriceActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminAddGroupServicePriceActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddOwnServicePriceActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminChangeGroupServicePriceActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminCampaignActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminAddCampaignActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminPricesActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.TimeShortDefinitionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAboutUSActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminClientsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminClientActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddClientQueueActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminWasherReviewActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity
             android:name=".activity.CityChooseActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity
-            android:name=".client.activity.ClientWaitingRequestActivity"
+            android:name=".admin.activity.ClientSearchActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminNotificationsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddNotificationsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.ClientSMSSendActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddClientActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminEditClientActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminStaffActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminEditStaffActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".admin.activity.AdminAddStaffActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminStaffsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminWorkShiftsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminFinancialStatisticsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminWorkshiftFinancialStatisticsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminTransactionsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAddCarwashTransactionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminFinancialActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.ExtraSettingsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminAnalyticsActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+<!--        <receiver-->
+<!--            android:name="com.driverspa.gcm.NotificationDismissedReceiver"-->
+<!--            android:exported="false" >-->
+<!--        </receiver>-->
 
         <!-- [START gcm_receiver] -->
 <!--        <receiver-->
@@ -145,9 +366,10 @@
 <!--            android:permission="com.google.android.c2dm.permission.SEND">-->
 <!--            <intent-filter>-->
 <!--                <action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-<!--                <category android:name="com.driverspa" />-->
+<!--                <category android:name="kz.washme" />-->
 <!--            </intent-filter>-->
 <!--        </receiver>-->
+
         <!-- [END gcm_receiver] -->
 
         <!-- [START gcm_listener] -->
@@ -172,24 +394,15 @@
 
 <!--        <service android:name="com.driverspa.gcm.RegistrationIntentService" android:exported="false"></service>-->
 
-<!--        <service android:name=".service.Service"-->
-<!--            android:label="Сервис DriverSpa"/>-->
+        <service android:name=".service.Service"
+            android:label="Сервис DriverSpa-Admin"/>
 
-<!--        <meta-data-->
-<!--            android:name="com.google.android.gms.version"-->
-<!--            android:value="@integer/google_play_services_version" />-->
-<!--        <service-->
-<!--            android:name=".fcm.MyFirebaseMessagingService"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB26de6oG6FEW2dKTVqYAQvaIKeMx_c_9k" />
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

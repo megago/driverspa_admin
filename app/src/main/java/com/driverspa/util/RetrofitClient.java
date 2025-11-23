@@ -1,28 +1,54 @@
 package com.driverspa.util;
 
 import android.text.TextUtils;
+
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
 import com.driverspa.BA;
 import com.driverspa.model.Device;
-import com.driverspa.model.FareRequest;
 import com.driverspa.model.Settings;
 import com.driverspa.model.UserLocation;
 import com.driverspa.model.Washer;
 import com.driverspa.model.WasherBase;
 import com.driverspa.model.api.request.AddReviewRequest;
+import com.driverspa.model.api.request.AddWorkshiftRequest;
+import com.driverspa.model.api.request.AdminNotificationNewsRequest;
 import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.request.AuthClientRegistrationRequest;
 import com.driverspa.model.api.request.AuthVerificationRequest;
 import com.driverspa.model.api.request.BookingRequest;
 import com.driverspa.model.api.request.BoxOperationRequest;
+import com.driverspa.model.api.request.CampaignOperationRequest;
+import com.driverspa.model.api.request.ClientCreateRequest;
+import com.driverspa.model.api.request.CloseWorkshiftRequest;
+import com.driverspa.model.api.request.FareRequestBid;
+import com.driverspa.model.api.request.GroupMenuOperationRequest;
 import com.driverspa.model.api.request.InitialWasherCreateRequest;
+import com.driverspa.model.api.request.StaffOperationRequest;
 import com.driverspa.model.api.request.UserUpdateRequest;
+import com.driverspa.model.api.request.WashCountCampaignOperationRequest;
 import com.driverspa.model.api.request.WasherRequest;
 import com.driverspa.model.api.response.AboutUSResponseHolder;
+import com.driverspa.model.api.response.AdminAnalyticsResponseHolder;
 import com.driverspa.model.api.response.AdminBoxResponseHolder;
 import com.driverspa.model.api.response.AdminBoxesResponseHolder;
+import com.driverspa.model.api.response.AdminCampaignResponseHolder;
+import com.driverspa.model.api.response.AdminCampaignsResponseHolder;
+import com.driverspa.model.api.response.AdminCarwashTransactionResponseHolder;
+import com.driverspa.model.api.response.AdminCarwashTransactionsResponseHolder;
+import com.driverspa.model.api.response.AdminCashFinancialResponseHolder;
+import com.driverspa.model.api.response.AdminFinancialStatisticResponseHolder;
+import com.driverspa.model.api.response.AdminGroupMenuListResponseHolder;
+import com.driverspa.model.api.response.AdminGroupMenuResponseHolder;
+import com.driverspa.model.api.response.AdminStaffFinancialResponseHolder;
+import com.driverspa.model.api.response.AdminStaffResponseHolder;
+import com.driverspa.model.api.response.AdminStaffsResponseHolder;
+import com.driverspa.model.api.response.AdminWashCountCampaignResponseHolder;
+import com.driverspa.model.api.response.AdminWashCountCampaignsResponseHolder;
+import com.driverspa.model.api.response.AdminWorkshiftResponseHolder;
+import com.driverspa.model.api.response.AdminWorkshiftsResponseHolder;
 import com.driverspa.model.api.response.AuthAdminRegistrationResponseHolder;
 import com.driverspa.model.api.response.AuthAdminVerificationResponseHolder;
 import com.driverspa.model.api.response.AuthClientRegistrationResponseHolder;
@@ -32,16 +58,17 @@ import com.driverspa.model.api.response.BookInfoResponseHolder;
 import com.driverspa.model.api.response.BookResponseHolder;
 import com.driverspa.model.api.response.BooksResponseHolder;
 import com.driverspa.model.api.response.ClientResponseHolder;
-import com.driverspa.model.api.response.FareRequestResponseHolder;
-import com.driverspa.model.api.response.FareRequestsResponseHolder;
-import com.driverspa.model.api.response.NotificationResponseHolder;
+import com.driverspa.model.api.response.ClientsResponseHolder;
+import com.driverspa.model.api.response.NotificationNewsResponseHolder;
 import com.driverspa.model.api.response.PhotoResponseHolder;
 import com.driverspa.model.api.response.QueuedBooksResponseHolder;
 import com.driverspa.model.api.response.ReferenceResponseHolder;
+import com.driverspa.model.api.response.SingleClientBooksResponseHolder;
 import com.driverspa.model.api.response.UserResponseHolder;
 import com.driverspa.model.api.response.WasherResponseHolder;
 import com.driverspa.model.api.response.WasherTimeTableResponseHolder;
 import com.driverspa.model.api.response.WashersResponseHolder;
+import com.driverspa.util.otto.ws.AdminCarwashTransactionAddRequestEvent;
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -64,40 +91,61 @@ import retrofit.mime.TypedFile;
 /**
  * HTTP client for connecting to REST API
  */
+
+
 public class RetrofitClient {
 
-//    static String ip = "http://192.168.0.100";
+	//local
+//	static String ip = "http://192.168.0.102";
 //	public static String API_URL = ip+":8000/api/"; // api url
 //	public static String API_URL_IMAGES = ip+":8000"; // api url
 
+//	public static String API_URL = "http://192.168.100.5:8000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://192.168.100.5:8000"; // api url
+
+	// mobile hotspot
 //	public static String API_URL = "http://192.168.43.61:8000/api/"; // api url
 //	public static String API_URL_IMAGES = "http://192.168.43.61:8000"; // api url
-//
-//	public static String API_URL = "http://192.168.1.17:8000/api/"; // api url
+
+//  public static String API_URL = "http://192.168.1.17:8000/api/"; // api url
 //	public static String API_URL_IMAGES = "http://192.168.1.17:8000"; // api url
+
+	//Avral kafe
+//	public static String API_URL = "http://192.168.1.108:8000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://192.168.1.108:8000"; // api url
+
+//	public static String API_URL = "http://172.20.10.2:8000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://172.20.10.2:8000"; // api url
+
+//	public static String API_URL = "http://10.45.22.243:8000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://10.45.22.243:8000"; // api url
 
 //	public static String API_URL = "http://192.168.1.178:8000/api/"; // api url
 //	public static String API_URL_IMAGES = "http://192.168.1.178:8000"; // api url
 
+	public static String API_URL = "http://192.168.31.201:8001/api/"; // api url
+	public static String API_URL_IMAGES = "http://1192.168.31.201:8001"; // api url
 
-	public static String API_URL = "http://192.168.31.177:8000/api/"; // api url
-	public static String API_URL_IMAGES = "http:// 192.168.31.177:8000"; // api url
+//
+//	public static String API_URL = "http://192.168.31.73:8000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://192.168.31.73:8000"; // api url
 
-//	/////prod
+	///prod
 //	public static String API_URL = "http://api.washme.kz/"; // api url
 //	public static String API_URL_IMAGES = "http://api.washme.kz"; // api url
 
 	/////test
 //	public static String API_URL = "http://test.api.washme.kz/"; // api url
-//	public static String API_URL_IMAGES = "http://test.api.washme.kz"; // api url
+//	public static String API_URL_IMAGES = "http://test.api.washme.kz"; // api urlr
 
 //	public static String API_URL = "http://balhash.washme.kz:5000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://balhash.washme.kz:5000"; // api url
+//	public static String API_URL_IMAGES = "http://balhash.washme.kz:5000/api"; // api url
 
 	/**
 	 * Interface for connecting to Washme API
 	 */
 	public interface WashmeApi {
+
 		@GET("/v1/public_carwash/ref")
 		void getReference(
 				@Header("Accept-Language") String lang,
@@ -137,8 +185,7 @@ public class RetrofitClient {
 		void userPhotoChange(
 				@Path("id") String id,
 				Callback<BaseResponseHolder> callback);
-		
-		
+
 		@POST("/v1/account/logout")
 		void authLogout(
 				Callback<BaseResponseHolder> callback);
@@ -163,16 +210,6 @@ public class RetrofitClient {
 				@QueryMap Map<String, String> options,
 				Callback<WashersResponseHolder> callback);
 
-		@GET("/v1/map_carwash")
-		void washersOnMap(
-				@QueryMap Map<String, String> options,
-				Callback<WashersResponseHolder> callback);
-
-		@GET("/v1/public_carwash")
-		void washerCampaigns(
-				@QueryMap Map<String, String> options,
-				Callback<WashersResponseHolder> callback);
-
 		@GET("/v1/public_carwash/{washerid}")
 		void washerInfo(
 				@Path("washerid") String washerId,
@@ -188,28 +225,27 @@ public class RetrofitClient {
 		void washerTimeTableWithBook(
 				@Query("carwash") String washerId,
 				@Query("day") String day,
+				@Query("date") Long date,
 				Callback<WasherTimeTableResponseHolder> callback);
 
-		@POST("/v1/client_booking")
+//		@POST("/v1/client_booking")
+		@POST("/v1/company_booking")
 		void bookRequest(
 				@Body BookingRequest body,
 				Callback<BookResponseHolder> callback);
 
+//		@GET("/v1/company_booking/{bookid}")
 		@GET("/v1/client_booking/{bookid}")
 		void bookingInfo(
 				@Path("bookid") String bookId,
 				Callback<BookInfoResponseHolder> callback);
 		
+//		@GET("/v1/company_booking")
 		@GET("/v1/client_booking")
 		void booksList(
 				@QueryMap Map<String, String> options,
 				Callback<BooksResponseHolder> callback);
 		
-		@GET("/v1/client_notifications")
-		void notificationList(
-				@QueryMap Map<String, String> options,
-				Callback<NotificationResponseHolder> callback);
-
 		@POST("/v1/client_booking/cancel")
 		void bookingCancel(
 				@Body BookingRequest body,
@@ -232,9 +268,10 @@ public class RetrofitClient {
 				Callback<PhotoResponseHolder> callback);
 
 		@POST("/v1/image_upload/delete/{photoid}")
-		void clientPhotoDelete(
+		void photoDelete(
 				@Path("photoid") String photoId,
 				Callback<BaseResponseHolder> callback);
+
 
 		@POST("/v1/client_reviews")
 		void addClientReview(
@@ -252,7 +289,12 @@ public class RetrofitClient {
 		void  getOwnWashers(
 				@QueryMap Map<String, String> options,
 				Callback<WashersResponseHolder> callback);
-		
+
+		@GET("/v1/company_carwash")
+		void  getWasherById(
+				@QueryMap Map<String, String> options,
+				Callback<WashersResponseHolder> callback);
+
 		@POST("/v1/company_carwash")
 		void createInitialWasher(
 				@Body InitialWasherCreateRequest body,
@@ -281,10 +323,30 @@ public class RetrofitClient {
 				@QueryMap Map<String, String> options,
 				Callback<BooksResponseHolder> callback);
 
+		@GET("/v1/company_clients/")
+		void companyClients(
+				@QueryMap Map<String, String> options,
+				Callback<ClientsResponseHolder> callback);
+
+		@GET("/v1/company_clients/single/")
+		void companyClient(
+				@QueryMap Map<String, String> options,
+				Callback<ClientResponseHolder> callback);
+
+		@GET("/v1/company_clients/{id}")
+		void companySingleClient(
+				@Path("id") String id,
+				Callback<ClientResponseHolder> callback);
+
 		@GET("/v1/company_booking/queued/")
 		void companyQueuedBooksList(
 				@QueryMap Map<String, String> options,
 				Callback<QueuedBooksResponseHolder> callback);
+
+		@GET("/v1/company_booking/single_client_books/")
+		void companySingleClientBooksList(
+				@QueryMap Map<String, String> options,
+				Callback<SingleClientBooksResponseHolder> callback);
 
 		@GET("/v1/company_booking/statistics/")
 		void companyStatisticsList(
@@ -303,6 +365,11 @@ public class RetrofitClient {
 
 		@POST("/v1/company_booking/start_queue")
 		void startQueueRequest(
+				@Body BookingRequest body,
+				Callback<BookResponseHolder> callback);
+
+		@POST("/v1/company_booking/edit_entry")
+		void editQueueOrBookRequest(
 				@Body BookingRequest body,
 				Callback<BookResponseHolder> callback);
 
@@ -386,6 +453,36 @@ public class RetrofitClient {
 				@Path("boxid") String boxId,
 				Callback<AdminBoxResponseHolder> callback);
 
+		@GET("/v1/company_carwash/{washerid}/group_menu")
+		void adminGroupMenuList(
+				@Path("washerid") String washerId,
+				Callback<AdminGroupMenuListResponseHolder> callback);
+
+		@GET("/v1/company_carwash/{washerid}/group_menu/{id}")
+		void adminGroupMenu(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				Callback<AdminGroupMenuResponseHolder> callback);
+
+		@PATCH("/v1/company_carwash/{washerid}/group_menu/{id}")
+		void adminChangeGroupMenu(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				@Body GroupMenuOperationRequest body,
+				Callback<AdminGroupMenuResponseHolder> callback);
+
+		@POST("/v1/company_carwash/{washerid}/group_menu/")
+		void adminAddGroupMenu(
+				@Path("washerid") String washerId,
+				@Body GroupMenuOperationRequest body,
+				Callback<AdminGroupMenuResponseHolder> callback);
+
+		@DELETE("/v1/company_carwash/{washerid}/group_menu/{id}")
+		void adminDeleteGroupMenu(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				Callback<AdminGroupMenuResponseHolder> callback);
+
 		@POST("/v1/company_carwash")
 		void createTmpWasher(
 				@Body Washer body,
@@ -398,12 +495,6 @@ public class RetrofitClient {
 		@POST("/v1/settings")
 		void updateSettings(
 				@Body Settings body,
-				Callback<BaseResponseHolder> callback);
-
-		@PUT("/v1/location/{locationText}")
-		void updateLocation(
-				@Path("locationText") String locationText,
-				@Body UserLocation body,
 				Callback<BaseResponseHolder> callback);
 
 		@GET("/v1/devices/{deviceId}")
@@ -422,41 +513,205 @@ public class RetrofitClient {
 				@Path("deviceId") String deviceId,
 				Callback<BaseResponseHolder> callback);
 
-		@GET("/v1/client_clients/single/")
-		void clientSingleClient(
+       //Campaigns
+		@GET("/v1/company_carwash/{washerid}/company_campaigns")
+		void adminCampaignList(
+				@Path("washerid") String washerId,
+				Callback<AdminCampaignsResponseHolder> callback);
+
+		@GET("/v1/company_carwash/{washerid}/company_campaigns/{campaignid}")
+		void adminCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String boxId,
+				Callback<AdminCampaignResponseHolder> callback);
+
+		@PATCH("/v1/company_carwash/{washerid}/company_campaigns/{campaignid}")
+		void adminChangeCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String campaignId,
+				@Body CampaignOperationRequest body,
+				Callback<AdminCampaignResponseHolder> callback);
+
+		@POST("/v1/company_carwash/{washerid}/company_campaigns/")
+		void adminAddCampaign(
+				@Path("washerid") String washerId,
+				@Body CampaignOperationRequest body,
+				Callback<BaseResponseHolder> callback);
+
+		@DELETE("/v1/company_carwash/{washerid}/company_campaigns/{campaignid}")
+		void adminDeleteCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String campaignId,
+				Callback<AdminCampaignResponseHolder> callback);
+
+		//Wash count Campaigns
+		@GET("/v1/company_carwash/{washerid}/wash_count")
+		void adminWashCountCampaignList(
+				@Path("washerid") String washerId,
+				Callback<AdminWashCountCampaignsResponseHolder> callback);
+
+		@GET("/v1/company_carwash/{washerid}/wash_count/{campaignid}")
+		void adminWashCountCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String boxId,
+				Callback<AdminWashCountCampaignResponseHolder> callback);
+
+		@PATCH("/v1/company_carwash/{washerid}/wash_count/{campaignid}")
+		void adminWashCountChangeCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String campaignId,
+				@Body CampaignOperationRequest body,
+				Callback<AdminWashCountCampaignResponseHolder> callback);
+
+		@POST("/v1/company_carwash/{washerid}/wash_count/")
+		void adminWashCountAddCampaign(
+				@Path("washerid") String washerId,
+				@Body WashCountCampaignOperationRequest body,
+				Callback<BaseResponseHolder> callback);
+
+		@DELETE("/v1/company_carwash/{washerid}/wash_count/{campaignid}")
+		void adminWashCountDeleteCampaign(
+				@Path("washerid") String washerId,
+				@Path("campaignid") String campaignId,
+				Callback<AdminWashCountCampaignResponseHolder> callback);
+
+		@POST("/v1/company_notifications")
+		void addAdminNotificationNews(
+				@Body AdminNotificationNewsRequest body,
+				Callback<BaseResponseHolder> callback);
+
+		@POST("/v1/company_notifications/send_push/")
+		void sendAdminNotificationNews(
+				@Body AdminNotificationNewsRequest body,
+				Callback<BaseResponseHolder> callback);
+
+		@GET("/v1/company_notifications")
+		void getAdminNotificationNews(
 				@QueryMap Map<String, String> options,
-				Callback<ClientResponseHolder> callback);
+				Callback<NotificationNewsResponseHolder> callback);
 
-		@POST("/v1/client_request")
-		void clientFareRequest(
-				@Body FareRequest body,
-				Callback<FareRequestResponseHolder> callback);
+		@POST("/v1/company_clients")
+		void createCompanyClient(
+				@Body ClientCreateRequest body,
+				Callback<BaseResponseHolder> callback);
 
-		@GET("/v1/client_request")
-		void clientFareRequests(
-				@Query("status") String status,
-				Callback<FareRequestsResponseHolder> callback);
+		@PATCH("/v1/company_clients/{id}")
+		void editCompanyClient(
+				@Path("id") String id,
+				@Body ClientCreateRequest body,
+				Callback<BaseResponseHolder> callback);
 
-		@POST("/v1/client_request/cancel")
-		void fareRequestCancel(
-				@Body FareRequest body,
-				Callback<FareRequestResponseHolder> callback);
+		@DELETE("/v1/company_clients/{id}")
+		void deleteCompanyClient(
+				@Path("id") String id,
+				Callback<BaseResponseHolder> callback);
 
-		@POST("/v1/client_request/increase_fare")
-		void fareRequestIncreaseFare(
-				@Body FareRequest body,
-				Callback<FareRequestResponseHolder> callback);
 
-		@POST("/v1/client_request/accept_bid")
-		void fareRequestAcceptBidFare(
-				@Body FareRequest body,
-				Callback<FareRequestResponseHolder> callback);
+		@GET("/v1/company_carwash/{washerid}/staff")
+		void adminStaffList(
+				@Path("washerid") String washerId,
+				Callback<AdminStaffsResponseHolder> callback);
 
-		@POST("/v1/client_request/bid_not_accepted")
-		void fareRequestNotAcceptBidFare(
-				@Body FareRequest body,
-				Callback<FareRequestResponseHolder> callback);
+		@GET("/v1/company_carwash/{washerid}/staff/{id}")
+		void adminStaff(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				Callback<AdminStaffResponseHolder> callback);
 
+		@PATCH("/v1/company_carwash/{washerid}/staff/{id}")
+		void adminChangeStaff(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				@Body StaffOperationRequest body,
+				Callback<AdminStaffResponseHolder> callback);
+
+		@POST("/v1/company_carwash/{washerid}/staff/")
+		void adminAddStaff(
+				@Path("washerid") String washerId,
+				@Body StaffOperationRequest body,
+				Callback<AdminStaffResponseHolder> callback);
+
+		@DELETE("/v1/company_carwash/{washerid}/staff/{id}")
+		void adminDeleteStaff(
+				@Path("washerid") String washerId,
+				@Path("id") String id,
+				Callback<AdminStaffResponseHolder> callback);
+
+		@GET("/v1/work_shift/")
+		void adminWorkshiftList(
+				@Query("carwash") String washerId,
+				Callback<AdminWorkshiftsResponseHolder> callback);
+
+		@GET("/v1/work_shift/{id}")
+		void adminWorkshift(
+				@Path("id") String id,
+				Callback<AdminWorkshiftResponseHolder> callback);
+
+		@POST("/v1/work_shift/close")
+		void adminWorkshiftClose(
+				@Body CloseWorkshiftRequest request,
+				Callback<AdminWorkshiftResponseHolder> callback);
+
+		@POST("/v1/work_shift/")
+		void adminAddWorkshift(
+				@Body AddWorkshiftRequest request,
+				Callback<AdminWorkshiftResponseHolder> callback);
+
+		@GET("/v1/financial_statistics/current/")
+		void adminFinancialStatistics(
+				@Query("carwash") String washerId,
+				@Query("start_time") String startTime,
+				Callback<AdminFinancialStatisticResponseHolder> callback);
+
+		@GET("/v1/carwash_money_transaction/")
+		void adminCarwashTransactionList(
+				@QueryMap Map<String, String> options,
+				Callback<AdminCarwashTransactionsResponseHolder> callback);
+
+		@GET("/v1/carwash_money_transaction/{id}")
+		void adminCarwashTransaction(
+				@Path("id") String id,
+				Callback<AdminCarwashTransactionResponseHolder> callback);
+
+		@POST("/v1/carwash_money_transaction/")
+		void adminAddCarwashTransaction(
+				@Body AdminCarwashTransactionAddRequestEvent request,
+				Callback<AdminCarwashTransactionResponseHolder> callback);
+
+
+		@GET("/v1/staff_details/current/")
+		void adminStaffFinancialInfo(
+				@Query("carwash") String washerId,
+				@Query("staff_id") String staffId,
+				@Query("start_time") String startTime,
+				@Query("end_time") String endTime,
+				Callback<AdminStaffFinancialResponseHolder> callback);
+
+
+		@GET("/v1/cash_financial_statistics/current/")
+		void adminCashFinancial(
+				@Query("carwash") String washerId,
+				@Query("start_time") String startTime,
+				@Query("end_time") String endTime,
+				Callback<AdminCashFinancialResponseHolder> callback);
+
+		@GET("/v1/analytical_statistics/")
+		void adminAnalytics(
+				@Query("carwash") String washerId,
+				@Query("start_time") String startTime,
+				@Query("end_time") String endTime,
+				Callback<AdminAnalyticsResponseHolder> callback);
+
+		@POST("/v1/company_bid/")
+		void adminCompanyBid(
+				@Body FareRequestBid request,
+				Callback<BaseResponseHolder> callback);
+
+		@PUT("/v1/location/{locationText}")
+		void updateLocation(
+				@Path("locationText") String locationText,
+				@Body UserLocation body,
+				Callback<BaseResponseHolder> callback);
    /*
 		@POST("/v1/client_bookmarks")
 		void addToFavourite(

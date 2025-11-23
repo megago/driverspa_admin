@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/horizontal_margin_third"
-    android:paddingTop="@dimen/horizontal_margin_third"
-    android:background="@drawable/background_list_item_white"
-    android:focusable="false">
+    android:background="@drawable/background_list_item"
+    android:focusable="false"
+    android:paddingBottom="@dimen/vertical_margin"
+    android:paddingTop="@dimen/vertical_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,213 +15,123 @@
 
         <LinearLayout
             android:id="@+id/reviewLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vertical_margin_third"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="0dp"
+            <RatingBar
+                android:id="@+id/review"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_gravity="center_horizontal"
+                android:clickable="false"
+                android:focusable="false"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressDrawable="@drawable/custom_ratingbar_disabled_selector"
+                android:rating="3.0"
+                android:stepSize="0.2" />
+
+            <TextView
+                android:id="@+id/txtRevCount"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/horizontal_margin_third"
+                android:text="12"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
 
-                <RatingBar
-                    android:id="@+id/review"
-                    android:layout_width="wrap_content"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center|left"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:progressDrawable="@drawable/custom_ratingbar_map_selector"
-                    android:rating="3.0"
-                    android:stepSize="0.2" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="invisible"
-                    android:layout_marginRight="@dimen/horizontal_margin_half">
-
-                    <ImageView
-                        android:id="@+id/imgAvailability"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|right"
-                        android:layout_marginRight="@dimen/horizontal_margin"
-                        android:src="@drawable/ic_flag_online_list"
-                        android:visibility="visible" />
-                </FrameLayout>
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/imgSmallStar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingLeft="2dp"
+                android:paddingRight="@dimen/horizontal_margin_third"
+                android:src="@drawable/ic_star_small_rated"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/txtLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/reviewLayout"
-            android:layout_marginRight="@dimen/horizontal_margin_double"
+            android:layout_marginRight="@dimen/horizontal_margin_four"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txtWasherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Автомойка "
-                android:textColor="@color/Black"
-                android:textSize="@dimen/text_normal" />
-
-            <FrameLayout
-                android:id="@+id/discountLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/horizontal_margin_third"
-                android:background="@drawable/ic_discount_bg_list">
-
-                <TextView
-                    android:id="@+id/discountText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="20%"
-                    android:textSize="@dimen/text_very_small"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/addressLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtLayout"
-            android:layout_marginRight="@dimen/horizontal_margin_double"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtWasherAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtLayout"
-                android:layout_gravity="top"
                 android:layout_weight="1"
-                android:gravity="left|top"
-                android:text="Address"
-                android:textColor="@color/Black"
-                android:textSize="@dimen/text_small" />
+                android:text="Автомойка Тап Таза fgsdgf sdfgsdf gsd fgsdfg sdfg df gdf gsdf g fdgsdf gsdf gsdf gsd gfs dg sdfg sdfg sdfg sdfg sdf s"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_medium" />
 
-
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imgAvailability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|top"
-                android:visibility="gone"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_comment_blue_24dp" />
-
-                <TextView
-                    android:id="@+id/txtRevCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:clickable="true"
-                    android:text="3 отзывов"
-                    android:textColor="@color/DarkGray"
-                    android:textColorLink="@color/White"
-                    android:textSize="@dimen/text_small" />
-            </LinearLayout>
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:layout_weight="0"
+                android:src="@drawable/ic_flag_online_list_disabled" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txtWasherAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtLayout"
+            android:text="Address"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_normal" />
+
         <LinearLayout
-            android:id="@+id/bottomLayout"
+            android:id="@+id/priceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/txtLayout"
-            android:layout_below="@+id/addressLayout"
+            android:layout_below="@+id/txtWasherAddress"
             android:layout_marginRight="@dimen/horizontal_margin_double"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/vertical_margin_half">
 
-            <LinearLayout
-                android:id="@+id/priceLayout"
+            <TextView
+                android:id="@+id/txtPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="кузов + салон от 1500"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <ImageView
-                    android:id="@+id/tenge"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
-                    android:src="@drawable/ic_tenge_black" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/horizontal_margin_third"
-                    android:paddingTop="@dimen/horizontal_margin_third">
-
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_marginLeft="@dimen/horizontal_margin_third"
-                        android:gravity="right|top"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginTop="2dp"
-                            android:src="@drawable/ic_distance" />
-
-                        <TextView
-                            android:id="@+id/txtDistance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="3 km"
-                            android:textColor="@color/Gray"
-                            android:textSize="@dimen/text_smaller" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:text="кузов + салон от 1500"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_normal" />
 
             <ImageView
                 android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/horizontal_margin_third"
-                android:src="@drawable/ic_tab_comment_normal"
-                android:visibility="gone" />
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/ic_tenge_disabled" />
 
 
+            <TextView
+                android:id="@+id/txtDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:text=""
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
         </LinearLayout>
 
         <ImageView
@@ -231,107 +141,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/horizontal_margin_third"
-            android:src="@drawable/ic_info_map_arrow_right" />
+            android:src="@drawable/ic_arrow_right" />
 
-        <LinearLayout
-            android:id="@+id/clientLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtLayout"
-            android:layout_below="@+id/bottomLayout"
-            android:layout_marginTop="@dimen/vertical_margin_third"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Скидка клиенту от мойки"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <TextView
-                    android:id="@+id/txtDiscount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:text="0%"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/bonusLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Начислено бонусов"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <TextView
-                    android:id="@+id/txtBonus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:text="0"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
-                    android:src="@drawable/ic_tenge_black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/depositLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Депозит"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <TextView
-                    android:id="@+id/txtDeposit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/horizontal_margin_third"
-                    android:text="0"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/text_smaller" />
-
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
-                    android:src="@drawable/ic_tenge_black" />
-            </LinearLayout>
-        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

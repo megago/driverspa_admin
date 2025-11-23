@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/custom_drawer"
-    android:clickable="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background" />
 
-
     <RelativeLayout
         android:id="@+id/navigationHeader"
         android:layout_width="match_parent"
-        android:layout_height="168dp">
+        android:layout_height="@dimen/navigation_top_header">
 
         <ImageView
             android:id="@+id/profile_avatar_invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:scaleType="centerCrop"/>
 
         <FrameLayout
             android:id="@+id/fade_for_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:background="@drawable/gradient_bg"
-            />
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/profile_avatar"
             android:layout_width="64dp"
@@ -39,14 +38,14 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
             android:src="@drawable/ic_image_place_holder" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/profile_avatar"
+            android:layout_toRightOf="@+id/profile_avatar"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -57,53 +56,127 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginTop="@dimen/vertical_margin_half"
-                android:layout_marginLeft="@dimen/horizontal_margin_half"
-                android:text="Войти"
+                android:text="название мойки"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/user_role"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="название мойки"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_smaller" />
+
+            <LinearLayout
+                android:id="@+id/spinnerLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:orientation="horizontal">
+                <!--android:drawSelectorOnTop="true"-->
+                <com.driverspa.view.NDSpinner
+                    android:id="@+id/washer_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:popupBackground="@color/background_main"
+                    android:spinnerMode="dropdown"
+                    android:textColor="@drawable/button_state_color"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_down" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text=""
+                android:text="+7 777 708 2344"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </RelativeLayout>
 
 
-    <View
-        android:id="@+id/separator"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@+id/navigationHeader"
-        android:background="@drawable/divider" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/separator"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navigationHeader"
         android:clickable="true"
-
         android:fitsSystemWindows="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:scrollbars="vertical" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/line"
+        android:layout_marginLeft="@dimen/horizontal_margin_third"
+        android:visibility="gone"
+        android:layout_below="@+id/drawerList">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Служба поддержки:"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="@dimen/horizontal_margin_third"
+                android:text="+7 778 373 6069"
+                android:autoLink="phone"
+                android:textSize="@dimen/text_small"
+                android:textColorLink="@color/GreenYellow"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@id/logout"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:background="@drawable/divider" />
+
     <TextView
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="@dimen/vertical_margin_double"
-        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:clickable="true"
         android:drawableLeft="@drawable/ic_logout"
         android:drawablePadding="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin"
         android:text="Выйти"
         android:textColor="@drawable/button_state_color"
         android:textSize="@dimen/text_normal" />

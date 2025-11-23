@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Washer extends WasherPublic {
 
@@ -19,12 +20,138 @@ public class Washer extends WasherPublic {
 //        setReviews(new ArrayList<Review>());
 	}
 
+	private List<ServicePriceExpandable> servicePriceList;
 
+	@SerializedName("images")
+	private ArrayList<Image> images;
 	private ArrayList<Review> reviews;
 
-	//	private AdditionalInfo additionalInfo;
+	@SerializedName("group_menu")
+	private List<GroupMenu> groupMenu;
+	@SerializedName("staffs")
+	private List<Staff> staffs;
+	@SerializedName("wash_count_campaigns")
+	private List<WashCountCampaign> washCountCampaigns;
 
+	@SerializedName("sms_for_queued_book")
+	boolean smsForQueuedBook;
+
+	@SerializedName("booking_available_after_time")
+	Integer bookingAvailableAfterTime;
+
+	@SerializedName("auto_accept_bookings")
+	boolean autoAcceptBookings;
+
+	@SerializedName("bonus_for_new_clients")
+	Integer bonusForNewClients;
+
+	@SerializedName("sms_by_carwash")
+	boolean smsByCarwash;
+
+
+	//	private AdditionalInfo additionalInfo;
 	private Location washerLocation;
+
+	@SerializedName("role_tran")
+	RoleTran roleTransactions;
+
+	public static class RoleTran {
+		@SerializedName("director_role")
+		ArrayList<Transactions> directorRole;
+		@SerializedName("operator_role")
+		ArrayList<Transactions> operatorRole;
+
+		public ArrayList<Transactions> getDirectorRole() {
+			return directorRole;
+		}
+
+		public void setDirectorRole(ArrayList<Transactions> directorRole) {
+			this.directorRole = directorRole;
+		}
+
+		public ArrayList<Transactions> getOperatorRole() {
+			return operatorRole;
+		}
+
+		public void setOperatorRole(ArrayList<Transactions> operatorRole) {
+			this.operatorRole = operatorRole;
+		}
+	}
+
+	public static class Transactions{
+		@SerializedName("tran_cd")
+		String transactionCode;
+		boolean enabled;
+
+		public Transactions(String transactionCode, boolean enabled) {
+			this.transactionCode = transactionCode;
+			this.enabled = enabled;
+		}
+
+		public String getTransactionCode() {
+			return transactionCode;
+		}
+
+		public void setTransactionCode(String transactionCode) {
+			this.transactionCode = transactionCode;
+		}
+
+		public boolean isEnabled() {
+			return enabled;
+		}
+
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
+	}
+
+	public RoleTran getRoleTransactions() {
+		return roleTransactions;
+	}
+
+	public void setRoleTransactions(RoleTran roleTransactions) {
+		this.roleTransactions = roleTransactions;
+	}
+
+	public static class GroupMenu{
+		@SerializedName("uid")
+		String id;
+		String name;
+		List<Integer> services;
+		List<ReversePrices> prices;
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public List<Integer> getServices() {
+			return services;
+		}
+
+		public void setServices(List<Integer> services) {
+			this.services = services;
+		}
+
+		public List<ReversePrices> getPrices() {
+			return prices;
+		}
+
+		public void setPrices(List<ReversePrices> prices) {
+			this.prices = prices;
+		}
+	}
 
 	public static class Prices {
 		private Double price;
@@ -56,57 +183,6 @@ public class Washer extends WasherPublic {
 		}
 	}
 
-	public static class BoxSettings {
-		@SerializedName("booking_type")
-		private BookingType bookingType;
-		private String uid;
-		@SerializedName("box_name")
-        private String boxName;
-		private Date ts;
-		@SerializedName("washer_person")
-		private String washerPerson;
-
-		public BookingType getBookingType() {
-			return bookingType;
-		}
-
-		public void setBookingType(BookingType bookingType) {
-			this.bookingType = bookingType;
-		}
-
-		public String getUid() {
-			return uid;
-		}
-
-		public void setUid(String uid) {
-			this.uid = uid;
-		}
-
-		public String getBoxName() {
-			return boxName;
-		}
-
-		public void setBoxName(String boxName) {
-			this.boxName = boxName;
-		}
-
-		public Date getTs() {
-			return ts;
-		}
-
-		public void setTs(Date ts) {
-			this.ts = ts;
-		}
-
-		public String getWasherPerson() {
-			return washerPerson;
-		}
-
-		public void setWasherPerson(String washerPerson) {
-			this.washerPerson = washerPerson;
-		}
-	}
-
 	public static class AdditionalInfo {
 
 		@SerializedName("carwash_automatic")
@@ -129,6 +205,8 @@ public class Washer extends WasherPublic {
 
 		@SerializedName("free_tea")
 		private boolean freeTea;
+
+
 
 		public boolean isFreeTea() {
 			return freeTea;
@@ -198,6 +276,7 @@ public class Washer extends WasherPublic {
 	}
 
 	public static class Contact {
+
 		private String alias;
 
 		private String comment;
@@ -451,6 +530,15 @@ public class Washer extends WasherPublic {
 	}
 
 
+	public ArrayList<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<Image> images) {
+		this.images = images;
+	}
+
+
 	public Location getWasherLocation() {
 		try {
 			washerLocation.setLatitude(Double.parseDouble(getLonLat().get(1)
@@ -462,12 +550,85 @@ public class Washer extends WasherPublic {
 		return washerLocation;
 	}
 
+	public List<WashCountCampaign> getWashCountCampaigns() {
+		return washCountCampaigns;
+	}
+
+	public void setWashCountCampaigns(List<WashCountCampaign> washCountCampaigns) {
+		this.washCountCampaigns = washCountCampaigns;
+	}
+
 	public ArrayList<Review> getReviews() {
 		return reviews;
 	}
 
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public List<ServicePriceExpandable> getServicePriceList() {
+		return servicePriceList;
+	}
+
+	public void setServicePriceList(List<ServicePriceExpandable> servicePriceList) {
+		this.servicePriceList = servicePriceList;
+	}
+
+	public List<GroupMenu> getGroupMenu() {
+		return groupMenu;
+	}
+
+	public void setGroupMenu(List<GroupMenu> groupMenu) {
+		this.groupMenu = groupMenu;
+	}
+
+	public boolean isSmsForQueuedBook() {
+		return smsForQueuedBook;
+	}
+
+	public void setSmsForQueuedBook(boolean smsForQueuedBook) {
+		this.smsForQueuedBook = smsForQueuedBook;
+	}
+
+	public boolean isSmsByCarwash() {
+		return smsByCarwash;
+	}
+
+	public void setSmsByCarwash(boolean smsByCarwash) {
+		this.smsByCarwash = smsByCarwash;
+	}
+
+
+	public Integer getBookingAvailableAfterTime() {
+		return bookingAvailableAfterTime;
+	}
+
+	public void setBookingAvailableAfterTime(Integer bookingAvailableAfterTime) {
+		this.bookingAvailableAfterTime = bookingAvailableAfterTime;
+	}
+
+	public boolean isAutoAcceptBookings() {
+		return autoAcceptBookings;
+	}
+
+	public void setAutoAcceptBookings(boolean autoAcceptBookings) {
+		this.autoAcceptBookings = autoAcceptBookings;
+	}
+
+	public Integer getBonusForNewClients() {
+		return bonusForNewClients;
+	}
+
+	public void setBonusForNewClients(Integer bonusForNewClients) {
+		this.bonusForNewClients = bonusForNewClients;
+	}
+
+	public List<Staff> getStaffs() {
+		return staffs;
+	}
+
+	public void setStaffs(List<Staff> staffs) {
+		this.staffs = staffs;
 	}
 
 	// GSON

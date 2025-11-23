@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/vertical_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="ФИО"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/staffName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint="ФИО"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:lines="1"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Номер телефона"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginTop="@dimen/vertical_margin_half"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="@dimen/horizontal_margin"
+                        android:text="+7"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_small" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        style="@style/EditText.Transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="(***) ___ __-__"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/BlueLight"
+                        android:textCursorDrawable="@null"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_small" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Уровень доступа"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/staffRole"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint=""
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:lines="1"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Статус"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/staffStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint=""
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:lines="1"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Дата рождения"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/birthDate"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint="Дата рождения"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:lines="1"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Зарплата %"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/salaryPercentage"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint="Зарплата %"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:background="#50000000"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/vertical_margin_third"
+                    android:paddingLeft="@dimen/horizontal_margin"
+                    android:paddingTop="@dimen/vertical_margin_third"
+                    android:text="Остаток на счете"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/depositAmount"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vertical_margin_third"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
+                    android:layout_marginRight="@dimen/horizontal_margin"
+                    android:layout_marginTop="@dimen/vertical_margin_third"
+                    android:gravity="top|left"
+                    android:hint=""
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

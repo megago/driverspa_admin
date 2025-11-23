@@ -20,7 +20,7 @@ public class ToastUtil {
 			toast.cancel();
 		toast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 60);
-        toast.show();		 		
+		toast.show();
 	}
 
 	public static void display(Context context, int messageResourceId) {
@@ -29,21 +29,21 @@ public class ToastUtil {
 		toast = Toast.makeText(context.getApplicationContext(), messageResourceId, Toast.LENGTH_SHORT);
 		toast.show();
 	}
-	
-	public static void displayAtTop(Context context, int messageResourceId) {		
+
+	public static void displayAtTop(Context context, int messageResourceId) {
 		toast = Toast.makeText(context.getApplicationContext(), messageResourceId, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 60);
-        toast.show();		 		
-	}	
-	
+		toast.show();
+	}
+
 	public static void displayShort(Context context, String message) {
 		Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 	}
 
-	public static void displayShortAtTop(Context context, String message) {	
+	public static void displayShortAtTop(Context context, String message) {
 		toast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 60);
-        toast.show();		 				
+		toast.show();
 	}
-	
+
 }

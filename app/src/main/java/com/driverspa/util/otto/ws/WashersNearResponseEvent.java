@@ -1,6 +1,5 @@
 package com.driverspa.util.otto.ws;
 
-import com.driverspa.model.WasherPublic;
 import com.driverspa.model.api.response.WashersResponseHolder;
 
 

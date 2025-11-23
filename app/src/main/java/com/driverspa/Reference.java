@@ -9,125 +9,204 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Reference {
-        public static final String RU = "ru";
-        public static final String EN = "en";
-        public static final String KZ = "kz";
-	    
-	    public Reference(){
-	    	langs = new HashMap<String,String>();
-	    	langs.put(RU,"Русский");
-	    	langs.put(KZ,"Қазақша");
-	    	langs.put(EN,"English");
-	    }	   
-	    
-		private HashMap<String,String> langs;
-		
-	    private LinkedHashMap<Integer,String> services;
+	public static final String RU = "ru";
+	public static final String EN = "en";
+	public static final String KZ = "kz";
 
-	    private ArrayList<City> cities;
+	public Reference(){
+		langs = new HashMap<String,String>();
+		langs.put(RU,"Русский");
+		langs.put(KZ,"Қазақша");
+		langs.put(EN,"English");
+	}
 
-	    @SerializedName("additional_info")
-	    private LinkedHashMap<String,String> additionalInfo;
+	private HashMap<String,String> langs;
 
-	    @SerializedName("contact_type")
-	    private LinkedHashMap<String,String> contactType;
+	private LinkedHashMap<Integer,String> services;
 
-	    private LinkedHashMap<String,String> payoptions;
+	private ArrayList<City> cities;
 
-	    @SerializedName("car_type")
-	    private LinkedHashMap<Integer,String> carType;
+	@SerializedName("additional_info")
+	private LinkedHashMap<String,String> additionalInfo;
 
-	    public LinkedHashMap<Integer,String> getServices ()
-	    {
-	        return services;
-	    }
+	@SerializedName("contact_type")
+	private LinkedHashMap<String,String> contactType;
 
-	    public void setServices (LinkedHashMap<Integer,String> services)
-	    {
-	        this.services = services;
-	    }
+	private LinkedHashMap<String,String> payoptions;
 
-	    public ArrayList<City> getCities ()
-	    {
-	        return cities;
-	    }
+	@SerializedName("car_type")
+	private LinkedHashMap<Integer,String> carType;
 
-	    public void setCities (ArrayList<City> cities)
-	    {
-	        this.cities = cities;
-	    }
+	@SerializedName("account_numbers")
+	private LinkedHashMap<Integer,String> accountNumbers;
 
-	    public HashMap<String,String> getAdditionalInfo ()
-	    {
-	        return additionalInfo;
-	    }
+	@SerializedName("operation_types")
+	private LinkedHashMap<Integer,String> operationTypes;
 
-	    public void setAdditionalInfo (LinkedHashMap<String,String> additionalInfo)
-	    {
-	        this.additionalInfo = additionalInfo;
-	    }
+	@SerializedName("roles")
+	private LinkedHashMap<String,String> roles;
 
-	    public LinkedHashMap<String,String> getContactType ()
-	    {
-	        return contactType;
-	    }
+	@SerializedName("staff_statuses")
+	private LinkedHashMap<String,String> staffStatuses;
 
-	    public void setContactType (LinkedHashMap<String,String> contactType)
-	    {
-	        this.contactType = contactType;
-	    }
+	@SerializedName("tran_types")
+	private LinkedHashMap<String,String> tranTypes;
 
-	    public HashMap<String,String> getPayoptions ()
-	    {
-	        return payoptions;
-	    }
+	@SerializedName("payment_types")
+	private LinkedHashMap<String,String> paymentTypes;
 
-	    public void setPayoptions (LinkedHashMap<String,String> payoptions)
-	    {
-	        this.payoptions = payoptions;
-	    }
+	@SerializedName("app_version_codes")
+	private LinkedHashMap<String,String> appVersionCodes;
 
-	    public LinkedHashMap<Integer,String> getCarType ()
-	    {
-	        return carType;
-	    }
+//	ACCOUNT_NUMBERS
 
-	    public void setCarType (LinkedHashMap<Integer,String> carType)
-	    {
-	        this.carType = carType;
-	    }
-	    
-	    public static class City {
-	    	String code;
-	    	String title;
+	public LinkedHashMap<Integer,String> getServices ()
+	{
+		return services;
+	}
 
-	    	@SerializedName("lonlat")
-	    	ArrayList<String> lonLat;
-			public String getCode() {
-				return code;
-			}
-			public void setCode(String code) {
-				this.code = code;
-			}
-			public String getTitle() {
-				return title;
-			}
-			public void setTitle(String title) {
-				this.title = title;
-			}
-			public ArrayList<String> getLonLat() {
-				return lonLat;
-			}
-			public void setLonLat(ArrayList<String> lonLat) {
-				this.lonLat = lonLat;
-			}
+	public void setServices (LinkedHashMap<Integer,String> services)
+	{
+		this.services = services;
+	}
 
-			public float getDistance(Location currentLoc) {
-				Location cityLocation = new Location("A");
-				cityLocation.setLatitude(Double.parseDouble(getLonLat().get(1).toString()));
-				cityLocation.setLongitude(Double.parseDouble(getLonLat().get(0).toString()));
-				float dist = currentLoc.distanceTo(cityLocation);
-                return dist;
-			}
+	public ArrayList<City> getCities ()
+	{
+		return cities;
+	}
+
+	public void setCities (ArrayList<City> cities)
+	{
+		this.cities = cities;
+	}
+
+	public HashMap<String,String> getAdditionalInfo ()
+	{
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo (LinkedHashMap<String,String> additionalInfo)
+	{
+		this.additionalInfo = additionalInfo;
+	}
+
+	public LinkedHashMap<String,String> getContactType ()
+	{
+		return contactType;
+	}
+
+	public void setContactType (LinkedHashMap<String,String> contactType)
+	{
+		this.contactType = contactType;
+	}
+
+	public HashMap<String,String> getPayoptions ()
+	{
+		return payoptions;
+	}
+
+	public void setPayoptions (LinkedHashMap<String,String> payoptions)
+	{
+		this.payoptions = payoptions;
+	}
+
+	public LinkedHashMap<Integer,String> getCarType ()
+	{
+		return carType;
+	}
+
+	public void setCarType (LinkedHashMap<Integer,String> carType)
+	{
+		this.carType = carType;
+	}
+
+	public LinkedHashMap<Integer, String> getAccountNumbers() {
+		return accountNumbers;
+	}
+
+	public void setAccountNumbers(LinkedHashMap<Integer, String> accountNumbers) {
+		this.accountNumbers = accountNumbers;
+	}
+
+	public LinkedHashMap<Integer, String> getOperationTypes() {
+		return operationTypes;
+	}
+
+	public void setOperationTypes(LinkedHashMap<Integer, String> operationTypes) {
+		this.operationTypes = operationTypes;
+	}
+
+	public LinkedHashMap<String, String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(LinkedHashMap<String, String> roles) {
+		this.roles = roles;
+	}
+
+	public LinkedHashMap<String, String> getStaffStatuses() {
+		return staffStatuses;
+	}
+
+	public void setStaffStatuses(LinkedHashMap<String, String> staffStatuses) {
+		this.staffStatuses = staffStatuses;
+	}
+
+	public LinkedHashMap<String, String> getTranTypes() {
+		return tranTypes;
+	}
+
+	public void setTranTypes(LinkedHashMap<String, String> tranTypes) {
+		this.tranTypes = tranTypes;
+	}
+
+	public LinkedHashMap<String, String> getPaymentTypes() {
+		return paymentTypes;
+	}
+
+	public void setPaymentTypes(LinkedHashMap<String, String> paymentTypes) {
+		this.paymentTypes = paymentTypes;
+	}
+
+	public LinkedHashMap<String, String> getAppVersionCodes() {
+		return appVersionCodes;
+	}
+
+	public void setAppVersionCodes(LinkedHashMap<String, String> appVersionCodes) {
+		this.appVersionCodes = appVersionCodes;
+	}
+
+	public static class City {
+		String code;
+		String title;
+
+		@SerializedName("lonlat")
+		ArrayList<String> lonLat;
+		public String getCode() {
+			return code;
 		}
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public ArrayList<String> getLonLat() {
+			return lonLat;
+		}
+		public void setLonLat(ArrayList<String> lonLat) {
+			this.lonLat = lonLat;
+		}
+
+		public float getDistance(Location currentLoc) {
+			Location cityLocation = new Location("A");
+			cityLocation.setLatitude(Double.parseDouble(getLonLat().get(1).toString()));
+			cityLocation.setLongitude(Double.parseDouble(getLonLat().get(0).toString()));
+			float dist = currentLoc.distanceTo(cityLocation);
+			return dist;
+		}
+	}
 }

@@ -1,12 +1,7 @@
 <resources>
-    <dimen name="map_dx">0dp</dimen>
-    <dimen name="map_dy">120dp</dimen>
-    <dimen name="map_dy_short">100dp</dimen>
-    <dimen name="map_dy_shorter">60dp</dimen>
-    <dimen name="map_dy_shortest">20dp</dimen>
-
 
     <dimen name="navigation_drawer_width">280dp</dimen>
+    <dimen name="navigation_top_header">80dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -34,13 +29,16 @@
     <dimen name="side_menu_shadow_width">15dp</dimen>
     <dimen name="side_menu_offset">60dp</dimen>
     
-    <dimen name="book_cars_width">50dp</dimen>
+    <dimen name="book_cars_width">60dp</dimen>
     <dimen name="book_cars_height">40dp</dimen>
     
     <dimen name="grid_time_height">80dp</dimen>
     <dimen name="grid_time_width">80dp</dimen>
-    
-    
+
+    <dimen name="price_height">20dp</dimen>
+    <dimen name="price_width">60dp</dimen>
+
+
     <dimen name="text_very_small">7sp</dimen>
     <dimen name="text_smallest">9sp</dimen>
     <dimen name="text_smaller">11sp</dimen>
@@ -60,8 +58,13 @@
     <dimen name="user_chat_image_width">50dp</dimen>
     
     <dimen name="washer_profile_view_width">110dp</dimen>
-    
-    
+
+    <dimen name="home_menu_height">50dp</dimen>
+    <dimen name="home_menu_sub_height">45dp</dimen>
+    <dimen name="badge_dimension">20dp</dimen>
+
+
+
     <dimen name="user_image_medium_width">72dp</dimen>
     <dimen name="user_image_medium_online_margin_left">60.72dp</dimen>
     <dimen name="user_image_medium_online_margin_top">11dp</dimen>

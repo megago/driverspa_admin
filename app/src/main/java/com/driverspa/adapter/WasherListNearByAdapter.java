@@ -2,7 +2,6 @@ package com.driverspa.adapter;
 
 import android.content.Context;
 import android.location.Location;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +18,11 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
 import com.driverspa.model.WasherPublic;
-import com.driverspa.util.Functions;
 import com.driverspa.util.LogUtil;
 
 public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 
-	DecimalFormat formatter = new DecimalFormat("#,###.##");
+	DecimalFormat formatter = new DecimalFormat("###.##");
 	boolean isCompany = false;
 	boolean useNoGPSOption = false;
 	Location currentLoc;
@@ -64,7 +62,6 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 				
 		ViewHolder holder;
 		WasherPublic item = getItem(position);
-
 //		if (view != null) {
 //			holder = (ViewHolder) view.getTag();
 //		} else {
@@ -79,64 +76,28 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 		    view.setTag(holder);
 //		}
 
-		holder.discount.setVisibility(View.GONE);
-		if(item.getActiveCampaign() != null){
-			holder.discount.setVisibility(View.VISIBLE);
-			holder.discountText.setText("-"+item.getActiveCampaign().getCampaignDiscount()+"%");
-		}
-
 		holder.name.setText(item.getName().toLowerCase().contains("автомойка")?item.getName():"Автомойка "+item.getName());
 		
-	   if(!isCompany){
+	   if(!isCompany){		
+//		holder.imageAvailability.setVisibility(View.VISIBLE);
 		holder.price.setVisibility(View.VISIBLE);
+//		holder.reviewCount.setVisibility(View.VISIBLE);
 		holder.price.setVisibility(View.VISIBLE);
+//		holder.reviewCount.setVisibility(View.VISIBLE);
 		holder.distance.setVisibility(View.VISIBLE);
 		holder.priceLayout.setVisibility(View.VISIBLE);
 		holder.address.setVisibility(View.VISIBLE);
 
-		if(item.getPrice()!=null) {
-			holder.price.setText("Кузов-салон от " + (item.getPrice() != null ? formatter.format(item.getPrice()).replaceAll(",", " ") + "" : ""));
-			holder.tenge.setVisibility(View.VISIBLE);
-		}
-		else {
-			holder.price.setText("");
-			holder.tenge.setVisibility(View.GONE);
-		}
-
+//		holder.imageAvailability.setSelected(item.isBookable());
+//		holder.price.setText("");
+		holder.price.setText("Кузов-салон от " + (item.getPrice()!=null?formatter.format(item.getPrice()).replaceAll(",", " ")+"":"500"));
 		holder.review.setRating((float)item.getRating().doubleValue());
-		if(item.getReviewCount() != null && item.getReviewCount() > 0) {
-			holder.reviewCount.setVisibility(View.VISIBLE);
-			holder.reviewCount.setText(item.getReviewCount() + " отзывов");
-		}
-		else{
-			holder.reviewCount.setVisibility(View.GONE);
-			holder.reviewCount.setText("");
-		}
-
-		if(!TextUtils.isEmpty(item.getAddress()) && !TextUtils.isEmpty(item.getCity())){
-			holder.address.setText(Functions.getCityDescription(item.getCity())+", "+item.getAddress());
-		}
-		if(TextUtils.isEmpty(item.getAddress()))
-			holder.address.setText(Functions.getCityDescription(item.getCity())+", "+"адрес не указан");
-
-	   holder.distance.setVisibility(View.GONE);
-
-		if(!TextUtils.isEmpty(item.getCompanyClientId())){
-			holder.clientLayout.setVisibility(View.VISIBLE);
-			if(item.getCompanyClientDeposit() != null)
-				holder.discountClientText.setText(item.getCompanyClientDiscount()+"%");
-			if(item.getCompanyClientDeposit() != null)
-				holder.depositText.setText(formatter.format(item.getCompanyClientDeposit())+"");
-			if(item.getCompanyClientBonus() != null)
-				holder.bonusText.setText(formatter.format(item.getCompanyClientBonus())+"");
-		}
-		   else{
-			holder.clientLayout.setVisibility(View.GONE);
-		}
+		holder.reviewCount.setText(item.getRating().intValue()+"");
+		holder.address.setText(item.getAddress());
 
 
-	  if(currentLoc != null && item.getLonLat() != null && item.getLonLat().size() > 0){
-		 try{
+		if(currentLoc != null){
+		  try{	
 		  Location washerLocation = new Location("A");
 		  washerLocation.setLatitude(Double.parseDouble(item.getLonLat().get(1).toString()));
 		  washerLocation.setLongitude(Double.parseDouble(item.getLonLat().get(0).toString()));
@@ -150,6 +111,7 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 	       }
 		  }
 		  catch(Exception e){
+			  LogUtil.d("YERZHAN", "Current location problem");
 		  }
 		 }	
 		}
@@ -162,6 +124,7 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 			holder.distance.setVisibility(View.GONE);
 			holder.priceLayout.setVisibility(View.GONE);
 			holder.address.setVisibility(View.GONE);
+
 		}
 					
 		return view;
@@ -170,38 +133,27 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 	static class ViewHolder {
 		 		 				
 		@BindView(R.id.imgAvailability)
-		ImageView imageAvailability;
+		ImageView imageAvailability;	
+		
 		@BindView(R.id.txtWasherAddress)
 		TextView address;
+
 		@BindView(R.id.txtWasherName)
 		TextView name;
+
 		@BindView(R.id.txtPrice)
 		TextView price;
+		
 		@BindView(R.id.txtRevCount)
 		TextView reviewCount;
+		
 		@BindView(R.id.txtDistance)
 		TextView distance;
+		
 		@BindView(R.id.priceLayout)
 		View priceLayout;
-		@BindView(R.id.bottomLayout)
-		View bottomLayout;
-		@BindView(R.id.discountLayout)
-		View discount;
-		@BindView(R.id.discountText)
-		TextView discountText;
 		@BindView(R.id.review)
 		RatingBar review;
-		@BindView(R.id.tenge)
-		View tenge;
-
-		@BindView(R.id.txtDeposit)
-		TextView depositText;
-		@BindView(R.id.txtBonus)
-		TextView bonusText;
-		@BindView(R.id.txtDiscount)
-		TextView discountClientText;
-		@BindView(R.id.clientLayout)
-		View clientLayout;
 
 		public ViewHolder(View view) {
 			ButterKnife.bind(this, view);

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_options_home"
+        app:showAsAction="always"
+        android:title="Опции"
+        android:icon="@drawable/ic_three_dot">
+        <menu>
+            <item  android:id="@+id/messages"
+                android:title="Уведомления"/>
+        </menu>
+
+    </item>
+</menu>

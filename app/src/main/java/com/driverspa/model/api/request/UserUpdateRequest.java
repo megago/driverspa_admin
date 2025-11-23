@@ -1,13 +1,11 @@
 package com.driverspa.model.api.request;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.List;
 
 import com.driverspa.model.CarItem;
-import com.driverspa.model.User;
 
 public class UserUpdateRequest{
 
@@ -65,17 +63,5 @@ public class UserUpdateRequest{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	// GSON
-	public String serialize() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
-	}
-
-	public static UserUpdateRequest deserialize(String serializedData) {
-		Gson gson = new Gson();
-		return gson.fromJson(serializedData, UserUpdateRequest.class);
-	}
-
 
 }

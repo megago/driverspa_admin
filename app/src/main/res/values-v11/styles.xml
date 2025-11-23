@@ -3,80 +3,43 @@
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
     -->
-
-    <style name="AppTheme.Base" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@drawable/background</item>
-
-        <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/statusbarColor</item>
+    <style name="AppBaseTheme" parent="Theme.AppCompat">
+        <item name="android:windowDisablePreview">true</item>
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
     </style>
 
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar"/>
     <!-- Application theme. -->
-    <style name="DrawerArrowStyle" parent="android:Theme.Material.Light.NoActionBar">
-        <!--        <item name="spinBars">true</item>-->
-        <!--        <item name="color">@android:color/white</item>-->
-    </style>
-
-    <!--    <item name="popupTheme"></item>-->
-    <!--    <item name="theme">@style/WashmeHomeActionBar</item>-->
-
-    <style name="ToolBarStyle" parent="">
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
     <style name="AppTheme.WhiteAccent">
-        <!--        <item name="colorAccent">@color/White</item> &lt;!&ndash; Whatever color you want&ndash;&gt;-->
+        <item name="colorAccent">@color/White</item> <!-- Whatever color you want-->
     </style>
 
-    <style name="WashmeHomeActionBar" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:windowDisablePreview">true</item>
+    <style name="ToolBarStyle" parent="">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
-    <!--    <item name="colorPrimary">@color/BlueLight2</item>-->
-    <!--    <item name="colorPrimaryDark">@color/BlueLight2</item>-->
-    <!--    <item name="colorAccent">@color/BlueLight2</item>-->
-    <!--    <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
-
-    <style name="WashmeAppTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowBackground">@drawable/background</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
+    <style name="WashmeAppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:textColorPrimary">@color/BlueLight2</item>
-        <item name="android:textViewStyle">@style/WashmeTextViewStyle</item>
+        <!--<item name="colorPrimary">@color/myPrimaryColor</item>-->
+        <!--<item name="colorPrimaryDark">@color/myPrimaryDarkColor</item>-->
+        <!--<item name="colorAccent">@color/myAccentColor</item>-->
+        <!--<item name="android:textColorPrimary">@color/myTextPrimaryColor</item>-->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
         <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
         <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
         <item name="android:buttonStyleToggle">@style/ToggleAppTheme</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
-    <!--<style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">-->
-    <!--&lt;!&ndash; Required for pre-Lollipop. &ndash;&gt;-->
-    <!--<item name="overlapAnchor">false</item>-->
-
-    <!--&lt;!&ndash; Required for Lollipop. &ndash;&gt;-->
-    <!--<item name="android:overlapAnchor">false</item>-->
-    <!--</style>-->
-
-    <style name="OverflowMenu" parent="android:Widget.PopupMenu">
-        <!--        <item name="overlapAnchor">false</item>-->
-        <item name="android:dropDownVerticalOffset">-36dip</item>
-    </style>
-
-    <style name="mySpinnerStyle" parent="android:Widget.ListView.DropDown">
-        <item name="android:divider">@color/DarkGray</item>
-        <item name="android:dividerHeight">1dp</item>
-
-    </style>
-
-    <!--    <style name="CustomTextInputLayoutStyle.ErrorTextStyle" parent="TextAppearance.Design.Error">-->
-    <!--        <item name="android:textSize">6sp</item>-->
-    <!--    </style>-->
 
     <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/White</item>
@@ -85,7 +48,7 @@
 
     <!-- ActionBar styles -->
     <style name="EditText">
-        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingLeft">@dimen/horizontal_margin_half</item>
     </style>
 
     <style name="EditText.White" parent="EditText">
@@ -96,16 +59,8 @@
         <item name="android:background">@color/Black</item>
     </style>
 
-    <style name="EditText.Transparent" parent="EditText">
+    <style name="EditText.Transparent">
         <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="TextLabel" parent="android:TextAppearance">
-        <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/BlueLight</item>
-        <!--        <item name="colorAccent">@color/BlueLight</item>-->
-        <!--        <item name="colorControlNormal">@color/BlueLight</item>-->
-        <!--        <item name="colorControlActivated">@color/BlueLight</item>-->
     </style>
 
     <style name="EditText.Transparent.WhiteBorder" parent="EditText">
@@ -113,24 +68,25 @@
     </style>
 
     <style name="TransparentBackground" parent="android:Theme.Light">
-        <item name="android:windowIsTranslucent">true</item> <!-- подлупрозрачность окна -->
-        <item name="android:windowBackground">@android:color/transparent</item> <!-- прозрачный цвет бэкграунда -->
-        <item name="android:windowContentOverlay">@null</item> <!-- отключаем оверлей содержимого окна -->
-        <item name="android:windowNoTitle">true</item> <!-- отключаем заголовок -->
-        <item name="android:windowIsFloating">true</item> <!-- окно в любой части экрана -->
-        <item name="android:backgroundDimEnabled">false</item> <!-- отключаем затемнение -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- подлупрозрачность окна -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- прозрачный цвет бэкграунда -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- отключаем оверлей содержимого окна -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- отключаем заголовок -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- окно в любой части экрана -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- отключаем затемнение -->
     </style>
 
 
-    <style name="SeekBarAppTheme" parent="android:Widget.SeekBar">
+    <style name="SeekBarAppTheme" parent="android:Widget.Holo.Light.SeekBar">
         <item name="android:progressDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
         <item name="android:indeterminateDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
-        <item name="android:minHeight">13dip</item>
-        <item name="android:maxHeight">13dip</item>
         <item name="android:thumb">@drawable/apptheme_scrubber_control_selector_holo_light</item>
-        <item name="android:thumbOffset">16dip</item>
-        <item name="android:paddingLeft">16dip</item>
-        <item name="android:paddingRight">16dip</item>
     </style>
 
     <style name="RatingBarAppTheme" parent="android:Widget.RatingBar">
@@ -138,17 +94,11 @@
         <item name="android:indeterminateDrawable">@drawable/background_rating_bar_small</item>
     </style>
 
-    <style name="ToggleAppTheme" parent="android:Widget.Button.Toggle">
+    <style name="ToggleAppTheme" parent="android:Widget.Holo.Light.Button.Toggle">
         <item name="android:background">@drawable/apptheme_btn_toggle_holo_light</item>
-        <item name="android:minHeight">48dip</item>
-        <item name="android:textColor">#000000</item>
     </style>
 
-    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/background_rating_bar_empty</item>
-        <item name="android:minHeight">23dip</item>
-        <item name="android:maxHeight">25dip</item>
+    <style name="EditText.RoundedTransparent" parent="EditText">
+        <item name="android:background">@drawable/background_input_transparent</item>
     </style>
-
-
 </resources>

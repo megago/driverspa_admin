@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.driverspa.view.NDSpinner
+        android:id="@+id/clientTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/vertical_margin_third"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:entries="@array/newsTarget"
+        android:popupBackground="@color/background_main"
+        android:spinnerMode="dropdown"
+        android:textColor="@drawable/button_state_color"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/text_normal" />
+
+    <FrameLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/clientTypeSpinner"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:layout_marginBottom="@dimen/vertical_margin_half"
+        android:background="@color/BlueTransparent"
+         />
+
+    <TextView
+        android:id="@+id/recordsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginRight="@dimen/horizontal_margin_double"
+        android:text=""
+        android:layout_below="@+id/line"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:visibility="gone"
+        android:textSize="@dimen/text_small"
+         />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recordsCount"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/noInternetLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/noInternetMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_error"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal" />
+
+        <Button
+            android:id="@+id/repeatConnect"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/retry"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/noRecords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/horizontal_margin_double"
+        android:layout_marginRight="@dimen/horizontal_margin_double"
+        android:text="Нет клиентов"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="120dp"
+        android:visibility="visible" />
+
+</RelativeLayout>

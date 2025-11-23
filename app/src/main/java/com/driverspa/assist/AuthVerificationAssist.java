@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import com.driverspa.BA;
 import com.driverspa.Reference;
 import com.driverspa.model.BookingType;
+import com.driverspa.model.Box;
 import com.driverspa.model.User;
 import com.driverspa.model.Washer;
+import com.driverspa.model.WasherList;
 import com.driverspa.model.WasherPublic;
 import com.driverspa.model.api.request.InitialWasherCreateRequest;
 import com.driverspa.model.api.response.AuthAdminVerificationResponseHolder;
@@ -17,6 +19,7 @@ import com.driverspa.model.api.response.AuthClientVerificationResponseHolder;
 import com.driverspa.model.api.response.BaseResponseHolder;
 import com.driverspa.model.api.response.WasherResponseHolder;
 import com.driverspa.model.api.response.WashersResponseHolder;
+import com.driverspa.util.Constants;
 import com.driverspa.util.L;
 import com.driverspa.util.RetrofitClient.WashmeApi;
 import com.driverspa.util.UserPreferences;
@@ -53,14 +56,14 @@ public class AuthVerificationAssist extends BaseAssist {
 					
 //					if(isAdmin){
 					if(1!=1){
-					  displayToast("Ошибка! Ранее этот номер использыван при регистрации мойки. Свяжитесь с тех. поддержкой DriverSpa");
+					  displayToast("This user is registered as admin before");
 					  getEventsBus().post(new AuthClientVerificationResponseEvent(null));
 					}
-					else{
-						writeSelfToDb(data.getResponse());
-						UserPreferences.onUserLogin(BA.getContext(), userId, userPhone, userToken);
-						getEventsBus().post(new AuthClientVerificationResponseEvent(data));
-					}
+//					else{
+//						writeSelfToDb(data.getResponse());
+//						UserPreferences.onUserLogin(BA.getContext(), userId, userPhone, userToken);
+//						getEventsBus().post(new AuthClientVerificationResponseEvent(data));
+//					}
 				} else {
 					getEventsBus().post(new AuthClientVerificationResponseEvent(data));
 					logD("onAuthRegisterRequested: error " + data.getStatus());
@@ -79,11 +82,8 @@ public class AuthVerificationAssist extends BaseAssist {
 	
 	@Subscribe
 	public void onAuthVerificationRequested(final AuthAdminVerificationRequestEvent event) {
-		
 		logD("onAuthRegisterRequested");
-		
 		getApi().authAdminVerify(event.getAuthVerifyRequest(), new Callback<AuthAdminVerificationResponseHolder>() {
-			
 			@Override
 			public void success(AuthAdminVerificationResponseHolder verifyData, Response response) {
 				if( isSuccess(verifyData) ) {
@@ -93,7 +93,8 @@ public class AuthVerificationAssist extends BaseAssist {
 					String userPhone = user.getPhone();
 					String userToken = user.getToken();
 					boolean isAdmin = user.isCompany();
-					
+					boolean isOwner = user.isOwner();
+
 //					if(!isAdmin){
 					if(1!=1){
 						displayToast("This user is registered as client before");
@@ -101,7 +102,7 @@ public class AuthVerificationAssist extends BaseAssist {
 						getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
 					}
 					else{
-//						UserPreferences.onAdminLogin(BA.getContext(), userId, userPhone, userToken);
+						UserPreferences.onAdminLogin(BA.getContext(), userId, userPhone, userToken);
 						// write down user id and token
 						writeSelfToDb(verifyData.getResponse());
 						//First request washer list
@@ -111,13 +112,20 @@ public class AuthVerificationAssist extends BaseAssist {
 									@Override
 									public void success(WashersResponseHolder data, Response response) {
 									 if(isSuccess(data)){
-										if (data.getResponse().getResult() != null && data.getResponse().getResult().size() > 0) {
-											//if this user has washer, just post this list
-											WasherPublic washerPublic = data.getResponse().getResult().get(0);
-											//Request all data of the washer
-											getApi().adminWasherInfo(washerPublic.getId(),
-													new retrofit.Callback<WasherResponseHolder>() {
 
+										if (data.getResponse().getResult() != null && data.getResponse().getResult().size() > 0) {
+											UserPreferences.putOwnerWasherListData(BA.getContext(),new WasherList(data.getResponse().getResult()).serialize());
+											String washerId = "";
+											if(user.isOwner()) {
+												WasherPublic washerPublic = data.getResponse().getResult().get(0);
+												washerId = washerPublic.getId();
+											}
+											else{
+												washerId = user.getDefaultCarwashId();
+											}
+											//Request all data of the washer
+											getApi().adminWasherInfo(washerId,
+													new Callback<WasherResponseHolder>() {
 														@Override
 														public void success(WasherResponseHolder data, Response response) {
 														  if(isSuccess(data)) {
@@ -128,7 +136,7 @@ public class AuthVerificationAssist extends BaseAssist {
 															  //Set singleton washer
 															  BA.getEventBus().post(new WasherGetResponseEvent(washer));
 															  //Response to the UI
-															  getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data));
+															  getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
 														  }
 															else{
 															  getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
@@ -149,6 +157,8 @@ public class AuthVerificationAssist extends BaseAssist {
 													});
 
 										} else {
+
+											//Create washer and redirect to wizard page
 											InitialWasherCreateRequest request = new InitialWasherCreateRequest();
 											double LAT = 43.240008;
 											double LON = 76.912231;
@@ -170,9 +180,9 @@ public class AuthVerificationAssist extends BaseAssist {
 											lonLat.add(LAT);
 											request.setLonLat(lonLat);
 											request.setName(user.getCompanyName());
-											ArrayList<Washer.BoxSettings> boxSettings = new ArrayList<Washer.BoxSettings>();
+											ArrayList<Box> boxSettings = new ArrayList<Box>();
 											for (int i = 0; i < 1; i++) {
-												Washer.BoxSettings boxSetting = new Washer.BoxSettings();
+												Box boxSetting = new Box();
 												boxSetting.setBoxName("Бокс 1");
 												boxSetting.setBookingType(BookingType.Online);
 												boxSettings.add(boxSetting);
@@ -191,7 +201,7 @@ public class AuthVerificationAssist extends BaseAssist {
 															 UserPreferences.putWasherData(BA.getContext(), washer.serialize());
 															 BA.getEventBus().post(new WasherGetResponseEvent(washer));
 															 //Response to the UI
-															 getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data));
+															 getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
 														 }else{
 															getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
 															UserPreferences.onAdminLogout(BA.getContext());
@@ -210,6 +220,8 @@ public class AuthVerificationAssist extends BaseAssist {
 															return;
 														}
 													});
+
+
 										}
 									 }
 										else{

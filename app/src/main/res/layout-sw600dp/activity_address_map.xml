@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-    android:background="@drawable/background">
-
-<include
-    android:id="@+id/toolbar_actionbar"
-    layout="@layout/toolbar_admin_detail_custom_activity"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<fragment
-    android:id="@+id/mapThis"
-    android:name="com.driverspa.view.MySupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_custom_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin">
+
+                <EditText
+                    android:id="@+id/streetName"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Улица, Дом"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                android:background="@color/BlueTransparent"></FrameLayout>
+
+            <ListView
+                android:id="@+id/autoCompleteList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background"
+
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/mapThis"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

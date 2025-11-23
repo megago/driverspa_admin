@@ -15,11 +15,17 @@ public class BookingRequest {
 	private String requestType;
 	private String id;
 	private String bookId;
+
 	@SerializedName("client_key")
 	private String clientKey;
 	private String carwash;
+	@SerializedName("company_client")
+	private String companyClient;
 	private Date time;
-	private List<Integer> services;	  
+	private List<Integer> services;
+	private List<String> staffs;
+	@SerializedName("group_services")
+	private List<String> groupServices;
 	@SerializedName("cartype")
 	private Integer carType;		
 	private String carNo;
@@ -41,11 +47,13 @@ public class BookingRequest {
 	private String mobile;
 
 	private String comment;
-	private Integer discount;
+	private Double discount;
+	@SerializedName("discount_amount")
+	private Double discountAmount;
 	@SerializedName("is_paid")
 	private Boolean paid;
-	@SerializedName("group_services")
-	private List<String> groupServices;
+	@SerializedName("is_nocash")
+	private Boolean isNocash;
 	@SerializedName("price_details")
 	private List<BookInfo.PriceDetail> priceDetails;
 
@@ -63,7 +71,6 @@ public class BookingRequest {
 	public void setGroupServices(List<String> groupServices) {
 		this.groupServices = groupServices;
 	}
-
 
 	public List<Integer> getServices() {
 		return services;
@@ -227,12 +234,28 @@ public class BookingRequest {
 		this.comment = comment;
 	}
 
-	public Integer getDiscount() {
+	public Double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(Integer discount) {
+	public void setDiscount(Double discount) {
 		this.discount = discount;
+	}
+
+	public Double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(Double discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
+	public Boolean getNocash() {
+		return isNocash;
+	}
+
+	public void setNocash(Boolean nocash) {
+		isNocash = nocash;
 	}
 
 	public Boolean getPaid() {
@@ -249,5 +272,21 @@ public class BookingRequest {
 
 	public void setPriceDetails(List<BookInfo.PriceDetail> priceDetails) {
 		this.priceDetails = priceDetails;
+	}
+
+	public List<String> getStaffs() {
+		return staffs;
+	}
+
+	public void setStaffs(List<String> staffs) {
+		this.staffs = staffs;
+	}
+
+	public String getCompanyClient() {
+		return companyClient;
+	}
+
+	public void setCompanyClient(String companyClient) {
+		this.companyClient = companyClient;
 	}
 }

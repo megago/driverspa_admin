@@ -31,8 +31,6 @@
         android:layout_below="@id/titleLayout"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
-        android:scrollbars="none"
-        android:layout_above="@+id/bottomLayout"
         android:divider="@color/list_divider"
         android:dividerHeight="1dp" />
 
@@ -86,34 +84,4 @@
         android:layout_marginTop="120dp"
         android:visibility="visible" />
 
-
-    <LinearLayout
-        android:id="@+id/bottomLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/BlueTransparent" />
-
-        <Button
-            android:id="@+id/btnAddReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/vertical_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
-            android:background="@drawable/background_button_border"
-            android:paddingBottom="10dp"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:paddingTop="10dp"
-            android:text="Оставить отзыв"
-            android:textColor="@drawable/button_state_color"
-            android:textSize="@dimen/text_normal" />
-
-    </LinearLayout>
 </RelativeLayout>
