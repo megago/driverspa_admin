@@ -53,6 +53,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -339,41 +340,8 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
         if (!isLoggedIn) finish();
 
-        if (washer != null) {
-            if(user != null && !user.isOwner() && washer != null){
-                boolean restrictUser = false;
-                if(!(Functions.getUserRole(washer,user.getId()).equals(Constants.DIRECTOR) || Functions.getUserRole(washer,user.getId()).equals(Constants.OPERATOR))){
-                    warningText.setText("Уровень доступа вашего пользователя изменен. Вы не можете пользоваться программой.");
-                    restrictUser = true;
-                }
-                else if(Functions.getUserStatus(washer,user.getId()).equals(VACATION)){
-                    warningText.setText("Ваша смена окончена. Вы не можете пользоваться программой.");
-                    restrictUser = true;
-                }
-                else if(Functions.getUserStatus(washer,user.getId()).equals(RESIGNED)){
-                    warningText.setText("Вы больше не работаете на этой мойке. Вы не можете пользоваться программой.");
-                    restrictUser = true;
-                }
-                if(restrictUser){
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                    settings.setVisibility(View.GONE);
-                    spinnerLayout.setVisibility(View.GONE);
-                    settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    notApprovedLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    if (washer.getStatus().equals(APPROVED)) {
-                        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                    }
-                }
-            }
-            else{
-                if (washer.getStatus().equals(APPROVED)) {
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-               }
-            }
-          }
-        }
+        applyWasherAccessState();
+    }
 
     @Override
     public void onPause() {
@@ -672,28 +640,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     @Subscribe
     public void onUserReceived(UserGetSelfResponseEvent event) {
         user = event.getUser();
-        if(user != null && !user.isOwner() && washer != null){
-            boolean restrictUser = false;
-            if(!(Functions.getUserRole(washer,user.getId()).equals(Constants.DIRECTOR) || Functions.getUserRole(washer,user.getId()).equals(Constants.OPERATOR))){
-                warningText.setText("Уровень доступа вашего пользователя изменен. Вы не можете пользоваться программой.");
-                restrictUser = true;
-            }
-            else if(Functions.getUserStatus(washer,user.getId()).equals(VACATION)){
-                warningText.setText("Ваша смена окончена. Вы не можете пользоваться программой.");
-                restrictUser = true;
-            }
-            else if(Functions.getUserStatus(washer,user.getId()).equals(RESIGNED)){
-                warningText.setText("Вы больше не работаете на этой мойке. Вы не можете пользоваться программой.");
-                restrictUser = true;
-            }
-            if(restrictUser){
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                settings.setVisibility(View.GONE);
-                spinnerLayout.setVisibility(View.GONE);
-                settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                notApprovedLayout.setVisibility(View.VISIBLE);
-            }
-        }
+        applyWasherAccessState();
     }
 
     @Subscribe
@@ -708,37 +655,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 createWasherListSpinner("",washer.getId());
             }
             if(washer.getStatus().equals(APPROVED)){
-                //Current user status check
-                if(user != null && !user.isOwner()){
-                   boolean restrictUser = false;
-                   if(!(Functions.getUserRole(washer,user.getId()).equals(Constants.DIRECTOR) || Functions.getUserRole(washer,user.getId()).equals(Constants.OPERATOR))){
-                       warningText.setText("Уровень доступа вашего пользователя изменен. Вы не можете пользоваться программой.");
-                       restrictUser = true;
-                   }
-                   else if(Functions.getUserStatus(washer,user.getId()).equals(VACATION)){
-                       warningText.setText("Ваша смена окончена. Вы не можете пользоваться программой.");
-                       restrictUser = true;
-                   }
-                   else if(Functions.getUserStatus(washer,user.getId()).equals(RESIGNED)){
-                        warningText.setText("Вы больше не работаете на этой мойке. Вы не можете пользоваться программой.");
-                        restrictUser = true;
-                   }
-                   if(restrictUser){
-                       drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                       settings.setVisibility(View.GONE);
-                       spinnerLayout.setVisibility(View.GONE);
-                       settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                       notApprovedLayout.setVisibility(View.VISIBLE);
-                   }
-                    else{
-                       drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                       notApprovedLayout.setVisibility(View.GONE);
-                   }
-                }
-                else{
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                    notApprovedLayout.setVisibility(View.GONE);
-                }
+                applyWasherAccessState();
             }
             else{
                 settings.setVisibility(View.VISIBLE);
@@ -799,20 +716,20 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 if(washerList.size() == 1) spinnerLayout.setVisibility(View.GONE);
                 else spinnerLayout.setVisibility(View.VISIBLE);
 
-                final String[] valuesArray = new String[washerList.size()];
-                final String[] idArray = new String[washerList.size()];
-                int i = 0;
-                int j = 0;
-                valuesArray[0] = washerName!=null? Functions.shortenName(washerName):"";
-                idArray[0] = washerId;
-                i++;
+                final List<WasherPublic> additionalWashers = washerList.stream()
+                        .filter(wp -> !wp.getId().equals(washerId))
+                        .collect(Collectors.toList());
+                final List<String> names = new ArrayList<>();
+                final List<String> ids = new ArrayList<>();
+                names.add(washerName != null ? Functions.shortenName(washerName) : "");
+                ids.add(washerId);
+                names.addAll(additionalWashers.stream()
+                        .map(wp -> wp.getName() != null ? Functions.shortenName(wp.getName()) : "")
+                        .collect(Collectors.toList()));
+                ids.addAll(additionalWashers.stream().map(WasherPublic::getId).collect(Collectors.toList()));
 
-                for(WasherPublic wp : washerList){
-                    if(!wp.getId().equals(washerId)){
-                        idArray[i] = wp.getId();
-                        valuesArray[i++] = wp.getName()!=null?Functions.shortenName(wp.getName()):"";
-                    }
-                }
+                final String[] valuesArray = names.toArray(new String[0]);
+                final String[] idArray = ids.toArray(new String[0]);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -893,12 +810,13 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             String servicesTxt = "";
             if(item.getServices() != null && item.getServices().size() > 0) {
                 LinkedHashMap<Integer,Integer> groupedServices = Functions.getGroupedServices(item.getServices());
-                for (LinkedHashMap.Entry<Integer, Integer> entry : groupedServices.entrySet()) {
-                    Integer serviceId = entry.getKey();
-                    Integer count = entry.getValue();
-                    servicesTxt = servicesTxt + (BA.getReference().getServices().get(serviceId)+""+(count>1?" x "+count:"")) + "/";
-                }
-                servicesTxt = servicesTxt.substring(0, servicesTxt.length() - 1);
+                servicesTxt = groupedServices.entrySet().stream()
+                        .map(entry -> {
+                            Integer serviceId = entry.getKey();
+                            Integer count = entry.getValue();
+                            return BA.getReference().getServices().get(serviceId) + (count > 1 ? " x " + count : "");
+                        })
+                        .collect(Collectors.joining("/"));
             }
             if(washer != null && washer.getLonLat() != null && washer.getLonLat().size() > 0 &&  item.getLonLat() != null && item.getLonLat().size() > 0){
                 try{
@@ -1086,5 +1004,50 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             requestsCountLayout.setVisibility(View.GONE);
             requestsCount.setText(fareRequests.size()+"");
         }
+    }
+
+    private void applyWasherAccessState() {
+        if (washer == null) {
+            return;
+        }
+        if (APPROVED.equals(washer.getStatus())) {
+            if (isRestrictedStaffUser()) {
+                showRestrictedState();
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                notApprovedLayout.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private boolean isRestrictedStaffUser() {
+        if (user == null || user.isOwner() || washer == null) {
+            return false;
+        }
+
+        String role = Functions.getUserRole(washer, user.getId());
+        if (!(Constants.DIRECTOR.equals(role) || Constants.OPERATOR.equals(role))) {
+            warningText.setText("Уровень доступа вашего пользователя изменен. Вы не можете пользоваться программой.");
+            return true;
+        }
+
+        String status = Functions.getUserStatus(washer, user.getId());
+        if (VACATION.equals(status)) {
+            warningText.setText("Ваша смена окончена. Вы не можете пользоваться программой.");
+            return true;
+        }
+        if (RESIGNED.equals(status)) {
+            warningText.setText("Вы больше не работаете на этой мойке. Вы не можете пользоваться программой.");
+            return true;
+        }
+        return false;
+    }
+
+    private void showRestrictedState() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        settings.setVisibility(View.GONE);
+        spinnerLayout.setVisibility(View.GONE);
+        settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        notApprovedLayout.setVisibility(View.VISIBLE);
     }
 }
