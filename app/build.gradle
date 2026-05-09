@@ -17,8 +17,8 @@ android {
         applicationId "com.driverspaAdmin"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 98
+        versionName "2.1.4"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
