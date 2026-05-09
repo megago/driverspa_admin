@@ -1,22 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:2:1-9:12
-INJECTED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:2:1-9:12
+ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:2:1-7:12
+INJECTED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:2:1-7:12
 	package
 		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:3:5-36
 		INJECTED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml
-	android:versionName
-		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:5:5-41
 	xmlns:android
 		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:2:11-69
-	android:versionCode
-		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:4:5-30
 application
-ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:5-82
-	android:hardwareAccelerated
-		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:18-52
-	android:allowBackup
-		ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:53-79
+ADDED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:5:5-20
 uses-sdk
 INJECTED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml

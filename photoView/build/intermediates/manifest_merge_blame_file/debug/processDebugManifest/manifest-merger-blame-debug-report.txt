@@ -1,16 +1,10 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="uk.co.senab.photoview"
-4    android:versionCode="122"
-5    android:versionName="1.2.2-SHAPSHOT" >
+3    package="uk.co.senab.photoview" >
+4
+5    <uses-sdk android:minSdkVersion="1" />
 6
-7    <uses-sdk android:minSdkVersion="1" />
+7    <application />
+7-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:5:5-20
 8
-9    <application
-9-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:5-82
-10        android:allowBackup="true"
-10-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:53-79
-11        android:hardwareAccelerated="true" />
-11-->C:\Users\yerzhant\Documents\studio_workspace\DriverSpaAdminCopy\photoView\src\main\AndroidManifest.xml:7:18-52
-12
-13</manifest>
+9</manifest>

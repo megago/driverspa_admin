@@ -40,9 +40,6 @@ android {
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ["--add-exports", "jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"]
-}
 
 dependencies {
     implementation "androidx.core:core:1.12.0"
