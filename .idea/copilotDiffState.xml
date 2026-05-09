@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/photoView/build.gradle">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/photoView/build.gradle" />
+              <option name="originalContent" value="apply plugin: 'com.android.library'&#10;&#10;android {&#10;    namespace = &quot;uk.co.senab.photoview&quot;&#10;    compileSdkVersion 19&#10;    buildToolsVersion '25.0.0'&#10;&#10;    defaultConfig {&#10;    }&#10;&#10;    buildTypes {&#10;        release {&#10;            minifyEnabled false&#10;            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'&#10;        }&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="apply plugin: 'com.android.library'&#10;&#10;android {&#10;    namespace = &quot;uk.co.senab.photoview&quot;&#10;    compileSdkVersion 34&#10;&#10;    defaultConfig {&#10;    }&#10;&#10;    buildTypes {&#10;        release {&#10;            minifyEnabled false&#10;            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'&#10;        }&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/photoView/src/main/AndroidManifest.xml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/photoView/src/main/AndroidManifest.xml" />
+              <option name="originalContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;&#10;&#10;    &lt;application android:hardwareAccelerated=&quot;true&quot; android:allowBackup=&quot;true&quot; /&gt;&#10;&#10;&lt;/manifest&gt;&#10;" />
+              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    package=&quot;uk.co.senab.photoview&quot;&gt;&#10;&#10;    &lt;application /&gt;&#10;&#10;&lt;/manifest&gt;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/pullToRefresh_lib/src/main/AndroidManifest.xml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/pullToRefresh_lib/src/main/AndroidManifest.xml" />
+              <option name="originalContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;&#10;&#10;    &lt;application /&gt;&#10;&#10;&lt;/manifest&gt;" />
+              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    package=&quot;com.handmark.pulltorefresh.library&quot;&gt;&#10;&#10;    &lt;application /&gt;&#10;&#10;&lt;/manifest&gt;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
