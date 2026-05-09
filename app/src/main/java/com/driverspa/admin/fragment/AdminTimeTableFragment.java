@@ -449,23 +449,17 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 
 		HashMap<String, BoxItem> boxMap = timeTable.getResult().getBoxes();
 		if(boxMap != null && boxMap.size() > 0){
-			for (Map.Entry<String,BoxItem> entry : boxMap.entrySet()) {
-				String key = entry.getKey();
-				BoxItem value = entry.getValue();
-				if(key.equals(boxId)){
-					int i = 0;
-					for(String item : value.getSlots()){
-						if(joinSlots.size() >= i+1){
-							if(item.equals(SLOT_AVAILABLE)){
-								joinSlots.set(i,item);
-							}
-							else if(!item.equals(SLOT_NOT_AVAILABLE)){
-								joinSlots.set(i,item);
-							}
+			BoxItem selectedBox = boxMap.get(boxId);
+			if (selectedBox != null && selectedBox.getSlots() != null) {
+				for (int i = 0; i < selectedBox.getSlots().size(); i++) {
+					String item = selectedBox.getSlots().get(i);
+					if(joinSlots.size() >= i+1){
+						if(item.equals(SLOT_AVAILABLE) || !item.equals(SLOT_NOT_AVAILABLE)){
+							joinSlots.set(i,item);
 						}
-						else
-							joinSlots.add(item);
-						i++;
+					}
+					else {
+						joinSlots.add(item);
 					}
 				}
 			}
@@ -957,28 +951,25 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	private HashMap<Integer,List<BookInfo>> getGridBooks(HashMap<String,BookInfo> bookingObjects){
 		HashMap<Integer,List<BookInfo>> gridBooks = new HashMap<Integer,List<BookInfo>>();
 		if(bookingObjects != null && bookingObjects.size() > 0) {
-			for (Map.Entry<String, BookInfo> entry : bookingObjects.entrySet()) {
-				BookInfo book = entry.getValue();
-				if(!book.getStatus().equals(REJECTED)
-						&& !book.getStatus().equals(CANCELED)
-						&& !book.getStatus().equals(QUEUED_REJECTED)) {
-
-					Date bookTime = Functions.getUTCDate(book.getTime());
-					int hour = bookTime.getHours();
-					int minute = bookTime.getMinutes();
-					int gridTime = hour * 60 + (minute < 30 ? 0 : 30);
-					List<BookInfo> books = gridBooks.get(gridTime);
-					if (books != null) {
-						books.add(book);
-						gridBooks.put(gridTime, books);
-					} else {
-						books = new ArrayList<BookInfo>();
-						books.add(book);
-						gridBooks.put(gridTime, books);
-					}
-
-				}
-			}
+			bookingObjects.values().stream()
+					.filter(book -> !book.getStatus().equals(REJECTED)
+							&& !book.getStatus().equals(CANCELED)
+							&& !book.getStatus().equals(QUEUED_REJECTED))
+					.forEach(book -> {
+						Date bookTime = Functions.getUTCDate(book.getTime());
+						int hour = bookTime.getHours();
+						int minute = bookTime.getMinutes();
+						int gridTime = hour * 60 + (minute < 30 ? 0 : 30);
+						List<BookInfo> books = gridBooks.get(gridTime);
+						if (books != null) {
+							books.add(book);
+							gridBooks.put(gridTime, books);
+						} else {
+							books = new ArrayList<BookInfo>();
+							books.add(book);
+							gridBooks.put(gridTime, books);
+						}
+					});
 		}
 		return gridBooks;
 	}

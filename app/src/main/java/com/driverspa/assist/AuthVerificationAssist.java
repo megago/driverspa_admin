@@ -4,6 +4,7 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import com.driverspa.BA;
 import com.driverspa.Reference;
@@ -37,6 +38,17 @@ public class AuthVerificationAssist extends BaseAssist {
 	
 	public AuthVerificationAssist(WashmeApi api, Bus eventBus) {
 		super(api, eventBus);
+	}
+
+	private ArrayList<Box> createDefaultBoxSettings() {
+		return IntStream.range(0, 1)
+				.mapToObj(i -> {
+					Box boxSetting = new Box();
+					boxSetting.setBoxName("Бокс " + (i + 1));
+					boxSetting.setBookingType(BookingType.Online);
+					return boxSetting;
+				})
+				.collect(java.util.stream.Collectors.toCollection(ArrayList::new));
 	}
 
 	@Subscribe
@@ -165,12 +177,13 @@ public class AuthVerificationAssist extends BaseAssist {
 											ArrayList<Double> lonLat = new ArrayList<Double>();
 											try {
 												request.setCity(UserPreferences.getCity(BA.getContext()));
-												for (Reference.City city : BA.getReference().getCities()) {
-													if (city.getCode().equals(request.getCity())) {
-														LAT = Double.parseDouble(city.getLonLat().get(1));
-														LON = Double.parseDouble(city.getLonLat().get(0));
-														break;
-													}
+												Reference.City selectedCity = BA.getReference().getCities().stream()
+														.filter(city -> city.getCode().equals(request.getCity()))
+														.findFirst()
+														.orElse(null);
+												if (selectedCity != null) {
+													LAT = Double.parseDouble(selectedCity.getLonLat().get(1));
+													LON = Double.parseDouble(selectedCity.getLonLat().get(0));
 												}
 											} catch (Exception e) {
 												request.setCity("almaty");
@@ -180,14 +193,7 @@ public class AuthVerificationAssist extends BaseAssist {
 											lonLat.add(LAT);
 											request.setLonLat(lonLat);
 											request.setName(user.getCompanyName());
-											ArrayList<Box> boxSettings = new ArrayList<Box>();
-											for (int i = 0; i < 1; i++) {
-												Box boxSetting = new Box();
-												boxSetting.setBoxName("Бокс 1");
-												boxSetting.setBookingType(BookingType.Online);
-												boxSettings.add(boxSetting);
-											}
-											request.setBoxSettings(boxSettings);
+											request.setBoxSettings(createDefaultBoxSettings());
 
 											//if there is no washer for this user, create it
 											getApi().createInitialWasher(
@@ -261,9 +267,7 @@ public class AuthVerificationAssist extends BaseAssist {
 
 	@Subscribe
 	public void createDummyWashersRequested(DummyWashersRequestEvent event){
-		for(final Washer request : event.getRequestList()) {
-
-
+		event.getRequestList().forEach(request -> {
 			//if there is no washer for this user, create it
 			getApi().createTmpWasher(
 					request,
@@ -286,7 +290,6 @@ public class AuthVerificationAssist extends BaseAssist {
 			} catch(InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
-
-		}
+		});
 	}
 }

@@ -8,6 +8,7 @@ import com.squareup.otto.Subscribe;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.driverspa.BA;
 import com.driverspa.db.WashmeOrmLiteSqlHelper;
@@ -120,11 +121,9 @@ public class UserSelfAssist extends BaseAssist {
 
 			ArrayList<PhotoParcelable> photos = getPhotos(userId);
 			List<CarItem> cars = getCars();
-			ArrayList<Image> images = new ArrayList<Image>();
-			for (PhotoParcelable photo : photos) {
-				PhotoOrm photoOrm = (PhotoOrm) photo;
-				images.add(photoOrm.getImage());
-			}
+			ArrayList<Image> images = photos.stream()
+					.map(photo -> ((PhotoOrm) photo).getImage())
+					.collect(Collectors.toCollection(ArrayList::new));
 			userInserted.setCars(cars);
 			userInserted.setImages(images);
 			dbHelper.close();
@@ -150,9 +149,7 @@ public class UserSelfAssist extends BaseAssist {
 			e.printStackTrace();
 		}
 		ArrayList<PhotoParcelable> photos = new ArrayList<PhotoParcelable>(/*list.size()*/);
-		for( PhotoOrm photo : list ) {
-			photos.add(PhotoParcelable.newPhoto(photo));
-		}
+		photos.addAll(list.stream().map(PhotoParcelable::newPhoto).collect(Collectors.toList()));
 
 		return photos;
 	}

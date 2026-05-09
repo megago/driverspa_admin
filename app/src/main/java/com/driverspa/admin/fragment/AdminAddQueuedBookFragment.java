@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -318,20 +320,16 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		if(washerMenu != null && washerMenu.size() > 0){
 			serviceItems.clear();
 			menuServicesPrices.clear();
-			for (Map.Entry<Integer, ArrayList<Washer.Prices>> entry : washerMenu.entrySet()) {
-				Integer key = entry.getKey();
-				if(key == carType){
-					ArrayList<Washer.Prices> pricesMenu = entry.getValue();
-					for(Washer.Prices priceMenu : pricesMenu){
-						ServiceItem newItem = new ServiceItem();
-						newItem.setServiceId(priceMenu.getType());
-						newItem.setServiceName(dictionary.get(priceMenu.getType()));
-						newItem.setPrice(priceMenu.getPrice());
-						newItem.setTime(priceMenu.getTime());
-						serviceItems.add(newItem);
-					}
-					break;
-				}
+			ArrayList<Washer.Prices> pricesMenu = washerMenu.get(carType);
+			if (pricesMenu != null) {
+				serviceItems.addAll(pricesMenu.stream().map(priceMenu -> {
+					ServiceItem newItem = new ServiceItem();
+					newItem.setServiceId(priceMenu.getType());
+					newItem.setServiceName(dictionary.get(priceMenu.getType()));
+					newItem.setPrice(priceMenu.getPrice());
+					newItem.setTime(priceMenu.getTime());
+					return newItem;
+				}).collect(Collectors.toList()));
 			}
 		}
 
@@ -340,13 +338,9 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		List<Washer.GroupMenu> washerGroup = washer.getGroupMenu();
 		if(washerGroup != null && washerGroup.size() > 0){
 			groupServiceItems.clear();
-			for(Washer.GroupMenu g:washerGroup){
-				for(ReversePrices p:g.getPrices()){
-					if(p.getCarType() == carType){
-						groupServiceItems.add(g);
-					}
-				}
-			}
+			groupServiceItems.addAll(washerGroup.stream()
+					.filter(g -> g.getPrices() != null && g.getPrices().stream().anyMatch(p -> p.getCarType() == carType))
+					.collect(Collectors.toList()));
 		}
 
 		//Service adapter
@@ -366,14 +360,10 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 						if(request != null && request.getGroupServices() != null && request.getGroupServices().size() > 0){
 							Washer.GroupMenu selectedGroup = null;
 							if(groupServiceAdapter != null && groupServiceAdapter.getData() != null && groupServiceAdapter.getData().size() > 0) {
-								for (Washer.GroupMenu g : groupServiceAdapter.getData()) {
-									for(String gId : request.getGroupServices()){
-										if(gId.equals(g.getId())){
-											selectedGroup = g;
-											break;
-										}
-									}
-								}
+								selectedGroup = groupServiceAdapter.getData().stream()
+										.filter(g -> request.getGroupServices().contains(g.getId()))
+										.findFirst()
+										.orElse(null);
 							}
 							if(selectedGroup != null && selectedGroup.getServices()!=null && selectedGroup.getServices().contains(serviceAdapter.getData().get(position).getServiceId())){
 								ToastUtil.display(BA.getContext(),"Данная услуга уже содержится в выбранном комплексе услуг");
@@ -394,11 +384,10 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 					}
 				}
 
-				for (int i = 0; i < serviceAdapter.getData().size(); i++) {
-					if (serviceAdapter.getSelectedPosition().get(i) != null && serviceAdapter.getSelectedPosition().get(i)) {
-						requestServices.add(serviceAdapter.getData().get(i).getServiceId());
-					}
-				}
+				requestServices.addAll(IntStream.range(0, serviceAdapter.getData().size())
+						.filter(i -> serviceAdapter.getSelectedPosition().get(i) != null && serviceAdapter.getSelectedPosition().get(i))
+						.mapToObj(i -> serviceAdapter.getData().get(i).getServiceId())
+						.collect(Collectors.toList()));
 				request.setServices(new ArrayList<Integer>(requestServices));
 				requestServices.clear();
 				calculatePriceAndTime((ArrayList) serviceAdapter.getData(),(ArrayList) groupServiceAdapter.getData());
@@ -432,12 +421,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 					Washer.GroupMenu selectedGroup = groupServiceAdapter.getData().get(position);
 
 					if(selectedGroup != null && selectedGroup.getServices() != null && request != null && request.getServices() != null && request.getServices().size() > 0){
-						boolean found = false;
-						for(Integer s : request.getServices()){
-							if(selectedGroup.getServices().contains(s)){
-								found = true;
-							}
-						}
+						boolean found = request.getServices().stream().anyMatch(s -> selectedGroup.getServices().contains(s));
 						if(found) {
 							ToastUtil.display(BA.getContext(), "Вы уже выбрали услугу которая содержится в данном комплексе");
 						}
@@ -453,11 +437,10 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 
 				}
 
-				for (int i = 0; i < groupServiceAdapter.getData().size(); i++) {
-					if (groupServiceAdapter.getSelectedPosition().get(i) != null && groupServiceAdapter.getSelectedPosition().get(i)) {
-						groupRequestServices.add(groupServiceAdapter.getData().get(i).getId());
-					}
-				}
+				groupRequestServices.addAll(IntStream.range(0, groupServiceAdapter.getData().size())
+						.filter(i -> groupServiceAdapter.getSelectedPosition().get(i) != null && groupServiceAdapter.getSelectedPosition().get(i))
+						.mapToObj(i -> groupServiceAdapter.getData().get(i).getId())
+						.collect(Collectors.toList()));
 				request.setGroupServices(new ArrayList<String>(groupRequestServices));
 				groupRequestServices.clear();
 				calculatePriceAndTime((ArrayList) serviceAdapter.getData(),(ArrayList) groupServiceAdapter.getData());
@@ -488,11 +471,11 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		//Boxes
 		ArrayList<Box> boxItems = new ArrayList<Box>();
 		if(washer != null && washer.getBoxSettings() != null && washer.getBoxSettings().size() > 0)
-			for(Box item : washer.getBoxSettings()){
+			washer.getBoxSettings().forEach(item -> {
 //			 if(item.getBookingType().getValue().equals(Constants.OFFLINE)) {
 				boxItems.add(item);
 //			 }
-			}
+			});
 
 		//Box adapter
 		boxAdapter = new OfflineBoxesGridAdapter(getActivity(),boxItems);
@@ -501,11 +484,9 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		gridBoxes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 				closeKeyboard();
-				for (int i = 0; i < boxAdapter.getData().size(); i++) {
-					if (boxAdapter.getSelectedPosition().get(i) != null && boxAdapter.getSelectedPosition().get(i)) {
-						boxAdapter.setSelectedPosition(i, false);
-					}
-				}
+				IntStream.range(0, boxAdapter.getData().size())
+						.filter(i -> boxAdapter.getSelectedPosition().get(i) != null && boxAdapter.getSelectedPosition().get(i))
+						.forEach(i -> boxAdapter.setSelectedPosition(i, false));
 				boxAdapter.notifyDataSetChanged();
 
 				boxAdapter.setSelectedPosition(position, true);

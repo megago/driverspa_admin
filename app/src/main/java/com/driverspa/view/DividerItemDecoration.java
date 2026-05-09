@@ -11,6 +11,8 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.stream.IntStream;
+
 /**
  * Created by Yerzhan Tanatov on 16/09/16.
  */
@@ -51,7 +53,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int right = parent.getWidth() - parent.getPaddingRight();
         final int childCount = parent.getChildCount();
 
-        for (int i = 0; i < childCount; ++i) {
+        IntStream.range(0, childCount).forEach(i -> {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int size = divider.getIntrinsicHeight();
@@ -66,7 +68,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
                 divider.setBounds(left, newTop, right, newBottom);
                 divider.draw(c);
             }
-        }
+        });
     }
 
     private int getOrientation(RecyclerView parent) {

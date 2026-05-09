@@ -33,7 +33,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -55,7 +57,6 @@ import com.driverspa.dialog.MultipleSelectDialog;
 import com.driverspa.dialog.SingleSelectDialog;
 import com.driverspa.model.BookingType;
 import com.driverspa.model.Box;
-import com.driverspa.model.Image;
 import com.driverspa.model.NotificationType;
 import com.driverspa.model.PhotoParcelable;
 import com.driverspa.model.User;
@@ -232,9 +233,10 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		user = event.getUser();
 		profilePhotos = new ArrayList<PhotoParcelable>();
 		if(user != null){
-			for(Image photo: user.getImages()){
-				PhotoParcelable parcelablePhoto = PhotoParcelable.newPhoto(photo.getPhotoOrm(user.getId()));
-				profilePhotos.add(parcelablePhoto);
+			if (user.getImages() != null) {
+				profilePhotos = user.getImages().stream()
+						.map(photo -> PhotoParcelable.newPhoto(photo.getPhotoOrm(user.getId())))
+						.collect(Collectors.toCollection(ArrayList::new));
 			}
 
 			imagesCircle.setVisibility(View.GONE);
@@ -342,21 +344,13 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			final HashMap<Integer,String> allCarTypes = BA.getReference().getCarType();
 			List<HashMap<String,String>> selectedCarTypeMapList = new ArrayList<HashMap<String,String>>();
 
-			for (Map.Entry<Integer,String> entry : allCarTypes.entrySet()) {
-				HashMap<String,String> carMap = new HashMap<String,String>();
-				Integer key = entry.getKey();
-				String value = entry.getValue();
-				carMap.put(MultipleSelectDialog.ID, Integer.toString(key));
-				carMap.put(MultipleSelectDialog.NAME, value);
-				carTypeMapList.add(carMap);
-			}
+			carTypeMapList = allCarTypes.entrySet().stream()
+					.map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+					.collect(Collectors.toList());
 
-			for(Integer carType : washer.getCarTypes()){
-				HashMap<String,String> carMap = new HashMap<String,String>();
-				carMap.put(MultipleSelectDialog.ID, Integer.toString(carType));
-				carMap.put(MultipleSelectDialog.NAME, allCarTypes.get(carType));
-				selectedCarTypeMapList.add(carMap);
-			}
+			selectedCarTypeMapList = washer.getCarTypes().stream()
+					.map(carType -> toDialogItem(carType, allCarTypes.get(carType)))
+					.collect(Collectors.toList());
 
 			if(selectedCarTypeMapList.size() == 1){
 				txtCarType.setText(allCarTypes.get(Integer.parseInt(selectedCarTypeMapList.get(0).get(MultipleSelectDialog.ID))));
@@ -369,21 +363,19 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			carTypesDialog = new MultipleSelectDialog(getActivity(), carTypeMapList, "Выберите услуги", selectedCarTypeMapList) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
+					requestCarTypes.clear();
+					requestCarTypes.addAll(toSelectedIds(namesSelectedItm));
 
 					if(namesSelectedItm.size() == 0){
 						txtCarType.setText("Выберите типы машин");
 					}
 					else if(namesSelectedItm.size() == 1){
-						requestCarTypes.add(Integer.parseInt(namesSelectedItm.get(0)));
 						txtCarType.setText(allCarTypes.get(Integer.parseInt(namesSelectedItm.get(0))));
 					}
 					else{
 						txtCarType.setText("Выбрано ("+namesSelectedItm.size()+") типа машин");
-						for(int i = 0; i < namesSelectedItm.size(); i++)
-							requestCarTypes.add(Integer.parseInt(namesSelectedItm.get(i)));
 					}
 					washer.setCarTypes(new ArrayList<Integer>(requestCarTypes));
-					requestCarTypes.clear();
 				}
 			};
 
@@ -392,21 +384,13 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			final HashMap<Integer,String> allServices = BA.getReference().getServices();
 			List<HashMap<String,String>> selectedServicesMapList = new ArrayList<HashMap<String,String>>();
 
-			for (Map.Entry<Integer,String> entry : allServices.entrySet()) {
-				HashMap<String,String> serviceMap = new HashMap<String,String>();
-				Integer key = entry.getKey();
-				String value = entry.getValue();
-				serviceMap.put(MultipleSelectDialog.ID, Integer.toString(key));
-				serviceMap.put(MultipleSelectDialog.NAME, value);
-				servicesMapList.add(serviceMap);
-			}
+			servicesMapList = allServices.entrySet().stream()
+					.map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+					.collect(Collectors.toList());
 
-			for(Integer service : washer.getServices()){
-				HashMap<String,String> serviceMap = new HashMap<String,String>();
-				serviceMap.put(MultipleSelectDialog.ID, Integer.toString(service));
-				serviceMap.put(MultipleSelectDialog.NAME, allServices.get(service));
-				selectedServicesMapList.add(serviceMap);
-			}
+			selectedServicesMapList = washer.getServices().stream()
+					.map(service -> toDialogItem(service, allServices.get(service)))
+					.collect(Collectors.toList());
 
 			if(selectedServicesMapList.size() == 1){
 				txtServices.setText(allServices.get(Integer.parseInt(selectedServicesMapList.get(0).get(MultipleSelectDialog.ID))));
@@ -419,22 +403,19 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			servicesDialog = new MultipleSelectDialog(getActivity(), servicesMapList, "Выберите услуги", selectedServicesMapList) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
+					requestServices.clear();
+					requestServices.addAll(toSelectedIds(namesSelectedItm));
 
 					if(namesSelectedItm.size() == 0){
 						txtServices.setText("Выберите услуги");
 					}
 					else if(namesSelectedItm.size() == 1){
-						requestServices.add(Integer.parseInt(namesSelectedItm.get(0)));
 						txtServices.setText(allServices.get(Integer.parseInt(namesSelectedItm.get(0))));
 					}
 					else{
 						txtServices.setText("Выбрано ("+namesSelectedItm.size()+") услуг");
-						for(int i = 0; i < namesSelectedItm.size(); i++){
-							requestServices.add(Integer.parseInt(namesSelectedItm.get(i)));
-						}
 					}
 					washer.setServices(new ArrayList<Integer>(requestServices));
-					requestServices.clear();
 				}
 			};
 
@@ -449,12 +430,9 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				txtBoxes.setText("Количество боксов: "+washer.getBoxSettings().size());
 			}
 
-			for(int i = 1; i <= 15; i++){
-				HashMap<String,String> boxMap = new HashMap<String,String>();
-				boxMap.put(SingleSelectDialog.ID, Integer.toString(i));
-				boxMap.put(SingleSelectDialog.NAME, Integer.toString(i));
-				boxMapList.add(boxMap);
-			}
+			boxMapList = IntStream.rangeClosed(1, 15)
+					.mapToObj(i -> toSingleSelectDialogItem(i))
+					.collect(Collectors.toList());
 
 			final ArrayList<Box> boxSettings = new ArrayList<Box>();
 			boxDialog = new SingleSelectDialog(getActivity(), boxMapList, "Количество боксов", selectedBoxMapList) {
@@ -462,11 +440,14 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 					if(namesSelectedItm.get(0) != null){
 						txtBoxes.setText("Количество боксов: "+namesSelectedItm.get(0));
-						for(int i = 0; i < Integer.parseInt(namesSelectedItm.get(0).toString()); i++){
-							Box boxSetting = new Box();
-							boxSetting.setBookingType(BookingType.Hybrid);
-							boxSettings.add(boxSetting);
-						}
+						boxSettings.clear();
+						boxSettings.addAll(IntStream.range(0, Integer.parseInt(namesSelectedItm.get(0).toString()))
+								.mapToObj(i -> {
+									Box boxSetting = new Box();
+									boxSetting.setBookingType(BookingType.Hybrid);
+									return boxSetting;
+								})
+								.collect(Collectors.toList()));
 					}
 					else
 						txtBoxes.setText("Боксы");
@@ -477,6 +458,28 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			};
 
 		}
+	}
+
+	private HashMap<String, String> toDialogItem(Integer id, String name) {
+		HashMap<String, String> item = new HashMap<String, String>();
+		item.put(MultipleSelectDialog.ID, Integer.toString(id));
+		item.put(MultipleSelectDialog.NAME, name);
+		return item;
+	}
+
+	private HashMap<String, String> toSingleSelectDialogItem(int value) {
+		HashMap<String, String> item = new HashMap<String, String>();
+		item.put(SingleSelectDialog.ID, Integer.toString(value));
+		item.put(SingleSelectDialog.NAME, Integer.toString(value));
+		return item;
+	}
+
+	private ArrayList<Integer> toSelectedIds(HashMap<Integer, String> namesSelectedItm) {
+		return IntStream.range(0, namesSelectedItm.size())
+				.mapToObj(namesSelectedItm::get)
+				.filter(Objects::nonNull)
+				.map(Integer::parseInt)
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	private boolean validateProfileInfo(String str, View view, String warningMessage){

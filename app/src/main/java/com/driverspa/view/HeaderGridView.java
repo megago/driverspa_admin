@@ -31,6 +31,7 @@ import android.widget.ListAdapter;
 import android.widget.WrapperListAdapter;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 /**
  * A {@link GridView} that supports adding header rows in a
@@ -165,13 +166,12 @@ public class HeaderGridView extends GridView {
     }
 
     private void removeFixedViewInfo(View v, ArrayList<FixedViewInfo> where) {
-        int len = where.size();
-        for (int i = 0; i < len; ++i) {
-            FixedViewInfo info = where.get(i);
-            if (info.view == v) {
-                where.remove(i);
-                break;
-            }
+        int index = IntStream.range(0, where.size())
+                .filter(i -> where.get(i).view == v)
+                .findFirst()
+                .orElse(-1);
+        if (index >= 0) {
+            where.remove(index);
         }
     }
 
@@ -261,26 +261,23 @@ public class HeaderGridView extends GridView {
 
         private boolean areAllListInfosSelectable(ArrayList<FixedViewInfo> infos) {
             if (infos != null) {
-                for (FixedViewInfo info : infos) {
-                    if (!info.isSelectable) {
-                        return false;
-                    }
-                }
+                return infos.stream().allMatch(info -> info.isSelectable);
             }
             return true;
         }
 
         public boolean removeHeader(View v) {
-            for (int i = 0; i < mHeaderViewInfos.size(); i++) {
-                FixedViewInfo info = mHeaderViewInfos.get(i);
-                if (info.view == v) {
-                    mHeaderViewInfos.remove(i);
+            int index = IntStream.range(0, mHeaderViewInfos.size())
+                    .filter(i -> mHeaderViewInfos.get(i).view == v)
+                    .findFirst()
+                    .orElse(-1);
+            if (index >= 0) {
+                mHeaderViewInfos.remove(index);
 
-                    mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos);
+                mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos);
 
-                    mDataSetObservable.notifyChanged();
-                    return true;
-                }
+                mDataSetObservable.notifyChanged();
+                return true;
             }
 
             return false;

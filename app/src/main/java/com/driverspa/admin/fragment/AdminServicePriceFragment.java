@@ -12,9 +12,12 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -89,47 +92,36 @@ public class AdminServicePriceFragment extends AdminBaseFragment {
             //Set all services
             final HashMap<Integer, String> allServices = BA.getReference().getServices();
             final HashMap<Integer, String> allCarTypes = BA.getReference().getCarType();
-            for (Map.Entry<Integer, String> entry : allServices.entrySet()) {
-                HashMap<String, String> serviceMap = new HashMap<String, String>();
-                Integer serviceId = entry.getKey();
-                String serviceName = entry.getValue();
+            final LinkedHashMap<Integer, ArrayList<Washer.Prices>> carTypeMenuAll = washer.getMenu() != null
+                    ? washer.getMenu()
+                    : new LinkedHashMap<Integer, ArrayList<Washer.Prices>>();
 
-                //expandable model
-                ServicePriceExpandable servicePriceExpandable = new ServicePriceExpandable();
-                servicePriceExpandable.setServiceId(serviceId);
-                servicePriceExpandable.setServiceName(serviceName);
+            servicePriceExpandableList = allServices.entrySet().stream()
+                    .map(entry -> {
+                        Integer serviceId = entry.getKey();
+                        String serviceName = entry.getValue();
 
-                //Check menu object
-                LinkedHashMap<Integer, ArrayList<Washer.Prices>> carTypeMenuAll = new LinkedHashMap<Integer, ArrayList<Washer.Prices>>();
-                carTypeMenuAll = washer.getMenu();
-                List<ReversePrices> reversePrices = new ArrayList<ReversePrices>();
+                        ServicePriceExpandable servicePriceExpandable = new ServicePriceExpandable();
+                        servicePriceExpandable.setServiceId(serviceId);
+                        servicePriceExpandable.setServiceName(serviceName);
 
-                //Iterating menu to get reversed menu object(fill expandable model)
-                if (carTypeMenuAll.size() > 0) { // If menu has values
-                    for (Map.Entry<Integer, ArrayList<Washer.Prices>> menu : carTypeMenuAll.entrySet()) {
-                        Integer carType = menu.getKey();
-                        ArrayList<Washer.Prices> prices = menu.getValue();
+                        List<ReversePrices> reversePrices = carTypeMenuAll.entrySet().stream()
+                                .flatMap(menu -> {
+                                    Integer carType = menu.getKey();
+                                    ArrayList<Washer.Prices> prices = menu.getValue();
+                                    if (prices == null || prices.isEmpty()) {
+                                        return java.util.stream.Stream.empty();
+                                    }
+                                    return prices.stream()
+                                            .filter(price -> serviceId.equals(price.getType()))
+                                            .map(price -> toReversePrice(carType, allCarTypes.get(carType), price));
+                                })
+                                .collect(Collectors.toList());
 
-                        //check service id, then fill price and time for cartype
-                        if (prices != null && prices.size() > 0) {
-                            for (Washer.Prices price : prices) {
-                                if (serviceId == price.getType()) {
-                                    ReversePrices reversePrice = new ReversePrices();
-                                    reversePrice.setCarType(carType);
-                                    reversePrice.setCarTypeName(allCarTypes.get(carType));
-                                    reversePrice.setPrice(price.getPrice());
-                                    reversePrice.setTime(price.getTime());
-                                    reversePrices.add(reversePrice);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                servicePriceExpandable.setPricesWithCarType(reversePrices);
-
-                servicePriceExpandableList.add(servicePriceExpandable);
-            }
+                        servicePriceExpandable.setPricesWithCarType(reversePrices);
+                        return servicePriceExpandable;
+                    })
+                    .collect(Collectors.toList());
 
 //            try {
 //                //Sort services
@@ -202,76 +194,77 @@ public class AdminServicePriceFragment extends AdminBaseFragment {
 
     private void reverseReversedServices(List<ServicePriceExpandable> servicePriceExpandableList) {
         if (servicePriceExpandableList != null && servicePriceExpandableList.size() > 0) {
-            LinkedHashMap<Integer, Integer> uniqueCarTypes = new LinkedHashMap<Integer, Integer>();
-            final ArrayList<Integer> requestCarTypes = new ArrayList<Integer>();
-            final ArrayList<Integer> requestServices = new ArrayList<Integer>();
+            final Set<Integer> uniqueCarTypes = servicePriceExpandableList.stream()
+                    .filter(s -> s.getPricesWithCarType() != null)
+                    .flatMap(s -> s.getPricesWithCarType().stream())
+                    .map(ReversePrices::getCarType)
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
 
-            //Full scan -> find car types
-            for (ServicePriceExpandable s : servicePriceExpandableList) {
-                //Generating unique se
-                if (s.getPricesWithCarType() != null && s.getPricesWithCarType().size() > 0)
-                    requestServices.add(s.getServiceId());
-                for (ReversePrices p : s.getPricesWithCarType()) {
-                    uniqueCarTypes.put(p.getCarType(), p.getCarType());
-                }
-            }
+            final ArrayList<Integer> requestCarTypes = new ArrayList<Integer>();
+            final ArrayList<Integer> requestServices = servicePriceExpandableList.stream()
+                    .filter(s -> s.getPricesWithCarType() != null && s.getPricesWithCarType().size() > 0)
+                    .map(ServicePriceExpandable::getServiceId)
+                    .collect(Collectors.toCollection(ArrayList::new));
 
             //Add group car types
             if(washer != null && washer.getGroupMenu() != null && washer.getGroupMenu().size() > 0){
-                for(Washer.GroupMenu g : washer.getGroupMenu()){
-                    for(ReversePrices p: g.getPrices()){
-                        uniqueCarTypes.put(p.getCarType(), p.getCarType());
-//                        L.d("setting cartypes "+p.getCarType());
-                    }
-                }
+                washer.getGroupMenu().stream()
+                        .filter(Objects::nonNull)
+                        .flatMap(g -> g.getPrices() == null ? java.util.stream.Stream.empty() : g.getPrices().stream())
+                        .map(ReversePrices::getCarType)
+                        .forEach(uniqueCarTypes::add);
             }
 
             LinkedHashMap<Integer, ArrayList<Washer.Prices>> carTypeMenuAll = new LinkedHashMap<Integer, ArrayList<Washer.Prices>>();
             //Create Menu for cartypes and services
-            for (Map.Entry<Integer, Integer> entry : uniqueCarTypes.entrySet()) {
-                Integer carType = entry.getKey();
+            uniqueCarTypes.forEach(carType -> {
                 requestCarTypes.add(carType);
-                ArrayList<Washer.Prices> prices = new ArrayList<Washer.Prices>();
-                boolean found = false;
-                for (ServicePriceExpandable s : servicePriceExpandableList) {
-                    for (ReversePrices p : s.getPricesWithCarType()) {
-                        if (p.getCarType() == carType) {
-                            found = true;
-                            Washer.Prices price = new Washer.Prices();
-                            price.setPrice(p.getPrice());
-                            price.setTime(p.getTime());
-                            price.setType(s.getServiceId());
-                            prices.add(price);
-                        }
-                    }
+                ArrayList<Washer.Prices> prices = servicePriceExpandableList.stream()
+                        .filter(s -> s.getPricesWithCarType() != null)
+                        .flatMap(s -> s.getPricesWithCarType().stream()
+                                .filter(p -> carType.equals(p.getCarType()))
+                                .map(p -> toWasherPrice(p, s.getServiceId())))
+                        .collect(Collectors.toCollection(ArrayList::new));
+                if (!prices.isEmpty()) {
+                    carTypeMenuAll.put(carType, prices);
                 }
-                if(found)
-                   carTypeMenuAll.put(carType, prices);
-            }
+            });
             washer.setCarTypes(new ArrayList<Integer>(requestCarTypes));
             washer.setServices(new ArrayList<Integer>(requestServices));
             washer.setMenu(carTypeMenuAll);
         }
         else {
-            LinkedHashMap<Integer, Integer> uniqueCarTypes = new LinkedHashMap<Integer, Integer>();
+            Set<Integer> uniqueCarTypes = new LinkedHashSet<Integer>();
             //Add group car types
             if (washer != null && washer.getGroupMenu() != null && washer.getGroupMenu().size() > 0) {
-                for (Washer.GroupMenu g : washer.getGroupMenu()) {
-                    for (ReversePrices p : g.getPrices()) {
-                        uniqueCarTypes.put(p.getCarType(), p.getCarType());
-                    }
-                }
-                final ArrayList<Integer> requestCarTypes = new ArrayList<Integer>();
-                for (Map.Entry<Integer, Integer> entry : uniqueCarTypes.entrySet()) {
-                    Integer carType = entry.getKey();
-                    requestCarTypes.add(carType);
-//                    L.d("setting cartypes "+carType);
-                }
+                washer.getGroupMenu().stream()
+                        .filter(Objects::nonNull)
+                        .flatMap(g -> g.getPrices() == null ? java.util.stream.Stream.empty() : g.getPrices().stream())
+                        .map(ReversePrices::getCarType)
+                        .forEach(uniqueCarTypes::add);
+                final ArrayList<Integer> requestCarTypes = new ArrayList<Integer>(uniqueCarTypes);
 
 
                 washer.setCarTypes(new ArrayList<Integer>(requestCarTypes));
             }
         }
+    }
+
+    private ReversePrices toReversePrice(Integer carType, String carTypeName, Washer.Prices price) {
+        ReversePrices reversePrice = new ReversePrices();
+        reversePrice.setCarType(carType);
+        reversePrice.setCarTypeName(carTypeName);
+        reversePrice.setPrice(price.getPrice());
+        reversePrice.setTime(price.getTime());
+        return reversePrice;
+    }
+
+    private Washer.Prices toWasherPrice(ReversePrices reversePrice, Integer serviceId) {
+        Washer.Prices washerPrice = new Washer.Prices();
+        washerPrice.setPrice(reversePrice.getPrice());
+        washerPrice.setTime(reversePrice.getTime());
+        washerPrice.setType(serviceId);
+        return washerPrice;
     }
 
     @Override

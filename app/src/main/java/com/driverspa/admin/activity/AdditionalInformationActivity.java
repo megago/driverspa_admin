@@ -14,7 +14,9 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -46,7 +48,21 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 	@BindView(R.id.txtAddInfo)
 	TextView addInfo;
 	ArrayList<Contact> contacts;
-	
+
+	private HashMap<String, String> toDialogItem(String id, String name) {
+		HashMap<String, String> item = new HashMap<String, String>();
+		item.put(MultipleSelectDialog.ID, id);
+		item.put(MultipleSelectDialog.NAME, name);
+		return item;
+	}
+
+	private ArrayList<String> toOrderedSelection(HashMap<Integer, String> namesSelectedItm) {
+		return IntStream.range(0, namesSelectedItm.size())
+				.mapToObj(namesSelectedItm::get)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toCollection(ArrayList::new));
+	}
+
     @Override
     protected void onCreate(Bundle arg0) {
     	super.onCreate(arg0);
@@ -197,22 +213,14 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 			List<HashMap<String,String>> listPayTypes = new ArrayList<HashMap<String,String>>();
 			List<HashMap<String,String>> selectedPayTypes = new ArrayList<HashMap<String,String>>();
 
-			for (Map.Entry<String,String> entry : allPayTypes.entrySet()) {
-				HashMap<String,String> payMap = new HashMap<String,String>();
-				String key = entry.getKey();
-				String value = entry.getValue();
-				payMap.put(MultipleSelectDialog.ID, key);
-				payMap.put(MultipleSelectDialog.NAME, value);
-				listPayTypes.add(payMap);
-			}
+			listPayTypes.addAll(allPayTypes.entrySet().stream()
+					.map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+					.collect(Collectors.toList()));
 
 			if(washer.getPayOptions() != null){
-				for(int i = 0; i < washer.getPayOptions().size(); i++){
-					HashMap<String,String> payMap = new HashMap<String,String>();
-					payMap.put(MultipleSelectDialog.ID, washer.getPayOptions().get(i));
-					payMap.put(MultipleSelectDialog.NAME, allPayTypes.get(washer.getPayOptions().get(i)));
-					selectedPayTypes.add(payMap);
-				}
+				selectedPayTypes.addAll(washer.getPayOptions().stream()
+						.map(optionId -> toDialogItem(optionId, allPayTypes.get(optionId)))
+						.collect(Collectors.toList()));
 			}
 
 			final ArrayList<String> requestPayTypes = new ArrayList<String>();
@@ -229,9 +237,7 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 					}
 					else{
 						payType.setText("Выбрано ("+namesSelectedItm.size()+") вид оплаты");
-						for(int i = 0; i < namesSelectedItm.size(); i++){
-							requestPayTypes.add(namesSelectedItm.get(i).toString());
-						}
+						requestPayTypes.addAll(toOrderedSelection(namesSelectedItm));
 					}
 					washer.setPayOptions(new ArrayList<String>(requestPayTypes));
 					requestPayTypes.clear();
@@ -243,22 +249,14 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 			List<HashMap<String,String>> listAddInfos = new ArrayList<HashMap<String,String>>();
 			List<HashMap<String,String>> selectedAddInfos = new ArrayList<HashMap<String,String>>();
 
-			for (Map.Entry<String,String> entry : allAddInfo.entrySet()) {
-				HashMap<String,String> addInfoMap = new HashMap<String,String>();
-				String key = entry.getKey();
-				String value = entry.getValue();
-				addInfoMap.put(MultipleSelectDialog.ID, key);
-				addInfoMap.put(MultipleSelectDialog.NAME, value);
-				listAddInfos.add(addInfoMap);
-			}
+			listAddInfos.addAll(allAddInfo.entrySet().stream()
+					.map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+					.collect(Collectors.toList()));
 
 			if(washer.getAdditionalInfo() != null){
-				for(int i = 0; i < washer.getAdditionalInfo().size(); i++){
-					HashMap<String,String> addInfoMap = new HashMap<String,String>();
-					addInfoMap.put(MultipleSelectDialog.ID, washer.getAdditionalInfo().get(i));
-					addInfoMap.put(MultipleSelectDialog.NAME, allAddInfo.get(washer.getAdditionalInfo().get(i)));
-					selectedAddInfos.add(addInfoMap);
-				}
+				selectedAddInfos.addAll(washer.getAdditionalInfo().stream()
+						.map(infoId -> toDialogItem(infoId, allAddInfo.get(infoId)))
+						.collect(Collectors.toList()));
 			}
 
 			final ArrayList<String> requestAddInfoTypes = new ArrayList<String>();
@@ -275,9 +273,7 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 					}
 					else{
 						addInfo.setText("Выбрано ("+namesSelectedItm.size()+") доп. информации");
-						for(int i = 0; i < namesSelectedItm.size(); i++){
-							requestAddInfoTypes.add(namesSelectedItm.get(i));
-						}
+						requestAddInfoTypes.addAll(toOrderedSelection(namesSelectedItm));
 					}
 					washer.setAdditionalInfo(new ArrayList<String>(requestAddInfoTypes));
 					requestAddInfoTypes.clear();

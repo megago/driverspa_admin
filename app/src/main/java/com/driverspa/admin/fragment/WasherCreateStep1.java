@@ -28,6 +28,7 @@ import org.codepond.wizardroid.WizardStep;
 import org.codepond.wizardroid.persistence.ContextVariable;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -72,6 +73,17 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
     TextView titleView;
     //Wire the layout to the step
     public WasherCreateStep1() {
+    }
+
+    private ArrayList<Box> createDefaultBoxSettings() {
+        return IntStream.range(0, 1)
+                .mapToObj(i -> {
+                    Box boxSetting = new Box();
+                    boxSetting.setBoxName("Бокс " + (i + 1));
+                    boxSetting.setBookingType(BookingType.Online);
+                    return boxSetting;
+                })
+                .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
 
     //Set your layout here
@@ -202,15 +214,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
         request.setAddress(addressStr);
         request.setName(washerName);
 
-        ArrayList<Box> boxSettings = new ArrayList<Box>();
-        for (int i = 0; i < 1; i++) {
-            Box boxSetting = new Box();
-            boxSetting.setBoxName("Бокс 1");
-            boxSetting.setBookingType(BookingType.Online);
-            boxSettings.add(boxSetting);
-        }
-
-        request.setBoxSettings(boxSettings);
+        request.setBoxSettings(createDefaultBoxSettings());
 
         if(sendData) {
             setWaitScreen(true);

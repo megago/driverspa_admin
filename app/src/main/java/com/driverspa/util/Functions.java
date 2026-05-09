@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import com.driverspa.BA;
 import com.driverspa.R;
@@ -83,36 +84,34 @@ public class Functions {
 	}
 
 	public static String getUserRole(Washer washer,String userId){
-		String result = "";
-		 if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
-			 for(Staff staff : washer.getStaffs()) {
-				 if (staff.getUser() != null && staff.getUser().contains(userId)) {
-					 return staff.getRole();
-				 }
-			 }
-		 }
-		return result;
+		if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			return washer.getStaffs().stream()
+					.filter(staff -> staff.getUser() != null && staff.getUser().contains(userId))
+					.map(Staff::getRole)
+					.findFirst()
+					.orElse("");
+		}
+		return "";
 	}
 
 	public static String getUserStatus(Washer washer,String userId){
-		String result = "";
-		 if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
-			 for(Staff staff : washer.getStaffs()) {
-				 if (staff.getUser().contains(userId)) {
-					 return staff.getStatus();
-				 }
-			 }
-		 }
-		return result;
+		if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
+			return washer.getStaffs().stream()
+					.filter(staff -> staff.getUser() != null && staff.getUser().contains(userId))
+					.map(Staff::getStatus)
+					.findFirst()
+					.orElse("");
+		}
+		return "";
 	}
 
 	public static boolean isUserHasAccess(Washer washer, User user,Context context){
 		if(user != null && !user.isOwner() && washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
-			for(Staff staff : washer.getStaffs()) {
-				if (staff.getUser().contains(user.getId()) && staff.getRole().equals("operator")) {
-					ToastUtil.display(context,"У вас нет прав доступа");
-					return false;
-				}
+			boolean noAccess = washer.getStaffs().stream()
+					.anyMatch(staff -> staff.getUser() != null && staff.getUser().contains(user.getId()) && "operator".equals(staff.getRole()));
+			if(noAccess){
+				ToastUtil.display(context,"У вас нет прав доступа");
+				return false;
 			}
 		}
 		return true;
@@ -123,55 +122,56 @@ public class Functions {
 
 	public static boolean isUserHasAccess(Washer washer, User user){
 		if(user != null && !user.isOwner() && washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
-			for(Staff staff : washer.getStaffs()) {
-				if (staff.getUser().contains(user.getId()) && staff.getRole().equals("operator")) {
-					return false;
-				}
-			}
+			return washer.getStaffs().stream()
+					.noneMatch(staff -> staff.getUser() != null && staff.getUser().contains(user.getId()) && "operator".equals(staff.getRole()));
 		}
 		return true;
 	}
 
 	public static Staff getWasherStaff(Washer washer,String userId){
-		Staff result = null;
 		if(washer!= null && washer.getStaffs() != null && washer.getStaffs().size() > 0){
-			for(Staff staff : washer.getStaffs()) {
-				if (staff.getUser().contains(userId)) {
-					return staff;
-				}
-			}
+			return washer.getStaffs().stream()
+					.filter(staff -> staff.getUser() != null && staff.getUser().contains(userId))
+					.findFirst()
+					.orElse(null);
 		}
-		return result;
+		return null;
 	}
 
 	public static LinkedHashMap<Integer,Integer> getGroupedServices(List<Integer> services){
-		LinkedHashMap<Integer,Integer> groupServices = new LinkedHashMap<>();
-
-		if(services != null)
-		   for(Integer service : services){
-			  groupServices.put(service,groupServices.get(service)!=null?groupServices.get(service)+1:1);
-		   }
-
-		return groupServices;
+		if(services == null){
+			return new LinkedHashMap<>();
+		}
+		return services.stream().collect(Collectors.toMap(
+				service -> service,
+				service -> 1,
+				Integer::sum,
+				LinkedHashMap::new
+		));
 	}
 
 	public static String getStaffName(List<Staff> staffs, String staffId){
-		if(staffs != null)
-			for(Staff staff : staffs){
-				if(staffId.equals(staff.getUid()))
-					return staff.getFirstName()+" "+(!TextUtils.isEmpty(staff.getLastName().trim())?staff.getLastName():"");
-			}
+		if(staffs != null) {
+			return staffs.stream()
+					.filter(staff -> staffId.equals(staff.getUid()))
+					.map(staff -> staff.getFirstName() + " " + (!TextUtils.isEmpty(staff.getLastName().trim()) ? staff.getLastName() : ""))
+					.findFirst()
+					.orElse("");
+		}
 		return "";
 	}
 
 
 	public static LinkedHashMap<String,Integer> getGroupedGroupServices(List<String> services){
-		LinkedHashMap<String,Integer> groupServices = new LinkedHashMap<>();
-		if(services != null)
-			for(String service : services){
-				groupServices.put(service,groupServices.get(service)!=null?groupServices.get(service)+1:1);
-			}
-		return groupServices;
+		if(services == null){
+			return new LinkedHashMap<>();
+		}
+		return services.stream().collect(Collectors.toMap(
+				service -> service,
+				service -> 1,
+				Integer::sum,
+				LinkedHashMap::new
+		));
 	}
 
 
@@ -335,24 +335,18 @@ public class Functions {
 
 
 	public static String getCityDescription(String cityCode){
-		String cityDescription = "";
-		for(Reference.City city : BA.getReference().getCities()){
-			if(city.getCode().equals(cityCode)){
-				cityDescription = city.getTitle();
-				break;
-			}
-		}
-		return cityDescription;
+		return BA.getReference().getCities().stream()
+				.filter(city -> city.getCode().equals(cityCode))
+				.map(Reference.City::getTitle)
+				.findFirst()
+				.orElse("");
 	}
 	public static LatLng getCityLatLng(String cityCode){
-		LatLng latLng = null;
-		for(Reference.City city : BA.getReference().getCities()){
-			if(city.getCode().equals(cityCode)){
-				latLng = new LatLng(Double.parseDouble(city.getLonLat().get(1)),Double.parseDouble(city.getLonLat().get(0)));
-				break;
-			}
-		}
-		return latLng;
+		return BA.getReference().getCities().stream()
+				.filter(city -> city.getCode().equals(cityCode))
+				.findFirst()
+				.map(city -> new LatLng(Double.parseDouble(city.getLonLat().get(1)), Double.parseDouble(city.getLonLat().get(0))))
+				.orElse(null);
 	}
 
 	public static String LPad(String str, Integer length, char car) {
@@ -370,16 +364,14 @@ public class Functions {
 	}
 
 	public static String getBoxName(Washer washer, String boxId){
-		String boxName = "";
 		if (washer != null && washer.getBoxSettings() != null) {
-			for (Box bs : washer.getBoxSettings()) {
-				if (bs.getUid().equals(boxId)) {
-					boxName = bs.getBoxName();
-					break;
-				}
-			}
+			return washer.getBoxSettings().stream()
+					.filter(bs -> bs.getUid().equals(boxId))
+					.map(Box::getBoxName)
+					.findFirst()
+					.orElse("");
 		}
-		return boxName;
+		return "";
 	}
 
 	public static String getRussianFineLabel(String digitStr, String [] labels) {
@@ -413,12 +405,9 @@ public class Functions {
 
     public static ArrayList<Box> filterDisableddBoxes(ArrayList<Box> boxes){
 		if(boxes != null && boxes.size() > 0){
-			ArrayList<Box> filteredBoxes = new ArrayList<>();
-			for(Box b : boxes){
-				if(!b.isStatusDisabled())
-					filteredBoxes.add(b);
-			}
-			return filteredBoxes;
+			return boxes.stream()
+					.filter(b -> !b.isStatusDisabled())
+					.collect(Collectors.toCollection(ArrayList::new));
 		}
 		else
 			return boxes;

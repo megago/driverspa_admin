@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -118,6 +121,20 @@ public class WasherCreateStep4 extends WizardStep {
 
     //Wire the layout to the step
     public WasherCreateStep4() {
+    }
+
+    private HashMap<String, String> toDialogItem(String id, String name) {
+        HashMap<String, String> item = new HashMap<String, String>();
+        item.put(MultipleSelectDialog.ID, id);
+        item.put(MultipleSelectDialog.NAME, name);
+        return item;
+    }
+
+    private ArrayList<String> toOrderedSelection(HashMap<Integer, String> namesSelectedItm) {
+        return IntStream.range(0, namesSelectedItm.size())
+                .mapToObj(namesSelectedItm::get)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     //Set your layout here
@@ -462,17 +479,9 @@ public class WasherCreateStep4 extends WizardStep {
 
                 contacts = washer.getContacts();
                 if(contacts != null && contacts.size() > 0){
-                    for(Washer.Contact contact : contacts){
-                        if(contact.getType().equals("phone")){
-                            phone.setText(contact.getValue());
-                        }
-                        else if(contact.getType().equals("website")){
-                            web.setText(contact.getValue());
-                        }
-                        else if(contact.getType().equals("email")){
-                            email.setText(contact.getValue());
-                        }
-                    }
+          contacts.stream().filter(contact -> "phone".equals(contact.getType())).findFirst().ifPresent(contact -> phone.setText(contact.getValue()));
+          contacts.stream().filter(contact -> "website".equals(contact.getType())).findFirst().ifPresent(contact -> web.setText(contact.getValue()));
+          contacts.stream().filter(contact -> "email".equals(contact.getType())).findFirst().ifPresent(contact -> email.setText(contact.getValue()));
                 }
                 else{
                     contacts = new ArrayList<Washer.Contact>();
@@ -495,44 +504,33 @@ public class WasherCreateStep4 extends WizardStep {
                 List<HashMap<String,String>> listPayTypes = new ArrayList<HashMap<String,String>>();
                 List<HashMap<String,String>> selectedPayTypes = new ArrayList<HashMap<String,String>>();
 
-                for (Map.Entry<String,String> entry : allPayTypes.entrySet()) {
-                    HashMap<String,String> payMap = new HashMap<String,String>();
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    payMap.put(MultipleSelectDialog.ID, key);
-                    payMap.put(MultipleSelectDialog.NAME, value);
-                    listPayTypes.add(payMap);
-                }
+        listPayTypes = allPayTypes.entrySet().stream()
+            .map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+            .collect(Collectors.toList());
 
                 if(washer.getPayOptions() != null){
-                    for(int i = 0; i < washer.getPayOptions().size(); i++){
-                        HashMap<String,String> payMap = new HashMap<String,String>();
-                        payMap.put(MultipleSelectDialog.ID, washer.getPayOptions().get(i));
-                        payMap.put(MultipleSelectDialog.NAME, allPayTypes.get(washer.getPayOptions().get(i)));
-                        selectedPayTypes.add(payMap);
-                    }
+          selectedPayTypes = washer.getPayOptions().stream()
+              .map(option -> toDialogItem(option, allPayTypes.get(option)))
+              .collect(Collectors.toList());
                 }
 
                 final ArrayList<String> requestPayTypes = new ArrayList<String>();
                 paymentDialog = new MultipleSelectDialog(getActivity(), listPayTypes, "Выберите тип оплаты", selectedPayTypes) {
                     @Override
                     public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
+						requestPayTypes.clear();
+						requestPayTypes.addAll(toOrderedSelection(namesSelectedItm));
 
                         if(namesSelectedItm.size() == 0){
                             payType.setText("Вид оплаты");
                         }
                         else if(namesSelectedItm.size() == 1){
-                            requestPayTypes.add(namesSelectedItm.get(0));
                             payType.setText(allPayTypes.get(namesSelectedItm.get(0).toString()));
                         }
                         else{
                             payType.setText("Выбрано ("+namesSelectedItm.size()+") вид оплаты");
-                            for(int i = 0; i < namesSelectedItm.size(); i++){
-                                requestPayTypes.add(namesSelectedItm.get(i).toString());
-                            }
                         }
                         washer.setPayOptions(new ArrayList<String>(requestPayTypes));
-                        requestPayTypes.clear();
                     }
                 };
 
@@ -541,44 +539,33 @@ public class WasherCreateStep4 extends WizardStep {
                 List<HashMap<String,String>> listAddInfos = new ArrayList<HashMap<String,String>>();
                 List<HashMap<String,String>> selectedAddInfos = new ArrayList<HashMap<String,String>>();
 
-                for (Map.Entry<String,String> entry : allAddInfo.entrySet()) {
-                    HashMap<String,String> addInfoMap = new HashMap<String,String>();
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    addInfoMap.put(MultipleSelectDialog.ID, key);
-                    addInfoMap.put(MultipleSelectDialog.NAME, value);
-                    listAddInfos.add(addInfoMap);
-                }
+        listAddInfos = allAddInfo.entrySet().stream()
+            .map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
+            .collect(Collectors.toList());
 
                 if(washer.getAdditionalInfo() != null){
-                    for(int i = 0; i < washer.getAdditionalInfo().size(); i++){
-                        HashMap<String,String> addInfoMap = new HashMap<String,String>();
-                        addInfoMap.put(MultipleSelectDialog.ID, washer.getAdditionalInfo().get(i));
-                        addInfoMap.put(MultipleSelectDialog.NAME, allAddInfo.get(washer.getAdditionalInfo().get(i)));
-                        selectedAddInfos.add(addInfoMap);
-                    }
+          selectedAddInfos = washer.getAdditionalInfo().stream()
+              .map(info -> toDialogItem(info, allAddInfo.get(info)))
+              .collect(Collectors.toList());
                 }
 
                 final ArrayList<String> requestAddInfoTypes = new ArrayList<String>();
                 addInfoDialog = new MultipleSelectDialog(getActivity(), listAddInfos, "Выберите доп. Информацию", selectedAddInfos) {
                     @Override
                     public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
+						requestAddInfoTypes.clear();
+						requestAddInfoTypes.addAll(toOrderedSelection(namesSelectedItm));
 
                         if(namesSelectedItm.size() == 0){
                             addInfo.setText("Доп. информация");
                         }
                         else if(namesSelectedItm.size() == 1){
-                            requestAddInfoTypes.add(namesSelectedItm.get(0));
                             addInfo.setText(allAddInfo.get(namesSelectedItm.get(0)));
                         }
                         else{
                             addInfo.setText("Выбрано ("+namesSelectedItm.size()+") доп. информации");
-                            for(int i = 0; i < namesSelectedItm.size(); i++){
-                                requestAddInfoTypes.add(namesSelectedItm.get(i));
-                            }
                         }
                         washer.setAdditionalInfo(new ArrayList<String>(requestAddInfoTypes));
-                        requestAddInfoTypes.clear();
                     }
                 };
 

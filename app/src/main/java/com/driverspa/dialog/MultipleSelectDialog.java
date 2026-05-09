@@ -9,6 +9,8 @@ import android.content.DialogInterface.OnMultiChoiceClickListener;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * @author Yerzhan Tanatov
@@ -47,18 +49,27 @@ public abstract class MultipleSelectDialog {
 		}
 	}
 
+	private HashMap<Integer, String> getSelectedMap(int startIndex) {
+		AtomicInteger orderedIndex = new AtomicInteger(0);
+		HashMap<Integer, String> selectedMap = new HashMap<Integer, String>();
+		IntStream.range(startIndex, itemsChecked.length)
+				.filter(i -> itemsChecked[i])
+				.forEach(i -> selectedMap.put(orderedIndex.getAndIncrement(), itemsIds[i]));
+		return selectedMap;
+	}
+
 	void createFilterData(List<HashMap<String,String>> model) {
 		itemsNames = new String[model.size()];
 		itemsChecked = new boolean[model.size()];
 		itemsIds = new String[model.size()];
-		for (int i = 0; i < model.size(); i++) {
+		IntStream.range(0, model.size()).forEach(i -> {
 			itemsNames[i] = model.get(i).get(NAME).toString();
 			itemsIds[i] = model.get(i).get(ID).toString();
 			if(selectedItems != null){
-				itemsChecked[i] = selectedItems.contains(model.get(i));				
+				itemsChecked[i] = selectedItems.contains(model.get(i));
 			}else
-				itemsChecked[i] = false;				
-		}
+				itemsChecked[i] = false;
+		});
 		init(itemsNames, itemsChecked);
 	}
 
@@ -69,15 +80,7 @@ public abstract class MultipleSelectDialog {
 		dialogBuilder.setPositiveButton("Ок",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-					HashMap<Integer,String> selectedMap = new HashMap<Integer,String>();
-						int j = 0;
-						for (int i = 0; i < itemsChecked.length; i++) {
-							if (itemsChecked[i]) {
-								selectedMap.put(j, itemsIds[i]);
-								j++;
-							}							
-						}
-					onDismiss(selectedMap);
+					onDismiss(getSelectedMap(0));
 					}
 				});
 		
@@ -93,15 +96,7 @@ public abstract class MultipleSelectDialog {
 		dialogBuilder.setOnCancelListener(new OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface arg0) {
-				HashMap<Integer,String> selectedMap = new HashMap<Integer,String>();
-				int j = 0;
-				for (int i = 0; i < itemsChecked.length; i++) {
-					if (itemsChecked[i]) {						
-						selectedMap.put(j, itemsIds[i]);
-						j++;
-					}
-				}				
-				onDismiss(selectedMap);
+				onDismiss(getSelectedMap(0));
 			}
 		});
 		dialog = dialogBuilder.create();
@@ -112,11 +107,7 @@ public abstract class MultipleSelectDialog {
 	}
 
 	public void clearFilter() {
-		for (int i = 0; i < itemsChecked.length; i++) {
-			if (itemsChecked[i]) {
-				itemsChecked[i] = false;
-			}
-		}
+		IntStream.range(0, itemsChecked.length).forEach(i -> itemsChecked[i] = false);
 	}
 
 	public String[] getItemsIds() {
@@ -136,29 +127,26 @@ public abstract class MultipleSelectDialog {
 							boolean arg2) {
 						if (!itemsNames[arg1].equals(ALL_CHOICES)) {
 							
-							for (int i = 1; i < itemsNames.length; i++) {
+										IntStream.range(1, itemsNames.length).forEach(i -> {
 								itemsChecked[i] = false;
 								itemsChecked[0] = false;
 								((AlertDialog) arg0).getListView().setItemChecked(i, false);
-							}
-							
+										});
+
 							itemsChecked[arg1] = arg2;
 							itemsChecked[0] = false;
 							((AlertDialog) arg0).getListView().setItemChecked(0, false);
-							boolean noCheckBoxChecked = true;
-							for (int i = 1; i < itemsNames.length; i++) {
-								if (itemsChecked[i])
-									noCheckBoxChecked = false;
-							}
+										boolean noCheckBoxChecked = IntStream.range(1, itemsNames.length)
+												.noneMatch(i -> itemsChecked[i]);
 							if (noCheckBoxChecked) {
 								itemsChecked[0] = true;
 								((AlertDialog) arg0).getListView().setItemChecked(0, true);
 							}
 						} else if (itemsChecked[0]) {
-							for (int i = 1; i < itemsNames.length; i++) {
+										IntStream.range(1, itemsNames.length).forEach(i -> {
 								((AlertDialog) arg0).getListView().setItemChecked(i, false);
 								itemsChecked[i] = false;
-							}
+										});
 						} else {
 							itemsChecked[0] = true;
 							((AlertDialog) arg0).getListView().setItemChecked(0, true);
