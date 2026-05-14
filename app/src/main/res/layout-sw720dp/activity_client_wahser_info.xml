@@ -5,4 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/vertical_margin_double"
-    android:background="@drawable/background" />
+    android:background="@drawable/gradient_bg" />

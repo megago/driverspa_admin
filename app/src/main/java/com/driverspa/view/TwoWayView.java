@@ -2055,8 +2055,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
 
         // adjust views below appropriately
         final int heightDelta = child.getMeasuredHeight() - oldHeight;
-        IntStream.range(childIndex + 1, numChildren)
-                .forEach(i -> getChildAt(i).offsetTopAndBottom(heightDelta));
+        for (int i = childIndex + 1; i < numChildren; i++) {
+            getChildAt(i).offsetTopAndBottom(heightDelta);
+        }
     }
 
     /**
@@ -2182,13 +2183,11 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
     private int positionOfNewFocus(View newFocus) {
         final int numChildren = getChildCount();
 
-        int resolvedPosition = IntStream.range(0, numChildren)
-                .filter(i -> isViewAncestorOf(newFocus, getChildAt(i)))
-                .map(i -> mFirstPosition + i)
-                .findFirst()
-                .orElse(INVALID_POSITION);
-        if (resolvedPosition != INVALID_POSITION) {
-            return resolvedPosition;
+        for (int i = 0; i < numChildren; i++) {
+            final View child = getChildAt(i);
+            if (isViewAncestorOf(newFocus, child)) {
+                return mFirstPosition + i;
+            }
         }
 
         throw new IllegalArgumentException("newFocus is not a child of any of the"
@@ -2907,15 +2906,16 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             return INVALID_POSITION;
         }
 
-        return IntStream.range(0, childCount)
-                .filter(i -> {
-                    View v = getChildAt(i);
-                    return (mIsVertical && motionPos <= v.getBottom()) ||
-                            (!mIsVertical && motionPos <= v.getRight());
-                })
-                .map(i -> mFirstPosition + i)
-                .findFirst()
-                .orElse(INVALID_POSITION);
+        for (int i = 0; i < childCount; i++) {
+            View v = getChildAt(i);
+
+            if ((mIsVertical && motionPos <= v.getBottom()) ||
+                    (!mIsVertical && motionPos <= v.getRight())) {
+                return mFirstPosition + i;
+            }
+        }
+
+        return INVALID_POSITION;
     }
 
     private int findClosestMotionRowOrColumn(int motionPos) {
@@ -3062,34 +3062,32 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
         final boolean down = (incrementalDelta < 0);
         if (down) {
             int childrenStart = -incrementalDelta + paddingStart;
-            final int recycleCount = IntStream.range(0, childCount)
-                    .filter(i -> {
-                        final View child = getChildAt(i);
-                        final int childEnd = (mIsVertical ? child.getBottom() : child.getRight());
-                        return childEnd >= childrenStart;
-                    })
-                    .findFirst()
-                    .orElse(childCount);
-            count = recycleCount;
-            IntStream.range(0, recycleCount)
-                    .forEach(i -> mRecycler.addScrapView(getChildAt(i), firstPosition + i));
+
+            for (int i = 0; i < childCount; i++) {
+                final View child = getChildAt(i);
+                final int childEnd = (mIsVertical ? child.getBottom() : child.getRight());
+
+                if (childEnd >= childrenStart) {
+                    break;
+                }
+
+                count++;
+                mRecycler.addScrapView(child, firstPosition + i);
+            }
         } else {
             int childrenEnd = end - incrementalDelta;
-            final int firstKeptIndex = IntStream.range(0, childCount)
-                    .map(i -> childCount - 1 - i)
-                    .filter(i -> {
-                        final View child = getChildAt(i);
-                        final int childStart = (mIsVertical ? child.getTop() : child.getLeft());
-                        return childStart <= childrenEnd;
-                    })
-                    .findFirst()
-                    .orElse(-1);
 
-            start = firstKeptIndex + 1;
-            count = childCount - start;
-            if (count > 0) {
-                IntStream.range(start, childCount)
-                        .forEach(i -> mRecycler.addScrapView(getChildAt(i), firstPosition + i));
+            for (int i = childCount - 1; i >= 0; i--) {
+                final View child = getChildAt(i);
+                final int childStart = (mIsVertical ? child.getTop() : child.getLeft());
+
+                if (childStart <= childrenEnd) {
+                    break;
+                }
+
+                start = i;
+                count++;
+                mRecycler.addScrapView(child, firstPosition + i);
             }
         }
 
@@ -3529,11 +3527,12 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
 
             final int lastVisiblePos = getLastVisiblePosition();
 
-            return IntStream.rangeClosed(startPos, lastVisiblePos)
-                    .filter(pos -> adapter.isEnabled(pos)
-                            && getChildAt(pos - firstPosition).getVisibility() == View.VISIBLE)
-                    .findFirst()
-                    .orElse(INVALID_POSITION);
+            for (int pos = startPos; pos <= lastVisiblePos; pos++) {
+                if (adapter.isEnabled(pos)
+                        && getChildAt(pos - firstPosition).getVisibility() == View.VISIBLE) {
+                    return pos;
+                }
+            }
         } else {
             final int last = firstPosition + getChildCount() - 1;
 
@@ -3547,16 +3546,16 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             if (startPos > last) {
                 startPos = last;
             }
-            final int reverseStartPos = startPos;
 
-            return IntStream.rangeClosed(firstPosition, startPos)
-                    .map(pos -> reverseStartPos - (pos - firstPosition))
-                    .filter(pos -> adapter.isEnabled(pos)
-                            && getChildAt(pos - firstPosition).getVisibility() == View.VISIBLE)
-                    .findFirst()
-                    .orElse(INVALID_POSITION);
+            for (int pos = startPos; pos >= firstPosition; pos--) {
+                if (adapter.isEnabled(pos)
+                        && getChildAt(pos - firstPosition).getVisibility() == View.VISIBLE) {
+                    return pos;
+                }
+            }
         }
 
+        return INVALID_POSITION;
     }
 
     @Override
@@ -3582,11 +3581,13 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
         // and clearing the enabled state on those arrays is a bad thing!  If we specify
         // we need extra space, it will create+copy into a new array that safely mutable.
         int[] state = super.onCreateDrawableState(extraSpace + 1);
-        int enabledPos = IntStream.range(0, state.length)
-                .map(i -> state.length - 1 - i)
-                .filter(i -> state[i] == enabledState)
-                .findFirst()
-                .orElse(-1);
+        int enabledPos = -1;
+        for (int i = state.length - 1; i >= 0; i--) {
+            if (state[i] == enabledState) {
+                enabledPos = i;
+                break;
+            }
+        }
 
         // Remove the enabled state
         if (enabledPos >= 0) {
@@ -3778,7 +3779,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
 
         if (changed) {
             final int childCount = getChildCount();
-            IntStream.range(0, childCount).forEach(i -> getChildAt(i).forceLayout());
+            for (int i = 0; i < childCount; i++) {
+                getChildAt(i).forceLayout();
+            }
 
             mRecycler.markChildrenDirty();
         }
@@ -3899,8 +3902,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             final RecycleBin recycleBin = mRecycler;
 
             if (dataChanged) {
-                IntStream.range(0, childCount)
-                        .forEach(i -> recycleBin.addScrapView(getChildAt(i), firstPosition + i));
+                for (int i = 0; i < childCount; i++) {
+                    recycleBin.addScrapView(getChildAt(i), firstPosition + i);
+                }
             } else {
                 recycleBin.fillActiveViews(childCount, firstPosition);
             }
@@ -4075,7 +4079,7 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
     private void offsetChildren(int offset) {
         final int childCount = getChildCount();
 
-        IntStream.range(0, childCount).forEach(i -> {
+        for (int i = 0; i < childCount; i++) {
             final View child = getChildAt(i);
 
             if (mIsVertical) {
@@ -4083,7 +4087,7 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             } else {
                 child.offsetLeftAndRight(offset);
             }
-        });
+        }
     }
 
     private View moveSelection(View oldSelected, View newSelected, int delta, int start,
@@ -5232,8 +5236,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
         } else {
             checkedStates = new SparseBooleanArray();
 
-            IntStream.range(0, mCheckStates.size())
-                    .forEach(i -> checkedStates.put(mCheckStates.keyAt(i), mCheckStates.valueAt(i)));
+            for (int i = 0; i < mCheckStates.size(); i++) {
+                checkedStates.put(mCheckStates.keyAt(i), mCheckStates.valueAt(i));
+            }
         }
 
         return checkedStates;
@@ -5445,7 +5450,7 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
         final boolean useActivated = getContext().getApplicationInfo().targetSdkVersion
                 >= Build.VERSION_CODES.HONEYCOMB;
 
-        IntStream.range(0, count).forEach(i -> {
+        for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             final int position = firstPos + i;
 
@@ -5454,7 +5459,7 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             } else if (useActivated) {
                 child.setActivated(mCheckStates.get(position));
             }
-        });
+        }
     }
 
     @Override
@@ -5619,8 +5624,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             final LongSparseArray<Integer> idState = new LongSparseArray<Integer>();
 
             final int count = mCheckedIdStates.size();
-            IntStream.range(0, count)
-                    .forEach(i -> idState.put(mCheckedIdStates.keyAt(i), mCheckedIdStates.valueAt(i)));
+            for (int i = 0; i < count; i++) {
+                idState.put(mCheckedIdStates.keyAt(i), mCheckedIdStates.valueAt(i));
+            }
 
             ss.checkIdState = idState;
         }
@@ -5772,7 +5778,9 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
 
             @SuppressWarnings("unchecked")
             ArrayList<View>[] scrapViews = new ArrayList[viewTypeCount];
-            IntStream.range(0, viewTypeCount).forEach(i -> scrapViews[i] = new ArrayList<View>());
+            for (int i = 0; i < viewTypeCount; i++) {
+                scrapViews[i] = new ArrayList<View>();
+            }
 
             mViewTypeCount = viewTypeCount;
             mCurrentScrap = scrapViews[0];
@@ -5784,20 +5792,26 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
                 final ArrayList<View> scrap = mCurrentScrap;
                 final int scrapCount = scrap.size();
 
-                IntStream.range(0, scrapCount).forEach(i -> scrap.get(i).forceLayout());
+                for (int i = 0; i < scrapCount; i++) {
+                    scrap.get(i).forceLayout();
+                }
             } else {
                 final int typeCount = mViewTypeCount;
-                IntStream.range(0, typeCount).forEach(i -> {
+                for (int i = 0; i < typeCount; i++) {
                     final ArrayList<View> scrap = mScrapViews[i];
                     final int scrapCount = scrap.size();
 
-                    IntStream.range(0, scrapCount).forEach(j -> scrap.get(j).forceLayout());
-                });
+                    for (int j = 0; j < scrapCount; j++) {
+                        scrap.get(j).forceLayout();
+                    }
+                }
             }
 
             if (mTransientStateViews != null) {
                 final int count = mTransientStateViews.size();
-                IntStream.range(0, count).forEach(i -> mTransientStateViews.valueAt(i).forceLayout());
+                for (int i = 0; i < count; i++) {
+                    mTransientStateViews.valueAt(i).forceLayout();
+                }
             }
         }
 
@@ -5810,17 +5824,19 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
                 final ArrayList<View> scrap = mCurrentScrap;
                 final int scrapCount = scrap.size();
 
-                IntStream.range(0, scrapCount)
-                        .forEach(i -> removeDetachedView(scrap.remove(scrapCount - 1 - i), false));
+                for (int i = 0; i < scrapCount; i++) {
+                    removeDetachedView(scrap.remove(scrapCount - 1 - i), false);
+                }
             } else {
                 final int typeCount = mViewTypeCount;
-                IntStream.range(0, typeCount).forEach(i -> {
+                for (int i = 0; i < typeCount; i++) {
                     final ArrayList<View> scrap = mScrapViews[i];
                     final int scrapCount = scrap.size();
 
-                    IntStream.range(0, scrapCount)
-                            .forEach(j -> removeDetachedView(scrap.remove(scrapCount - 1 - j), false));
-                });
+                    for (int j = 0; j < scrapCount; j++) {
+                        removeDetachedView(scrap.remove(scrapCount - 1 - j), false);
+                    }
+                }
             }
 
             if (mTransientStateViews != null) {
@@ -5836,13 +5852,13 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             mFirstActivePosition = firstActivePosition;
 
             final View[] activeViews = mActiveViews;
-            IntStream.range(0, childCount).forEach(i -> {
+            for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
 
                 // Note:  We do place AdapterView.ITEM_VIEW_TYPE_IGNORE in active views.
                 //        However, we will NOT place them into scrap views.
                 activeViews[i] = child;
-            });
+            }
         }
 
         View getActiveView(int position) {
@@ -5941,48 +5957,50 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             final View[] activeViews = mActiveViews;
             final boolean multipleScraps = (mViewTypeCount > 1);
 
+            ArrayList<View> scrapViews = mCurrentScrap;
             final int count = activeViews.length;
 
-            IntStream.range(0, count).map(idx -> count - 1 - idx).forEach(i -> {
+            for (int i = count - 1; i >= 0; i--) {
                 final View victim = activeViews[i];
-                if (victim == null) {
-                    return;
-                }
-                final LayoutParams lp = (LayoutParams) victim.getLayoutParams();
-                int whichScrap = lp.viewType;
+                if (victim != null) {
+                    final LayoutParams lp = (LayoutParams) victim.getLayoutParams();
+                    int whichScrap = lp.viewType;
 
-                activeViews[i] = null;
+                    activeViews[i] = null;
 
-                final boolean scrapHasTransientState = ViewCompat.hasTransientState(victim);
-                if (!shouldRecycleViewType(whichScrap) || scrapHasTransientState) {
-                    if (scrapHasTransientState) {
-                        removeDetachedView(victim, false);
+                    final boolean scrapHasTransientState = ViewCompat.hasTransientState(victim);
+                    if (!shouldRecycleViewType(whichScrap) || scrapHasTransientState) {
+                        if (scrapHasTransientState) {
+                            removeDetachedView(victim, false);
 
-                        if (mTransientStateViews == null) {
-                            mTransientStateViews = new SparseArrayCompat<View>();
+                            if (mTransientStateViews == null) {
+                                mTransientStateViews = new SparseArrayCompat<View>();
+                            }
+
+                            mTransientStateViews.put(mFirstActivePosition + i, victim);
                         }
 
-                        mTransientStateViews.put(mFirstActivePosition + i, victim);
+                        continue;
                     }
 
-                    return;
+                    if (multipleScraps) {
+                        scrapViews = mScrapViews[whichScrap];
+                    }
+
+                    lp.scrappedFromPosition = mFirstActivePosition + i;
+                    scrapViews.add(victim);
+
+                    // FIXME: Unfortunately, ViewCompat.setAccessibilityDelegate() doesn't accept
+                    // null delegates.
+                    if (Build.VERSION.SDK_INT >= 14) {
+                        victim.setAccessibilityDelegate(null);
+                    }
+
+                    if (mRecyclerListener != null) {
+                        mRecyclerListener.onMovedToScrapHeap(victim);
+                    }
                 }
-
-                ArrayList<View> targetScrap = multipleScraps ? mScrapViews[whichScrap] : mCurrentScrap;
-
-                lp.scrappedFromPosition = mFirstActivePosition + i;
-                targetScrap.add(victim);
-
-                // FIXME: Unfortunately, ViewCompat.setAccessibilityDelegate() doesn't accept
-                // null delegates.
-                if (Build.VERSION.SDK_INT >= 14) {
-                    victim.setAccessibilityDelegate(null);
-                }
-
-                if (mRecyclerListener != null) {
-                    mRecyclerListener.onMovedToScrapHeap(victim);
-                }
-            });
+            }
 
             pruneScrapViews();
         }
@@ -5992,16 +6010,17 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
             final int viewTypeCount = mViewTypeCount;
             final ArrayList<View>[] scrapViews = mScrapViews;
 
-            IntStream.range(0, viewTypeCount).forEach(i -> {
+            for (int i = 0; i < viewTypeCount; ++i) {
                 final ArrayList<View> scrapPile = scrapViews[i];
                 int size = scrapPile.size();
                 final int extras = size - maxViews;
 
                 size--;
 
-                final int initialSize = size;
-                IntStream.range(0, extras).forEach(j -> removeDetachedView(scrapPile.remove(initialSize - j), false));
-            });
+                for (int j = 0; j < extras; j++) {
+                    removeDetachedView(scrapPile.remove(size--), false);
+                }
+            }
 
             if (mTransientStateViews != null) {
                 for (int i = 0; i < mTransientStateViews.size(); i++) {
@@ -6021,8 +6040,10 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
                 final int viewTypeCount = mViewTypeCount;
                 final ArrayList<View>[] scrapViews = mScrapViews;
 
-                IntStream.range(0, viewTypeCount)
-                        .forEach(i -> views.addAll(scrapViews[i]));
+                for (int i = 0; i < viewTypeCount; ++i) {
+                    final ArrayList<View> scrapPile = scrapViews[i];
+                    views.addAll(scrapPile);
+                }
             }
         }
 
@@ -6032,16 +6053,14 @@ public class TwoWayView extends AdapterView<ListAdapter> implements
                 return null;
             }
 
-            int foundIndex = IntStream.range(0, size)
-                    .filter(i -> {
-                        final View scrapView = scrapViews.get(i);
-                        final LayoutParams lp = (LayoutParams) scrapView.getLayoutParams();
-                        return lp.scrappedFromPosition == position;
-                    })
-                    .findFirst()
-                    .orElse(-1);
-            if (foundIndex >= 0) {
-                return scrapViews.remove(foundIndex);
+            for (int i = 0; i < size; i++) {
+                final View scrapView = scrapViews.get(i);
+                final LayoutParams lp = (LayoutParams) scrapView.getLayoutParams();
+
+                if (lp.scrappedFromPosition == position) {
+                    scrapViews.remove(i);
+                    return scrapView;
+                }
             }
 
             return scrapViews.remove(size - 1);

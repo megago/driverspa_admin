@@ -80,7 +80,7 @@
             android:layout_marginTop="@dimen/vertical_margin_third"
             android:background="@color/BlueTransparent" />
 
-        <!--android:background="@drawable/background"-->
+        <!--android:background="@drawable/gradient_bg"-->
         <com.driverspa.view.TwoWayView
             android:id="@+id/queue_horizontal_list"
             android:layout_width="match_parent"
