@@ -238,8 +238,8 @@ public class AdminEditStaffActivity extends AdminBaseActivity {
 	private void createStaffRoleSpinner(){
 		if(staffRole != null) {
 			final String[] valuesArray =  {"Мойщик","Оператор","Директор"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
+			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			staffRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					if (!isSpinnerTouched) return;
@@ -275,8 +275,8 @@ public class AdminEditStaffActivity extends AdminBaseActivity {
 	private void createStaffStatusSpinner(){
 		if(staffStatus != null) {
 			final String[] valuesArray =  {"Работает","В отпуске","Уволен"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
+			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			staffStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					if (!isSpinnerTouched) return;

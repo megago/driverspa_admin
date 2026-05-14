@@ -304,8 +304,8 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 	private void createActionBarSpinner(){
 		if(spinner != null) {
 			String[] valuesArray = new String[]{"%     ", "₸     "};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
+			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					selectedItem = pos;

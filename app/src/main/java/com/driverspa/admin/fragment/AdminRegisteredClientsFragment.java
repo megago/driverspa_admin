@@ -98,7 +98,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
 
     Toolbar toolbar;
     TextView titleView;
-    Spinner spinner;
+    NDSpinner spinner;
     ProgressBar actionBarProgress;
     AppBarLayout appBarLayout;
     View actionBarRefreshButton;
@@ -120,7 +120,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
         ButterKnife.bind(this, view);
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
         appBarLayout = (AppBarLayout)getActivity().findViewById(R.id.appbar);
-        spinner = (Spinner) toolbar.findViewById(R.id.spinner);
+        spinner = (NDSpinner) toolbar.findViewById(R.id.spinner);
         actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
         actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
         titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
@@ -152,8 +152,8 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
     private void createActionBarSpinner(){
         if(clientTypeSpinner != null) {
             String[] valuesArray = new String[]{"Все", "Зарегистрированные", "Незарегистрированные"};
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valuesArray);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
+            adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
             clientTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                     selectedItem = pos;

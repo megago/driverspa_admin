@@ -172,8 +172,8 @@ public class ExtraSettingsActivity extends AdminBaseActivity {
 	private void createAvailableAfterBooksSpinner(){
 		if(availableAfterBooksSpinner != null) {
 			final String[] valuesArray =  {"0 минут", "30 минут","1 час","2 часа"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
+			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			availableAfterBooksSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					if (!isSpinnerTouched) return;

@@ -195,8 +195,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 idArray[valuesArray.length-1] = "";
                 valuesArray[valuesArray.length-1] = "Добавить мойку";
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valuesArray);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
+                adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                        if (!isSpinnerTouched) return;

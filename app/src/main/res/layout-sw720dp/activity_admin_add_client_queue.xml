@@ -1046,7 +1046,7 @@
                                 android:drawSelectorOnTop="true"
                                 android:entries="@array/newsTarget"
                                 android:gravity="center"
-                                android:popupBackground="@color/background_main"
+                                android:popupBackground="@color/spinner_popup_background"
                                 android:spinnerMode="dropdown"
                                 android:textColor="@drawable/button_state_color"
                                 android:textCursorDrawable="@null"

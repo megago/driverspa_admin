@@ -166,7 +166,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
             String[] valuesArray = new String[]{"Все", "Помыли менее 3 раза", "Помыли менее 6 раз", "Помыли менее 10 раз", "Помыли более 15 раз"};
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, valuesArray);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 
             washCountFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {//
@@ -186,7 +186,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
             String[] valuesArray = new String[]{"Все", "Помыли более 10 дней назад", "Помыли более месяц назад", "Помыли более 3 мес. назад"};
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, valuesArray);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 
             washDateFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {//

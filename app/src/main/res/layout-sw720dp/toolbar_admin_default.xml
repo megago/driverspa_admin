@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center|left"
             android:drawSelectorOnTop="true"
-            android:popupBackground="@color/background_main"
+            android:popupBackground="@color/spinner_popup_background"
             android:spinnerMode="dropdown"
             android:textColor="@drawable/button_state_color"
             android:layout_marginRight="@dimen/horizontal_margin_half"

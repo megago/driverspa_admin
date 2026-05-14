@@ -119,8 +119,8 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 	private void createSpinner(){
 		if(spinner != null) {
 			final String[] valuesArray =  {"За период","За день","За неделю", "За месяц"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valuesArray);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
+			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					if (!isSpinnerTouched) return;

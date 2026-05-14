@@ -34,7 +34,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginTop="@dimen/vertical_margin_half"
             android:drawSelectorOnTop="true"
-            android:popupBackground="@color/background_main"
+            android:popupBackground="@color/spinner_popup_background"
             android:spinnerMode="dropdown"
             android:textColor="@drawable/button_state_color"
             android:textCursorDrawable="@null"
