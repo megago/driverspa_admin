@@ -24,14 +24,17 @@
         android:layout_marginTop="@dimen/vertical_margin"
         android:src="@drawable/ic_splash_info_2"/>
 
-    <ImageView
+    <TextView
         android:id="@+id/image_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/vertical_margin_half"
-        android:src="@drawable/ic_splash_logo"/>
+        android:text="DriverSpa"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/main_text"

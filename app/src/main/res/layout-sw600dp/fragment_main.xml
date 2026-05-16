@@ -59,13 +59,16 @@
         android:layout_height="match_parent"
         android:layout_above="@id/mainLayout">        
 
-        <ImageView
+        <TextView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
             android:layout_marginTop="@dimen/vertical_margin"
-            android:src="@drawable/washme_title" />
+            android:text="DriverSpa"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
     </FrameLayout>
     
 </RelativeLayout>

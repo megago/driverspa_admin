@@ -47,12 +47,15 @@
             android:layout_gravity="center"
             android:src="@drawable/transparent_circle" />
 
-        <ImageView
+        <TextView
             android:id="@+id/washme_logo"
-            android:layout_width="170dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_washme_main_logo" />
+            android:text="DriverSpa"
+            android:textColor="@color/White"
+            android:textSize="32sp"
+            android:textStyle="bold" />
     </FrameLayout>
 
 
