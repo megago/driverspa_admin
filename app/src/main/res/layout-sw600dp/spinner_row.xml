@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:gravity="left|center_vertical"
-    android:textColor="@android:color/black"
+    android:textColor="@color/White"
     android:textSize="20sp"
     android:paddingLeft="4dp"
     android:textIsSelectable="false"/>

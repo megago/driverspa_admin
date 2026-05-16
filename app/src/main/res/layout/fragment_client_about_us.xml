@@ -30,7 +30,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="10dp"
             android:text="v 1.3"
-            android:textColor="#88786b"
+            android:textColor="@color/White"
             android:visibility="gone"
             android:textSize="10sp" />
         </LinearLayout>
