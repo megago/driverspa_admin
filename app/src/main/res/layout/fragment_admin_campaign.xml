@@ -39,7 +39,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Нет акции по количеству моек"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:visibility="gone"
                 android:textSize="@dimen/text_normal" />
@@ -113,7 +113,7 @@
                 android:text="Нет скидок"
                 android:visibility="gone"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 
@@ -171,7 +171,7 @@
                         android:paddingTop="@dimen/vertical_margin_third"
                         android:text=""
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal" />
@@ -213,7 +213,7 @@
                     android:inputType="textCapSentences"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal"

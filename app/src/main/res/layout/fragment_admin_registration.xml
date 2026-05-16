@@ -56,7 +56,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textColor="@color/White"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_medium"
             android:visibility="gone">
@@ -93,7 +93,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Город"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_medium" />
 
@@ -138,8 +138,8 @@
             android:layout_marginTop="@dimen/vertical_margin"
             android:background="@color/BlueTransparent"></FrameLayout>
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -155,7 +155,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_medium" />
         </com.google.android.material.textfield.TextInputLayout>

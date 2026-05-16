@@ -82,8 +82,8 @@
         </FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -100,7 +100,7 @@
                 android:inputType="phone"
                 android:maxLength="10"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_medium" >
             </EditText>

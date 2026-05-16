@@ -161,7 +161,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -212,7 +212,7 @@
                                 android:paddingBottom="@dimen/vertical_margin_half"
                                 android:paddingTop="@dimen/vertical_margin_half"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
@@ -276,7 +276,7 @@
                                 android:paddingBottom="@dimen/vertical_margin_half"
                                 android:paddingTop="@dimen/vertical_margin_half"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
@@ -324,7 +324,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -351,3 +351,4 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+

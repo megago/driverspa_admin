@@ -624,7 +624,7 @@
                             android:layout_weight="5"
                             android:text="Транзакции"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/actionbar_color"
+                            android:textColorHint="@color/BlueLight"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
 
@@ -662,7 +662,7 @@
                             android:layout_weight="5"
                             android:text="Статистика"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/actionbar_color"
+                            android:textColorHint="@color/BlueLight"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
 
@@ -742,4 +742,5 @@
             app:fabSize="normal" />
     </FrameLayout>
 </RelativeLayout>
+
 

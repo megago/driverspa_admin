@@ -55,7 +55,7 @@
                 android:paddingTop="@dimen/vertical_margin_third"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_small" />
@@ -102,7 +102,7 @@
             android:inputType="textCapWords"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textCursorDrawable="@null"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_small"

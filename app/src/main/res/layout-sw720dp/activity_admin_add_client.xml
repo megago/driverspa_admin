@@ -65,7 +65,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -92,8 +92,8 @@
                     android:orientation="horizontal">
 
                     <!--<com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"-->
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"-->
                     <!--android:id="@+id/mobileNoWrapper"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -118,7 +118,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -188,7 +188,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal"
@@ -226,7 +226,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -262,7 +262,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -298,7 +298,7 @@
                         android:paddingTop="@dimen/vertical_margin_half"
                         android:text="Запретить начисление бонусов"
                         android:textColor="@drawable/button_state_color"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal"
                         android:visibility="gone" />
@@ -382,3 +382,4 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+

@@ -39,8 +39,8 @@
         android:orientation="vertical" >
 
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -57,7 +57,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -69,8 +69,8 @@
             android:layout_marginTop="@dimen/vertical_margin_half"
             android:background="@color/BlueTransparent"></FrameLayout>
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -87,7 +87,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -99,8 +99,8 @@
             android:layout_marginTop="@dimen/vertical_margin_half"
             android:background="@color/BlueTransparent"></FrameLayout>
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -117,7 +117,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -147,7 +147,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Вид оплаты"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 
@@ -185,7 +185,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Доп. информация"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 

@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/vertical_margin_third"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:hint="Фильтр (например 707 или 701)"
-        android:textColorHint="@color/actionbar_color"
+        android:textColorHint="@color/BlueLight"
         android:transitionName="title_transition"
         android:textColor="@drawable/button_state_color"/>
 

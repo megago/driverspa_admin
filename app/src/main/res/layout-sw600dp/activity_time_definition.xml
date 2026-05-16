@@ -58,7 +58,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -114,7 +114,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -141,7 +141,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -168,7 +168,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -195,7 +195,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -222,7 +222,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -249,7 +249,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>
@@ -276,7 +276,7 @@
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:singleLine="true"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_normal" >
             </EditText>

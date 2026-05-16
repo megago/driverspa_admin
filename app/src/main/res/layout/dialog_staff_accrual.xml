@@ -68,7 +68,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/text_normal"></EditText>
 

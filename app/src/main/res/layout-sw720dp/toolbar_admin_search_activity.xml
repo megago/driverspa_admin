@@ -16,8 +16,9 @@
         android:text=""
         android:textSize="@dimen/text_small"
         android:hint="Фильтр (например 707 или 701)"
-        android:textColorHint="@color/actionbar_color"
+        android:textColorHint="@color/BlueLight"
         android:transitionName="title_transition"
         android:textColor="@drawable/button_state_color"/>
 
     </androidx.appcompat.widget.Toolbar>
+

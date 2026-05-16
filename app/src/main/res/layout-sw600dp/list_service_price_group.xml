@@ -22,7 +22,7 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:text="Оффлайн"
             android:textColor="@color/White"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_normal" />
 
@@ -56,3 +56,4 @@
             android:src="@drawable/background_list_item_checkmark" />
     </FrameLayout>
 </LinearLayout>
+

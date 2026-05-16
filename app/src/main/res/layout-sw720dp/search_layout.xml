@@ -6,7 +6,7 @@
     android:hint="Поиск по карте"
     android:imeOptions="actionDone"
     android:textColor="@color/White"
-    android:textColorHint="@color/White"
+    android:textColorHint="@color/BlueLight"
     android:inputType="text" >
  
 </EditText>

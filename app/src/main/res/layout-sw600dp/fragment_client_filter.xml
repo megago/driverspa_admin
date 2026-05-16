@@ -309,7 +309,7 @@
                     android:layout_weight="1"
                     android:text="Кафе"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -354,7 +354,7 @@
                     android:layout_weight="1"
                     android:text="Кофе"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -399,7 +399,7 @@
                     android:layout_weight="1"
                     android:text="Wi-Fi"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -446,7 +446,7 @@
                     android:layout_weight="1"
                     android:text="Зона отдыха"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -494,7 +494,7 @@
                     android:layout_weight="1"
                     android:text="Банкомат"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -539,7 +539,7 @@
                     android:layout_weight="1"
                     android:text="Оплата по карте"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 

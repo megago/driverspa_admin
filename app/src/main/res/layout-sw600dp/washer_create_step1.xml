@@ -23,8 +23,8 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                 android:id="@+id/mobileNoWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/AntiqueWhite"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -55,8 +55,8 @@
                 android:background="@color/BlueTransparent"></FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
@@ -71,7 +71,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />

@@ -87,7 +87,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -167,7 +167,7 @@
                         android:text="Город"
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal" />
 

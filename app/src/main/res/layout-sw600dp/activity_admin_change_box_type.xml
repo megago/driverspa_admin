@@ -40,8 +40,8 @@
             android:paddingBottom="@dimen/vertical_margin">
 
             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -57,7 +57,7 @@
                     android:inputType="text"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -73,8 +73,8 @@
                 android:background="@color/BlueTransparent"/>
 
             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                 android:layout_width="match_parent"
                 android:visibility="gone"
                 android:layout_height="wrap_content">
@@ -91,7 +91,7 @@
                     android:inputType="text"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -131,7 +131,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Только живая очередь"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal" />
 
@@ -171,7 +171,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Онлайн бронь и живая очередь"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal" />
 
@@ -212,7 +212,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Гибрид"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal" />
 

@@ -64,7 +64,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -109,7 +109,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/actionbar_color"
+                        android:textColorHint="@color/BlueLight"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -205,7 +205,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal"
@@ -243,7 +243,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/White"
-                    android:textColorHint="@color/actionbar_color"
+                    android:textColorHint="@color/BlueLight"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
@@ -279,3 +279,4 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+

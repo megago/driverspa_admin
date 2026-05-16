@@ -55,7 +55,7 @@
             android:maxLength="100"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textCursorDrawable="@null"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_small" />
@@ -94,7 +94,7 @@
             android:inputType="textCapSentences"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textCursorDrawable="@null"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_small" />
@@ -144,7 +144,7 @@
                 android:singleLine="true"
                 android:text="0"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_small"></TextView>
 
@@ -203,7 +203,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="На все виды заказов"
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_small" />
 

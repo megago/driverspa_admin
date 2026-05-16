@@ -126,7 +126,7 @@
                                 android:layout_weight="5"
                                 android:text="Автогеолокация"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 
@@ -163,7 +163,7 @@
                             android:paddingLeft="@dimen/horizontal_margin"
                             android:text="Язык интерфейса"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/actionbar_color"
+                            android:textColorHint="@color/BlueLight"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
 
@@ -194,7 +194,7 @@
                                 android:layout_weight="5"
                                 android:text="Русский"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 
@@ -233,7 +233,7 @@
                                 android:layout_weight="5"
                                 android:text="Оценить приложение"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 
@@ -269,7 +269,7 @@
                                 android:layout_weight="5"
                                 android:text="Я согласен получать\nинформационные уведомления"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 
@@ -317,7 +317,7 @@
                                 android:layout_weight="5"
                                 android:text="Выход"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
                         </LinearLayout>
@@ -348,6 +348,7 @@
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
+
 
 
 

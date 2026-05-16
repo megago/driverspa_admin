@@ -48,8 +48,8 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                             android:id="@+id/carNoWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -66,7 +66,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="text"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
@@ -86,8 +86,8 @@
                             android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                             android:id="@+id/mobileNoWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -104,7 +104,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
@@ -170,8 +170,8 @@
 
 
                             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                                 android:id="@+id/clientNameWrapper"
                                 android:layout_width="match_parent"
                                 android:visibility="gone"
@@ -189,7 +189,7 @@
                                     android:imeOptions="actionNext"
                                     android:inputType="text"
                                     android:textColor="@color/White"
-                                    android:textColorHint="@color/actionbar_color"
+                                    android:textColorHint="@color/BlueLight"
                                     android:textCursorDrawable="@null"
                                     android:textIsSelectable="false"
                                     android:textSize="@dimen/text_normal" />
@@ -205,8 +205,8 @@
                                 android:background="@color/BlueTransparent"></FrameLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
                                 android:id="@+id/carMarkWrapper"
                                 android:layout_width="match_parent"
                                 android:visibility="gone"
@@ -224,7 +224,7 @@
                                     android:imeOptions="actionNext"
                                     android:inputType="text"
                                     android:textColor="@color/White"
-                                    android:textColorHint="@color/actionbar_color"
+                                    android:textColorHint="@color/BlueLight"
                                     android:textCursorDrawable="@null"
                                     android:textIsSelectable="false"
                                     android:textSize="@dimen/text_normal" />
@@ -438,7 +438,7 @@
                                 android:paddingLeft="@dimen/horizontal_margin_half"
                                 android:text="Нет доступных услуг"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 
@@ -478,7 +478,7 @@
                                 android:paddingLeft="@dimen/horizontal_margin_half"
                                 android:text="Нет оффлайн боксов для создания очереди, нажмите чтобы добавить..."
                                 android:textColor="@drawable/button_state_color"
-                                android:textColorHint="@color/actionbar_color"
+                                android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
 

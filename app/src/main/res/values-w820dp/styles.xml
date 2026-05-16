@@ -102,7 +102,7 @@
 
     <style name="TextLabel" parent="android:TextAppearance">
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/BlueLight</item>
+        <item name="android:textColorHint">@color/White</item>
         <!--        <item name="colorAccent">@color/BlueLight</item>-->
         <!--        <item name="colorControlNormal">@color/BlueLight</item>-->
         <!--        <item name="colorControlActivated">@color/BlueLight</item>-->

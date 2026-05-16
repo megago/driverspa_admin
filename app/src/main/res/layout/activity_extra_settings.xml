@@ -25,8 +25,8 @@
         android:paddingBottom="@dimen/vertical_margin">
 
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.ActionBarColor"
-            app:hintTextColor="@color/actionbar_color"
+            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+            app:hintTextColor="@color/BlueLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -43,7 +43,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -70,7 +70,7 @@
                 android:layout_marginLeft="@dimen/horizontal_margin_half"
                 android:text="Принимать брони не раньше чем"
                 android:textColor="@drawable/button_state_color"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 
@@ -114,7 +114,7 @@
                 android:layout_weight="5"
                 android:text="Автоподтверждение брони"
                 android:textColor="@drawable/button_state_color"
-                android:textColorHint="@color/actionbar_color"
+                android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 

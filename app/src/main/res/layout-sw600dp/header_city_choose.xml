@@ -25,7 +25,7 @@
             android:drawablePadding="@dimen/horizontal_margin_third"
             android:textColor="@color/White"
             android:drawableLeft="@drawable/ic_gps_24dp"
-            android:textColorHint="@color/actionbar_color"
+            android:textColorHint="@color/BlueLight"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_normal" />
 
