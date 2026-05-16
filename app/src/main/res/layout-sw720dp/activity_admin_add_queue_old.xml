@@ -310,6 +310,7 @@
                 <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextInputHint.BlueLight"
             app:hintTextColor="@color/BlueLight"
+                    android:textColorHint="@color/BlueLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
@@ -392,6 +393,7 @@
                     <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextInputHint.BlueLight"
             app:hintTextColor="@color/BlueLight"
+                        android:textColorHint="@color/BlueLight"
                         android:id="@+id/clientNameWrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1101,6 +1103,7 @@
                         <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextInputHint.BlueLight"
             app:hintTextColor="@color/BlueLight"
+                            android:textColorHint="@color/BlueLight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -1133,6 +1136,7 @@
                         <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextInputHint.BlueLight"
             app:hintTextColor="@color/BlueLight"
+                            android:textColorHint="@color/BlueLight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin"
