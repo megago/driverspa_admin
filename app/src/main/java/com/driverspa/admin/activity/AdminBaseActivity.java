@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,12 +126,16 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
 		TextView textView;
 		FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		flp.gravity = Gravity.CENTER;
+		int horizontalMargin = (int) getResources().getDimension(R.dimen.horizontal_margin_double);
+		flp.leftMargin = horizontalMargin;
+		flp.rightMargin = horizontalMargin;
 
-		// Create a progress bar to display while the list loads
 		textView = new TextView(this);
 		textView.setText(text);
+		textView.setGravity(Gravity.CENTER);
+		textView.setTextColor(getResources().getColor(R.color.White));
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_normal));
 
-		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup)this.findViewById(android.R.id.content);
 		root.addView(textView, flp );
 

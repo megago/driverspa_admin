@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import androidx.fragment.app.Fragment;
 import android.view.Gravity;
 import android.view.View;
@@ -91,15 +92,19 @@ public abstract class AdminBaseFragment extends Fragment {
 		TextView textView;
 		FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		flp.gravity = Gravity.CENTER;
+		int horizontalMargin = (int) getResources().getDimension(R.dimen.horizontal_margin_double);
+		flp.leftMargin = horizontalMargin;
+		flp.rightMargin = horizontalMargin;
 
-		// Create a progress bar to display while the list loads
 		textView = new TextView(getActivity());
 		textView.setText(text);
+		textView.setGravity(Gravity.CENTER);
+		textView.setTextColor(getResources().getColor(R.color.White));
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_normal));
 
-		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) getActivity().findViewById(android.R.id.content);
 		root.addView(textView, flp );
-		
+
 		return textView;
 	}
 	@Override
