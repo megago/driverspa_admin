@@ -34,6 +34,7 @@
             <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextInputHint.BlueLight"
             app:hintTextColor="@color/BlueLight"
+                android:textColorHint="@color/BlueLight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_half"
@@ -78,4 +79,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
+
+
 
