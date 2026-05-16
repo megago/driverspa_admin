@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
@@ -240,7 +240,7 @@
                     android:layout_weight="1"
                     android:text="Кафе"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -285,7 +285,7 @@
                     android:layout_weight="1"
                     android:text="Кофе"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -330,7 +330,7 @@
                     android:layout_weight="1"
                     android:text="Wi-Fi"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -375,7 +375,7 @@
                     android:layout_weight="1"
                     android:text="Зона отдыха"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -420,7 +420,7 @@
                     android:layout_weight="1"
                     android:text="Банкомат"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 
@@ -465,7 +465,7 @@
                     android:layout_weight="1"
                     android:text="Оплата по карте"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_medium" />
 

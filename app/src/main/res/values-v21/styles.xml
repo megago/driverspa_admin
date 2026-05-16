@@ -47,6 +47,7 @@
         <item name="colorPrimaryDark">@color/BlueLight</item>
         <item name="colorAccent">@color/BlueLight</item>
         <item name="android:textColorPrimary">@color/BlueLight</item>
+        <item name="colorControlNormal">@color/actionbar_color</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textViewStyle">@style/WashmeTextViewStyle</item>
         <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
@@ -74,6 +75,11 @@
 
     <style name="CustomTextInputLayoutStyle.ErrorTextStyle" parent="TextAppearance.Design.Error">
         <item name="android:textSize">6sp</item>
+    </style>
+
+    <style name="TextInputHint.BlueLight" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/actionbar_color</item>
+        <item name="android:textSize">@dimen/text_normal</item>
     </style>
 
     <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">

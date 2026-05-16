@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_main"
     android:orientation="vertical">
 
     <include
@@ -33,12 +32,13 @@
                 android:background="@color/BlueTransparent"></FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mobileNoWrapper"
+            app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin_half"
                 android:layout_marginLeft="@dimen/horizontal_margin"
-                android:layout_marginRight="@dimen/horizontal_margin"
-                app:hintTextAppearance="@style/TextInputHint.BlueLight">
+                android:layout_marginRight="@dimen/horizontal_margin">
 
                 <EditText
                     android:id="@+id/streetName"
@@ -49,7 +49,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/White"
-                    app:hintTextColor="@color/BlueLight"
+                    android:textColorHint="@color/actionbar_color"
                     android:textCursorDrawable="@null"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/text_normal" />
