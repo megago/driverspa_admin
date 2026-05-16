@@ -109,7 +109,7 @@
                     <!--android:layout_gravity="center"-->
                     <!--android:clickable="true" />-->
                     <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                         android:id="@+id/mobileNoWrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:textColor="@color/AntiqueWhite"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
@@ -160,7 +160,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Адрес"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -200,7 +200,7 @@
                             android:layout_weight="5"
                             android:text="Настройка боксов"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -241,7 +241,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Типы машин"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -282,7 +282,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Услуги"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -321,7 +321,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Услуги и цены"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -361,7 +361,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Комплексные услуги"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -408,7 +408,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Время работы и доп. информация"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -446,7 +446,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Дополнительные настройки"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -479,7 +479,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Боксы"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -520,7 +520,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Дополнительно"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -558,7 +558,7 @@
                             android:layout_weight="5"
                             android:text="Получать уведомления"
                             android:textColor="@drawable/button_state_color"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 
@@ -625,7 +625,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Ваш запрос находится в обработке..."
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
                     </LinearLayout>
@@ -650,7 +650,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Мойка активна"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 

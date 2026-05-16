@@ -79,7 +79,7 @@
     </style>
 
     <style name="TextInputHint.BlueLight" parent="TextAppearance.Design.Hint">
-        <item name="android:textColor">@color/BlueLight</item>
+        <item name="android:textColor">@color/actionbar_color</item>
         <item name="android:textSize">@dimen/text_normal</item>
     </style>
 

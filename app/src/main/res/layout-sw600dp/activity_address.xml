@@ -52,7 +52,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin"
@@ -67,7 +67,7 @@
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
@@ -93,7 +93,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:textColor="@color/AntiqueWhite"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_normal"
@@ -137,7 +137,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Отметить на карте"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
 

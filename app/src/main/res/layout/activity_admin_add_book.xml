@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/vertical_margin_third"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/BlueLight"
+            android:textColorHint="@color/actionbar_color"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_smaller"
             android:visibility="gone" />
@@ -82,7 +82,7 @@
                             android:paddingBottom="@dimen/vertical_margin_half"
                             android:paddingTop="@dimen/vertical_margin_half"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
@@ -133,7 +133,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Арман, Тойота 573FRA13 "
                         android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
 
@@ -181,7 +181,7 @@
                                     android:paddingBottom="@dimen/vertical_margin_half"
                                     android:paddingTop="@dimen/vertical_margin_half"
                                     android:textColor="@color/White"
-                                    android:textColorHint="@color/BlueLight"
+                                    android:textColorHint="@color/actionbar_color"
                                     android:textCursorDrawable="@null"
                                     android:textIsSelectable="false"
                                     android:textSize="@dimen/text_small" />
@@ -208,7 +208,7 @@
                                 android:paddingBottom="@dimen/vertical_margin_half"
                                 android:paddingTop="@dimen/vertical_margin_half"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />
@@ -280,7 +280,7 @@
                             android:inputType="textAutoComplete|textCapWords"
                             android:paddingRight="@dimen/horizontal_margin_half"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
@@ -309,7 +309,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />
@@ -660,7 +660,7 @@
                             android:padding="@dimen/horizontal_margin_third"
                             android:text="Комплексные"
                             android:textColor="@drawable/button_bar_state_color"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal"
                             android:textStyle="bold"
@@ -677,7 +677,7 @@
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:text="Услуги"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal"
                             android:textStyle="bold" />
@@ -724,7 +724,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Нет доступных услуг"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
 
@@ -772,7 +772,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Нет сотрудников (мойщиков)"
                         android:textColor="@drawable/button_state_color"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
 
@@ -829,7 +829,7 @@
                                 android:paddingTop="@dimen/vertical_margin_half"
                                 android:text="Клиент оплатил за мойку"
                                 android:textColor="@drawable/button_state_color"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />
 
@@ -900,7 +900,7 @@
                             android:singleLine="true"
                             android:text="0"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_small"></EditText>
 
@@ -921,7 +921,7 @@
                             android:singleLine="true"
                             android:text="0"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_small"
                             android:visibility="gone"></EditText>
@@ -994,7 +994,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"></EditText>
 
@@ -1038,7 +1038,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"></EditText>
 
@@ -1102,7 +1102,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"></EditText>
 
@@ -1146,7 +1146,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"></EditText>
 
@@ -1173,7 +1173,7 @@
                             android:background="@color/BlueTransparent"></FrameLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -1188,7 +1188,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />

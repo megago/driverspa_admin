@@ -26,7 +26,7 @@
             android:paddingRight="@dimen/horizontal_margin_double"
             android:paddingLeft="@dimen/horizontal_margin_double"
             android:layout_gravity="center"
-            android:textColorHint="@color/BlueLight"
+            android:textColorHint="@color/actionbar_color"
             android:textIsSelectable="false"
             android:visibility="gone"
             android:textSize="@dimen/text_smaller" />
@@ -164,7 +164,7 @@
                                 android:layout_gravity="bottom"
                                 android:gravity="bottom"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:paddingTop="@dimen/vertical_margin"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
@@ -232,7 +232,7 @@
                     android:orientation="horizontal">
 
                     <!--<com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"-->
+            app:defaultHintTextColor="@color/actionbar_color"-->
                     <!--android:id="@+id/mobileNoWrapper"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -257,7 +257,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -276,7 +276,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
@@ -291,7 +291,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textAutoComplete|textCapWords"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textCursorDrawable="@null"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -358,7 +358,7 @@
                     android:paddingBottom="@dimen/vertical_margin">
 
                     <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                         android:id="@+id/clientNameWrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -376,7 +376,7 @@
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textCursorDrawable="@null"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
@@ -689,7 +689,7 @@
                             android:text="Комплексные"
                             android:textStyle="bold"
                             android:textColor="@drawable/button_bar_state_color"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:visibility="gone"
                             android:textSize="@dimen/text_normal" />
@@ -706,7 +706,7 @@
                             android:textStyle="bold"
                             android:text="Услуги"
                             android:textColor="@color/White"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_normal" />
                     </LinearLayout>
@@ -751,7 +751,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Нет доступных услуг"
                         android:textColor="@color/White"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
 
@@ -800,7 +800,7 @@
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:text="Нет боксов для создания очереди"
                         android:textColor="@drawable/button_state_color"
-                        android:textColorHint="@color/BlueLight"
+                        android:textColorHint="@color/actionbar_color"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
 
@@ -848,7 +848,7 @@
                             android:paddingTop="@dimen/vertical_margin"
                             android:text="Клиент оплатил за мойку"
                             android:textColor="@drawable/button_state_color"
-                            android:textColorHint="@color/BlueLight"
+                            android:textColorHint="@color/actionbar_color"
                             android:textIsSelectable="false"
                             android:textSize="@dimen/text_small" />
 
@@ -906,7 +906,7 @@
                                 android:paddingTop="@dimen/vertical_margin"
                                 android:text="Оплата по карте"
                                 android:textColor="@drawable/button_state_color"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />
 
@@ -1011,7 +1011,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"></EditText>
 
@@ -1032,7 +1032,7 @@
                                 android:singleLine="true"
                                 android:text="0"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/text_small"
                                 android:visibility="gone"></EditText>
@@ -1067,7 +1067,7 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -1082,7 +1082,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />
@@ -1097,7 +1097,7 @@
                             android:background="@color/BlueTransparent"></FrameLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin"
@@ -1112,7 +1112,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textAutoComplete|textCapWords"
                                 android:textColor="@color/White"
-                                android:textColorHint="@color/BlueLight"
+                                android:textColorHint="@color/actionbar_color"
                                 android:textCursorDrawable="@null"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_small" />

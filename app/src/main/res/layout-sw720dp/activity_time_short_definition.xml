@@ -36,7 +36,7 @@
             android:paddingRight="@dimen/horizontal_margin"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/BlueLight"
+            android:textColorHint="@color/actionbar_color"
             android:textCursorDrawable="@null"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_normal" />
@@ -59,7 +59,7 @@
             android:paddingRight="@dimen/horizontal_margin"
             android:text=""
             android:textColor="@color/White"
-            android:textColorHint="@color/BlueLight"
+            android:textColorHint="@color/actionbar_color"
             android:textCursorDrawable="@null"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_normal" />
@@ -71,7 +71,7 @@
             android:background="@color/BlueTransparent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -88,7 +88,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -101,7 +101,7 @@
             android:background="@color/BlueTransparent"></FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -118,7 +118,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -131,7 +131,7 @@
             android:background="@color/BlueTransparent"></FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -148,7 +148,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -161,7 +161,7 @@
             android:background="@color/BlueTransparent"></FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            app:defaultHintTextColor="@color/BlueLight"
+            app:defaultHintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -178,7 +178,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textCursorDrawable="@null"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
@@ -208,7 +208,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Вид оплаты"
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 
@@ -245,7 +245,7 @@
                 android:paddingLeft="@dimen/horizontal_margin_half"
                 android:text="Доп. информация"
                 android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
+                android:textColorHint="@color/actionbar_color"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal" />
 
