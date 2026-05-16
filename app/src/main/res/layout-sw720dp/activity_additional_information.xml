@@ -40,6 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -69,6 +70,7 @@
             android:background="@color/BlueTransparent"></FrameLayout>
         <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -98,6 +100,7 @@
             android:background="@color/BlueTransparent"></FrameLayout>
         <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

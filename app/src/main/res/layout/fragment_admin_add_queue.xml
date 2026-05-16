@@ -112,6 +112,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                         android:id="@+id/carNoWrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,6 +152,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                             android:id="@+id/mobileNoWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -233,6 +235,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                             android:id="@+id/clientNameWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -883,6 +886,7 @@
 
                             <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
@@ -914,6 +918,7 @@
 
                             <com.google.android.material.textfield.TextInputLayout
             app:defaultHintTextColor="@color/actionbar_color"
+            app:hintTextColor="@color/actionbar_color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
