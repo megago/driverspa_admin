@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<color name="background_color">#008bcc</color>
-
-	<color name="statusbarColor">#2269b3</color>
+	<color name="statusbarColor">#2A3852</color>
 	<color name="apptheme_color">#ffffff</color>
 	<color name="background_transparent_main">#334184c5</color>
 
@@ -17,19 +14,23 @@
 	<color name="myDrawerBackground">#F2F2F2</color>
 	<color name="myWindowBackground">#DEDEDE</color>
 	<color name="myTextPrimaryColor">#FFFFFF</color>
-	<color name="myNavigationColor">#000000</color>
+	<color name="myNavigationColor">#FFFFFF</color>
 	<color name="selected_gray">#ffdbdbdb</color>
 
 	<!-- app specific -->
-	<color name="ppt_blue_light">#FF7FCDF8</color>
-	<color name="actionbar_label">@color/ppt_blue_light</color>
+	<color name="ppt_blue_light">#2A3852</color>
+	<color name="actionbar_label">#2A3852 </color>
 
 	<color name="actionbar_color">#85c4ec</color>
 
-	<color name="tab_selected">#77a9d7</color>
-	<color name="tab_inactive">#7cabd7</color>
+	<color name="tab_selected">#1F2332</color>
+	<color name="tab_inactive">#1A2332</color>
 
-	<color name="background_main">#4184c5</color>
+	<color name="background_main">#1A2332</color>
+	<color name="spinner_popup_background">#1A2332</color>
+
+	<color name="background_color">#1A2332</color>
+
 	<color name="ppt_orange">#FFFFA400</color>
 	<color name="ppt_gray_light">#FFC6C6C6</color>
 
@@ -44,12 +45,12 @@
 	<color name="text_sur">#FF474747</color> <!-- dark gray -->
 	<color name="text_sur_value">#FF6C6C6C</color> <!-- gray -->
 	<color name="text_normal">#FF505050</color> <!-- dark gray -->
-	<color name="text_dark">@color/Black</color>
+	<color name="text_dark">@color/White</color>
 	<color name="text_white">@color/White</color>
 
 	<color name="button_light_text">@color/ppt_blue_light</color>
 	<color name="button_blue_background">@android:color/transparent</color>
-	<color name="button_blue_background2">#467fb6</color>
+	<color name="button_blue_background2">#1F2332</color>
 
 	<color name="button_dark_background">#FF727F8C</color>
 	<color name="button_dark_background_pressed">#FF4F5F6F</color>
@@ -69,29 +70,27 @@
 	<color name="odniklassniki">#FFE77924</color>
 	<color name="odniklassniki_dark">#FFB9611D</color>
 
-	<color name="side_menu_background">#FF00ACDB</color>
-	<color name="side_menu_selected">#FF1E7791</color>
-	<color name="side_menu_pressed">#FF185F74</color>
+	<color name="side_menu_background">#1A2332</color>
+	<color name="side_menu_selected">#334155</color>
+	<color name="side_menu_pressed">#334155</color>
 
 	<color name="chat_background_partner">#6657B9F0</color>
 	<color name="chat_background_own">#66CDE9CC</color>
 	<color name="chat_background_self">#6673C578</color>
-
 	<color name="border_directions_country_add">@color/ppt_gray_light</color>
 
 	<!-- custom -->
-
-	<color name="BlueTransparent2">#BF4184c5</color>
+	<color name="BlueTransparent2">#334155</color>
 	<color name="BlackTransparent">#66000000</color>
+	<color name="BlackTransparent3">#99000000</color>
 	<color name="WhiteTransparent">#33FFFFFF</color>
-	<color name="WhiteTransparent2">#A6FFFFFF</color>
 	<color name="BlackTransparent2">#33000000</color>
 	<color name="GrayLightTransparent">#88DDDDDD</color>
 
 	<color name="White">#FFFFFF</color>
-	<color name="BlueTransparent">#84afd8</color>
-	<color name="BlueLight">#84afd8</color>
-	<color name="BlueLight2">#70a0ce</color>
+	<color name="BlueTransparent">#334155 </color>
+	<color name="BlueLight">#243044</color>
+	<color name="BlueLight2">#243044 </color>
 	<color name="Ivory">#FFFFF0</color>
 	<color name="LightYellow">#FFFFE0</color>
 	<color name="Yellow">#FFFF00</color>
@@ -151,7 +150,9 @@
 	<color name="Goldenrod">#DAA520</color>
 	<color name="Orchid">#DA70D6</color>
 	<color name="Thistle">#D8BFD8</color>
-	<color name="LightGrey">#66D3D3D3</color>
+	<color name="LightGrey">#D3D3D3</color>
+	<color name="LightGrey2">#edeef0</color>
+	<color name="LessLightGrey">#D3D3D3</color>
 	<color name="Tan">#D2B48C</color>
 	<color name="Chocolate">#D2691E</color>
 	<color name="Peru">#CD853F</color>
@@ -229,7 +230,7 @@
 	<color name="MediumBlue">#0000CD</color>
 	<color name="DarkBlue">#00008B</color>
 	<color name="Navy">#000080</color>
-	<color name="Black">#000000</color>
+	<color name="Black">#FFFFFF</color>
 	<color name="LightBlue">#334155</color>
 
 </resources>

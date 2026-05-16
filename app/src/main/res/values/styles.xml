@@ -154,4 +154,8 @@
         <item name="android:background">@drawable/background_input_transparent</item>
     </style>
 
+    <style name="TextInputHint.BlueLight" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/BlueLight</item>
+    </style>
+
 </resources>
