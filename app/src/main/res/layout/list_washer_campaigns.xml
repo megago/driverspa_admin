@@ -43,7 +43,8 @@
                     android:textSize="@dimen/text_very_small"
                     android:layout_gravity="center"
                     android:textStyle="bold"
-                    android:text="20%"/>
+                    android:text="20%"
+                    android:textColor="@color/White"/>
             </FrameLayout>
         </LinearLayout>
 

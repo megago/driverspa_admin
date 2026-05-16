@@ -143,7 +143,8 @@
                     android:layout_marginLeft="2dp"
                     android:text=""
                     android:textSize="@dimen/text_smaller"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/White" />
             </FrameLayout>
 
             <TextView

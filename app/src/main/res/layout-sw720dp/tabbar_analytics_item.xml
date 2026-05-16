@@ -15,5 +15,6 @@
         android:textStyle="bold"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:text="sdf" />
+        android:text="sdf"
+        android:textColor="@color/White" />
 </LinearLayout>

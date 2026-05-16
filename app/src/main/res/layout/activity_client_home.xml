@@ -129,7 +129,8 @@
                                 android:layout_marginTop="@dimen/vertical_margin_third"
                                 android:visibility="gone"
                                 android:text="Избранные"
-                                android:textSize="@dimen/text_smaller" />
+                                android:textSize="@dimen/text_smaller"
+                                android:textColor="@color/White" />
                         </RelativeLayout>
                     </FrameLayout>
 
@@ -177,7 +178,8 @@
                                     android:layout_marginTop="@dimen/vertical_margin_half"
                                     android:visibility="gone"
                                     android:text="Мои брони"
-                                    android:textSize="@dimen/text_smaller" />
+                                    android:textSize="@dimen/text_smaller"
+                                    android:textColor="@color/White" />
 
                                 <!--android:layout_marginBottom="55dp"-->
                                 <!--android:layout_marginLeft="150dp"-->
@@ -245,7 +247,8 @@
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:text="Все мойки"
                                 android:visibility="gone"
-                                android:textSize="@dimen/text_smaller" />
+                                android:textSize="@dimen/text_smaller"
+                                android:textColor="@color/White" />
                         </RelativeLayout>
                     </FrameLayout>
 
@@ -288,7 +291,8 @@
                                 android:layout_marginTop="@dimen/vertical_margin_third"
                                 android:text="На карте"
                                 android:visibility="gone"
-                                android:textSize="@dimen/text_smaller" />
+                                android:textSize="@dimen/text_smaller"
+                                android:textColor="@color/White" />
                         </RelativeLayout>
                     </FrameLayout>
                 </LinearLayout>

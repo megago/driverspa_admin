@@ -14,7 +14,8 @@
         android:textSize="@dimen/text_normal"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/White" />
     <TextView
         android:id="@+id/txtTabBarItemDetail"
         android:layout_width="match_parent"
@@ -23,5 +24,6 @@
         android:textSize="@dimen/text_smaller"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/White" />
 </LinearLayout>

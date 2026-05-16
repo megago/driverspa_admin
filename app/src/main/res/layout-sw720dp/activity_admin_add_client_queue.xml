@@ -213,7 +213,8 @@
                             android:maxLength="30"
                             android:textStyle="italic|bold"
                             android:layout_marginLeft="@dimen/horizontal_margin_third"
-                            android:text="клиенты"/>
+                            android:text="клиенты"
+                            android:textColor="@color/White"/>
                     </LinearLayout>
                 </LinearLayout>
 

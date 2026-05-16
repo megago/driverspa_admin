@@ -90,7 +90,8 @@
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginRight="@dimen/horizontal_margin_third"
                 android:text="Цена"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/White" />
             <EditText
                 android:id="@+id/priceItem"
                 style="@style/EditText.Transparent.WhiteBorder"
@@ -111,7 +112,8 @@
                 android:layout_gravity="bottom|left"
                 android:layout_marginLeft="@dimen/horizontal_margin_third"
                 android:text="₸"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/White" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +122,8 @@
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginRight="@dimen/horizontal_margin_third"
                 android:text="Время"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/White" />
 
 
             <EditText
@@ -143,7 +146,8 @@
                 android:layout_gravity="bottom|left"
                 android:layout_marginLeft="@dimen/horizontal_margin_third"
                 android:text="мин."
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/White" />
         </LinearLayout>
 
     </LinearLayout>

@@ -137,7 +137,8 @@
                                     android:layout_marginTop="@dimen/vertical_margin_half"
                                     android:text="ЗАКАЗЫ"
                                     android:textSize="@dimen/text_smaller"
-                                    android:visibility="gone" />
+                                    android:visibility="gone"
+                                    android:textColor="@color/White" />
 
                             </RelativeLayout>
                         </FrameLayout>
@@ -201,7 +202,8 @@
                                     android:layout_marginTop="@dimen/vertical_margin_half"
                                     android:text="ЗАКАЗЫ"
                                     android:textSize="@dimen/text_smaller"
-                                    android:visibility="gone" />
+                                    android:visibility="gone"
+                                    android:textColor="@color/White" />
 
                             </RelativeLayout>
                         </FrameLayout>
@@ -274,7 +276,8 @@
                                 android:gravity="center"
                                 android:text="ТАБЛИЦА"
                                 android:textSize="@dimen/text_smaller"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                android:textColor="@color/White" />
                         </RelativeLayout>
 
                     </FrameLayout>
@@ -325,7 +328,8 @@
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:text="ОТЗЫВЫ"
                                 android:textSize="@dimen/text_smaller"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                android:textColor="@color/White" />
                         </RelativeLayout>
 
                         <FrameLayout
@@ -380,7 +384,8 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/vertical_margin_half"
                             android:text="СТАТИСТИКА"
-                            android:textSize="@dimen/text_smaller" />
+                            android:textSize="@dimen/text_smaller"
+                            android:textColor="@color/White" />
                     </RelativeLayout>
                 </LinearLayout>
             </FrameLayout>

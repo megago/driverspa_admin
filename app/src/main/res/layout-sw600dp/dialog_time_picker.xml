@@ -38,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="-" />
+                    android:text="-"
+                    android:textColor="@color/White" />
 
                 <TimePicker
                     android:id="@+id/time_to"
