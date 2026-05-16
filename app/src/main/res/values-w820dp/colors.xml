@@ -89,8 +89,8 @@
 
 	<color name="White">#FFFFFF</color>
 	<color name="BlueTransparent">#334155 </color>
-	<color name="BlueLight">#243044</color>
-	<color name="BlueLight2">#243044 </color>
+	<color name="BlueLight">#7C8DA3</color>
+	<color name="BlueLight2">#8BA3C7</color>
 	<color name="Ivory">#FFFFF0</color>
 	<color name="LightYellow">#FFFFE0</color>
 	<color name="Yellow">#FFFF00</color>
