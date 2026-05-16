@@ -79,9 +79,12 @@
         <item name="android:textSize">6sp</item>
     </style>
 
-    <style name="TextInputHint.BlueLight" parent="TextAppearance.Design.Hint">
+    <style name="TextInputHint.BlueLight" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/BlueLight</item>
+    </style>
+
+    <style name="TextInputHint.ActionBarColor" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textColor">@color/actionbar_color</item>
-        <item name="android:textSize">@dimen/text_normal</item>
     </style>
 
     <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
@@ -158,10 +161,6 @@
 
     <style name="EditText.RoundedTransparent" parent="EditText">
         <item name="android:background">@drawable/background_input_transparent</item>
-    </style>
-
-    <style name="TextInputHint.BlueLight" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:textColor">@color/BlueLight</item>
     </style>
 
 </resources>
