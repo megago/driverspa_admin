@@ -165,7 +165,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
         if(washCountFilterSpinner != null) {
             String[] valuesArray = new String[]{"Все", "Помыли менее 3 раза", "Помыли менее 6 раз", "Помыли менее 10 раз", "Помыли более 15 раз"};
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, valuesArray);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 
             washCountFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -185,7 +185,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
         if(washDateFilterSpinner != null) {
             String[] valuesArray = new String[]{"Все", "Помыли более 10 дней назад", "Помыли более месяц назад", "Помыли более 3 мес. назад"};
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, valuesArray);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 
             washDateFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

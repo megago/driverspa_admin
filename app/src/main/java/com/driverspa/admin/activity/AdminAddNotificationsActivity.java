@@ -94,7 +94,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
 
     private void createActionBarSpinner(){
         if(spinner != null) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.newsTarget, R.layout.spinner_layout);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.newsTarget, R.layout.navigation_spinner_item);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
