@@ -163,4 +163,6 @@
         <item name="android:background">@drawable/background_input_transparent</item>
     </style>
 
+    <style name="SpinnerThemeOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
 </resources>

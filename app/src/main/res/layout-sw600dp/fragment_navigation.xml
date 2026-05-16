@@ -78,6 +78,7 @@
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:orientation="horizontal">
                 <com.driverspa.view.NDSpinner
+                    android:theme="@style/SpinnerThemeOverlay"
                     android:id="@+id/washer_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

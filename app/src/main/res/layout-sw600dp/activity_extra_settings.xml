@@ -76,6 +76,7 @@
                 android:textSize="@dimen/text_normal" />
 
             <com.driverspa.view.NDSpinner
+                android:theme="@style/SpinnerThemeOverlay"
                 android:id="@+id/availableAfter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

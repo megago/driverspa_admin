@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <com.driverspa.view.NDSpinner
+        android:theme="@style/SpinnerThemeOverlay"
         android:id="@+id/clientTypeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

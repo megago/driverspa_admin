@@ -11,6 +11,7 @@
         android:layout_height="wrap_content" />
 
     <com.driverspa.view.NDSpinner
+        android:theme="@style/SpinnerThemeOverlay"
         android:id="@+id/washCountFilterSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
         android:textSize="@dimen/text_small" />
 
     <com.driverspa.view.NDSpinner
+        android:theme="@style/SpinnerThemeOverlay"
         android:id="@+id/washDateFilterSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

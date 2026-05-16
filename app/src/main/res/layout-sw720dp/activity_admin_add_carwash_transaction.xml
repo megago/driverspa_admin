@@ -79,6 +79,7 @@
                     android:textSize="@dimen/text_normal" />
 
                 <com.driverspa.view.NDSpinner
+                    android:theme="@style/SpinnerThemeOverlay"
                     android:id="@+id/operationType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,6 +115,7 @@
                         android:textSize="@dimen/text_normal" />
 
                     <com.driverspa.view.NDSpinner
+                        android:theme="@style/SpinnerThemeOverlay"
                         android:id="@+id/paymentType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
