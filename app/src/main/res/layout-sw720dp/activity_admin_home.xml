@@ -440,12 +440,6 @@
                             android:textColor="@drawable/button_state_color"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_small" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_arrow_down" />
                     </LinearLayout>
 
                     <TextView
