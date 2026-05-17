@@ -3,8 +3,10 @@ package com.driverspa.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.splunk.mint.Mint;
 
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import com.driverspa.admin.fragment.AdminRegistrationFragment;
 import com.driverspa.admin.fragment.AdminVerificationFragment;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.fragment.MainFragment;
-//import com.driverspa.gcm.RegistrationIntentService;
 import com.driverspa.model.CurrentGeoPosition;
 import com.driverspa.model.UserLocation;
 import com.driverspa.util.ToastUtil;
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void openAdminHomeActivity() {
-		registerGCM();
+		registerFcm();
 		finish();
 		overridePendingTransition(0, 0);
 		Intent intent = new Intent(this, AdminHomeActivity.class);
@@ -102,7 +103,13 @@ public class MainActivity extends BaseActivity implements
 		startActivity(intent);
 	}
 
-	public void registerGCM() {
+	/**
+	 * Posts the user's last-known location to the event bus and asks
+	 * Firebase for the current FCM registration token. The token is stored
+	 * in UserPreferences; SplashActivity is the place that POSTs it to the
+	 * backend (it has the User / carwashId available there).
+	 */
+	public void registerFcm() {
 
 		UserLocation userLocation = new UserLocation();
 		ArrayList<Double> lonLat;
@@ -120,16 +127,22 @@ public class MainActivity extends BaseActivity implements
 		}
 		BA.getEventBus().post(new UserLocationUpdateEvent(userLocation));
 
-//		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String PUSH_TOKEN = UserPreferences.getPushToken(this);//sharedPreferences.getString(RegistrationIntentService.PUSH_TOKEN, "");
+		if (!checkPlayServices()) {
+			return;
+		}
 
-//		if (TextUtils.isEmpty(PUSH_TOKEN) && checkPlayServices()) {
-//			Intent intent = new Intent(MainActivity.this, RegistrationIntentService.class);
-//			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//				startForegroundService(intent); } else {
-//				startService(intent); }
-//		}
-
+		FirebaseMessaging.getInstance().getToken()
+				.addOnCompleteListener(task -> {
+					if (!task.isSuccessful()) {
+						Log.w("FCM", "getToken failed", task.getException());
+						return;
+					}
+					String token = task.getResult();
+					if (!TextUtils.isEmpty(token)) {
+						UserPreferences.putPushToken(this, token);
+						Log.d("FCM", "FCM token cached: " + token);
+					}
+				});
 	}
 
 	/**

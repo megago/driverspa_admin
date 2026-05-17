@@ -92,7 +92,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener{
 				} catch (PackageManager.NameNotFoundException e) {
 					e.printStackTrace();
 				}
-				BA.getEventBus().post(new PushRequestEvent(deviceId, new Device(phoneModel, "android", androidVersion, appVersion, token, "gcm", user.getDefaultCarwashId(), true, !user.isOwner())));
+				BA.getEventBus().post(new PushRequestEvent(deviceId, new Device(phoneModel, "android", androidVersion, appVersion, token, "fcm", user.getDefaultCarwashId(), true, !user.isOwner())));
 		  }
 		  else if(user == null) {
 			  //If database was recreated then ask for user data again
