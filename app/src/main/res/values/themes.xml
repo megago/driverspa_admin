@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.DriverSpa" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge"/>
+    <style name="Theme.DriverSpa" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+    </style>
 </resources>
