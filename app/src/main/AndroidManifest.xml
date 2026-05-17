@@ -40,6 +40,10 @@
     <permission android:name="com.driverspaAdmin.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    <!-- Android 13+ requires the runtime POST_NOTIFICATIONS permission
+         for any app that posts user-visible notifications (incl. FCM). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <application
         android:name="com.driverspa.BA"
@@ -365,6 +369,16 @@
             android:name=".admin.activity.AdminAnalyticsActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- Firebase Cloud Messaging listener. Replaces the old
+             com.driverspa.gcm.MyGcmListenerService. -->
+        <service
+            android:name="com.driverspa.fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
 <!--        <receiver-->
 <!--            android:name="com.driverspa.gcm.NotificationDismissedReceiver"-->
