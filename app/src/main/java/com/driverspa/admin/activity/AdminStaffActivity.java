@@ -2,7 +2,8 @@ package com.driverspa.admin.activity;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -144,7 +145,7 @@ public class AdminStaffActivity extends AdminBaseActivity implements AdminStaffF
 			case R.id.menu_options:
 				if(staff != null) {
 
-					AlertDialog.Builder b = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+					AlertDialog.Builder b = new MaterialAlertDialogBuilder(this);
 					b.setItems(R.array.staff_options, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {

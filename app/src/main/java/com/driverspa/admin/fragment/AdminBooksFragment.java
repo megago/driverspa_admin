@@ -3,7 +3,8 @@ package com.driverspa.admin.fragment;
 import static com.driverspa.util.Constants.*;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -897,7 +898,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 			   if(book.getStatus().equals(APPROVED)
 //							&& book.getServerTime().getTime() > book.getEndTime().getTime()
 					   ) {
-				   AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+				   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 				   b.setItems(R.array.admin_approved_book_options, new DialogInterface.OnClickListener() {
 					   @Override
 					   public void onClick(DialogInterface dialogInterface, int i) {
@@ -907,7 +908,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   BA.getEventBus().post(new AdminBookStopRequestEvent(book.getId()));
 								   break;
 							   case 1:
-								   AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 								   dialog.setTitle("Не пришел клиент?");
 								   dialog.setNeutralButton("Нет", null);
 								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -920,7 +921,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   dialog.show();
 								   break;
 							   case 2:
-								   dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+								   dialog = new MaterialAlertDialogBuilder(getActivity());
 								   dialog.setTitle("Отменить бронь?");
 								   dialog.setNeutralButton("Нет", null);
 								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -947,7 +948,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				   b.show();
 			   }
 			   else if(book.getStatus().equals(PENDING)){
-				   AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+				   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 				   b.setItems(R.array.admin_pending_book_options, new DialogInterface.OnClickListener() {
 					   @Override
 					   public void onClick(DialogInterface dialogInterface, int i) {
@@ -957,7 +958,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   BA.getEventBus().post(new AdminBookApproveRequestEvent(book.getId()));
 								   break;
 							   case 1:
-								   AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 								   dialog.setTitle("Отменить бронь?");
 								   dialog.setNeutralButton("Нет", null);
 								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -986,7 +987,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		   else{
 			   //Queued booking
 			   if(book.getStatus().equals(QUEUED_APPROVED)){
-				   AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+				   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 				   if(book.getPaid()) {
 					   b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
 						   @Override
@@ -1000,7 +1001,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
 									   break;
 								   case 1:
-									   AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 									   dialog.setTitle("Завершить заказ?");
 									   dialog.setNeutralButton("Нет", null);
 									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -1015,7 +1016,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   dialog.show();
 									   break;
 								   case 2:
-									   dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+									   dialog = new MaterialAlertDialogBuilder(getActivity());
 									   dialog.setTitle("Отменить заказ?");
 									   dialog.setNeutralButton("Нет", null);
 									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -1062,7 +1063,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
 									   break;
 								   case 2:
-									   AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 									   dialog.setTitle("Завершить заказ?");
 									   dialog.setNeutralButton("Нет", null);
 									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -1077,7 +1078,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   dialog.show();
 									   break;
 								   case 3:
-									   dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+									   dialog = new MaterialAlertDialogBuilder(getActivity());
 									   dialog.setTitle("Отменить заказ?");
 									   dialog.setNeutralButton("Нет", null);
 									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -1109,7 +1110,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 			   }
 			   else{
 				   if(!book.getPaid()) {
-					   AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+					   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 					   b.setItems(R.array.admin_not_paid_options, new DialogInterface.OnClickListener() {
 						   @Override
 						   public void onClick(DialogInterface dialogInterface, int i) {

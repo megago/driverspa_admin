@@ -5,8 +5,10 @@ import static com.driverspa.util.Constants.HYBRID;
 import static com.driverspa.util.Constants.OFFLINE;
 import static com.driverspa.util.Constants.ONLINE;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import androidx.appcompat.app.AlertDialog.Builder;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -221,7 +223,7 @@ public class AdminChangeBoxTypeActivity extends AdminBaseActivity {
 
 	@OnClick(R.id.btnDeleteBox)
     public void deleteBox(){
-		Builder dialog = new Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+		Builder dialog = new MaterialAlertDialogBuilder(this);
 		dialog.setTitle("Действительно хотите удалить бокс?");
 		dialog.setNegativeButton("Отмена", null);
 		dialog.setPositiveButton("Ок", new OnClickListener() {

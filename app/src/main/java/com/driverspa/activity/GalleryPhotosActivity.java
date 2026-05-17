@@ -1,6 +1,7 @@
 package com.driverspa.activity;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,7 +63,7 @@ public class GalleryPhotosActivity extends BaseActivity implements GalleryFragme
 		delete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(GalleryPhotosActivity.this,AlertDialog.THEME_HOLO_LIGHT);
+				AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(GalleryPhotosActivity.this);
 				dialog.setTitle("Хотите удалить данное фото?");
 				dialog.setNeutralButton("Нет", null);
 				dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {

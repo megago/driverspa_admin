@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity implements OnActionbarTitleC
 
 	public void setWaitScreen(boolean set) {
 		if(pd == null) {
-			pd = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+			pd = new ProgressDialog(this);
 			pd.setTitle("");
 			pd.setIndeterminate(true);
 			pd.setMessage("Загрузка...");

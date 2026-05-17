@@ -1,8 +1,10 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import androidx.appcompat.app.AlertDialog.Builder;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -104,7 +106,7 @@ public class AdminSettingsFragment extends AdminBaseFragment {
 
 //	   @OnClick(R.id.logout)
 	   public void onLogoutButtonClicked(){
-		   Builder dialog = new Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+		   Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 			dialog.setTitle("Вы действительно хотите выйти?");
 			dialog.setNegativeButton("Отмена", null);
 			dialog.setPositiveButton("Ок", new OnClickListener() {

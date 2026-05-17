@@ -1,7 +1,8 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -372,7 +373,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 	};
 
 	public void showOptions(){
-				AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+				AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 				b.setItems(R.array.campaign_options, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
@@ -434,7 +435,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 	public void onAdminWashCountDeleteRequest(final DeleteWashCountCampaign event) {
 		setWaitScreen(false);
 		if (event.getCampaign() != null) {
-			AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+			AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 			b.setItems(R.array.campaign_options, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialogInterface, int i) {
@@ -462,7 +463,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 
 	@OnClick(R.id.btnDeleteCampaign)
 	public void onDeleteCampaignButtonClicked(){
-		AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+		AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 		b.setItems(R.array.campaign_options, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {

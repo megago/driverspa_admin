@@ -2,7 +2,8 @@
 package com.driverspa.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
@@ -75,7 +76,7 @@ public abstract class MultipleSelectDialog {
 
 	private void init(String[] items, boolean[] checked) {
 
-		dialogBuilder = new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT);
+		dialogBuilder = new MaterialAlertDialogBuilder(activity);
 		dialogBuilder.setTitle(title);
 		dialogBuilder.setPositiveButton("Ок",
 				new DialogInterface.OnClickListener() {

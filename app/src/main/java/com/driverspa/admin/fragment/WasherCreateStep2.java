@@ -90,7 +90,7 @@ public class WasherCreateStep2 extends WizardStep{
 
     void setWaitScreen(boolean set) {
         if(pd == null) {
-            pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_HOLO_LIGHT);
+            pd = new ProgressDialog(getActivity());
             pd.setTitle("");
             pd.setIndeterminate(true);
             pd.setMessage("Загрузка...");

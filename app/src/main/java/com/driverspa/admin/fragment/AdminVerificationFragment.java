@@ -6,7 +6,8 @@ package com.driverspa.admin.fragment;
  */
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -124,7 +125,7 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 		int seconds = (int) (timeDiff / 1000) % 60;
 
 		if (seconds < TIMER_SECONDS){
-			AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 			dialog.setTitle("Подождите немного");
 			dialog.setMessage("Мы можем отправить смс каждые 30 секунд");
 			dialog.setPositiveButton("Ок",null);

@@ -1,6 +1,7 @@
 package com.driverspa.activity;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -249,7 +250,7 @@ public class CityChooseActivity extends BaseActivity {
     }
 
     public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context,AlertDialog.THEME_HOLO_LIGHT);
+        AlertDialog.Builder alertDialog = new MaterialAlertDialogBuilder(context);
         // Setting Dialog Title
         alertDialog.setTitle("Настройки GPS");
         // Setting Dialog Message
@@ -280,7 +281,7 @@ public class CityChooseActivity extends BaseActivity {
 
     public void setWaitScreen(boolean set) {
         if(pd == null) {
-            pd = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+            pd = new ProgressDialog(this);
             pd.setTitle("");
             pd.setIndeterminate(true);
             pd.setCancelable(true);

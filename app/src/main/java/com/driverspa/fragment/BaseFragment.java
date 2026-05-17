@@ -1,7 +1,8 @@
 package com.driverspa.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -88,7 +89,7 @@ public abstract class BaseFragment extends Fragment {
 	}
 
 	public void showSettingsAlert(){
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+		AlertDialog.Builder alertDialog = new MaterialAlertDialogBuilder(getActivity());
 
 		// Setting Dialog Title
 		alertDialog.setTitle("Настройки GPS");

@@ -2,7 +2,8 @@ package com.driverspa.admin.activity;
 
 import static com.driverspa.util.Constants.URL_PREFIX;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -734,7 +735,7 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 
 	@OnClick(R.id.btnRejectQueue)
 	public void rejectQueueRequest() {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+		AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
 		dialog.setTitle("Удалить очередь?");
 		dialog.setNegativeButton("Нет",null);
 		dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {

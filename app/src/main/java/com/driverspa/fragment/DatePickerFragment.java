@@ -1,136 +1,119 @@
 package com.driverspa.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
 import android.text.TextUtils;
-import android.widget.DatePicker;
 
-import java.util.Calendar;
-import java.util.Date;
+import androidx.fragment.app.FragmentManager;
 
 import com.driverspa.listener.DatePickerDateSetListener;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+
+import java.util.Calendar;
 
 /**
+ * Thin wrapper that preserves the legacy DatePickerFragment API
+ * (newInstance / setDatePickerDateSetListener / show) but renders the
+ * modern MaterialDatePicker calendar UI underneath.
+ *
  * Created by Yerzhan Tanatov on 26/04/16.
  */
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-    DatePickerDateSetListener listener;
-    String type;
-    int year,day,month;
-    long date;
+public class DatePickerFragment {
 
-    public static DatePickerFragment newInstance(String type, int year){
+    private DatePickerDateSetListener listener;
+    private final Bundle args = new Bundle();
+
+    public static DatePickerFragment newInstance(String type, int year) {
         DatePickerFragment picker = new DatePickerFragment();
-        Bundle b = new Bundle();
-        b.putString("TYPE",type);
-        b.putInt("YEAR", year);
-        picker.setArguments(b);
+        picker.args.putString("TYPE", type);
+        picker.args.putInt("YEAR", year);
         return picker;
     }
 
-    public static DatePickerFragment newInstance(String type, Long date){
+    public static DatePickerFragment newInstance(String type, Long date) {
         DatePickerFragment picker = new DatePickerFragment();
-        Bundle b = new Bundle();
-        b.putString("TYPE",type);
-        b.putLong("DATE", date);
-        picker.setArguments(b);
+        picker.args.putString("TYPE", type);
+        picker.args.putLong("DATE", date == null ? -1L : date);
         return picker;
     }
 
-    public static DatePickerFragment newInstance(Long date){
+    public static DatePickerFragment newInstance(Long date) {
         DatePickerFragment picker = new DatePickerFragment();
-        Bundle b = new Bundle();
-        b.putLong("DATE", date);
-        picker.setArguments(b);
+        picker.args.putLong("DATE", date == null ? -1L : date);
         return picker;
     }
 
-    public DatePickerFragment(){
-
+    public DatePickerFragment() {
     }
-    public void setDatePickerDateSetListener(DatePickerDateSetListener listener){
+
+    public void setDatePickerDateSetListener(DatePickerDateSetListener listener) {
         this.listener = listener;
     }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        type = getArguments().getString("TYPE","");
-        year = getArguments().getInt("YEAR");
-        date = getArguments().getLong("DATE",-1);
-        if(TextUtils.isEmpty(type) || type.equals("start") || type.equals("end")) {
-            if (date < 0) {
-                final Calendar c = Calendar.getInstance();
-                month = c.get(Calendar.MONTH);
-                day = c.get(Calendar.DAY_OF_MONTH);
-                int yearTmp = c.get(Calendar.YEAR);
-                if (year == 0) year = yearTmp;
-            } else {
-                final Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(date);
-                month = c.get(Calendar.MONTH);
-                day = c.get(Calendar.DAY_OF_MONTH);
-                int yearTmp = c.get(Calendar.YEAR);
-                if (year == 0) year = yearTmp;
-            }
+    public void show(FragmentManager fm, String tag) {
+        final String type = args.getString("TYPE", "");
+        int year = args.getInt("YEAR", 0);
+        long date = args.getLong("DATE", -1L);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.YEAR, -3);
-            datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-
-            cal.add(Calendar.YEAR, 3);
-            cal.set(Calendar.HOUR_OF_DAY, cal.getMaximum(Calendar.HOUR_OF_DAY));
-            cal.set(Calendar.MINUTE, cal.getMaximum(Calendar.MINUTE));
-            cal.set(Calendar.SECOND, cal.getMaximum(Calendar.SECOND));
-            cal.set(Calendar.MILLISECOND, cal.getMaximum(Calendar.MILLISECOND));
-            datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-            return datePickerDialog;
+        long initialSelection;
+        if (date < 0) {
+            Calendar c = Calendar.getInstance();
+            if (year != 0) c.set(Calendar.YEAR, year);
+            initialSelection = c.getTimeInMillis();
+        } else {
+            initialSelection = date;
         }
-        else{
-            if (date < 0) {
-                final Calendar c = Calendar.getInstance();
-                month = c.get(Calendar.MONTH);
-                day = c.get(Calendar.DAY_OF_MONTH);
-                int yearTmp = c.get(Calendar.YEAR);
-                if (year == 0) year = yearTmp;
-            } else {
-                final Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(date);
-                month = c.get(Calendar.MONTH);
-                day = c.get(Calendar.DAY_OF_MONTH);
-                int yearTmp = c.get(Calendar.YEAR);
-                if (year == 0) year = yearTmp;
-            }
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
-            Calendar cal = Calendar.getInstance();
+        CalendarConstraints constraints = buildConstraints(type);
+
+        MaterialDatePicker<Long> picker = MaterialDatePicker.Builder.datePicker()
+                .setSelection(initialSelection)
+                .setCalendarConstraints(constraints)
+                .build();
+
+        picker.addOnPositiveButtonClickListener(selectedTimestamp -> {
+            if (listener != null) {
+                listener.onDatePickerDataset(selectedTimestamp, type);
+            }
+        });
+
+        picker.show(fm, tag);
+    }
+
+    private CalendarConstraints buildConstraints(String type) {
+        Calendar cal = Calendar.getInstance();
+        long minMs;
+        long maxMs;
+
+        if (TextUtils.isEmpty(type) || type.equals("start") || type.equals("end")) {
+            // Preserve legacy range: 3 years before today .. 3 years after today
+            cal.add(Calendar.YEAR, -3);
+            minMs = cal.getTimeInMillis();
+
+            cal.add(Calendar.YEAR, 6);
+            cal.set(Calendar.HOUR_OF_DAY, cal.getMaximum(Calendar.HOUR_OF_DAY));
+            cal.set(Calendar.MINUTE,      cal.getMaximum(Calendar.MINUTE));
+            cal.set(Calendar.SECOND,      cal.getMaximum(Calendar.SECOND));
+            cal.set(Calendar.MILLISECOND, cal.getMaximum(Calendar.MILLISECOND));
+            maxMs = cal.getTimeInMillis();
+        } else {
+            // Preserve legacy range for other types: tomorrow .. 14 days from now
             cal.add(Calendar.DATE, 1);
-            datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+            minMs = cal.getTimeInMillis();
 
             cal.add(Calendar.DATE, 13);
             cal.set(Calendar.HOUR_OF_DAY, cal.getMaximum(Calendar.HOUR_OF_DAY));
-            cal.set(Calendar.MINUTE, cal.getMaximum(Calendar.MINUTE));
-            cal.set(Calendar.SECOND, cal.getMaximum(Calendar.SECOND));
+            cal.set(Calendar.MINUTE,      cal.getMaximum(Calendar.MINUTE));
+            cal.set(Calendar.SECOND,      cal.getMaximum(Calendar.SECOND));
             cal.set(Calendar.MILLISECOND, cal.getMaximum(Calendar.MILLISECOND));
-            datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-            return datePickerDialog;
+            maxMs = cal.getTimeInMillis();
         }
 
+        return new CalendarConstraints.Builder()
+                .setStart(minMs)
+                .setEnd(maxMs)
+                .setValidator(DateValidatorPointForward.from(minMs))
+                .build();
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-        year  = selectedYear;
-        month = selectedMonth + 1;
-        day   = selectedDay;
-
-        Date date = new Date();
-        date.setMonth(selectedMonth);
-        date.setDate(selectedDay);
-        date.setYear(selectedYear-1900);
-        listener.onDatePickerDataset(date.getTime(),this.type);
-    }
-
 }

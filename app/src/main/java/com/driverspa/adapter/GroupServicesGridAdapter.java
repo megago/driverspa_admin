@@ -1,6 +1,7 @@
 package com.driverspa.adapter;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.TextUtils;
@@ -130,7 +131,7 @@ public class GroupServicesGridAdapter extends BaseAdapter {
         holder.dotDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context,AlertDialog.THEME_HOLO_LIGHT);
+                AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(context);
                 dialog.setTitle(item.getName());
                 dialog.setMessage(dialogServiceNames);
                 dialog.setPositiveButton("Ок", null);

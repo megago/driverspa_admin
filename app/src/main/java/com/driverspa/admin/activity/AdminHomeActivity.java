@@ -16,7 +16,8 @@ import static com.driverspa.util.Constants.VACATION;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -268,7 +269,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
             if(!TextUtils.isEmpty(pushType)) {
                 if ((pushType.equals(Constants.INFORMATION) || pushType.equals(Constants.INFORMATION_WITH_UPDATE)) && !TextUtils.isEmpty(pushMessage)) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+                    AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
                     dialog.setTitle(pushMessage);
                     dialog.setPositiveButton("Ок", null);
                     dialog.show();
@@ -548,7 +549,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     public void onInformationPushReceived(NewInformationPushRequestEvent event){
         if(event != null && event.getData() != null){
             if(!TextUtils.isEmpty(event.getData().getText())){
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+                AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
                 dialog.setTitle(event.getData().getText());
                 dialog.setPositiveButton("Ок", null);
                 dialog.show();
@@ -685,7 +686,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     @OnClick(R.id.logout_home)
     public void onLogoutButtonClicked(){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+        AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
         dialog.setTitle("Вы действительно хотите выйти?");
         dialog.setNegativeButton("Отмена", null);
         dialog.setPositiveButton("Ок", new DialogInterface.OnClickListener() {

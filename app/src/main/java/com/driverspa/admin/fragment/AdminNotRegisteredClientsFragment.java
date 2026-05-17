@@ -4,7 +4,8 @@ import static com.driverspa.util.Constants.URL_PREFIX;
 import static com.driverspa.util.Constants.VIEW_FOOTER;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -295,7 +296,7 @@ public class AdminNotRegisteredClientsFragment extends AdminBaseFragment {
         if (client!=null) {
             //Bookings
 
-            AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+            AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
             b.setItems(R.array.client_not_registered_options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

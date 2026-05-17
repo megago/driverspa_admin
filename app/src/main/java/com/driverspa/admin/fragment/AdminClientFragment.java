@@ -2,7 +2,8 @@ package com.driverspa.admin.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -154,7 +155,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 				break;
 			case R.id.menu_options:
 				if(client != null) {
-					AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+					AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 					b.setItems(R.array.company_client_options, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
@@ -184,7 +185,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 //					b.setTitle("Услуга оказана клиенту ");
 //					b.setNeutralButton("Отменить", null);
 					b.show();
-//					AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+//					AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 ////					dialog.setTitle("Изменить данные клиента?");
 ////					dialog.setNegativeButton("Нет",null);
 //					dialog.setPositiveButton("Изменить данные клиента", new DialogInterface.OnClickListener() {

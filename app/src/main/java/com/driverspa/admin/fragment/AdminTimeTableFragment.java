@@ -22,7 +22,8 @@ import static com.driverspa.util.Constants.TODAY;
 import static com.driverspa.util.Constants.TOMORROW;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -597,7 +598,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						if(!book.isQueued()) {
 							//Bookings
 							if(book.getStatus().equals(APPROVED)) {
-								AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+								AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 								b.setItems(R.array.admin_approved_book_options, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i) {
@@ -627,7 +628,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								b.show();
 							}
 							else if(book.getStatus().equals(PENDING)){
-								AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+								AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 								b.setItems(R.array.admin_pending_book_options, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i) {
@@ -656,7 +657,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						else{
 							//Queued booking
 							if(book.getStatus().equals(QUEUED_APPROVED)){
-								AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+								AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 								if(book.getPaid()) {
 									b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
 										@Override
@@ -738,7 +739,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							}
 							else{
 								if(!book.getPaid()) {
-									AlertDialog.Builder b = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+									AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 									b.setItems(R.array.admin_not_paid_options, new DialogInterface.OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialogInterface, int i) {

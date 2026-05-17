@@ -3,7 +3,8 @@ package com.driverspa.admin.activity;
 import static com.driverspa.util.Constants.CLIENT_INFO;
 import static com.driverspa.util.Constants.URL_PREFIX;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -134,7 +135,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
                 if (position == 0) {
                     openCarDefinition();
                 } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(AdminEditClientActivity.this, AlertDialog.THEME_HOLO_LIGHT);
+                    AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminEditClientActivity.this);
                     dialog.setTitle("Удалить машину?");
                     dialog.setNegativeButton("Нет", null);
                     dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -157,7 +158,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
                 if (position == 0) {
                     openCarDefinition();
                 } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(AdminEditClientActivity.this, AlertDialog.THEME_HOLO_LIGHT);
+                    AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminEditClientActivity.this);
                     dialog.setTitle("Удалить машину?");
                     dialog.setNegativeButton("Нет", null);
                     dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {

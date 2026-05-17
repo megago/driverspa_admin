@@ -1,8 +1,10 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import androidx.appcompat.app.AlertDialog.Builder;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -584,7 +586,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.company_avatar)
 	public void onPhotoChangeClick(){
-		Builder b = new Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+		Builder b = new MaterialAlertDialogBuilder(getActivity());
 		b.setItems(R.array.photo_options, new OnClickListener()
 		{
 			@Override

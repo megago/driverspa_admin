@@ -1,7 +1,8 @@
 package com.driverspa.admin.activity;
 
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -157,7 +158,7 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 					final Workshift item = (Workshift)adapter.getItem(arg2);
 
 					if(item.getEndTime() == null) {
-						AlertDialog.Builder dialog = new AlertDialog.Builder(AdminWorkShiftsActivity.this, AlertDialog.THEME_HOLO_LIGHT);
+						AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminWorkShiftsActivity.this);
 						dialog.setTitle("Закрыть смену?");
 						dialog.setNeutralButton("Нет", null);
 						dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -181,7 +182,7 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 
 	@OnClick(R.id.btnAdd)
 	public void onAddClicked(){
-		AlertDialog.Builder dialog = new AlertDialog.Builder(AdminWorkShiftsActivity.this, AlertDialog.THEME_HOLO_LIGHT);
+		AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminWorkShiftsActivity.this);
 		dialog.setTitle("Открыть смену?");
 		dialog.setNeutralButton("Нет", null);
 		dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {

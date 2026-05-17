@@ -7,7 +7,8 @@ import static com.driverspa.util.Constants.INFO;
 import static com.driverspa.util.Constants.PENDING;
 import static com.driverspa.util.Constants.URL_PREFIX;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -207,7 +208,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
                 return;
             }
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+            AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
 				dialog.setTitle("Внимание!");
                 dialog.setMessage("Смс будет отправлен с вашего телефона. Убедитесь в том, что у вас хватит баланса отправить смс всем клиентам. Для проверки отправленных смс, откройте приложение СМС. Хотите продолжить?");
                 dialog.setNegativeButton("Нет",null);
@@ -239,7 +240,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
                 return;
             }
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this,AlertDialog.THEME_HOLO_LIGHT);
+            AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
             dialog.setTitle("Внимание!");
             dialog.setMessage("Смс будет отправлен с вашего телефона. Убедитесь в том, что у вас хватит баланса отправить смс всем клиентам. Для проверки отправленных смс, откройте приложение СМС. Хотите продолжить?");
             dialog.setNegativeButton("Нет",null);
