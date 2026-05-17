@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.DriverSpa" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
-        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/DriverSpaCalendarTheme</item>
+        <item name="materialCalendarFullscreenTheme">@style/DriverSpaCalendarTheme.Fullscreen</item>
+    </style>
+
+    <!-- MaterialDatePicker theme matching the app's dark navy palette so the
+         header text ("SELECT DATE", the big date) and the CANCEL/OK buttons
+         stay legible instead of disappearing onto a transparent surface. -->
+    <style name="DriverSpaCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/actionbar_color</item>
+        <item name="colorOnPrimary">@color/White</item>
+        <item name="colorSurface">@color/background_main</item>
+        <item name="colorOnSurface">@color/White</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/AntiqueWhite</item>
+    </style>
+
+    <style name="DriverSpaCalendarTheme.Fullscreen" parent="ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="colorPrimary">@color/actionbar_color</item>
+        <item name="colorOnPrimary">@color/White</item>
+        <item name="colorSurface">@color/background_main</item>
+        <item name="colorOnSurface">@color/White</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/AntiqueWhite</item>
     </style>
 </resources>
