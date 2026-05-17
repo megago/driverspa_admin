@@ -19,7 +19,7 @@ import com.driverspa.util.otto.DummyWashersRequestEvent;
 public class TmpMyWash {
 
     public static void createInfoWashers(String city){
-        String data = getFileIput("washme/"+city+"/carwashes.json");
+        String data = getFileIput("driverspa/"+city+"/carwashes.json");
         L.d("data is "+data);
 //        data = data.substring(1,data.length()-1);
         data = "{\"washers\":"+data+"}";
@@ -300,7 +300,7 @@ public class TmpMyWash {
 //
 //    public static void loadData(){
 //
-////        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "washme/astana/carwashes.json");
+////        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "driverspa/astana/carwashes.json");
 ////        FileInputStream fis = null;
 ////
 ////        try {
@@ -328,7 +328,7 @@ public class TmpMyWash {
 ////            }
 ////        }
 //
-//        String data = getFileIput("washme/astana/carwashes.json");
+//        String data = getFileIput("driverspa/astana/carwashes.json");
 //        TmpGoWash goWash = TmpGoWash.deserialize(data.toString());
 //
 //        List<TmpWasher> request = new ArrayList<TmpWasher>();
@@ -399,7 +399,7 @@ public class TmpMyWash {
 //
 ////        BA.getEventBus().post(new DummyWashersRequestEvent(request));
 ////        myobj.setAstanaWashers(astanaWashers);
-////        writeOutput(myobj.serialize(),"washme/astana/output.json");
+////        writeOutput(myobj.serialize(),"driverspa/astana/output.json");
 ////        L.d(myobj.serialize());
 //    }
 //

@@ -60,7 +60,7 @@ public class AdminAboutUSFragment extends AdminBaseFragment {
         webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
             public void performClick() {
-                String url = "https://play.google.com/store/apps/details?id=kz.washme";
+                String url = "https://play.google.com/store/apps/details?id=com.driverspaAdmin";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

@@ -166,7 +166,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener{
 	@OnClick (R.id.update)
 	public void onUpdateButtonClicked(){
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("market://details?id=kz.washmebox"));
+		intent.setData(Uri.parse("market://details?id=com.driverspaAdmin"));
 		startActivity(intent);
 	}
 

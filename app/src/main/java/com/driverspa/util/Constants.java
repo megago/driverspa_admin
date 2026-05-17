@@ -97,7 +97,7 @@ public class Constants {
 
 
 	public static final String CLIENT_ALL_SMS = "client_all_sms";
-	public static final String CLIENT_DRIVERSPA_PUSH = "client_washme_push";
+	public static final String CLIENT_DRIVERSPA_PUSH = "client_driverspa_push";
 	public static final String CLIENT_SMS = "client_sms";
 	public static final String COMPANY = "company";
 	public static final String ALL = "all";
