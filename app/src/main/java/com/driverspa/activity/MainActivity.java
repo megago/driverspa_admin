@@ -15,7 +15,7 @@ import com.driverspa.admin.activity.AdminHomeActivity;
 import com.driverspa.admin.activity.AdminNewWasherActivity;
 import com.driverspa.admin.fragment.AdminRegistrationFragment;
 import com.driverspa.admin.fragment.AdminVerificationFragment;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
+import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.fragment.MainFragment;
 //import com.driverspa.gcm.RegistrationIntentService;
 import com.driverspa.model.CurrentGeoPosition;
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements
 		}
 
 		// create database tables. Next time db request won't take much time
-		new WashmeOrmLiteSqlHelper(BA.getContext());
+		new DriverSpaOrmLiteSqlHelper(BA.getContext());
 	}
 
 	private boolean processAdminLoginCheck() {

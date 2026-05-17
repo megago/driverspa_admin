@@ -53,7 +53,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin_third"
             android:autoLink="email"
             android:layout_gravity="center"
-            android:text="info@washme.kz"
+            android:text="info@driverspa.kz"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

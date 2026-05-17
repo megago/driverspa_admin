@@ -7,7 +7,7 @@ import com.driverspa.BA;
 import com.driverspa.model.api.request.BoxOperationRequest;
 import com.driverspa.model.api.response.AdminBoxResponseHolder;
 import com.driverspa.model.api.response.AdminBoxesResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.otto.ws.AdminBoxAddRequestEvent;
 import com.driverspa.util.otto.ws.AdminBoxAddResponseEvent;
 import com.driverspa.util.otto.ws.AdminBoxDeleteRequestEvent;
@@ -24,7 +24,7 @@ import retrofit.client.Response;
 
 public class BoxAssist extends BaseAssist {
 
-	public BoxAssist(WashmeApi api, Bus eventBus) {
+	public BoxAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

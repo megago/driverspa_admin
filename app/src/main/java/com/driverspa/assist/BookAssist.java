@@ -12,7 +12,7 @@ import com.driverspa.model.api.response.ClientResponseHolder;
 import com.driverspa.model.api.response.ClientsResponseHolder;
 import com.driverspa.model.api.response.QueuedBooksResponseHolder;
 import com.driverspa.model.api.response.SingleClientBooksResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.otto.ws.AdminBookApproveRequestEvent;
 import com.driverspa.util.otto.ws.AdminBookApproveResponseEvent;
@@ -70,7 +70,7 @@ import retrofit.client.Response;
 
 public class BookAssist extends BaseAssist {
 
-	public BookAssist(WashmeApi api, Bus eventBus) {
+	public BookAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

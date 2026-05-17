@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.driverspa.adapter.StatisticsExpandableListAdapter;
 import com.driverspa.assist.BaseAssist;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
+import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.squareup.otto.Subscribe;
 
 import java.text.SimpleDateFormat;
@@ -194,27 +194,27 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 		if (event.getResult() != null) {
 			if (BaseAssist.isSuccess(event.getResult())) {
                if(event.getResult().getBooks() != null && event.getResult().getBooks().size() > 0){
-				   WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+				   DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 				   adapter.setData(dbHelper.getStatisticData(washer,new Date()));
 				   listView.setAdapter(adapter);
 				   adapter.notifyDataSetChanged();
 			   }
 				else{
-				   WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+				   DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 				   adapter.setData(dbHelper.getStatisticData(washer,new Date()));
 				   listView.setAdapter(adapter);
 				   adapter.notifyDataSetChanged();
 			   }
 			}
 			else{
-				WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+				DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 				adapter.setData(dbHelper.getStatisticData(washer,new Date()));
 				listView.setAdapter(adapter);
 				adapter.notifyDataSetChanged();
 			}
 		}
 		else{
-			WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+			DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 			adapter.setData(dbHelper.getStatisticData(washer,new Date()));
 			listView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();

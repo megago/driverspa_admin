@@ -131,20 +131,20 @@ public class RetrofitClient {
 //	public static String API_URL_IMAGES = "http://192.168.31.73:8000"; // api url
 
 	///prod
-//	public static String API_URL = "http://api.washme.kz/"; // api url
-//	public static String API_URL_IMAGES = "http://api.washme.kz"; // api url
+//	public static String API_URL = "http://api.driverspa.kz/"; // api url
+//	public static String API_URL_IMAGES = "http://api.driverspa.kz"; // api url
 
 	/////test
-//	public static String API_URL = "http://test.api.washme.kz/"; // api url
-//	public static String API_URL_IMAGES = "http://test.api.washme.kz"; // api urlr
+//	public static String API_URL = "http://test.api.driverspa.kz/"; // api url
+//	public static String API_URL_IMAGES = "http://test.api.driverspa.kz"; // api urlr
 
-//	public static String API_URL = "http://balhash.washme.kz:5000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://balhash.washme.kz:5000/api"; // api url
+//	public static String API_URL = "http://balhash.driverspa.kz:5000/api/"; // api url
+//	public static String API_URL_IMAGES = "http://balhash.driverspa.kz:5000/api"; // api url
 
 	/**
-	 * Interface for connecting to Washme API
+	 * Interface for connecting to DriverSpa API
 	 */
-	public interface WashmeApi {
+	public interface DriverSpaApi {
 
 		@GET("/v1/public_carwash/ref")
 		void getReference(
@@ -725,7 +725,7 @@ public class RetrofitClient {
      */
 	}
 	
-	public static WashmeApi getRestAdapterNoHeader() {
+	public static DriverSpaApi getRestAdapterNoHeader() {
 		return getRestAdapterGeneral(false, false, false);
 	}
 	
@@ -733,15 +733,15 @@ public class RetrofitClient {
 	 * General rest adapter for connecting to REST services
 	 * @return - api for connecting to REST services
 	 */
-	public static WashmeApi getRestAdapter() {
+	public static DriverSpaApi getRestAdapter() {
 		return getRestAdapterGeneral(true, false, false);
 	}
 	
-	public static WashmeApi getRestAdapterWithBody() {
+	public static DriverSpaApi getRestAdapterWithBody() {
 		return getRestAdapterGeneral(true, true, false);
 	}
 	
-	public static WashmeApi getRestAdapterForUpload() {
+	public static DriverSpaApi getRestAdapterForUpload() {
 		return getRestAdapterGeneral(true, true, true);
 	}
 
@@ -750,7 +750,7 @@ public class RetrofitClient {
 	 * @param withBody - whether to add content type or not
 	 * @return - api for connecting to REST services
 	 */
-	private static WashmeApi getRestAdapterGeneral(final boolean accept, final boolean withBody, final boolean forUpload) {
+	private static DriverSpaApi getRestAdapterGeneral(final boolean accept, final boolean withBody, final boolean forUpload) {
 		RequestInterceptor requestInterceptor = new RequestInterceptor() {
 			@Override
 			public void intercept(RequestFacade request) {
@@ -782,6 +782,6 @@ public class RetrofitClient {
 //		.setLogLevel(RestAdapter.LogLevel.NONE)
 		.build();
 
-		return restAdapter.create(WashmeApi.class);
+		return restAdapter.create(DriverSpaApi.class);
 	}
 }

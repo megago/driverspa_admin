@@ -97,7 +97,7 @@ public class Constants {
 
 
 	public static final String CLIENT_ALL_SMS = "client_all_sms";
-	public static final String CLIENT_WASHME_PUSH = "client_washme_push";
+	public static final String CLIENT_DRIVERSPA_PUSH = "client_washme_push";
 	public static final String CLIENT_SMS = "client_sms";
 	public static final String COMPANY = "company";
 	public static final String ALL = "all";
@@ -166,7 +166,7 @@ public class Constants {
 
         newsTarget = new HashMap<String,String>();
         newsTarget.put(CLIENT_ALL_SMS, "СМС всем клиентам");
-        newsTarget.put(CLIENT_WASHME_PUSH, "Пуш зарегистрированным клиентам");
+        newsTarget.put(CLIENT_DRIVERSPA_PUSH, "Пуш зарегистрированным клиентам");
         newsTarget.put(CLIENT_SMS, "СМС не зарегистрированным клиентам");
         newsTarget.put(COMPANY, "Уведомление компании");
         newsTarget.put(ALL, "Всем клиентам DriverSpa-Admin");

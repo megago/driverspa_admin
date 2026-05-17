@@ -5,7 +5,7 @@ import com.squareup.otto.Subscribe;
 
 import com.driverspa.BA;
 import com.driverspa.model.api.response.BaseResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.otto.ws.AuthClientLogoutRequestEvent;
 import com.driverspa.util.otto.ws.AuthClientLogoutResponseEvent;
 import retrofit.Callback;
@@ -14,7 +14,7 @@ import retrofit.client.Response;
 
 public class AuthLogoutAssist extends BaseAssist {
 
-	public AuthLogoutAssist(WashmeApi api, Bus eventBus) {
+	public AuthLogoutAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

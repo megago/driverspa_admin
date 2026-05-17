@@ -6,7 +6,7 @@ import com.squareup.otto.Subscribe;
 import com.driverspa.BA;
 import com.driverspa.model.api.response.AboutUSResponseHolder;
 import com.driverspa.model.api.response.ReferenceResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AboutUSRequestEvent;
 import com.driverspa.util.otto.ws.AboutUSResponseEvent;
@@ -18,7 +18,7 @@ import retrofit.client.Response;
 
 public class InitilizeAssist extends BaseAssist {
 
-	public InitilizeAssist(WashmeApi api, Bus eventBus) {
+	public InitilizeAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

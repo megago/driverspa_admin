@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.driverspa.BA;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
+import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.BooksDataHolder;
 import com.driverspa.model.CarItem;
@@ -24,7 +24,7 @@ import com.driverspa.model.User;
 import com.driverspa.model.api.response.BaseResponseHolder;
 import com.driverspa.model.api.response.QueuedBooksResponseHolder;
 import com.driverspa.util.LogUtil;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AdminStatisticsResponseEvent;
@@ -33,11 +33,11 @@ import retrofit.RetrofitError;
 
 public abstract class BaseAssist {
 
-	private WashmeApi washmeApi;
+	private DriverSpaApi driverSpaApi;
 	private Bus eventBus;
 
-	public BaseAssist(WashmeApi api, Bus eventBus) {
-		this.washmeApi = api;
+	public BaseAssist(DriverSpaApi api, Bus eventBus) {
+		this.driverSpaApi = api;
 		this.eventBus = eventBus;
 	}
 
@@ -74,8 +74,8 @@ public abstract class BaseAssist {
 	//		return UserPreferences.getUserId(BA.getContext());
 	//	}
 
-	protected WashmeApi getApi() {
-		return washmeApi;
+	protected DriverSpaApi getApi() {
+		return driverSpaApi;
 	}
 
 	public String getTag() {
@@ -107,7 +107,7 @@ public abstract class BaseAssist {
 	}
 
 	protected void writeSelfToDb(User user) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		RuntimeExceptionDao<User, String> userDao = dbHelper.getUserRuntimeExceptionDao();	
 		ArrayList<PhotoParcelable> photos = new ArrayList<PhotoParcelable>(/*list.size()*/);
 		for(Image image : user.getImages()){
@@ -122,9 +122,9 @@ public abstract class BaseAssist {
 	}
 
 	protected void writeBooks(List<BookInfo> books, QueuedBooksResponseHolder data) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		RuntimeExceptionDao<BookInfo, String> bookingDao = dbHelper.getBookingRuntimeDao();
-		WashmeOrmLiteSqlHelper db = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper db = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		db.deleteAllBooksData();
 		BooksDataHolder holder = new BooksDataHolder(books);
 		UserPreferences.putBooksData(BA.getContext(),holder.serialize());
@@ -136,9 +136,9 @@ public abstract class BaseAssist {
 	}
 
 	protected void writeBooks(List<BookInfo> books) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		RuntimeExceptionDao<BookInfo, String> bookingDao = dbHelper.getBookingRuntimeDao();
-		WashmeOrmLiteSqlHelper db = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper db = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		db.deleteAllBooksData();
 		BooksDataHolder holder = new BooksDataHolder(books);
 		UserPreferences.putBooksData(BA.getContext(),holder.serialize());
@@ -149,7 +149,7 @@ public abstract class BaseAssist {
 	}
 
 	protected void removeAllDbData() {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		dbHelper.removeAll();
 		dbHelper.close();
 	}
@@ -180,7 +180,7 @@ public abstract class BaseAssist {
 	 * @param photos - list of photos
 	 */
 	protected static void insertPhotos(final ArrayList<PhotoParcelable> photos) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		final RuntimeExceptionDao<PhotoOrm, String> photoOrmDao = dbHelper.getUserPhotoRuntimeExceptionDao();
 		dbHelper.removePhotos();
 		for( PhotoParcelable photoParcelable : photos ) {
@@ -190,7 +190,7 @@ public abstract class BaseAssist {
 	}
 
 	protected static void insertCars(final List<CarItem> cars) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		final RuntimeExceptionDao<CarItem, String> carsDao = dbHelper.getUserCarsRuntimeExceptionDao();
 		if(cars != null)
 		 for(CarItem car : cars) {

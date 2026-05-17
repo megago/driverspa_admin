@@ -41,7 +41,7 @@ import com.driverspa.util.otto.ws.UserGetSelfRequestEvent;
  *
  */
 
-public class WashmeOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
+public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 
 	DecimalFormat decimalFormatter = new DecimalFormat("#,###.##");
 	private static final String DATABASE_NAME = "com.driverspa.db";
@@ -68,7 +68,7 @@ public class WashmeOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 		}
 	}
 
-	public WashmeOrmLiteSqlHelper(Context context) {
+	public DriverSpaOrmLiteSqlHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
 	}
 	

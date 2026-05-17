@@ -27,7 +27,7 @@
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
-    <style name="WashmeAppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="DriverSpaAppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowDisablePreview">true</item>
         <!--<item name="colorPrimary">@color/myPrimaryColor</item>-->
         <!--<item name="colorPrimaryDark">@color/myPrimaryDarkColor</item>-->
@@ -41,7 +41,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
+    <style name="DriverSpaTextViewStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/White</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>

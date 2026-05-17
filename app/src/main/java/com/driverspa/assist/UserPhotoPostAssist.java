@@ -6,7 +6,7 @@ import com.squareup.otto.Subscribe;
 import com.driverspa.BA;
 import com.driverspa.model.api.response.BaseResponseHolder;
 import com.driverspa.model.api.response.PhotoResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.otto.ws.AdminPhotoPostRequestEvent;
 import com.driverspa.util.otto.ws.AdminPhotoPostResponseEvent;
 import com.driverspa.util.otto.ws.ClientPhotoPostRequestEvent;
@@ -23,7 +23,7 @@ import retrofit.mime.TypedFile;
  */
 public class UserPhotoPostAssist extends BaseAssist {
 
-	public UserPhotoPostAssist(WashmeApi api, Bus eventBus) {
+	public UserPhotoPostAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

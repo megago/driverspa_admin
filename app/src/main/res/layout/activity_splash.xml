@@ -5,16 +5,18 @@
     android:background="@drawable/gradient_bg" >
 
     <!--android:background="@color/background_color" >-->
-    <ImageView
+    <TextView
         android:id="@+id/copy_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/vertical_margin_double"
-        android:src="@drawable/copy_right" />
+        android:text="© 2026 DriverSpa"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_small" />
 
     <ImageView
-        android:id="@+id/wash_me_logo_loading"
+        android:id="@+id/driverspa_logo_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -48,7 +50,7 @@
             android:src="@drawable/transparent_circle" />
 
         <TextView
-            android:id="@+id/washme_logo"
+            android:id="@+id/driverspa_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -24,7 +24,7 @@
     </style>
 
     <!--    <item name="popupTheme"></item>-->
-    <!--    <item name="theme">@style/WashmeHomeActionBar</item>-->
+    <!--    <item name="theme">@style/DriverSpaHomeActionBar</item>-->
 
     <style name="ToolBarStyle" parent="">
     </style>
@@ -32,7 +32,7 @@
         <!--        <item name="colorAccent">@color/White</item> &lt;!&ndash; Whatever color you want&ndash;&gt;-->
     </style>
 
-    <style name="WashmeHomeActionBar" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="DriverSpaHomeActionBar" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
@@ -42,13 +42,13 @@
     <!--    <item name="colorAccent">@color/BlueLight2</item>-->
     <!--    <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
 
-    <style name="WashmeAppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="DriverSpaAppTheme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:textColorPrimary">@color/BlueLight2</item>
-        <item name="android:textViewStyle">@style/WashmeTextViewStyle</item>
+        <item name="android:textViewStyle">@style/DriverSpaTextViewStyle</item>
         <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
         <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
         <item name="android:buttonStyleToggle">@style/ToggleAppTheme</item>
@@ -78,7 +78,7 @@
     <!--        <item name="android:textSize">6sp</item>-->
     <!--    </style>-->
 
-    <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
+    <style name="DriverSpaTextViewStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/White</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>

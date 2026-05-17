@@ -2,7 +2,7 @@ package com.driverspa.admin.activity;
 
 import static com.driverspa.util.Constants.CLIENT_ALL_SMS;
 import static com.driverspa.util.Constants.CLIENT_SMS;
-import static com.driverspa.util.Constants.CLIENT_WASHME_PUSH;
+import static com.driverspa.util.Constants.CLIENT_DRIVERSPA_PUSH;
 import static com.driverspa.util.Constants.INFO;
 import static com.driverspa.util.Constants.PENDING;
 import static com.driverspa.util.Constants.URL_PREFIX;
@@ -222,7 +222,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
 				dialog.show();
 
         }
-        else if(reverseTarget.get(valuesArray[selectedItem]).equals(CLIENT_WASHME_PUSH)){
+        else if(reverseTarget.get(valuesArray[selectedItem]).equals(CLIENT_DRIVERSPA_PUSH)){
 //            request.setStatus(Constants.NEWS_SENT);
             setWaitScreen(true);
             BA.getEventBus().post(new AddNotificationNewsRequestEvent(request));

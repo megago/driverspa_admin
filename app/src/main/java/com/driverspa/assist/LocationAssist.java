@@ -53,7 +53,7 @@ public class LocationAssist extends BaseAssist {
 		public void onProviderDisabled(String provider) {}
 	};
 
-	public LocationAssist(RetrofitClient.WashmeApi api, Bus eventBus) {
+	public LocationAssist(RetrofitClient.DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 		// Acquire a reference to the system Location Manager
 		locationManager = (LocationManager) BA.getContext().getSystemService(Context.LOCATION_SERVICE);

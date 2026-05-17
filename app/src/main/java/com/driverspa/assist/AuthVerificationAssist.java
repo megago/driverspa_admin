@@ -22,7 +22,7 @@ import com.driverspa.model.api.response.WasherResponseHolder;
 import com.driverspa.model.api.response.WashersResponseHolder;
 import com.driverspa.util.Constants;
 import com.driverspa.util.L;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.DummyWashersRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationRequestEvent;
@@ -36,7 +36,7 @@ import retrofit.client.Response;
 
 public class AuthVerificationAssist extends BaseAssist {
 	
-	public AuthVerificationAssist(WashmeApi api, Bus eventBus) {
+	public AuthVerificationAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 

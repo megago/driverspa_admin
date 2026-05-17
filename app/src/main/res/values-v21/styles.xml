@@ -19,7 +19,7 @@
 
     <style name="ToolBarStyle" parent="">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="theme">@style/WashmeHomeActionBar</item>
+        <item name="theme">@style/DriverSpaHomeActionBar</item>
     </style>
 
     <style name="MyPopupMenu"
@@ -27,7 +27,7 @@
         <item name="android:popupBackground">@color/background_main</item>
     </style>
 
-    <style name="WashmeHomeActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="DriverSpaHomeActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
@@ -36,7 +36,7 @@
         <item name="colorAccent">@color/White</item> <!-- Whatever color you want-->
     </style>
 
-    <style name="WashmeAppTheme" parent="AppTheme.Base">
+    <style name="DriverSpaAppTheme" parent="AppTheme.Base">
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -49,7 +49,7 @@
         <item name="android:textColorPrimary">@color/BlueLight</item>
         <item name="colorControlNormal">@color/actionbar_color</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="android:textViewStyle">@style/WashmeTextViewStyle</item>
+        <item name="android:textViewStyle">@style/DriverSpaTextViewStyle</item>
         <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
         <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
         <item name="android:buttonStyleToggle">@style/ToggleAppTheme</item>
@@ -77,7 +77,7 @@
         <item name="android:textSize">6sp</item>
     </style>
 
-    <style name="WashmeTextViewStyle" parent="@android:style/TextAppearance">
+    <style name="DriverSpaTextViewStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/White</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>

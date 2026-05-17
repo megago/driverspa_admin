@@ -40,7 +40,7 @@ public class AdminAboutUSFragment extends AdminBaseFragment {
         webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
             public void performClick() {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","info@washme.kz", null));
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","info@driverspa.kz", null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -50,7 +50,7 @@ public class AdminAboutUSFragment extends AdminBaseFragment {
         webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
             public void performClick() {
-                String url = "http://www.washme.kz";
+                String url = "http://www.driverspa.kz";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

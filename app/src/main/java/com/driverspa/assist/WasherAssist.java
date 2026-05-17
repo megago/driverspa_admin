@@ -36,7 +36,7 @@ import com.driverspa.model.api.response.NotificationNewsResponseHolder;
 import com.driverspa.model.api.response.WasherResponseHolder;
 import com.driverspa.model.api.response.WasherTimeTableResponseHolder;
 import com.driverspa.model.api.response.WashersResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.LocalWasherChangeResponseEvent;
 import com.driverspa.util.otto.ws.*;
@@ -46,7 +46,7 @@ import retrofit.client.Response;
 
 public class WasherAssist extends BaseAssist {
 
-    public WasherAssist(WashmeApi api, Bus eventBus) {
+    public WasherAssist(DriverSpaApi api, Bus eventBus) {
         super(api, eventBus);
     }
 

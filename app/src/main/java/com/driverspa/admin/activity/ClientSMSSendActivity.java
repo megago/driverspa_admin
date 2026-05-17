@@ -372,7 +372,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
         filter.setOffset("0");
         if(newsTarget.equals(CLIENT_ALL_SMS))
            filter.setClientType("all_have_mobile");
-        else if(newsTarget.equals(Constants.CLIENT_WASHME_PUSH)){
+        else if(newsTarget.equals(Constants.CLIENT_DRIVERSPA_PUSH)){
             filter.setClientType("registered");
         }
         else{

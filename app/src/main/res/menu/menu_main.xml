@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:washme="http://schemas.android.com/apk/res-auto">
+xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <item
     android:id="@+id/action_search"
     android:title="@android:string/search_go"
     android:icon="@drawable/ic_search"
-    washme:showAsAction="always|collapseActionView"
+    app:showAsAction="always|collapseActionView"
     android:background="@android:color/transparent"
-    washme:actionViewClass="android.widget.SearchView" />
+    app:actionViewClass="android.widget.SearchView" />
 
 <!--<item-->
     <!--android:id="@+id/menu_map"-->
     <!--android:title="Карта"-->
     <!--android:visible="true"-->
     <!--android:icon="@drawable/ic_map"-->
-    <!--washme:showAsAction="always" />-->
+    <!--app:showAsAction="always" />-->
    <item
        android:id="@+id/more"
        android:title="Опции"

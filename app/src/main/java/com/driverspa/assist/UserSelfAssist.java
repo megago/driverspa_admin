@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.driverspa.BA;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
+import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.model.CarItem;
 import com.driverspa.model.Image;
 import com.driverspa.model.PhotoOrm;
@@ -19,7 +19,7 @@ import com.driverspa.model.PhotoParcelable;
 import com.driverspa.model.User;
 import com.driverspa.model.api.response.BaseResponseHolder;
 import com.driverspa.model.api.response.UserResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.otto.ws.DeleteDeviceRequestEvent;
 import com.driverspa.util.otto.ws.DeleteDeviceResponseEvent;
 import com.driverspa.util.otto.ws.PushRequestEvent;
@@ -37,7 +37,7 @@ import retrofit.client.Response;
 
 public class UserSelfAssist extends BaseAssist {
 
-	public UserSelfAssist(WashmeApi api, Bus eventBus) {
+	public UserSelfAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 
@@ -115,7 +115,7 @@ public class UserSelfAssist extends BaseAssist {
 
 	public static User getUserFromDb(String userId) {
 		try {
-			WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+			DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 			RuntimeExceptionDao<User, String> userDao = dbHelper.getUserRuntimeExceptionDao();
 			User userInserted = userDao.queryForId(userId);
 
@@ -139,7 +139,7 @@ public class UserSelfAssist extends BaseAssist {
 	 * @return
 	 */
 	protected static ArrayList<PhotoParcelable> getPhotos(String userId) {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		final RuntimeExceptionDao<PhotoOrm, String> photoOrmDao = dbHelper.getUserPhotoRuntimeExceptionDao();
 		QueryBuilder<PhotoOrm, String> qb = photoOrmDao.queryBuilder();
 		List<PhotoOrm> list = new ArrayList<PhotoOrm>();
@@ -158,7 +158,7 @@ public class UserSelfAssist extends BaseAssist {
 	 * @return
 	 */
 	protected static List<CarItem> getCars() {
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		final RuntimeExceptionDao<CarItem, String> carsDao = dbHelper.getUserCarsRuntimeExceptionDao();
 		QueryBuilder<CarItem, String> qb = carsDao.queryBuilder();
 		List<CarItem> list = new ArrayList<CarItem>();

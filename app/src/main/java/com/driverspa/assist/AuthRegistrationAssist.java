@@ -6,7 +6,7 @@ import com.squareup.otto.Subscribe;
 import com.driverspa.BA;
 import com.driverspa.model.api.response.AuthAdminRegistrationResponseHolder;
 import com.driverspa.model.api.response.AuthClientRegistrationResponseHolder;
-import com.driverspa.util.RetrofitClient.WashmeApi;
+import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AuthAdminRegistrationRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminRegistrationResponseEvent;
@@ -21,7 +21,7 @@ import retrofit.client.Response;
  */
 public class AuthRegistrationAssist extends BaseAssist {
 	
-	public AuthRegistrationAssist(WashmeApi api, Bus eventBus) {
+	public AuthRegistrationAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
 	

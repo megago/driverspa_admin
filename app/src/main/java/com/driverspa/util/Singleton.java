@@ -25,7 +25,7 @@ import com.driverspa.assist.LocationAssist;
 import com.driverspa.assist.UserPhotoPostAssist;
 import com.driverspa.assist.UserSelfAssist;
 import com.driverspa.assist.WasherAssist;
-import com.driverspa.db.WashmeOrmLiteSqlHelper;
+import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.model.NewPushInformation;
 import com.driverspa.model.PushData;
 import com.driverspa.model.SearchFilter;
@@ -112,7 +112,7 @@ public class Singleton {
 	public void onClientUserLogout(AuthClientLogoutRequestEvent event) {
 		UserPreferences.onUserLogout(BA.getContext());
 		user = null;
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		dbHelper.removeAll();
 		dbHelper.close();
 		BA.restart();
@@ -121,7 +121,7 @@ public class Singleton {
 	@Subscribe
 	public void onAdminUserLogout(AuthAdminLogoutRequestEvent event) {
 		UserPreferences.onAdminLogout(BA.getContext());
-		WashmeOrmLiteSqlHelper dbHelper = new WashmeOrmLiteSqlHelper(BA.getContext());
+		DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
 		dbHelper.removeAll();
 		dbHelper.close();
 		user = null;
