@@ -368,45 +368,10 @@
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <receiver
-            android:name="com.driverspa.gcm.NotificationDismissedReceiver"
-            android:exported="false" >
-        </receiver>
-
-        <!-- [START gcm_receiver] -->
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.driverspaAdmin" />
-            </intent-filter>
-        </receiver>
-
-        <!-- [END gcm_receiver] -->
-
-        <!-- [START gcm_listener] -->
-        <service
-            android:name="com.driverspa.gcm.MyGcmListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-        <!-- [END gcm_listener] -->
-
-        <!-- [START instanceId_listener] -->
-        <service
-            android:name="com.driverspa.gcm.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-        <!-- [END instanceId_listener] -->
-
-        <service android:name="com.driverspa.gcm.RegistrationIntentService" android:exported="false"></service>
+        <!-- Legacy GCM receivers/services pointed at the long-deleted
+             com.driverspa.gcm.* package; FCM is wired up via
+             MyFirebaseMessagingService in the active
+             app/src/main/AndroidManifest.xml. -->
 
         <service android:name=".service.Service"
             android:label="Сервис DriverSpa-Admin"/>
