@@ -13,8 +13,13 @@ prettyTimeVersion = "3.2.7.Final"
 ripplebackgroundVersion = "1.0.1"
 viewPagerVersion = "1.0.0"
 drawerLayoutVersion = "1.2.0"
+googleServicesPlugin = "4.4.2"
+firebaseBom = "33.5.1"
 
 [libraries]
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -39,4 +44,5 @@ drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout",version.
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
 
