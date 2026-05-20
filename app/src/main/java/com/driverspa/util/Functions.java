@@ -277,29 +277,16 @@ public class Functions {
 	
 	public static HashMap<String,String> formatUTCDate(Date date){		 
 		HashMap<String,String> returnMap = new HashMap<String,String>();		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		String utcTimeStr = formatter.format(date.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date utcDate;
-		try {
-			
- 		utcDate = df.parse(utcTimeStr);
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		dateFormatter.setTimeZone(TimeZone.getDefault());
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 		timeFormatter.setTimeZone(TimeZone.getDefault());
 		
-		String dateStr = dateFormatter.format(utcDate);		
-		String timeStr = timeFormatter.format(utcDate);
-		
+		String dateStr = dateFormatter.format(date);
+		String timeStr = timeFormatter.format(date);
+
 		returnMap.put(DATE, dateStr);
 		returnMap.put(TIME, timeStr);
-		
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
 
       return returnMap;
 	}
