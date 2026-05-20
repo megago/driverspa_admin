@@ -296,7 +296,7 @@ public class Functions {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String utcTimeStr = formatter.format(date.getTime());
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		df.setTimeZone(TimeZone.getDefault());
 		Date utcDate = null;
 		try {
 
