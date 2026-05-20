@@ -655,6 +655,8 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             else{
                 createWasherListSpinner("",washer.getId());
             }
+            applyWasherAccessState();
+            /*
             if(washer.getStatus().equals(APPROVED)){
                 applyWasherAccessState();
             }
@@ -665,6 +667,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 notApprovedLayout.setVisibility(View.VISIBLE);
             }
+             */
         }
     }
 
