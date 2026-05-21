@@ -432,7 +432,7 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 			menuServicesPrices.clear();
 			for (Map.Entry<Integer, ArrayList<Washer.Prices>> entry : washerMenu.entrySet()) {
 				Integer key = entry.getKey();
-				if(key == carType){
+				if(key != null && key.equals(carType)){
 					ArrayList<Washer.Prices> pricesMenu = entry.getValue();
 					for(Washer.Prices priceMenu : pricesMenu){
 						ServiceItem newItem = new ServiceItem();
@@ -454,7 +454,7 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 			groupServiceItems.clear();
 			for(Washer.GroupMenu g:washerGroup){
 				for(ReversePrices p:g.getPrices()){
-					if(p.getCarType() == carType){
+					if(p.getCarType() != null && p.getCarType().equals(carType)){
 						groupServiceItems.add(g);
 					}
 				}
@@ -937,34 +937,46 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 		buttonMiniVan.setVisibility(View.GONE);
 		buttonMinbus.setVisibility(View.GONE);
 		buttonMoto.setVisibility(View.GONE);
+		boolean carTypeSelected = false;
 
 		if(cartypes.contains(CarType.Mini.getValue())){
 			buttonMini.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonMini.setSelected(true); selectedCarType = CarType.Mini; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Sedan.getValue())){
 			buttonSedan.setVisibility(View.VISIBLE);
-			selectedCarType = CarType.Sedan;
+			if(!carTypeSelected) { buttonSedan.setSelected(true); selectedCarType = CarType.Sedan; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Universal.getValue())){
 			buttonUniversal.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonUniversal.setSelected(true); selectedCarType = CarType.Universal; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Crossover.getValue())){
 			buttonCrossover.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonCrossover.setSelected(true); selectedCarType = CarType.Crossover; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.MiniJeep.getValue())){
 			buttonMiniJeep.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonMiniJeep.setSelected(true); selectedCarType = CarType.MiniJeep; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Jeep.getValue())){
 			buttonBigJeep.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonBigJeep.setSelected(true); selectedCarType = CarType.Jeep; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Minivan.getValue())){
 			buttonMiniVan.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonMiniVan.setSelected(true); selectedCarType = CarType.Minivan; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Minibus.getValue())){
 			buttonMinbus.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonMinbus.setSelected(true); selectedCarType = CarType.Minibus; carTypeSelected = true; }
 		}
 		if(cartypes.contains(CarType.Moto.getValue())){
 			buttonMoto.setVisibility(View.VISIBLE);
+			if(!carTypeSelected) { buttonMoto.setSelected(true); selectedCarType = CarType.Moto; carTypeSelected = true; }
+		}
+		if(!carTypeSelected) {
+			selectedCarType = null;
 		}
 	}
 

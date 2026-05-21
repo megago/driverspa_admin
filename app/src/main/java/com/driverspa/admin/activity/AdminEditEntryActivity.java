@@ -560,6 +560,10 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			comment.setText(book.getComment());
 		}
 
+		if (!TextUtils.isEmpty(book.getCarMark())) {
+			carMark.setText(book.getCarMark());
+		}
+
 		if(book.getDiscount() != null && book.getDiscount() > 0){
 			discount.setText(book.getDiscount()+"");
 		}
@@ -811,7 +815,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			menuServicesPrices.clear();
 			for (Map.Entry<Integer, ArrayList<Washer.Prices>> entry : washerMenu.entrySet()) {
 				Integer key = entry.getKey();
-				if (key == carType) {
+							if (key != null && key.equals(carType)) {
 					ArrayList<Washer.Prices> pricesMenu = entry.getValue();
 					for (Washer.Prices priceMenu : pricesMenu) {
 						ServiceItem newItem = new ServiceItem();
@@ -833,7 +837,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			groupServiceItems.clear();
 			for (Washer.GroupMenu g : washerGroup) {
 				for (ReversePrices p : g.getPrices()) {
-					if (p.getCarType() == carType) {
+					if (p.getCarType() != null && p.getCarType().equals(carType)) {
 						groupServiceItems.add(g);
 					}
 				}
@@ -850,7 +854,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			final ArrayList<Integer> requestServices = new ArrayList<Integer>();
 			for (int i = 0; i < serviceItems.size(); i++) {
 				for(int j = 0; j < book.getServices().size(); j++) {
-					if (serviceItems.get(i) != null && book.getServices().get(j) != null && book.getServices().get(j) == serviceItems.get(i).getServiceId() ) {
+					if (serviceItems.get(i) != null && book.getServices().get(j) != null && book.getServices().get(j).equals(serviceItems.get(i).getServiceId()) ) {
 						requestServices.add(serviceAdapter.getData().get(i).getServiceId());
 						serviceAdapter.setSelectedPosition(i, true);
 					}
@@ -1215,7 +1219,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		int totalTime = 0;
 		for (int i = 0; i < data.size(); i++) {
 			for (Integer service : request.getServices()) {
-				if (data.get(i).getServiceId() == service) {
+				if (data.get(i).getServiceId() != null && data.get(i).getServiceId().equals(service)) {
 					totalPrice += (data.get(i).getPrice() != null ? data.get(i).getPrice() : 0d);
 					totalTime += (data.get(i).getTime() != null ? data.get(i).getTime() : 0);
 				}
@@ -1228,7 +1232,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 					for (String groupId : request.getGroupServices()) {
 						if (groupData.get(i).getId().equals(groupId)) {
 							for (ReversePrices p : groupData.get(i).getPrices()) {
-								if (p.getCarType() == selectedCarType.getValue()) {
+								if (p.getCarType() != null && p.getCarType().equals(selectedCarType.getValue())) {
 									totalPrice += (p.getPrice() != null ? p.getPrice() : 0d);
 									totalTime += (p.getTime() != null ? p.getTime() : 0);
 								}
@@ -1292,6 +1296,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		calculatePaymentTypesTransactionAmount();
 		String phoneStr = mobile.getText().toString();
 		phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
+		String carMarkStr = carMark.getText().toString().trim();
 
 		if(selectedCarType == null) {
 			ToastUtil.displayAtTop(this, "Выберите машину");
@@ -1311,6 +1316,12 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		request.setId(book.getId());
 		request.setBoxId(boxId);
 		request.setMobile(TextUtils.isEmpty(phoneStr)?"":"+7"+phoneStr);
+		if (TextUtils.isEmpty(carMarkStr) && selectedClient != null && !TextUtils.isEmpty(selectedClient.getCarMark())) {
+			carMarkStr = selectedClient.getCarMark();
+		} else if (TextUtils.isEmpty(carMarkStr) && book != null && !TextUtils.isEmpty(book.getCarMark())) {
+			carMarkStr = book.getCarMark();
+		}
+		request.setCarMark(carMarkStr);
 		request.setCarType(selectedCarType.getValue());
 		request.setPaid(paid.isChecked());
 		request.setCarwash(URL_PREFIX+washer.getId());
@@ -1403,30 +1414,39 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 
 		if (cartypes.contains(CarType.Mini.getValue())) {
 			buttonMini.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Mini;
 		}
 		if (cartypes.contains(CarType.Sedan.getValue())) {
 			buttonSedan.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Sedan;
 		}
 		if (cartypes.contains(CarType.Universal.getValue())) {
 			buttonUniversal.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Universal;
 		}
 		if (cartypes.contains(CarType.Crossover.getValue())) {
 			buttonCrossover.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Crossover;
 		}
 		if (cartypes.contains(CarType.MiniJeep.getValue())) {
 			buttonMiniJeep.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.MiniJeep;
 		}
 		if (cartypes.contains(CarType.Jeep.getValue())) {
 			buttonBigJeep.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Jeep;
 		}
 		if (cartypes.contains(CarType.Minivan.getValue())) {
 			buttonMiniVan.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Minivan;
 		}
 		if (cartypes.contains(CarType.Minibus.getValue())) {
 			buttonMinbus.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Minibus;
 		}
 		if (cartypes.contains(CarType.Moto.getValue())) {
 			buttonMoto.setVisibility(View.VISIBLE);
+				if (selectedCarType == null) selectedCarType = CarType.Moto;
 		}
 	}
 

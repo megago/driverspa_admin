@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomLayout"
@@ -88,7 +88,7 @@
                         android:layout_height="1dp"
                         android:layout_marginLeft="@dimen/horizontal_margin"
                         android:layout_marginRight="@dimen/horizontal_margin"
-                        android:background="@color/BlueTransparent"></FrameLayout>
+                        android:background="@color/BlueTransparent" />
 
                     <LinearLayout
                         android:id="@+id/selectedClientInformationLayout"
@@ -130,8 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/vertical_margin_half"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -176,6 +175,7 @@
                                     android:inputType="textAutoComplete|textCapWords"
                                     android:paddingBottom="@dimen/vertical_margin_half"
                                     android:paddingTop="@dimen/vertical_margin_half"
+                                    android:enabled="false"
                                     android:textColor="@color/White"
                                     android:textColorHint="@color/BlueLight"
                                     android:textCursorDrawable="@null"
@@ -1263,8 +1263,8 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.BlueLight"
-            app:hintTextColor="@color/BlueLight"
+                            app:hintTextAppearance="@style/TextInputHint.BlueLight"
+                            app:hintTextColor="@color/BlueLight"
                             android:textColorHint="@color/BlueLight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1455,3 +1455,5 @@
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+
+
