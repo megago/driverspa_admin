@@ -17,8 +17,9 @@ import com.driverspa.assist.BaseAssist;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,10 +78,10 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 	    List<Statistic> statisticList;
 		@BindView(R.id.startTime)
 		TextView startTime;
-		Date startTimeDt;
+		Instant startTimeDt;
 		@BindView(R.id.endTime)
 		TextView endTime;
-		Date endTimeDt;
+		Instant endTimeDt;
 
 		boolean fromWorkshift = false;
 		long workShiftStartDate;
@@ -88,6 +89,8 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 
 	    Long currentTime;
 	    AdminSearchFilter filter = new AdminSearchFilter();
+		private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+		private static final DateTimeFormatter REQUEST_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").withZone(ZoneId.systemDefault());
 
 		@Override
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,7 +106,7 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 	    @Override
 	    public void onViewCreated(View view, Bundle savedInstanceState) {
 			ButterKnife.bind(this, view);
-			currentTime = (new Date()).getTime()/1000;
+			currentTime = Instant.now().getEpochSecond();
 
 			fromWorkshift = getArguments().getBoolean(AdminTransactionsActivity.FROM_WORKSHIFT,false);
 			if(fromWorkshift){
@@ -111,17 +114,15 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 				 onDateLayout.setVisibility(View.GONE);
 				 workShiftStartDate = getArguments().getLong(AdminTransactionsActivity.START_DATE,0);
 				 workShiftEndDate = getArguments().getLong(AdminTransactionsActivity.END_DATE,0);
- 				 HashMap<String,String> startTimeMap = Functions.formatUTCDate(new Date(workShiftStartDate));
+	 			 HashMap<String,String> startTimeMap = Functions.formatUTCDate(Instant.ofEpochMilli(workShiftStartDate));
 				 startTime.setText(startTimeMap.get(Functions.DATE)+" "+startTimeMap.get(Functions.TIME));
-				 HashMap<String,String> endTimeMap = Functions.formatUTCDate(new Date(workShiftEndDate));
+				 HashMap<String,String> endTimeMap = Functions.formatUTCDate(Instant.ofEpochMilli(workShiftEndDate));
 				 endTime.setText(endTimeMap.get(Functions.DATE)+" "+endTimeMap.get(Functions.TIME));
-				 startTimeDt = Functions.getUTCDate(new Date(workShiftStartDate));
-				 endTimeDt = Functions.getUTCDate(new Date(workShiftEndDate));
+				 startTimeDt = Instant.ofEpochMilli(workShiftStartDate);
+				 endTimeDt = Instant.ofEpochMilli(workShiftEndDate);
 			}
 
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-			Date dt = new Date(currentTime*1000);
-			String dateStr = formatter.format(dt);
+			String dateStr = DATE_FORMATTER.format(Instant.ofEpochSecond(currentTime));
 			date.setText(dateStr);
 
 			date.setPaintFlags(date.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -154,11 +155,10 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 
 	@Override
 	public void onDatePickerDataset(Long time,String type) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-		Date dt = new Date(time);
-		String dateStr = formatter.format(dt);
+		Instant dt = Instant.ofEpochMilli(time);
+		String dateStr = DATE_FORMATTER.format(dt);
 		date.setText(dateStr);
-		currentTime = dt.getTime()/1000;
+		currentTime = dt.getEpochSecond();
 		loadData(currentTime);
 	}
 
@@ -176,14 +176,10 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 		 filter.setLimit("1000");
 		 if(!fromWorkshift) {
 			 filter.setLimit("1000");
-			 Date dt = new Date(time * 1000);
-			 Date utcDate = Functions.getUTCDate(dt);
-			 Long utcTime = utcDate.getTime() / 1000;
-			 filter.setDate(Long.toString(utcTime));
+				 filter.setDate(Long.toString(time));
 		 }else{
-			 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-			 filter.setStartDatePure(formatter.format(startTimeDt.getTime()));
-			 filter.setEndDatePure(formatter.format(endTimeDt.getTime()));
+				 filter.setStartDatePure(REQUEST_FORMATTER.format(startTimeDt));
+				 filter.setEndDatePure(REQUEST_FORMATTER.format(endTimeDt));
 		 }
 		 BA.getEventBus().post(new AdminStatisticsRequestEvent(filter));
 	  }
@@ -195,27 +191,27 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 			if (BaseAssist.isSuccess(event.getResult())) {
                if(event.getResult().getBooks() != null && event.getResult().getBooks().size() > 0){
 				   DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
-				   adapter.setData(dbHelper.getStatisticData(washer,new Date()));
+				   adapter.setData(dbHelper.getStatisticData(washer, Instant.now()));
 				   listView.setAdapter(adapter);
 				   adapter.notifyDataSetChanged();
 			   }
 				else{
 				   DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
-				   adapter.setData(dbHelper.getStatisticData(washer,new Date()));
+				   adapter.setData(dbHelper.getStatisticData(washer, Instant.now()));
 				   listView.setAdapter(adapter);
 				   adapter.notifyDataSetChanged();
 			   }
 			}
 			else{
 				DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
-				adapter.setData(dbHelper.getStatisticData(washer,new Date()));
+				adapter.setData(dbHelper.getStatisticData(washer, Instant.now()));
 				listView.setAdapter(adapter);
 				adapter.notifyDataSetChanged();
 			}
 		}
 		else{
 			DriverSpaOrmLiteSqlHelper dbHelper = new DriverSpaOrmLiteSqlHelper(BA.getContext());
-			adapter.setData(dbHelper.getStatisticData(washer,new Date()));
+			adapter.setData(dbHelper.getStatisticData(washer, Instant.now()));
 			listView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 		}

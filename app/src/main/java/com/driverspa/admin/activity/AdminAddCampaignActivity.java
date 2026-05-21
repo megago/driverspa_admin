@@ -17,8 +17,9 @@ import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -58,7 +59,8 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 	Washer washer;
 	@BindView(R.id.both)
 	View both;
-    Date endDateDT;
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+    Instant endDateDT;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -182,7 +184,7 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 		}
 
     	setWaitScreen(true);
-		BA.getEventBus().post(new AdminCampaignAddRequestEvent(washer.getId(),description.getText().toString(), campaignType, endDateDT,discountInt));
+		BA.getEventBus().post(new AdminCampaignAddRequestEvent(washer.getId(),description.getText().toString(), campaignType, endDateDT, discountInt));
 	}
 
     @Subscribe
@@ -223,9 +225,8 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 
 	@Override
 	public void onDatePickerDataset(Long time, String type) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-		Date dt = new Date(time);
-		String dateStr = formatter.format(dt);
+		Instant dt = Instant.ofEpochMilli(time);
+		String dateStr = DATE_FORMATTER.format(dt);
 		endDate.setText(dateStr);
 		endDateDT = dt;
 	}
@@ -233,8 +234,8 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 	@OnClick(R.id.endDate)
 	public void endDateClicked(){
 		if(endDateDT == null)
-			endDateDT = new Date();
-		DatePickerFragment picker =  DatePickerFragment.newInstance("end_date",endDateDT.getTime());
+			endDateDT = Instant.now();
+		DatePickerFragment picker =  DatePickerFragment.newInstance("end_date", endDateDT.toEpochMilli());
 		picker.setDatePickerDateSetListener(this);
 		picker.show(getSupportFragmentManager(), "datePicker");
 	}

@@ -2,7 +2,7 @@ package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Created by Yerzhan Tanatov on 19/09/17.
@@ -16,9 +16,9 @@ public class CarwashStaffFinancialInfo {
     BooksDataHolder books;
 
     @SerializedName("start_time")
-    Date startTime;
+    Instant startTime;
     @SerializedName("end_time")
-    Date endTime;
+    Instant endTime;
     @SerializedName("cars_count")
     Integer carsCount;
     @SerializedName("other_service_count")
@@ -68,19 +68,19 @@ public class CarwashStaffFinancialInfo {
         this.books = books;
     }
 
-    public Date getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Instant startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Instant getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Instant endTime) {
         this.endTime = endTime;
     }
 

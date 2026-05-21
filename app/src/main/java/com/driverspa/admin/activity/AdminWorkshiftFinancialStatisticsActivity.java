@@ -156,8 +156,8 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 	public void transactionsClicked() {
 		Intent intent = new Intent(this,AdminTransactionsActivity.class);
 		intent.putExtra(AdminTransactionsActivity.FROM_WORKSHIFT,true);
-		intent.putExtra(AdminTransactionsActivity.START_DATE,workshift.getStartTime().getTime());
-		intent.putExtra(AdminTransactionsActivity.END_DATE,workshift.getEndTime().getTime());
+		intent.putExtra(AdminTransactionsActivity.START_DATE,workshift.getStartTime().toEpochMilli());
+		intent.putExtra(AdminTransactionsActivity.END_DATE,workshift.getEndTime().toEpochMilli());
 		startActivity(intent);
 	}
 
@@ -165,8 +165,8 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 	public void statisticsClicked() {
 		Intent intent = new Intent(this,AdminStatisticsActivity.class);
 		intent.putExtra(AdminTransactionsActivity.FROM_WORKSHIFT,true);
-		intent.putExtra(AdminTransactionsActivity.START_DATE,workshift.getStartTime().getTime());
-		intent.putExtra(AdminTransactionsActivity.END_DATE,workshift.getEndTime().getTime());
+		intent.putExtra(AdminTransactionsActivity.START_DATE,workshift.getStartTime().toEpochMilli());
+		intent.putExtra(AdminTransactionsActivity.END_DATE,workshift.getEndTime().toEpochMilli());
 		startActivity(intent);
 	}
 

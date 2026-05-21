@@ -11,7 +11,6 @@ import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -34,8 +33,6 @@ public class AdminMoneyFragment extends AdminBaseFragment {
 
 	Washer washer;
 	DecimalFormat formatter = new DecimalFormat("#,###.##");
-	Date startTimeDt;
-	Date endTimeDt;
 
 	private boolean isSpinnerTouched = false;
 	private int selectedPeriodType = 0;

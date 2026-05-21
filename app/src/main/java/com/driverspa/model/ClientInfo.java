@@ -4,8 +4,9 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 public class ClientInfo {
@@ -29,14 +30,14 @@ public class ClientInfo {
 	@SerializedName("nocome_books_count")
 	Integer nocomeBooksCount;
 	@SerializedName("last_finished_book_date")
-	Date lastFinishedBookDate;
+	Instant lastFinishedBookDate;
 	@SerializedName("is_registered")
 	Boolean isRegistered;
 
 	@SerializedName("birth_date")
-	Date birthDate;
+	Instant birthDate;
 	@SerializedName("ts")
-	Date ts;
+	Instant ts;
     String gender;
 	Integer discount;
 	@SerializedName("discount_amount")
@@ -60,19 +61,19 @@ public class ClientInfo {
 		this.cars = cars;
 	}
 
-	public Date getBirthDate() {
+	public Instant getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(Instant birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
@@ -274,11 +275,11 @@ public class ClientInfo {
 		this.nocomeBooksCount = nocomeBooksCount;
 	}
 
-	public Date getLastFinishedBookDate() {
+	public Instant getLastFinishedBookDate() {
 		return lastFinishedBookDate;
 	}
 
-	public void setLastFinishedBookDate(Date lastFinishedBookDate) {
+	public void setLastFinishedBookDate(Instant lastFinishedBookDate) {
 		this.lastFinishedBookDate = lastFinishedBookDate;
 	}
 
@@ -309,12 +310,12 @@ public class ClientInfo {
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static ClientInfo deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, ClientInfo.class);
 	}
 

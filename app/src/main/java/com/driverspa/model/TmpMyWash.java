@@ -902,7 +902,6 @@ public class TmpMyWash {
 //
 //            public ArrayList<Day> getToday() {
 //                Calendar c = Calendar.getInstance();
-//                c.setTime(new Date());
 //                int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 //
 //                switch (dayOfWeek) {

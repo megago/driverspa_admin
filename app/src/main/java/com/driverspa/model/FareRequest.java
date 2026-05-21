@@ -2,9 +2,10 @@ package com.driverspa.model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 public class FareRequest {
@@ -32,8 +33,8 @@ public class FareRequest {
 	private String clientName;
 	@SerializedName("client_avatar")
 	private String clientAvatar;
-	private Date ts;
-	private Date initialDate = new Date();
+	private Instant ts;
+	private Instant initialDate = Instant.now();
 
 	List<BidObject> bids;
 	List<BidObject> actgiveBids;
@@ -146,11 +147,11 @@ public class FareRequest {
 		this.city = city;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
@@ -282,22 +283,22 @@ public class FareRequest {
 		this.clientAvatar = clientAvatar;
 	}
 
-	public Date getInitialDate() {
+	public Instant getInitialDate() {
 		return initialDate;
 	}
 
-	public void setInitialDate(Date initialDate) {
+	public void setInitialDate(Instant initialDate) {
 		this.initialDate = initialDate;
 	}
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static FareRequest deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, FareRequest.class);
 	}
 }

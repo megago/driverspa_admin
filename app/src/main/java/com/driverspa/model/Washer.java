@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Washer extends WasherPublic {
@@ -408,24 +408,22 @@ public class Washer extends WasherPublic {
 		}
 
 		public ArrayList<Day> getToday() {
-			Calendar c = Calendar.getInstance();
-			c.setTime(new Date());
-			int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-			
+			DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+
 			switch (dayOfWeek) {
-			case 2:
+			case MONDAY:
 				return getMonday();
-			case 3:
+			case TUESDAY:
 				return getTuesday();
-			case 4:
+			case WEDNESDAY:
 				return getWednesday();
-			case 5:
+			case THURSDAY:
 				return getThursday();
-			case 6:
+			case FRIDAY:
 				return getFriday();
-			case 7:
+			case SATURDAY:
 				return getSaturday();
-			case 1:
+			case SUNDAY:
 				return getSunday();
 			default:
 				return null;
@@ -433,24 +431,21 @@ public class Washer extends WasherPublic {
 		}
 
 		public ArrayList<Day> getTomorrow() {
-			Calendar c = Calendar.getInstance();
-			c.setTime(new Date());
-			c.add(Calendar.DAY_OF_YEAR, 1);
-			int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+			DayOfWeek dayOfWeek = LocalDate.now().plusDays(1).getDayOfWeek();
 			switch (dayOfWeek) {
-			case Calendar.MONDAY:
+			case MONDAY:
 				return monday;
-			case Calendar.TUESDAY:
+			case TUESDAY:
 				return tuesday;
-			case Calendar.WEDNESDAY:
+			case WEDNESDAY:
 				return wednesday;
-			case Calendar.THURSDAY:
+			case THURSDAY:
 				return thursday;
-			case Calendar.FRIDAY:
+			case FRIDAY:
 				return friday;
-			case Calendar.SATURDAY:
+			case SATURDAY:
 				return saturday;
-			case Calendar.SUNDAY:
+			case SUNDAY:
 				return sunday;
 			default:
 				return null;

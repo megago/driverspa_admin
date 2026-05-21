@@ -19,6 +19,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -114,7 +115,7 @@ public class FareRequestsAdapter extends  RecyclerViewAdapter<FareRequestsAdapte
 
 		final FareRequest item = mData.get(position);
 		long currentTime = System.currentTimeMillis();
-		long timeDiff = currentTime - item.getInitialDate().getTime();
+		long timeDiff = currentTime - item.getInitialDate().toEpochMilli();
 
 		if(timeDiff <= 3000)
 			holder.parentView.setSelected(true);
@@ -188,7 +189,9 @@ public class FareRequestsAdapter extends  RecyclerViewAdapter<FareRequestsAdapte
 		}
 
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		holder.time.setText(p.format(item.getInitialDate()));
+		Calendar initialDate = Calendar.getInstance();
+		initialDate.setTimeInMillis(item.getInitialDate().toEpochMilli());
+		holder.time.setText(p.format(initialDate));
 		holder.setFareRequest(item);
 	}
 
@@ -270,11 +273,13 @@ public class FareRequestsAdapter extends  RecyclerViewAdapter<FareRequestsAdapte
 		}
 
 		public void updateTimeRemaining(long currentTime) {
-			long timeDiff = currentTime - fareRequest.getInitialDate().getTime();
+			long timeDiff = currentTime - fareRequest.getInitialDate().toEpochMilli();
 			int seconds = (int) (timeDiff / 1000) % 60;
 			long days = timeDiff / (24 * 60 * 60 * 1000);
 			PrettyTime p = new PrettyTime(new Locale("ru"));
-			time.setText(p.format(fareRequest.getInitialDate()));
+			Calendar initialDate = Calendar.getInstance();
+			initialDate.setTimeInMillis(fareRequest.getInitialDate().toEpochMilli());
+			time.setText(p.format(initialDate));
 
 			if(timeDiff <= 3000)
 				parentView.setSelected(true);

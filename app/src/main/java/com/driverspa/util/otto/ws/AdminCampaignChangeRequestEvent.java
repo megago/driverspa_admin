@@ -1,7 +1,7 @@
 package com.driverspa.util.otto.ws;
 
 
-import java.util.Date;
+import java.time.Instant;
 
 public class AdminCampaignChangeRequestEvent {
      private String washerId;
@@ -9,9 +9,9 @@ public class AdminCampaignChangeRequestEvent {
      private String campaignType;
 	 private String description;
 	 private Integer campaignDiscount;
-	 private Date endDate;
+	 private Instant endDate;
 
-	public AdminCampaignChangeRequestEvent(String washerId, String campaignId, String campaignType, String description, Integer campaignDiscount,Date endDate) {
+	public AdminCampaignChangeRequestEvent(String washerId, String campaignId, String campaignType, String description, Integer campaignDiscount, Instant endDate) {
 		this.washerId = washerId;
 		this.campaignId = campaignId;
 		this.campaignType = campaignType;
@@ -60,11 +60,11 @@ public class AdminCampaignChangeRequestEvent {
 		this.campaignDiscount = campaignDiscount;
 	}
 
-	public Date getEndDate() {
+	public Instant getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Instant endDate) {
 		this.endDate = endDate;
 	}
 }

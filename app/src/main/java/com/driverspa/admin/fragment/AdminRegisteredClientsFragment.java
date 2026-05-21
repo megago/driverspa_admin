@@ -28,8 +28,8 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -474,7 +474,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
         else
             request.setClientKey(client.getCarNo()+" ("+client.getName()+")");
 
-        request.setTime(new Date());
+            request.setTime(Instant.now());
         request.setCarwash(URL_PREFIX+washer.getId());
         request.setOffline(true);
         request.setQueued(true);

@@ -2,7 +2,7 @@ package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Created by Yerzhan Tanatov on 06/02/17.
@@ -19,7 +19,7 @@ public class AdminNotificationNews {
     @SerializedName("news_text")
     String text;
     @SerializedName("ts")
-    Date TS;
+    Instant TS;
 
     public String getCarwash() {
         return carwash;
@@ -69,11 +69,11 @@ public class AdminNotificationNews {
         this.text = text;
     }
 
-    public Date getTS() {
+    public Instant getTS() {
         return TS;
     }
 
-    public void setTS(Date TS) {
+    public void setTS(Instant TS) {
         this.TS = TS;
     }
 }

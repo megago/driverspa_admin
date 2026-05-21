@@ -29,11 +29,9 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -86,7 +84,11 @@ import com.driverspa.view.NDSpinner;
 import com.driverspa.view.ProgressViewHolder;
 import com.driverspa.view.TwoWayView;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 public class AdminBooksFragment extends AdminBaseFragment implements View.OnClickListener,DatePickerDateSetListener {
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
 
 	public interface ActivityActions {
     	   public void openBookInfo(String bookId);
@@ -152,7 +154,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		View addBookButton;
 	    boolean loadingWithoutLoader = false;
 		private Handler handler;
-		long lastUpdateTime = (new Date()).getTime();
+		long lastUpdateTime = System.currentTimeMillis();
 		private boolean isSpinnerTouched = false;
 	    Long currentTime = -1L;
 
@@ -160,7 +162,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		private Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				Long currentTime = (new Date()).getTime();
+				long currentTime = System.currentTimeMillis();
 				long diffMinutes = (currentTime - lastUpdateTime) / (60 * 1000);
 				if(diffMinutes > 5 && numberPage == 0){
 					loadDataWithoutLoader();
@@ -244,7 +246,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
       
 	   private void loadData(int numberPage, boolean lazyLoading) {
 		   loadingWithoutLoader = false;
-		   lastUpdateTime = (new Date()).getTime();
+		   lastUpdateTime = System.currentTimeMillis();
 			   if (!lazyLoading) {
 				   noData = false;
 			   }
@@ -263,9 +265,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				   filter.setOffset(Integer.toString(numberPage * 20));
 			   }
 
-			   Date dt = new Date(currentTime*1000);
-			   Date utcDate = Functions.getUTCDate(dt);
-			   Long utcTime = utcDate.getTime()/1000;
+			   java.time.Instant dt = java.time.Instant.ofEpochSecond(currentTime);
+			   java.time.Instant utcDate = Functions.getUTCDate(dt);
+			   long utcTime = utcDate.getEpochSecond();
 			   filter.setDate(Long.toString(utcTime));
 			   BA.getEventBus().post(new AdminBooksRequestEvent(filter));
 
@@ -275,7 +277,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 
 	private void loadDataWithoutLoader() {
     		loadingWithoutLoader = true;
-			lastUpdateTime = (new Date()).getTime();
+			lastUpdateTime = System.currentTimeMillis();
 			noData = false;
 
 			this.numberPage = 0;
@@ -288,9 +290,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				filter.setLimit("20");
 				filter.setOffset(Integer.toString(numberPage * 20));
 			}
-			Date dt = new Date(currentTime*1000);
-			Date utcDate = Functions.getUTCDate(dt);
-			Long utcTime = utcDate.getTime()/1000;
+			java.time.Instant dt = java.time.Instant.ofEpochSecond(currentTime);
+			java.time.Instant utcDate = Functions.getUTCDate(dt);
+			long utcTime = utcDate.getEpochSecond();
 			filter.setDate(Long.toString(utcTime));
 
 			BA.getEventBus().post(new AdminBooksRequestEvent(filter));
@@ -396,9 +398,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								  noRecords.setText("В истории нет заказов");
 							  }
 							  else if(selectedDay.equals(FOR_DATE)){
-								  SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-								  Date dt = new Date(currentTime*1000);
-								  String dateStr = formatter.format(dt);
+								  String dateStr = DATE_FORMATTER.format(java.time.Instant.ofEpochSecond(currentTime));
 								  noRecords.setText("Нет заказов на дату "+dateStr);
 							  }
 						  }
@@ -779,9 +779,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(spinner != null) {
 		  String[] valuesArray = new String[]{"Заказы в обработке", "Все заказы на сегодня", "Заказы на завтра", "История заказов", "Заказы на дату"};
 		  if (currentTime != -1) {
-			  SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-			  Date dt = new Date(currentTime * 1000);
-			  String dateStr = formatter.format(dt);
+			  String dateStr = DATE_FORMATTER.format(java.time.Instant.ofEpochSecond(currentTime));
 			  valuesArray = new String[]{"Заказы в обработке", "Все заказы на сегодня", "История заказов","Заказы на завтра", "Заказы на дату " + dateStr};
 		  }
 		  ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
@@ -873,8 +871,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				while (iter.hasNext()) {
 					BookInfo book = iter.next();
 					if (selectedDay.equals(PENDING) && !book.getStatus().equals(PENDING)) {
-						Date bookDateTime = Functions.getUTCDate(book.getTime());
-						if (!DateUtils.isToday(bookDateTime.getTime()) && (new Date()).getTime() < bookDateTime.getTime()) {
+						java.time.Instant bookDateTime = Functions.getUTCDate(book.getTime());
+						long bookDateTimeMillis = bookDateTime.toEpochMilli();
+						if (!DateUtils.isToday(bookDateTimeMillis) && System.currentTimeMillis() < bookDateTimeMillis) {
 							iter.remove();
 						}
 					}

@@ -20,9 +20,10 @@ import android.widget.TextView;
 import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -66,7 +67,8 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 		Washer washer;
 		@BindView(R.id.both)
 		View both;
-		Date endDateDT;
+		private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+		Instant endDateDT;
 
 		@Override
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -163,12 +165,12 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 
 		if(endDateDT != null){
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(endDateDT);
+			cal.setTimeInMillis(endDateDT.toEpochMilli());
 			cal.set(Calendar.HOUR_OF_DAY,23);
 			cal.set(Calendar.MINUTE,59);
 			cal.set(Calendar.SECOND,0);
 			cal.set(Calendar.MILLISECOND,0);
-			endDateDT = cal.getTime();
+			endDateDT = Instant.ofEpochMilli(cal.getTimeInMillis());
 		}
 
 		if(TextUtils.isEmpty(discount.getText().toString())){
@@ -191,7 +193,7 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 		}
 
 		setWaitScreen(true);
-		BA.getEventBus().post(new AdminCampaignAddRequestEvent(washer.getId(),description.getText().toString(), campaignType, endDateDT,discountInt));
+		BA.getEventBus().post(new AdminCampaignAddRequestEvent(washer.getId(),description.getText().toString(), campaignType, endDateDT, discountInt));
 	}
 
 	@Subscribe
@@ -232,9 +234,8 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 
 	@Override
 	public void onDatePickerDataset(Long time, String type) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-		Date dt = new Date(time);
-		String dateStr = formatter.format(dt);
+		Instant dt = Instant.ofEpochMilli(time);
+		String dateStr = DATE_FORMATTER.format(dt);
 		endDate.setText(dateStr);
 		endDateDT = dt;
 	}
@@ -242,8 +243,8 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 	@OnClick(R.id.endDate)
 	public void endDateClicked(){
 		if(endDateDT == null)
-			endDateDT = new Date();
-		DatePickerFragment picker =  DatePickerFragment.newInstance("end_date", (int) endDateDT.getTime());
+			endDateDT = Instant.now();
+		DatePickerFragment picker =  DatePickerFragment.newInstance("end_date", endDateDT.toEpochMilli());
 		picker.setDatePickerDateSetListener(this);
 		picker.show(getChildFragmentManager(), "datePicker");
 	}

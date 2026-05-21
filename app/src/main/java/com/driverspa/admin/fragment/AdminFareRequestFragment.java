@@ -223,7 +223,7 @@ public class AdminFareRequestFragment extends AdminBaseFragment {
                 long currentTime = System.currentTimeMillis();
                 while (iter.hasNext()) {
                     FareRequest fareRequest = iter.next();
-                    long timeDiff = currentTime - fareRequest.getInitialDate().getTime();
+                              long timeDiff = currentTime - fareRequest.getInitialDate().toEpochMilli();
                     int seconds = (int) (timeDiff / 1000) % 60;
                     long days = timeDiff / (24 * 60 * 60 * 1000);
                     if(days > 1){

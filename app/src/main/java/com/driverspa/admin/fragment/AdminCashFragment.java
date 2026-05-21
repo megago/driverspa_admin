@@ -13,7 +13,6 @@ import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -41,8 +40,6 @@ public class AdminCashFragment extends AdminBaseFragment  {
 	DecimalFormat formatter = new DecimalFormat("#,###.##");
 
 	Washer washer;
-	Date startTimeDt;
-	Date endTimeDt;
 	CarwashCashFinancial cashFinancial;
 
 	@BindView(R.id.cashService)

@@ -2,7 +2,7 @@ package com.driverspa.model.api.request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.driverspa.model.BookInfo;
@@ -21,7 +21,7 @@ public class BookingRequest {
 	private String carwash;
 	@SerializedName("company_client")
 	private String companyClient;
-	private Date time;
+	private Instant time;
 	private List<Integer> services;
 	private List<String> staffs;
 	@SerializedName("group_services")
@@ -80,11 +80,11 @@ public class BookingRequest {
 		this.services = services;
 	}
 
-	public Date getTime() {
+	public Instant getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(Instant time) {
 		this.time = time;
 	}
 

@@ -37,8 +37,8 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1000,7 +1000,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		request.setCarType(selectedCarType.getValue());
         request.setBoxId(boxId);
 		request.setPaid(paid.isChecked());
-		request.setTime(new Date(gridTime));
+		request.setTime(Instant.ofEpochMilli(gridTime));
 		request.setCarwash(URL_PREFIX+washer.getId());
 		request.setOffline(true);
 

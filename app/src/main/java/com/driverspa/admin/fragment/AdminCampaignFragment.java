@@ -17,7 +17,6 @@ import com.squareup.otto.Subscribe;
 import com.todddavies.components.progressbar.ProgressWheel;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -228,10 +227,10 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 						noCampaign.setVisibility(View.GONE);
 						buttonDeleteCampaign.setVisibility(View.VISIBLE);
 
-						Date utcDate = Functions.getUTCDate(campaign.getTs());
-						Date utcEndDate = Functions.getUTCDate(campaign.getEndTime());
+									long utcDate = campaign.getTs().toEpochMilli();
+									long utcEndDate = campaign.getEndTime().toEpochMilli();
 
-						lastRemainingSeconds = (utcEndDate.getTime() - (new Date()).getTime())/1000;
+									lastRemainingSeconds = (utcEndDate - System.currentTimeMillis())/1000;
 						if(lastRemainingSeconds < 0) {
 							campaignLayout.setVisibility(View.GONE);
 							buttonAddCampaign.setVisibility(View.VISIBLE);
@@ -240,7 +239,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 						buttonAddCampaign.setVisibility(View.GONE);
 
 						setData(campaign);
-						long totalSecs = (utcEndDate.getTime() - utcDate.getTime())/1000;
+									long totalSecs = (utcEndDate - utcDate)/1000;
 						double doubleProgress = ((double)(totalSecs-lastRemainingSeconds)/(double)totalSecs)*360;
 						currentProgress = (int)doubleProgress;
 						if (!runned)

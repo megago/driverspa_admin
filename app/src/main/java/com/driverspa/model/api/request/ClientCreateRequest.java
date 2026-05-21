@@ -2,8 +2,9 @@ package com.driverspa.model.api.request;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.driverspa.model.CarItem;
@@ -15,7 +16,7 @@ public class ClientCreateRequest {
 	@SerializedName("mobile")
 	String phone;
 	@SerializedName("birth_date")
-	Date birthDate;
+	Instant birthDate;
     String gender;
 	Integer discount;
 	@SerializedName("bonus_accrual_percentage")
@@ -40,7 +41,7 @@ public class ClientCreateRequest {
 	public static class Builder{
 		String name;
 		String phone;
-		Date birthDate;
+		Instant birthDate;
 		String gender;
 		Integer discount;
 		Integer discountAmount;
@@ -66,7 +67,7 @@ public class ClientCreateRequest {
 			return this;
 		}
 
-		public Builder birthDate(Date birthDate) {
+		public Builder birthDate(Instant birthDate) {
 			this.birthDate = birthDate;
 			return this;
 		}
@@ -120,7 +121,7 @@ public class ClientCreateRequest {
 		return phone;
 	}
 
-	public Date getBirthDate() {
+	public Instant getBirthDate() {
 		return birthDate;
 	}
 
@@ -150,12 +151,12 @@ public class ClientCreateRequest {
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static ClientCreateRequest deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, ClientCreateRequest.class);
 	}
 

@@ -34,8 +34,8 @@ import android.widget.TextView;
 import com.squareup.otto.Subscribe;
 
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -602,7 +602,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		request.setCarNo(сarNoStr);
 		request.setMobile(TextUtils.isEmpty(phoneStr)?"":"+7"+phoneStr);
 		request.setClientKey(сarNoStr);
-		request.setTime(new Date());
+		request.setTime(Instant.now());
 		request.setCarwash(URL_PREFIX+washer.getId());
 		request.setOffline(true);
 		request.setQueued(true);
@@ -652,7 +652,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		request.setClientKey(сarNoStr);
 		request.setCarType(selectedCarType.getValue());
 		request.setBoxId(boxId);
-		request.setTime(new Date());
+		request.setTime(Instant.now());
 		request.setCarwash(URL_PREFIX+washer.getId());
 		request.setOffline(true);
 		request.setQueued(true);

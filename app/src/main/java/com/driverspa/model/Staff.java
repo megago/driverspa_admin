@@ -2,8 +2,9 @@ package com.driverspa.model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class Staff {
 
@@ -22,7 +23,7 @@ public class Staff {
 	protected String userId;
 	protected Double amount;
 	protected String currency;
-	protected Date ts;
+	protected Instant ts;
 
 	public String getUid() {
 		return uid;
@@ -104,23 +105,23 @@ public class Staff {
 		this.currency = currency;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static Staff deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, Staff.class);
 	}
 }

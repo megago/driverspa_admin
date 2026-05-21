@@ -27,7 +27,7 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -206,7 +206,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
             List<ClientInfo> filteredInfo = new ArrayList<ClientInfo>();
             List<ClientInfo> filteredInfo2 = new ArrayList<ClientInfo>();
             List<ClientInfo> filteredInfo3 = new ArrayList<ClientInfo>();
-            Date today = new Date();
+                  Instant today = Instant.now();
             for (ClientInfo client : clientInfoAdapterData) {
                 switch (washCountFilterItem) {
                     case 0:
@@ -232,7 +232,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
             }
             for (ClientInfo client : filteredInfo) {
                 if(client.getLastFinishedBookDate() == null) continue;
-                long diff = today.getTime() - client.getLastFinishedBookDate().getTime();
+                                    long diff = today.toEpochMilli() - client.getLastFinishedBookDate().toEpochMilli();
                 long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                 switch (washDateFilterItem) {
                     case 0:

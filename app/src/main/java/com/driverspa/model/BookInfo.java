@@ -3,10 +3,12 @@ package com.driverspa.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
+import com.driverspa.db.InstantPersister;
+import com.driverspa.util.Converters;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.time.Instant;
 
 public class BookInfo {
 
@@ -43,11 +45,11 @@ public class BookInfo {
 	@DatabaseField(id = true)
 	private String id;
 
-	@DatabaseField
-	private Date time;
+	@DatabaseField(persisterClass = InstantPersister.class)
+	private Instant time;
 
-	@DatabaseField
-	private Date ts;
+	@DatabaseField(persisterClass = InstantPersister.class)
+	private Instant ts;
 
 	@DatabaseField
 	private String duration;
@@ -55,13 +57,13 @@ public class BookInfo {
 	@DatabaseField
 	private String price;
 
-	@DatabaseField
+	@DatabaseField(persisterClass = InstantPersister.class)
 	@SerializedName("end_time")
-	private Date endTime;
+	private Instant endTime;
 
-	@DatabaseField
+	@DatabaseField(persisterClass = InstantPersister.class)
 	@SerializedName("server_time")
-	private Date serverTime;
+	private Instant serverTime;
 
 	@DatabaseField
 	@SerializedName("carwash_name")
@@ -75,13 +77,13 @@ public class BookInfo {
 	@SerializedName("resource_uri")
 	private String resourceUri;
 
-	@DatabaseField
+	@DatabaseField(persisterClass = InstantPersister.class)
 	@SerializedName("finish_time")
-	Date finishTime;
+	Instant finishTime;
 
-	@DatabaseField
+	@DatabaseField(persisterClass = InstantPersister.class)
 	@SerializedName("start_time")
-	Date startTime;
+	Instant startTime;
 
 	@DatabaseField
 	@SerializedName("is_direct_wash")
@@ -148,11 +150,11 @@ public class BookInfo {
 		this.washer = washer;
 	}
 
-	public void setFinishTime(Date finishTime) {
+	public void setFinishTime(Instant finishTime) {
 		this.finishTime = finishTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Instant startTime) {
 		this.startTime = startTime;
 	}
 
@@ -180,11 +182,11 @@ public class BookInfo {
 		this.status = status;
 	}
 
-	public Date getFinishTime() {
+	public Instant getFinishTime() {
 		return finishTime;
 	}
 
-	public void setFinish_time(Date finishTime) {
+	public void setFinish_time(Instant finishTime) {
 		this.finishTime = finishTime;
 	}
 
@@ -212,11 +214,11 @@ public class BookInfo {
 		this.id = id;
 	}
 
-	public Date getTime() {
+	public Instant getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(Instant time) {
 		this.time = time;
 	}
 
@@ -236,11 +238,11 @@ public class BookInfo {
 		this.price = price;
 	}
 
-	public Date getEndTime() {
+	public Instant getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Instant endTime) {
 		this.endTime = endTime;
 	}
 
@@ -260,11 +262,11 @@ public class BookInfo {
 		this.resourceUri = resourceUri;
 	}
 
-	public Date getStartTime() {
+	public Instant getStartTime() {
 		return startTime;
 	}
 
-	public void setStart_time(Date startTime) {
+	public void setStart_time(Instant startTime) {
 		this.startTime = startTime;
 	}
 
@@ -276,11 +278,11 @@ public class BookInfo {
 		this.carwashName = carwashName;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
@@ -292,11 +294,11 @@ public class BookInfo {
 		this.mobile = mobile;
 	}
 
-	public Date getServerTime() {
+	public Instant getServerTime() {
 		return serverTime;
 	}
 
-	public void setServerTime(Date serverTime) {
+	public void setServerTime(Instant serverTime) {
 		this.serverTime = serverTime;
 	}
 
@@ -444,12 +446,12 @@ public class BookInfo {
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static BookInfo deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, BookInfo.class);
 	}
 

@@ -2,8 +2,9 @@ package com.driverspa.model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Created by Yerzhan Tanatov on 20/04/17.
@@ -17,10 +18,10 @@ public class Workshift {
     User closedUser;
     Integer duration;
     @SerializedName("start_time")
-    Date startTime;
+    Instant startTime;
     @SerializedName("end_time")
-    Date endTime;
-    Date ts;
+    Instant endTime;
+    Instant ts;
     @SerializedName("opening_balance")
     Double openingBalance;
     @SerializedName("closing_balance")
@@ -53,27 +54,27 @@ public class Workshift {
         this.duration = duration;
     }
 
-    public Date getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Instant startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Instant getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Instant endTime) {
         this.endTime = endTime;
     }
 
-    public Date getTs() {
+    public Instant getTs() {
         return ts;
     }
 
-    public void setTs(Date ts) {
+    public void setTs(Instant ts) {
         this.ts = ts;
     }
 
@@ -119,12 +120,12 @@ public class Workshift {
 
     // GSON
     public String serialize() {
-        Gson gson = new Gson();
+        Gson gson = Converters.gsonWithDate();
         return gson.toJson(this);
     }
 
     public static Workshift deserialize(String serializedData) {
-        Gson gson = new Gson();
+        Gson gson = Converters.gsonWithDate();
         return gson.fromJson(serializedData, Workshift.class);
     }
 }

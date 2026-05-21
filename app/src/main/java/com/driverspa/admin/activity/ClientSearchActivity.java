@@ -23,8 +23,8 @@ import com.driverspa.assist.BaseAssist;
 import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -332,7 +332,7 @@ public class ClientSearchActivity extends AdminBaseActivity {
         else
             request.setClientKey(client.getCarNo());
 
-        request.setTime(new Date());
+            request.setTime(Instant.now());
         request.setCarwash(URL_PREFIX+washer.getId());
         request.setOffline(true);
         request.setQueued(true);

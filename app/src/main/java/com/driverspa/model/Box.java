@@ -2,7 +2,7 @@ package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ public class Box {
     protected String uid;
     @SerializedName("box_name")
     protected String boxName;
-    protected Date ts;
+    protected Instant ts;
     @SerializedName("washer_person")
     protected String washerPerson;
     @SerializedName("default_staffs")
@@ -55,11 +55,11 @@ public class Box {
         this.boxName = boxName;
     }
 
-    public Date getTs() {
+    public Instant getTs() {
         return ts;
     }
 
-    public void setTs(Date ts) {
+    public void setTs(Instant ts) {
         this.ts = ts;
     }
 

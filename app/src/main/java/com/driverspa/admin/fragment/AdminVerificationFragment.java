@@ -23,7 +23,6 @@ import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -70,7 +69,7 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 		View view = inflater.inflate(R.layout.fragment_admin_verification, container, false);
 		ButterKnife.bind(this, view);
 		activationTime = System.currentTimeMillis();
-		UserPreferences.putRecoverySmsSentTime(getActivity(), (new Date()).getTime());
+		UserPreferences.putRecoverySmsSentTime(getActivity(), System.currentTimeMillis());
 		txtPhoneNo.setText(Functions.maskPhoneNumber(phone, Converters.PHONE_PATTERN));
 		
         try {

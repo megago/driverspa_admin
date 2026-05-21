@@ -2,7 +2,7 @@ package com.driverspa.model.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class WasherTimeTableResponse {
 
 	Result result;
 	@SerializedName("server_time")
-	Date serverTime;
+	Instant serverTime;
 
 	public Result getResult() {
 		return result;
@@ -29,17 +29,17 @@ public class WasherTimeTableResponse {
 
 		private HashMap<String, BoxItem> boxes;
 		
-		private Date date;
+		private Instant date;
 
 		public HashMap<String, BoxItem> getBoxes() {
 			return boxes;
 		}
 
-		public Date getDate() {
+		public Instant getDate() {
 			return date;
 		}
 
-		public void setDate(Date date) {
+		public void setDate(Instant date) {
 			this.date = date;
 		}
 
@@ -73,11 +73,11 @@ public class WasherTimeTableResponse {
 		}
 	}
 
-	public Date getServerTime() {
+	public Instant getServerTime() {
 		return serverTime;
 	}
 
-	public void setServerTime(Date serverTime) {
+	public void setServerTime(Instant serverTime) {
 		this.serverTime = serverTime;
 	}
 }

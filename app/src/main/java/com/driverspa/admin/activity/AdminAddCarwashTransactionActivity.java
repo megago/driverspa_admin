@@ -23,9 +23,11 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 
 import butterknife.ButterKnife;
@@ -85,7 +87,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
     @BindView(R.id.paymentType)
     NDSpinner paymentType;
     Washer washer;
-    Date defaultDate;
+    Instant defaultDate;
     int hour, minute;
     boolean isVisible = false;
 
@@ -96,7 +98,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
     ClientInfo selectedClient;
     Staff selectedStaff;
     AdminSearchFilter filter = new AdminSearchFilter();
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
     DecimalFormat formatter = new DecimalFormat("#,###.##");
     LinkedHashMap<Integer,String> operationTypes =  BA.getReference().getOperationTypes();
     LinkedHashMap<String,String> paymentTypes =  BA.getReference().getPaymentTypes();
@@ -116,12 +118,13 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ButterKnife.bind(this);
 
-        if(defaultDate == null) defaultDate = new Date();
-
-        hour = defaultDate.getHours();
-        minute = defaultDate.getMinutes();
+        if(defaultDate == null) defaultDate = Instant.now();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(defaultDate.toEpochMilli());
+    hour = calendar.get(Calendar.HOUR_OF_DAY);
+    minute = calendar.get(Calendar.MINUTE);
         time.setText(hour+":"+minute);
-        date.setText(dateFormatter.format(defaultDate.getTime()));
+    date.setText(dateFormatter.format(defaultDate));
         operationType.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -213,7 +216,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
         if(selectedStaff != null)
           request.setStaffId(selectedStaff.getUid());
         request.setOperationType(selectedOperationType+1);
-        request.setTranDate(defaultDate);
+            request.setTranDate(defaultDate);
         request.setCarwash(Constants.URL_PREFIX+washer.getId());
         setWaitScreen(true);
         BA.getEventBus().post(request);
@@ -512,15 +515,17 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
 
     @Override
     public void onDatePickerDataset(Long time, String type) {
-        defaultDate.setTime(time);
-        defaultDate.setHours(hour);
-        defaultDate.setMinutes(minute);
-        date.setText(dateFormatter.format(defaultDate.getTime()));
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(time);
+    calendar.set(Calendar.HOUR_OF_DAY, hour);
+    calendar.set(Calendar.MINUTE, minute);
+    defaultDate = Instant.ofEpochMilli(calendar.getTimeInMillis());
+    date.setText(dateFormatter.format(defaultDate));
     }
 
     @OnClick(R.id.date)
     public void dateClicked() {
-        DatePickerFragment picker = DatePickerFragment.newInstance("start", defaultDate.getTime());
+		DatePickerFragment picker = DatePickerFragment.newInstance("start", defaultDate.toEpochMilli());
         picker.setDatePickerDateSetListener(this);
         picker.show(getSupportFragmentManager(), "datePicker");
     }
@@ -557,8 +562,11 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
                         hour = timeFrom.getCurrentHour();
                         minute = timeFrom.getCurrentMinute();
                         targetText.setText(hour+":"+minute);
-                        defaultDate.setHours(hour);
-                        defaultDate.setMinutes(minute);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(defaultDate.toEpochMilli());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            defaultDate = Instant.ofEpochMilli(calendar.getTimeInMillis());
                         break;
                 }
 

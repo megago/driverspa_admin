@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -27,7 +28,7 @@ import com.driverspa.model.BookInfo;
 import com.driverspa.model.PushData;
 import com.driverspa.util.Functions;
 
-@SuppressLint({ "SimpleDateFormat", "ViewHolder" })
+@SuppressLint({ "SimpleDateFormat", "ViewHolder", "NewApi" })
 public class BooksAdapter extends BaseDataAdapter<BookInfo> {
 
 	HashMap<String,PushData> bookingPushData;
@@ -57,8 +58,8 @@ public class BooksAdapter extends BaseDataAdapter<BookInfo> {
 		ViewHolder holder = new ViewHolder(view);
 		view.setTag(holder);
 		BookInfo item = getItem(position);
-		HashMap<String,String> timeMap = Functions.formatUTCDate(item.getTime());
-		HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
+		HashMap<String,String> timeMap = Functions.formatDateTime(item.getTime());
+		HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
 
 		if(item.getStatus().equals(PENDING) || item.getStatus().equals(APPROVED)) {
 			holder.parentView.setBackgroundResource(R.drawable.background_client_booked_black);
@@ -74,7 +75,9 @@ public class BooksAdapter extends BaseDataAdapter<BookInfo> {
 
 		holder.bookTime.setText(""+timeMap.get(Functions.TIME));
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		holder.bookTS.setText(p.format(Functions.getUTCDate(item.getTs())));
+		Calendar bookTs = Calendar.getInstance();
+		bookTs.setTimeInMillis(item.getTs().toEpochMilli());
+		holder.bookTS.setText(p.format(bookTs));
 
 //		holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\n"+timeTSMap.get(Functions.TIME));
 		holder.bookKey.setText(""+item.getClientKey());

@@ -13,15 +13,14 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import com.driverspa.BA;
-import com.driverspa.R;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.BooksDataHolder;
 import com.driverspa.model.Box;
@@ -69,7 +68,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public DriverSpaOrmLiteSqlHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
 	@Override
@@ -170,7 +169,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 		db.delete("BookInfo", null, null);
 	}
 
-	public List<Statistic> getStatisticData(Washer washer, Date date){
+	public List<Statistic> getStatisticData(Washer washer, Instant date){
 			List<Statistic> statistics = new ArrayList<Statistic>();
 
 		try {
@@ -396,4 +395,5 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return statistics;
 	}
+
 }

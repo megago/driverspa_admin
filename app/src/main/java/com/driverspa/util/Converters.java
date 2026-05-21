@@ -10,12 +10,22 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
+import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
 public class Converters {
@@ -23,42 +33,112 @@ public class Converters {
 	public static final String PHONE_PATTERN = "## ### ### ####";
 	public static final String PIN_PATTERN = 	"##-##-##";
 
-	private static final String[] DATE_FORMATS = new String[] {
-		"yyyy-MM-dd'T'HH:mm:ss.SSSz",
-		"yyyy-MM-dd'T'HH:mm:ss",
-		"yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+	private static final DateTimeFormatter[] DATE_FORMATS = new DateTimeFormatter[] {
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US),
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US),
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US),
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US),
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US),
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
 	};
-	
+	private static final DateTimeFormatter OUTPUT_DATE_FORMAT =
+			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US).withZone(ZoneOffset.UTC);
+
+	private static String normalizeIsoDate(String value) {
+		if (value == null) {
+			return null;
+		}
+		if (value.endsWith("Z")) {
+			return value.substring(0, value.length() - 1) + "+0000";
+		}
+		return value.replaceFirst("([+-]\\d{2}):(\\d{2})$", "$1$2");
+	}
+
 	public static Gson gsonWithDate() {
 		final GsonBuilder builder = new GsonBuilder();		
 //		builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 //		builder.excludeFieldsWithoutExposeAnnotation();
-		builder.registerTypeAdapter(Date.class, new DateSerizlier());
+		builder.registerTypeAdapter(Instant.class, new InstantSerializer());
 		return builder.create();
 	}
 //	
-	static class DateSerizlier implements JsonDeserializer<Date> {
+	public static Instant parseInstant(String rawValue) {
+		if (rawValue == null || rawValue.trim().isEmpty()) {
+			return null;
+		}
 
-		@Override
-		public Date deserialize(JsonElement jsonElement, Type typeOF,
-				JsonDeserializationContext context) throws JsonParseException {
-			for (String format : DATE_FORMATS) {
-				try {
-					return new SimpleDateFormat(format, Locale.getDefault()).parse(jsonElement.getAsString());
-				} catch (ParseException e) {
-			  }
+		String normalizedValue = normalizeIsoDate(rawValue);
+
+		try {
+			return OffsetDateTime.parse(rawValue).toInstant();
+		} catch (DateTimeParseException ignored) {
+			// Keep trying java.time fallbacks below.
+		}
+
+		if (normalizedValue != null && !normalizedValue.equals(rawValue)) {
+			try {
+				return OffsetDateTime.parse(normalizedValue, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)).toInstant();
+			} catch (DateTimeParseException ignored) {
+				// Keep fallback parsing for legacy backend formats.
 			}
-			throw new JsonParseException("Unparseable date: \"" + jsonElement.getAsString()
-					+ "\". Supported formats: " + Arrays.toString(DATE_FORMATS));
+		}
+
+		for (DateTimeFormatter formatter : DATE_FORMATS) {
+			Instant parsed = tryParseWithFormatter(rawValue, formatter);
+			if (parsed != null) {
+				return parsed;
+			}
+
+			if (normalizedValue != null && !normalizedValue.equals(rawValue)) {
+				parsed = tryParseWithFormatter(normalizedValue, formatter);
+				if (parsed != null) {
+					return parsed;
+				}
+			}
+		}
+
+		throw new JsonParseException("Unparseable date: \"" + rawValue
+				+ "\". Supported formats: " + Arrays.toString(DATE_FORMATS));
+	}
+
+	public static String formatInstant(Instant instant) {
+		return instant == null ? null : OUTPUT_DATE_FORMAT.format(instant);
+	}
+
+	private static Instant tryParseWithFormatter(String value, DateTimeFormatter formatter) {
+		try {
+			TemporalAccessor parsed = formatter.parse(value);
+			if (parsed.isSupported(ChronoField.INSTANT_SECONDS) || parsed.isSupported(ChronoField.OFFSET_SECONDS)) {
+				return OffsetDateTime.from(parsed).toInstant();
+			}
+			return LocalDateTime.from(parsed).atZone(ZoneId.systemDefault()).toInstant();
+		} catch (DateTimeParseException ignored) {
+			return null;
+		} catch (DateTimeException ignored) {
+			return null;
 		}
 	}
-////	
+
+	static class InstantSerializer implements JsonDeserializer<Instant>, JsonSerializer<Instant> {
+
+		@Override
+		public Instant deserialize(JsonElement jsonElement, Type typeOF,
+				JsonDeserializationContext context) throws JsonParseException {
+			return parseInstant(jsonElement.getAsString());
+		}
+
+		@Override
+		public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
+			return src == null ? null : new JsonPrimitive(formatInstant(src));
+		}
+	}
+
+////
 ////	public static Gson gsonAuthForget() {
 ////		final GsonBuilder builder = new GsonBuilder();
 ////		
 ////		builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
-////		builder.registerTypeAdapter(Date.class, new DateSerizlier());
 ////		builder.registerTypeAdapter(AuthForgotResponseHolder.class, new AuthForgotResponseHolderSeriazlizer());
 ////		return builder.create();
 ////	}

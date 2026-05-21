@@ -6,6 +6,7 @@ import static com.driverspa.util.Constants.QUEUED_FINISHED;
 import static com.driverspa.util.Constants.QUEUED_REJECTED;
 import static com.driverspa.util.Constants.bookStatus;
 
+import android.annotation.SuppressLint;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -21,8 +22,10 @@ import android.widget.TextView;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +43,7 @@ import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
 
 
+@SuppressLint("NewApi")
 public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientBooksAdapter.BookInfoViewHolder>  {
 
 	public static final int ITEM_TYPE_BOOK = 0;
@@ -114,8 +118,8 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 			lstHolders.add(holder);
 		}
 		final BookInfo item = mData.get(position);
-		Date bookDateTime = Functions.getUTCDate(item.getTime());
-		HashMap<String,String> timeMap = Functions.formatUTCDate(item.getTime());
+		Instant bookDateTime = item.getTime();
+		HashMap<String,String> timeMap = Functions.formatDateTime(bookDateTime);
 		holder.parentView.setHasTransientState(true);
 		if(holder.parentView.getAnimation() != null)
 			holder.parentView.getAnimation().cancel();
@@ -132,18 +136,19 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 		holder.notPaid.setVisibility(View.GONE);
 		holder.bookTime.setText(""+timeMap.get(Functions.TIME));
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		Date bookTS = Functions.getUTCDate(item.getTs());
+		Calendar bookTS = Calendar.getInstance();
+		bookTS.setTimeInMillis(item.getTs().toEpochMilli());
 		holder.bookTS.setVisibility(View.VISIBLE);
-		if(DateUtils.isToday(Functions.getUTCDate(item.getTime()).getTime())) {
+		if(Functions.isToday(bookDateTime)) {
 			holder.bookTS.setText(p.format(bookTS));
 		}
 		else{
-			HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
+			HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
 			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\nв "+timeTSMap.get(Functions.TIME));
 		}
 
 		//For tomorrow or different date bookings
-		if(!DateUtils.isToday(bookDateTime.getTime()) && (new Date()).getTime() < bookDateTime.getTime()) {
+		if(!Functions.isToday(bookDateTime) && Instant.now().isBefore(bookDateTime)) {
 			holder.bookTS.setText(""+timeMap.get(Functions.TIME));
 			holder.bookTime.setText("Завтра");
 		}
@@ -262,7 +267,7 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 
 		public void updateTimeRemaining(long currentTime) {
 			if(!bookInfo.isQueued()) {
-				long timeDiff = currentTime - bookInfo.getTs().getTime();
+				long timeDiff = currentTime - bookInfo.getTs().toEpochMilli();
 
 				if (timeDiff > 0) {
 					int seconds = (int) (timeDiff / 1000) % 60;
@@ -278,7 +283,7 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 					}
 				}
 
-				if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime())) {
+				if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().isAfter(bookInfo.getEndTime()))) {
 					if (parentView.getTag() == null) {
 							ObjectAnimator fadeOut = ObjectAnimator.ofFloat(parentView, "alpha", 1f, 0f);
 							fadeOut.setDuration(700);
@@ -292,7 +297,7 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 								@Override
 								public void onAnimationEnd(Animator animation) {
 									super.onAnimationEnd(animation);
-									if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime())) {
+									if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().isAfter(bookInfo.getEndTime()))) {
 										mAnimationSet.start();
 										parentView.setHasTransientState(true);
 									} else {
@@ -311,12 +316,13 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 			}
 			else{
 				//Calculate remaining time until end time
-				Date dt = Functions.getUTCDate(bookInfo.getEndTime());
-				long timeDiff = dt.getTime() - currentTime;
-				if (timeDiff > 0) {
-					int seconds = (int) (timeDiff / 1000) % 60;
-					int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
-					int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
+				Instant endInstant = bookInfo.getEndTime();
+				Duration remaining = Duration.between(Instant.ofEpochMilli(currentTime), endInstant);
+				if (!remaining.isNegative()) {
+					long totalSeconds = remaining.getSeconds();
+					int seconds = (int) (totalSeconds % 60);
+					int minutes = (int) ((totalSeconds / 60) % 60);
+					int hours = (int) ((totalSeconds / 3600) % 24);
 					minutes = hours*60 + minutes;
 					if (bookInfo.getStatus().equals(QUEUED_APPROVED) //&& minutes > 0
 							) {

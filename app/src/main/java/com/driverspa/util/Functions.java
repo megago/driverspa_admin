@@ -20,14 +20,16 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import com.driverspa.BA;
@@ -42,6 +44,9 @@ import com.driverspa.model.Washer;
 public class Functions {
 
 	private static final String PREF = "JewUPPPref";
+	private static final ZoneId SYSTEM_ZONE = ZoneId.systemDefault();
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 	public static final String DATE = "DATE";
 	public static final String TIME = "TIME";
 
@@ -275,49 +280,47 @@ public class Functions {
 		return returnStr;	
 	}
 	
-	public static HashMap<String,String> formatUTCDate(Date date){		 
-		HashMap<String,String> returnMap = new HashMap<String,String>();		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-		dateFormatter.setTimeZone(TimeZone.getDefault());
-		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-		timeFormatter.setTimeZone(TimeZone.getDefault());
-		
-		String dateStr = dateFormatter.format(date);
-		String timeStr = timeFormatter.format(date);
-
-		returnMap.put(DATE, dateStr);
-		returnMap.put(TIME, timeStr);
-
-      return returnMap;
+	public static HashMap<String,String> formatUTCDate(Instant instant){
+		return formatDateTime(instant);
 	}
 
-	public static Date getUTCDate(Date date){
-		HashMap<String,String> returnMap = new HashMap<String,String>();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		String utcTimeStr = formatter.format(date.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		df.setTimeZone(TimeZone.getDefault());
-		Date utcDate = null;
-		try {
+	public static Instant getUTCDate(Instant instant){
+		return instant;
+	}
 
-			utcDate = df.parse(utcTimeStr);
-//			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-//			dateFormatter.setTimeZone(TimeZone.getDefault());
-//			SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-//			timeFormatter.setTimeZone(TimeZone.getDefault());
-//
-//			String dateStr = dateFormatter.format(utcDate);
-//			String timeStr = timeFormatter.format(utcDate);
-//
-//			returnMap.put(DATE, dateStr);
-//			returnMap.put(TIME, timeStr);
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static HashMap<String, String> formatDateTime(Instant instant) {
+		HashMap<String, String> returnMap = new HashMap<>();
+		if (instant == null) {
+			returnMap.put(DATE, "");
+			returnMap.put(TIME, "");
+			return returnMap;
 		}
 
-		return utcDate;
+		ZonedDateTime zonedDateTime = instant.atZone(SYSTEM_ZONE);
+		returnMap.put(DATE, DATE_FORMATTER.format(zonedDateTime));
+		returnMap.put(TIME, TIME_FORMATTER.format(zonedDateTime));
+		return returnMap;
+	}
+
+	public static boolean isToday(Instant instant) {
+		if (instant == null) {
+			return false;
+		}
+		return instant.atZone(SYSTEM_ZONE).toLocalDate().equals(LocalDate.now(SYSTEM_ZONE));
+	}
+
+	public static Instant getStartOfDay(Instant instant) {
+		if (instant == null) {
+			return null;
+		}
+		return instant.atZone(SYSTEM_ZONE).toLocalDate().atStartOfDay(SYSTEM_ZONE).toInstant();
+	}
+
+	public static Instant getEndOfDay(Instant instant) {
+		if (instant == null) {
+			return null;
+		}
+		return instant.atZone(SYSTEM_ZONE).toLocalDate().atTime(23, 59, 59, 999_000_000).atZone(SYSTEM_ZONE).toInstant();
 	}
 
 
@@ -531,26 +534,5 @@ public class Functions {
 		}
 
 		return context.getResources().getColor(R.color.BlueLight);
-	}
-
-
-	public static Date getEndOfDay(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.set(Calendar.HOUR_OF_DAY, 23);
-		calendar.set(Calendar.MINUTE, 59);
-		calendar.set(Calendar.SECOND, 59);
-		calendar.set(Calendar.MILLISECOND, 999);
-		return calendar.getTime();
-	}
-
-	public static Date getStartOfDay(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTime();
 	}
 }

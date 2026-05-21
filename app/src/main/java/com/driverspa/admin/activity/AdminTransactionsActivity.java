@@ -20,8 +20,9 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -62,10 +63,10 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     ListView listView;
     @BindView(R.id.startTime)
     TextView startTime;
-    Date startTimeDt;
+    Instant startTimeDt;
     @BindView(R.id.endTime)
     TextView endTime;
-    Date endTimeDt;
+    Instant endTimeDt;
     @BindView(R.id.btnAdd)
     View buttonAdd;
 
@@ -76,8 +77,9 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
 
     Washer washer;
     AdminCarwashTransactionsAdapter adapter;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-    SimpleDateFormat timeFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZoneId.systemDefault());
+    DateTimeFormatter requestFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").withZone(ZoneId.systemDefault());
     DecimalFormat decimalFormatter = new DecimalFormat("#,###.##");
     NDSpinner spinner;
     List<CarwashTransaction> transactions;
@@ -113,24 +115,22 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
         }
 
         if(fromWorkshift && workShiftStartDate != 0 && workShiftEndDate != 0){
-            HashMap<String,String> startTimeMap = Functions.formatUTCDate(new Date(workShiftStartDate));
-//            HashMap<String,String> startTimeMap = Functions.form(new Date(workShiftStartDate));
+            HashMap<String,String> startTimeMap = Functions.formatUTCDate(Instant.ofEpochMilli(workShiftStartDate));
 //            startTime.setText(startTimeMap.get(Functions.DATE)+" "+startTimeMap.get(Functions.TIME));
-            startTime.setText(timeFormatter.format(workShiftStartDate));
-//            HashMap<String,String> endTimeMap = Functions.formatUTCDate(new Date(workShiftEndDate));
+                  startTime.setText(timeFormatter.format(Instant.ofEpochMilli(workShiftStartDate)));
 //            endTime.setText(endTimeMap.get(Functions.DATE)+" "+endTimeMap.get(Functions.TIME));
-            endTime.setText(timeFormatter.format(workShiftEndDate));
+                  endTime.setText(timeFormatter.format(Instant.ofEpochMilli(workShiftEndDate)));
 
-            startTimeDt = new Date(workShiftStartDate);
-            endTimeDt = new Date(workShiftEndDate);
+            startTimeDt = Instant.ofEpochMilli(workShiftStartDate);
+            endTimeDt = Instant.ofEpochMilli(workShiftEndDate);
             buttonAdd.setVisibility(View.GONE);
         }
         else {
-            startTimeDt = Functions.getStartOfDay(new Date());
-            endTimeDt = Functions.getEndOfDay(new Date());
-            startTime.setText(formatter.format(startTimeDt.getTime()));
+            startTimeDt = Functions.getStartOfDay(Instant.now());
+            endTimeDt = Functions.getEndOfDay(Instant.now());
+			startTime.setText(formatter.format(startTimeDt));
             startTime.setPaintFlags(startTime.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            endTime.setText(formatter.format(endTimeDt.getTime()));
+			endTime.setText(formatter.format(endTimeDt));
             endTime.setPaintFlags(endTime.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         }
         filter.setOperationType(null);
@@ -185,13 +185,13 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     @Override
     public void onDatePickerDataset(Long time, String type) {
         if (type.equals("start")) {
-            startTimeDt = Functions.getStartOfDay(new Date(time));
-            startTime.setText(formatter.format(startTimeDt.getTime()));
+      startTimeDt = Functions.getStartOfDay(Instant.ofEpochMilli(time));
+      startTime.setText(formatter.format(startTimeDt));
             if (washer != null && startTimeDt != null)
                 loadData(washer, startTimeDt, endTimeDt);
         } else if (type.equals("end")) {
-            endTimeDt = Functions.getStartOfDay(new Date(time));
-            endTime.setText(formatter.format(endTimeDt.getTime()));
+      endTimeDt = Functions.getStartOfDay(Instant.ofEpochMilli(time));
+      endTime.setText(formatter.format(endTimeDt));
             if (washer != null && endTimeDt != null)
                 loadData(washer, startTimeDt, endTimeDt);
         }
@@ -230,7 +230,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     @OnClick(R.id.startTime)
     public void startTimeClicked() {
         if(!fromWorkshift) {
-            DatePickerFragment picker = DatePickerFragment.newInstance("start", startTimeDt.getTime());
+          DatePickerFragment picker = DatePickerFragment.newInstance("start", startTimeDt.toEpochMilli());
             picker.setDatePickerDateSetListener(this);
             picker.show(getSupportFragmentManager(), "datePicker");
         }
@@ -239,20 +239,18 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     @OnClick(R.id.endTime)
     public void endTimeClicked() {
         if(!fromWorkshift) {
-            DatePickerFragment picker = DatePickerFragment.newInstance("end", endTimeDt.getTime());
+          DatePickerFragment picker = DatePickerFragment.newInstance("end", endTimeDt.toEpochMilli());
             picker.setDatePickerDateSetListener(this);
             picker.show(getSupportFragmentManager(), "datePicker");
         }
     }
 
-    private void loadData(Washer washer, Date startTimeDt, Date endTimeDt) {
+      private void loadData(Washer washer, Instant startTimeDt, Instant endTimeDt) {
         setWaitScreen(true);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        String formattedDate = formatter.format(startTimeDt.getTime());
         filter.setLimit("1000");
         filter.setCarwash(washer.getId());
-        filter.setStartDate(formatter.format(startTimeDt.getTime()));
-        filter.setEndDate(formatter.format(endTimeDt.getTime()));
+        filter.setStartDate(requestFormatter.format(startTimeDt));
+        filter.setEndDate(requestFormatter.format(endTimeDt));
         BA.getEventBus().post(new AdminCarwashTransactionsRequestEvent(filter));
     }
 

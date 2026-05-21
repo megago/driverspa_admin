@@ -33,7 +33,6 @@ import com.driverspa.assist.UserSelfAssist;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -273,7 +272,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				HashMap<String,String> timeMap = Functions.formatUTCDate(book.getTime());
 //			    titleView.setText(timeMap.get(Functions.DATE)+" в "+timeMap.get(Functions.TIME));
 
-				if(book.getStatus().equals(APPROVED) && book.getServerTime().getTime() > book.getEndTime().getTime() ) {
+				if(book.getStatus().equals(APPROVED) && book.getServerTime().isAfter(book.getEndTime()) ) {
 					AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
 					b.setItems(R.array.admin_approved_book_detail_options, new OnClickListener() {
 						@Override
@@ -368,8 +367,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				}
 				txtDiscount.setText((book.getDiscount()!=null?book.getDiscount():"0")+" %");
 
-				Date bookTimeUTC = Functions.getUTCDate(book.getTime());
-				if(DateUtils.isToday(bookTimeUTC.getTime()))
+				if(DateUtils.isToday(book.getTime().toEpochMilli()))
 	    		  clientServiceDate.setText("Сегодня ("+timeMap.get(Functions.DATE)+")");
 				else clientServiceDate.setText(timeMap.get(Functions.DATE));
 
@@ -703,7 +701,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 
 	public void updateTimeRemaining(long currentTime) {
 	  if(book != null && book.getTs() != null) {
-		  long timeDiff = currentTime - book.getTs().getTime();
+		  long timeDiff = currentTime - book.getTs().toEpochMilli();
 		  if (timeDiff > 0) {
 			  int seconds = (int) (timeDiff / 1000) % 60;
 			  int minutes = (int) ((timeDiff / (1000 * 60)) % 60);

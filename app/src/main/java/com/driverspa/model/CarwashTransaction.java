@@ -2,7 +2,7 @@ package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Created by Yerzhan Tanatov on 23/04/17.
@@ -13,7 +13,7 @@ public class CarwashTransaction {
     BookInfo booking;
     String description;
     @SerializedName("tran_date")
-    Date tranDate;
+    Instant tranDate;
     @SerializedName("payment_type")
     String paymentType;
     @SerializedName("operation_type")
@@ -24,7 +24,7 @@ public class CarwashTransaction {
     String clientId;
     @SerializedName("staff_id")
     String staffId;
-    Date ts;
+    Instant ts;
     @SerializedName("manual_entry")
     Boolean manualEntry;
 
@@ -52,11 +52,11 @@ public class CarwashTransaction {
         this.description = description;
     }
 
-    public Date getTranDate() {
+    public Instant getTranDate() {
         return tranDate;
     }
 
-    public void setTranDate(Date tranDate) {
+    public void setTranDate(Instant tranDate) {
         this.tranDate = tranDate;
     }
 
@@ -108,11 +108,11 @@ public class CarwashTransaction {
         this.staffId = staffId;
     }
 
-    public Date getTs() {
+    public Instant getTs() {
         return ts;
     }
 
-    public void setTs(Date ts) {
+    public void setTs(Instant ts) {
         this.ts = ts;
     }
 

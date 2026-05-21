@@ -3,7 +3,7 @@ package com.driverspa.model.api.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.Instant;
 
 public class BookResponse {
 
@@ -24,7 +24,7 @@ public class BookResponse {
 
 	private String id;
 
-	private Date time;
+	private Instant time;
 
 	private String duration;
 
@@ -42,9 +42,9 @@ public class BookResponse {
 	private String carwashName;
 
 	@SerializedName("finish_time")
-	Date finishTime;
+	Instant finishTime;
 	@SerializedName("start_time")
-	Date startTime;
+	Instant startTime;
 
 	public ArrayList<String> getServices() {
 		return services;
@@ -78,11 +78,11 @@ public class BookResponse {
 		this.status = status;
 	}
 
-	public Date getFinishTime() {
+	public Instant getFinishTime() {
 		return finishTime;
 	}
 
-	public void setFinish_time(Date finishTime) {
+	public void setFinish_time(Instant finishTime) {
 		this.finishTime = finishTime;
 	}
 
@@ -110,11 +110,11 @@ public class BookResponse {
 		this.id = id;
 	}
 
-	public Date getTime() {
+	public Instant getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(Instant time) {
 		this.time = time;
 	}
 
@@ -158,11 +158,11 @@ public class BookResponse {
 		this.resource_uri = resource_uri;
 	}
 
-	public Date getStartTime() {
+	public Instant getStartTime() {
 		return startTime;
 	}
 
-	public void setStart_time(Date startTime) {
+	public void setStart_time(Instant startTime) {
 		this.startTime = startTime;
 	}
 	
@@ -194,11 +194,11 @@ public class BookResponse {
 		this.carwashName = carwashName;
 	}
 
-	public void setFinishTime(Date finishTime) {
+	public void setFinishTime(Instant finishTime) {
 		this.finishTime = finishTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Instant startTime) {
 		this.startTime = startTime;
 	}
 }

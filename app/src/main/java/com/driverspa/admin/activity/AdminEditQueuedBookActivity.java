@@ -32,8 +32,8 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -745,7 +745,7 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 				phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
 				request.setId(book.getId());
 				request.setMobile(phoneStr);
-				request.setTime(new Date());
+				request.setTime(Instant.now());
 				request.setCarwash(URL_PREFIX+washer.getId());
 				request.setOffline(true);
 				request.setQueued(true);
@@ -816,7 +816,7 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 		request.setMobile(TextUtils.isEmpty(phoneStr)?"":"+7"+phoneStr);
 		request.setCarType(selectedCarType.getValue());
         request.setBoxId(boxId);
-		request.setTime(new Date());
+		request.setTime(Instant.now());
 		request.setCarwash(URL_PREFIX+washer.getId());
 		request.setOffline(true);
 		request.setQueued(true);

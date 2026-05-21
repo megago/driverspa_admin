@@ -3,7 +3,7 @@ package com.driverspa.util;
 import android.text.TextUtils;
 import android.util.Patterns;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class UserInfoValidation {
 
@@ -53,8 +53,8 @@ public class UserInfoValidation {
 			return false;
 	}
 	
-	public static boolean isUserBirhdayValid(Date date) {
-		return date != null;
+	public static boolean isUserBirhdayValid(Instant instant) {
+		return instant != null;
 	}
 	
 }

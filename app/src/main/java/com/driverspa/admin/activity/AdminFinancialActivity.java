@@ -21,9 +21,10 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 import butterknife.ButterKnife;
@@ -62,13 +63,14 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 	TextView titleView;
 
 	DecimalFormat formatter = new DecimalFormat("#,###.##");
-	SimpleDateFormat timeFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+	DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZoneId.systemDefault());
+	DateTimeFormatter requestFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").withZone(ZoneId.systemDefault());
 	@BindView(R.id.startTime)
 	TextView startTime;
-	Date startTimeDt;
+	Instant startTimeDt;
 	@BindView(R.id.endTime)
 	TextView endTime;
-	Date endTimeDt;
+	Instant endTimeDt;
 
 	@BindView(R.id.spinner)
 	NDSpinner spinner;
@@ -140,37 +142,32 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 
 
 	private void initPeriodTimes(){
-//		if(startTimeDt == null){
-		startTimeDt = Functions.getStartOfDay(new Date());
-//		}
-
-//		if(endTimeDt == null){
-		endTimeDt = Functions.getEndOfDay(new Date());
-//		}
-		startTime.setText(timeFormatter.format(startTimeDt.getTime()));
-		endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+		startTimeDt = Functions.getStartOfDay(Instant.now());
+		endTimeDt = Functions.getEndOfDay(Instant.now());
+		startTime.setText(timeFormatter.format(startTimeDt));
+		endTime.setText(timeFormatter.format(endTimeDt));
 	}
 
 	@Override
 	public void onDatePickerDataset(Long time,String type) {
 		if(type.equals("start")) {
-			if(time > endTimeDt.getTime()) {
+			if(time > endTimeDt.toEpochMilli()) {
 				ToastUtil.display(this,"Дата начало не может быть позднее чем дата окончания");
 				return;
 			}
 
-			startTimeDt = Functions.getStartOfDay(new Date(time));
-			startTime.setText(timeFormatter.format(startTimeDt.getTime()));
+			startTimeDt = Functions.getStartOfDay(Instant.ofEpochMilli(time));
+			startTime.setText(timeFormatter.format(startTimeDt));
 		}
 
 		if(type.equals("end")) {
-			if(time < startTimeDt.getTime()) {
+			if(time < startTimeDt.toEpochMilli()) {
 				ToastUtil.display(this,"Дата окончания не может быть ранее чем дата начало");
 				return;
 			}
 
-			endTimeDt = Functions.getEndOfDay(new Date(time));
-			endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+			endTimeDt = Functions.getEndOfDay(Instant.ofEpochMilli(time));
+			endTime.setText(timeFormatter.format(endTimeDt));
 		}
 
 		setWaitScreen(true);
@@ -185,16 +182,16 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 					initPeriodTimes();
 				}
 				setWaitScreen(true);
-				startTime.setText(timeFormatter.format(startTimeDt.getTime()));
-				endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+				startTime.setText(timeFormatter.format(startTimeDt));
+				endTime.setText(timeFormatter.format(endTimeDt));
 				BA.getEventBus().post(new AdminCashFinancialRequestEvent(washer.getId(),formatDate(startTimeDt),formatDate(endTimeDt)));
 				break;
 			case 1: //today
 				initPeriodTimes();
 
 				setWaitScreen(true);
-				startTime.setText(timeFormatter.format(startTimeDt.getTime()));
-				endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+				startTime.setText(timeFormatter.format(startTimeDt));
+				endTime.setText(timeFormatter.format(endTimeDt));
 
 				BA.getEventBus().post(new AdminCashFinancialRequestEvent(washer.getId(),formatDate(startTimeDt),formatDate(endTimeDt)));
 				break;
@@ -204,20 +201,20 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 				//Start of the week
 				Calendar c = Calendar.getInstance();
 				c.setFirstDayOfWeek(Calendar.MONDAY);
-				c.setTime(new Date());
+				c.setTimeInMillis(System.currentTimeMillis());
 				int today = c.get(Calendar.DAY_OF_WEEK);
 				c.add(Calendar.DAY_OF_WEEK, -today+Calendar.MONDAY);
 				c.set(Calendar.HOUR_OF_DAY, 00);
 				c.set(Calendar.MINUTE, 00);
-				startTimeDt = c.getTime();
+				startTimeDt = Instant.ofEpochMilli(c.getTimeInMillis());
 
 				//Today
 				c = Calendar.getInstance();
 				c.set(Calendar.HOUR_OF_DAY, 23);
 				c.set(Calendar.MINUTE, 59);
-				endTimeDt = c.getTime();
-				startTime.setText(timeFormatter.format(startTimeDt.getTime()));
-				endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+				endTimeDt = Instant.ofEpochMilli(c.getTimeInMillis());
+				startTime.setText(timeFormatter.format(startTimeDt));
+				endTime.setText(timeFormatter.format(endTimeDt));
 				BA.getEventBus().post(new AdminCashFinancialRequestEvent(washer.getId(),formatDate(startTimeDt),formatDate(endTimeDt)));
 				break;
 			case 3: //month
@@ -226,16 +223,16 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 				c.set(Calendar.DAY_OF_MONTH, 1);
 				c.set(Calendar.HOUR_OF_DAY, 00);
 				c.set(Calendar.MINUTE, 00);
-				startTimeDt = c.getTime();
+				startTimeDt = Instant.ofEpochMilli(c.getTimeInMillis());
 
 				//Today
 				c = Calendar.getInstance();
 				c.set(Calendar.HOUR_OF_DAY, 23);
 				c.set(Calendar.MINUTE, 59);
-				endTimeDt = c.getTime();
+				endTimeDt = Instant.ofEpochMilli(c.getTimeInMillis());
 
-				startTime.setText(timeFormatter.format(startTimeDt.getTime()));
-				endTime.setText(timeFormatter.format(endTimeDt.getTime()));
+				startTime.setText(timeFormatter.format(startTimeDt));
+				endTime.setText(timeFormatter.format(endTimeDt));
 				BA.getEventBus().post(new AdminCashFinancialRequestEvent(washer.getId(),formatDate(startTimeDt),formatDate(endTimeDt)));
 				break;
 		}
@@ -243,14 +240,14 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 
 	@OnClick(R.id.startTime)
 	public void startTimeClicked() {
-		DatePickerFragment picker =  DatePickerFragment.newInstance("start",startTimeDt.getTime());
+		DatePickerFragment picker =  DatePickerFragment.newInstance("start", startTimeDt.toEpochMilli());
 		picker.setDatePickerDateSetListener(this);
 		picker.show(getSupportFragmentManager(), "start");
 	}
 
 	@OnClick(R.id.endTime)
 	public void endTimeClicked() {
-		DatePickerFragment picker =  DatePickerFragment.newInstance("end",endTimeDt.getTime());
+		DatePickerFragment picker =  DatePickerFragment.newInstance("end", endTimeDt.toEpochMilli());
 		picker.setDatePickerDateSetListener(this);
 		picker.show(getSupportFragmentManager(), "end");
 	}
@@ -259,21 +256,19 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 	public void transactionsHistoryClicked(String transactionCode, String informationText) {
 		Intent intent = new Intent(this,AdminTransactionsActivity.class);
 		intent.putExtra(AdminTransactionsActivity.FROM_WORKSHIFT,true);
-		intent.putExtra(AdminTransactionsActivity.START_DATE,startTimeDt.getTime());
-		intent.putExtra(AdminTransactionsActivity.END_DATE,endTimeDt.getTime());
+		intent.putExtra(AdminTransactionsActivity.START_DATE, startTimeDt.toEpochMilli());
+		intent.putExtra(AdminTransactionsActivity.END_DATE, endTimeDt.toEpochMilli());
 		intent.putExtra(AdminTransactionsActivity.OPERATION_TYPE,transactionCode);
 		intent.putExtra(AdminTransactionsActivity.INFORMATION_TEXT,informationText);
 		startActivity(intent);
 	}
 
 
-	private String formatDate(Date date){
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-		if(date != null) {
-			String formattedDate = formatter.format(date.getTime());
-			return formattedDate;
+	private String formatDate(Instant instant){
+		if(instant != null) {
+			return requestFormatter.format(instant);
 		}
-		return formatter.format(date.getTime());
+		return requestFormatter.format(Instant.now());
 	}
 
 

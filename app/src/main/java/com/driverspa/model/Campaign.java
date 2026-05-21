@@ -2,15 +2,16 @@ package com.driverspa.model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.driverspa.util.Converters;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class Campaign {
 	@SerializedName("uid")
 	String id;
 
 	@SerializedName("end_time")
-	Date endTime;
+	Instant endTime;
 
 	@SerializedName("campaign_type")
 	CampaignType campaignType;
@@ -18,7 +19,7 @@ public class Campaign {
 	@SerializedName("description")
 	String description;
 	@SerializedName("ts")
-	Date ts;
+	Instant ts;
 
 	@SerializedName("campaign_discount")
 	Integer campaignDiscount;
@@ -32,11 +33,11 @@ public class Campaign {
 		this.campaignType = campaignType;
 	}
 
-	public Date getEndTime() {
+	public Instant getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Instant endTime) {
 		this.endTime = endTime;
 	}
 
@@ -48,7 +49,7 @@ public class Campaign {
 		this.description = description;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
@@ -60,7 +61,7 @@ public class Campaign {
 		this.campaignDiscount = campaignDiscount;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
@@ -74,12 +75,12 @@ public class Campaign {
 
 	// GSON
 	public String serialize() {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.toJson(this);
 	}
 
 	public static Campaign deserialize(String serializedData) {
-		Gson gson = new Gson();
+		Gson gson = Converters.gsonWithDate();
 		return gson.fromJson(serializedData, Campaign.class);
 	}
 

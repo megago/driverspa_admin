@@ -1,8 +1,9 @@
 package com.driverspa.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DateUtil {
@@ -12,20 +13,14 @@ public class DateUtil {
 	 * @param date - date to compare to
 	 * @return
 	 */
-	public static int yearsSince(Date date) {
-		Date now = new Date();
-		Calendar cDate = Calendar.getInstance();
-		cDate.setTime(date);
-		Calendar cNow = Calendar.getInstance();
-		cNow.setTime(now);
-		
-		int result = cNow.get(Calendar.YEAR) - cDate.get(Calendar.YEAR);
-		return result;
+	public static int yearsSince(Instant instant) {
+		LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+		return LocalDate.now(ZoneId.systemDefault()).getYear() - date.getYear();
 	}
 	
-	public static String getTime(Date date) {
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-		return timeFormat.format(date);
+	public static String getTime(Instant instant) {
+		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault()).withZone(ZoneId.systemDefault());
+		return timeFormat.format(instant);
 	}
 	
 }

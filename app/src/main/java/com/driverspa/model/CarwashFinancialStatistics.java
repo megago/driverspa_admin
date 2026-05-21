@@ -2,7 +2,7 @@ package com.driverspa.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -12,8 +12,8 @@ public class CarwashFinancialStatistics {
 
     List<CarwashAccountDetail> accounts;
     String carwash;
-    Date startTime;
-    Date endTime;
+    Instant startTime;
+    Instant endTime;
 
     Double expense;
     @SerializedName("expense_opening")
@@ -45,19 +45,19 @@ public class CarwashFinancialStatistics {
         this.carwash = carwash;
     }
 
-    public Date getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Instant startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Instant getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Instant endTime) {
         this.endTime = endTime;
     }
 

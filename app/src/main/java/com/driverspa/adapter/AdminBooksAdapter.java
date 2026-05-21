@@ -21,8 +21,10 @@ import android.widget.TextView;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +44,7 @@ import com.driverspa.util.Functions;
 import com.driverspa.util.otto.BookOptionClickEvent;
 
 
+@android.annotation.SuppressLint("NewApi")
 public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.BookInfoViewHolder>  {
 
 	public static final int ITEM_TYPE_BOOK = 0;
@@ -116,8 +119,8 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 			lstHolders.add(holder);
 		}
 		final BookInfo item = mData.get(position);
-		Date bookDateTime = Functions.getUTCDate(item.getTime());
-		HashMap<String,String> timeMap = Functions.formatUTCDate(item.getTime());
+		Instant bookDateTime = item.getTime();
+		HashMap<String,String> timeMap = Functions.formatDateTime(bookDateTime);
 		holder.parentView.setHasTransientState(true);
 		if(holder.parentView.getAnimation() != null)
 			holder.parentView.getAnimation().cancel();
@@ -133,25 +136,22 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 
 		holder.bookTime.setText(""+timeMap.get(Functions.TIME));
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		Date bookTS = Functions.getUTCDate(item.getTs());
+		Calendar bookTS = Calendar.getInstance();
+		bookTS.setTimeInMillis(item.getTs().toEpochMilli());
 		holder.bookTS.setVisibility(View.VISIBLE);
-		if(DateUtils.isToday(Functions.getUTCDate(item.getTime()).getTime())) {
+		if(Functions.isToday(bookDateTime)) {
 			holder.bookTS.setText(p.format(bookTS));
 		}
 		else{
-			HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
+			HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
 			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\nв "+timeTSMap.get(Functions.TIME));
 		}
 
 		//For tomorrow or different date bookings
-		if(!DateUtils.isToday(bookDateTime.getTime()) && (new Date()).getTime() < bookDateTime.getTime()) {
+		if(!Functions.isToday(bookDateTime) && Instant.now().isBefore(bookDateTime)) {
 			holder.bookTS.setText(""+timeMap.get(Functions.TIME));
 			holder.bookTime.setText("Завтра");
 		}
-//		else if(!DateUtils.isToday(Functions.getUTCDate(item.getTs()).getTime()) && !DateUtils.isToday(Functions.getUTCDate(item.getTime()).getTime())){
-////		   holder.bookTS.setVisibility(View.GONE);
-//		   holder.bookTime.setText(timeMap.get(Functions.DATE)+"\nв "+timeMap.get(Functions.TIME));
-//		}
 
 		holder.errorOutline.setVisibility(View.GONE);
 
@@ -190,7 +190,7 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 			}
 		}else{
 			holder.onlineBook.setVisibility(View.GONE);
-  			holder.layoutQueue.setVisibility(View.VISIBLE);
+			holder.layoutQueue.setVisibility(View.VISIBLE);
 			holder.remainingTime.setVisibility(View.GONE);
 			holder.remainingTimeLayout.setVisibility(View.GONE);
 
@@ -287,12 +287,13 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 
 		public void updateTimeRemaining(long currentTime) {
 			if(!bookInfo.isQueued()) {
-				long timeDiff = currentTime - bookInfo.getTs().getTime();
+				Duration timeDiff = Duration.between(bookInfo.getTs(), Instant.ofEpochMilli(currentTime));
 
-				if (timeDiff > 0) {
-					int seconds = (int) (timeDiff / 1000) % 60;
-					int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
-					int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
+				if (!timeDiff.isNegative()) {
+					long totalSeconds = timeDiff.getSeconds();
+					int seconds = (int) (totalSeconds % 60);
+					int minutes = (int) ((totalSeconds / 60) % 60);
+					int hours = (int) ((totalSeconds / 3600) % 24);
 
 					if ((TIMER_MINUTE - minutes) <= 0) {
 						remainingTime.setText("00:00");
@@ -303,7 +304,7 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 					}
 				}
 
-				if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime())) {
+				if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().isAfter(bookInfo.getEndTime()))) {
 					if (parentView.getTag() == null) {
 							ObjectAnimator fadeOut = ObjectAnimator.ofFloat(parentView, "alpha", 1f, 0f);
 							fadeOut.setDuration(700);
@@ -321,7 +322,7 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 								@Override
 								public void onAnimationEnd(Animator animation) {
 									super.onAnimationEnd(animation);
-									if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime())) {
+									if (bookInfo.getStatus().equals(PENDING) || (bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().isAfter(bookInfo.getEndTime()))) {
 										mAnimationSet.start();
 										parentView.setHasTransientState(true);
 									} else {
@@ -346,12 +347,13 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 			}
 			else{
 				//Calculate remaining time until end time
-				Date dt = Functions.getUTCDate(bookInfo.getEndTime());
-				long timeDiff = dt.getTime() - currentTime;
-				if (timeDiff > 0) {
-					int seconds = (int) (timeDiff / 1000) % 60;
-					int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
-					int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
+				Instant endInstant = bookInfo.getEndTime();
+				Duration remaining = Duration.between(Instant.ofEpochMilli(currentTime), endInstant);
+				if (!remaining.isNegative()) {
+					long totalSeconds = remaining.getSeconds();
+					int seconds = (int) (totalSeconds % 60);
+					int minutes = (int) ((totalSeconds / 60) % 60);
+					int hours = (int) ((totalSeconds / 3600) % 24);
 					minutes = hours*60 + minutes;
 					if (bookInfo.getStatus().equals(QUEUED_APPROVED) //&& minutes > 0
 						) {

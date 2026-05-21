@@ -26,8 +26,9 @@ import com.splunk.mint.Mint;
 import com.squareup.otto.Subscribe;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 	ExpandableListView listView;
 	@BindView(R.id.startTime)
 	TextView startTime;
-	Date startTimeDt;
+	Instant startTimeDt;
 	@BindView(R.id.cash)
 	TextView cash;
 	@BindView(R.id.cashStart)
@@ -100,7 +101,8 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 
 	Washer washer;
 	AdminAccountDetailsAdapter adapter;
-	SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+	DateTimeFormatter requestFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").withZone(ZoneId.systemDefault());
 	DecimalFormat decimalFormatter = new DecimalFormat("#,###.##");
 	List<CarwashAccountDetail> accountDetails;
     Double cashAmount,cashAmountOpening,cashAmountEnding,cardAmount,cardAmountOpening,cardAmountEnding,bankAmount,bankAmountOpening,bankAmountEnding;
@@ -124,8 +126,8 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		ButterKnife.bind(this);
 		listView.setVisibility(View.GONE);
-		startTimeDt = Functions.getStartOfDay(new Date());
-		startTime.setText(formatter.format(startTimeDt.getTime()));
+		startTimeDt = Functions.getStartOfDay(Instant.now());
+		startTime.setText(formatter.format(startTimeDt));
 		startTime.setPaintFlags(startTime.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		cashInOutButton.setPaintFlags(cashInOutButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
@@ -154,8 +156,8 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 
 	@Override
 	public void onDatePickerDataset(Long time,String type) {
-		startTimeDt = Functions.getStartOfDay(new Date(time));
-		startTime.setText(formatter.format(startTimeDt.getTime()));
+		startTimeDt = Functions.getStartOfDay(Instant.ofEpochMilli(time));
+		startTime.setText(formatter.format(startTimeDt));
 		if(washer != null && startTimeDt != null)
 		  loadData(washer,startTimeDt);
 	}
@@ -192,7 +194,7 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 
 	@OnClick(R.id.startTime)
 	public void startTimeClicked() {
-		DatePickerFragment picker =  DatePickerFragment.newInstance(startTimeDt.getTime());
+		DatePickerFragment picker =  DatePickerFragment.newInstance(startTimeDt.toEpochMilli());
 		picker.setDatePickerDateSetListener(this);
 		picker.show(getSupportFragmentManager(), "datePicker");
 	}
@@ -315,10 +317,9 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 
 	}
 
-	private void loadData(Washer washer,Date startTimeDt){
+	private void loadData(Washer washer, Instant startTimeDt){
 		setWaitScreen(true);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-		String formattedDate = formatter.format(startTimeDt.getTime());
+		String formattedDate = requestFormatter.format(startTimeDt);
 		BA.getEventBus().post(new AdminFinancialStatisticsRequestEvent(washer.getId(),formattedDate));
 	}
 

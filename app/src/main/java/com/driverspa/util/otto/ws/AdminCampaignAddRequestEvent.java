@@ -3,7 +3,7 @@ package com.driverspa.util.otto.ws;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class AdminCampaignAddRequestEvent {
 
@@ -16,12 +16,12 @@ public class AdminCampaignAddRequestEvent {
 	String description;
 
 	@SerializedName("end_time")
-	Date endTime;
+	Instant endTime;
 
 	@SerializedName("campaign_discount")
 	Integer campaignDiscount;
 
-	public AdminCampaignAddRequestEvent(String washerId, String description, String campaignType, Date endTime, Integer campaignDiscount) {
+	public AdminCampaignAddRequestEvent(String washerId, String description, String campaignType, Instant endTime, Integer campaignDiscount) {
 		this.washerId = washerId;
 		this.campaignType = campaignType;
 		this.description = description;
@@ -45,11 +45,11 @@ public class AdminCampaignAddRequestEvent {
 		this.description = description;
 	}
 
-	public Date getEndTime() {
+	public Instant getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Instant endTime) {
 		this.endTime = endTime;
 	}
 

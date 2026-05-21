@@ -2,12 +2,12 @@ package com.driverspa.model.api.request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class CampaignOperationRequest {
 
 	@SerializedName("end_time")
-	Date endTime;
+	Instant endTime;
 
 	@SerializedName("campaign_type")
 	String campaignType;
@@ -15,17 +15,17 @@ public class CampaignOperationRequest {
 	@SerializedName("description")
 	String description;
 	@SerializedName("ts")
-	Date ts;
+	Instant ts;
 
 	@SerializedName("campaign_discount")
 	Integer campaignDiscount;
 
 
-	public Date getEndTime() {
+	public Instant getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Instant endTime) {
 		this.endTime = endTime;
 	}
 
@@ -45,11 +45,11 @@ public class CampaignOperationRequest {
 		this.description = description;
 	}
 
-	public Date getTs() {
+	public Instant getTs() {
 		return ts;
 	}
 
-	public void setTs(Date ts) {
+	public void setTs(Instant ts) {
 		this.ts = ts;
 	}
 
@@ -61,7 +61,7 @@ public class CampaignOperationRequest {
 		this.campaignDiscount = campaignDiscount;
 	}
 
-	public CampaignOperationRequest(String description,String campaignType, Date endTime, Integer campaignDiscount) {
+	public CampaignOperationRequest(String description,String campaignType, Instant endTime, Integer campaignDiscount) {
 		this.endTime = endTime;
 		this.campaignType = campaignType;
 		this.description = description;

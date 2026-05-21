@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +25,7 @@ import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
 
 
+@android.annotation.SuppressLint("NewApi")
 public class AdminNotificationsAdapter extends  RecyclerViewAdapter<AdminNotificationsAdapter.AdminNotificationNewsViewHolder>  {
 
 	Context context;
@@ -67,12 +69,14 @@ public class AdminNotificationsAdapter extends  RecyclerViewAdapter<AdminNotific
 		holder.newsType.setText(Constants.newsStatus.get(item.getStatus()));
 		holder.newsText.setText(item.getText());
 
-		HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTS());
+		HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTS());
 		PrettyTime p = new PrettyTime(new Locale("ru"));
-		if(DateUtils.isToday(Functions.getUTCDate(item.getTS()).getTime()))
-			holder.newsDate.setText(p.format(Functions.getUTCDate(item.getTS())));
+		Calendar newsTs = Calendar.getInstance();
+		newsTs.setTimeInMillis(item.getTS().toEpochMilli());
+		if(Functions.isToday(item.getTS()))
+			holder.newsDate.setText(p.format(newsTs));
 		else
-			holder.newsDate.setText(p.format(Functions.getUTCDate(item.getTS()))+" ("+timeTSMap.get(Functions.DATE)+" в "+timeTSMap.get(Functions.TIME)+")");
+			holder.newsDate.setText(p.format(newsTs)+" ("+timeTSMap.get(Functions.DATE)+" в "+timeTSMap.get(Functions.TIME)+")");
 	}
 
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +34,7 @@ import com.driverspa.model.PushData;
 import com.driverspa.model.Washer;
 import com.driverspa.util.Functions;
 
-@SuppressLint({ "SimpleDateFormat", "ViewHolder" })
+@SuppressLint({ "SimpleDateFormat", "ViewHolder", "NewApi" })
 public class AdminBooksAdapterTemp extends BaseDataAdapter<BookInfo> {
     public static final int TIMER_MINUTE = 14;
     HashMap<String,PushData> bookingPushData;
@@ -103,13 +104,15 @@ public class AdminBooksAdapterTemp extends BaseDataAdapter<BookInfo> {
         }
 
         BookInfo item = getItem(position);
-        HashMap<String,String> timeMap = Functions.formatUTCDate(item.getTime());
-        HashMap<String,String> timeTSMap = Functions.formatUTCDate(item.getTs());
+            HashMap<String,String> timeMap = Functions.formatDateTime(item.getTime());
+            HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
 
         holder.bookTime.setText(""+timeMap.get(Functions.TIME));
 
         PrettyTime p = new PrettyTime(new Locale("ru"));
-        holder.bookTS.setText(p.format(Functions.getUTCDate(item.getTs())));
+              Calendar bookTS = Calendar.getInstance();
+              bookTS.setTimeInMillis(item.getTs().toEpochMilli());
+              holder.bookTS.setText(p.format(bookTS));
 
 //		holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\n"+timeTSMap.get(Functions.TIME));
         holder.txtBoxName.setVisibility(View.GONE);
@@ -163,7 +166,7 @@ public class AdminBooksAdapterTemp extends BaseDataAdapter<BookInfo> {
         TextView remainingTime;
 
         public void updateTimeRemaining(long currentTime) {
-            long timeDiff = currentTime - bookInfo.getTs().getTime();
+            long timeDiff = currentTime - bookInfo.getTs().toEpochMilli();
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);

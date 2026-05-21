@@ -54,12 +54,14 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,7 +161,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	String gridTitle;
 	int selectedBox;
 	int boxesCount;
-	Date serverTime;
+	java.time.Instant serverTime;
 	int scrollViewMax = 0;
 	boolean tabletSize;
 	boolean tabletBigSize;
@@ -178,13 +180,14 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	TextView titleView;
 
 	boolean loading = false;
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
 
 	private Handler handler;
-	long lastUpdateTime = (new Date()).getTime();
+	long lastUpdateTime = System.currentTimeMillis();
 	private Runnable runnable = new Runnable() {
 		@Override
 		public void run() {
-			Long currentTime = (new Date()).getTime();
+			Long currentTime = System.currentTimeMillis();
 			long diffMinutes = (currentTime - lastUpdateTime) / (60 * 1000);
 			if(diffMinutes > 1){
 				loadTimeTableDataWithoutLoader();
@@ -336,7 +339,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getWasherTimeTable() != null){
 			timeTable = event.getWasherTimeTable();
 			if(timeTable.getServerTime()!=null) {
-				serverTime = Functions.getUTCDate(timeTable.getServerTime());
+				serverTime = timeTable.getServerTime();
 			}
 			if(timeTable.getResult().getBookingObjects() != null) {
 				bookingObjects = timeTable.getResult().getBookingObjects();
@@ -353,27 +356,21 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	public void loadTimeTableData(){
 		if(!loading) {
 			loading = true;
-			lastUpdateTime = (new Date()).getTime();
+			lastUpdateTime = System.currentTimeMillis();
 			gridview.setVisibility(View.GONE);
 			tabView.setVisibility(View.GONE);
 			progressBar.setVisibility(View.VISIBLE);
 			washerNoTime.setVisibility(View.GONE);
 			buttonRepeat.setVisibility(View.GONE);
-			Date dt = new Date(currentTime * 1000);
-			Date utcDate = Functions.getUTCDate(dt);
-			Long utcTime = utcDate.getTime() / 1000;
-			BA.getEventBus().post(new WasherTimeTableBookRequestEvent(washer.getId(), selectedDay, utcTime));
+			BA.getEventBus().post(new WasherTimeTableBookRequestEvent(washer.getId(), selectedDay, currentTime));
 		}
 	}
 
 	public void loadTimeTableDataWithoutLoader(){
 		if(!loading) {
 			loading = true;
-			lastUpdateTime = (new Date()).getTime();
-			Date dt = new Date(currentTime * 1000);
-			Date utcDate = Functions.getUTCDate(dt);
-			Long utcTime = utcDate.getTime() / 1000;
-			BA.getEventBus().post(new WasherTimeTableBookRequestEvent(washer.getId(), selectedDay, utcTime));
+			lastUpdateTime = System.currentTimeMillis();
+			BA.getEventBus().post(new WasherTimeTableBookRequestEvent(washer.getId(), selectedDay, currentTime));
 		}
 	}
 
@@ -480,7 +477,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		gridList = new ArrayList<HashMap<String,String>>();
 		Calendar calendar = Calendar.getInstance();
 
-		if(serverTime != null) calendar.setTime(serverTime);
+		if(serverTime != null) calendar.setTimeInMillis(serverTime.toEpochMilli());
 
 		int currHour = calendar.get(Calendar.HOUR_OF_DAY);
 		int currMin = calendar.get(Calendar.MINUTE);
@@ -513,7 +510,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						Collections.sort(gridBooks, new Comparator<BookInfo>() {
 							@Override
 							public int compare(BookInfo lhs, BookInfo rhs) {
-								if (lhs.getTime().getTime() > rhs.getTime().getTime())
+											if (lhs.getTime().toEpochMilli() > rhs.getTime().toEpochMilli())
 									return 1;
 								else
 									return -1;
@@ -526,9 +523,9 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							//More than 0 books at the grid
 							BookInfo gridBook = gridBooks.get(k);
 							if(gridBook.getBoxId() != null && boxId != null && gridBook.getBoxId().equals(boxId)) {
-								Date gridBookTime = Functions.getUTCDate(gridBook.getTime());
-								int hour = gridBookTime.getHours();
-								int minute = gridBookTime.getMinutes();
+								ZonedDateTime gridBookTime = gridBook.getTime().atZone(ZoneId.systemDefault());
+								int hour = gridBookTime.getHour();
+								int minute = gridBookTime.getMinute();
 								HashMap<String, String> gridBookMap = new HashMap<String, String>();
 								gridBookMap.put(GRID_ID, Integer.toString(time));
 								gridBookMap.put(GRID_TITLE, String.format("%02d", hour) + ":" + String.format("%02d", minute));
@@ -544,9 +541,9 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								}
 								gridList.add(gridBookMap);
 								gridIndex++;
-								Date gridEndBookTime = Functions.getUTCDate(gridBook.getEndTime());
-								int endHour = gridEndBookTime.getHours();
-								int endMinute = gridEndBookTime.getMinutes();
+								ZonedDateTime gridEndBookTime = gridBook.getEndTime().atZone(ZoneId.systemDefault());
+								int endHour = gridEndBookTime.getHour();
+								int endMinute = gridEndBookTime.getMinute();
 
 								while (endHour * 60 + endMinute > time+currentTimeInterval && bookingGridObjects.get(time+currentTimeInterval) == null) {
 									time += currentTimeInterval;
@@ -777,8 +774,8 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						cal.set(Calendar.MINUTE,minut);
 						cal.set(Calendar.SECOND,0);
 						cal.set(Calendar.MILLISECOND,0);
-						Date bookDate = cal.getTime();
-						if(!selectedDay.equals(FOR_DATE)&&(new Date()).getTime() <= bookDate.getTime()) {
+						long bookDate = cal.getTimeInMillis();
+						if(!selectedDay.equals(FOR_DATE) && System.currentTimeMillis() <= bookDate) {
 							adapter.setSelectedPosition(position);
 							if((adapter.getSelectedView() != null && v != adapter.getSelectedView())||adapter.getSelectedView() == null) {
 								adapter.setSelectedView(v);
@@ -791,7 +788,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								v.setSelected(false);
 								addBookButton.setVisibility(View.GONE);
 							}
-							gridTime = bookDate.getTime();
+							gridTime = bookDate;
 							gridTitle = selectedTimeMap.get(GRID_TITLE);
 						}
 					}
@@ -904,9 +901,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(spinner != null) {
 			String[] valuesArray = new String[]{"Сегодня", "Завтра", "Заказы на дату"};
 			if(currentTime != -1) {
-				SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-				Date dt = new Date(currentTime*1000);
-				String dateStr = formatter.format(dt);
+				String dateStr = DATE_FORMATTER.format(Instant.ofEpochSecond(currentTime));
 				valuesArray = new String[]{"Сегодня", "Завтра", "Заказы на дату "+dateStr};
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
@@ -957,9 +952,9 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							&& !book.getStatus().equals(CANCELED)
 							&& !book.getStatus().equals(QUEUED_REJECTED))
 					.forEach(book -> {
-						Date bookTime = Functions.getUTCDate(book.getTime());
-						int hour = bookTime.getHours();
-						int minute = bookTime.getMinutes();
+						ZonedDateTime bookTime = book.getTime().atZone(ZoneId.systemDefault());
+						int hour = bookTime.getHour();
+						int minute = bookTime.getMinute();
 						int gridTime = hour * 60 + (minute < 30 ? 0 : 30);
 						List<BookInfo> books = gridBooks.get(gridTime);
 						if (books != null) {
