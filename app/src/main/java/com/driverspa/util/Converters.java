@@ -42,14 +42,14 @@ public class Converters {
 		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
 	};
 	private static final DateTimeFormatter OUTPUT_DATE_FORMAT =
-			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US).withZone(ZoneOffset.UTC);
+			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).withZone(ZoneOffset.UTC);
 
 	private static String normalizeIsoDate(String value) {
 		if (value == null) {
 			return null;
 		}
 		if (value.endsWith("Z")) {
-			return value.substring(0, value.length() - 1) + "+0000";
+			return value.substring(0, value.length() - 1) + "Z";
 		}
 		return value.replaceFirst("([+-]\\d{2}):(\\d{2})$", "$1$2");
 	}
@@ -71,6 +71,7 @@ public class Converters {
 		String normalizedValue = normalizeIsoDate(rawValue);
 
 		try {
+			// Parse as OffsetDateTime (preserves explicit timezone) and convert to UTC Instant
 			return OffsetDateTime.parse(rawValue).toInstant();
 		} catch (DateTimeParseException ignored) {
 			// Keep trying java.time fallbacks below.
@@ -78,6 +79,7 @@ public class Converters {
 
 		if (normalizedValue != null && !normalizedValue.equals(rawValue)) {
 			try {
+				// All backend timestamps are UTC; parse and convert to UTC Instant
 				return OffsetDateTime.parse(normalizedValue, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)).toInstant();
 			} catch (DateTimeParseException ignored) {
 				// Keep fallback parsing for legacy backend formats.
@@ -110,9 +112,11 @@ public class Converters {
 		try {
 			TemporalAccessor parsed = formatter.parse(value);
 			if (parsed.isSupported(ChronoField.INSTANT_SECONDS) || parsed.isSupported(ChronoField.OFFSET_SECONDS)) {
+				// Explicit timezone info present; convert to UTC Instant
 				return OffsetDateTime.from(parsed).toInstant();
 			}
-			return LocalDateTime.from(parsed).atZone(ZoneId.systemDefault()).toInstant();
+			// All backend timestamps without explicit timezone are treated as UTC
+			return LocalDateTime.from(parsed).atZone(ZoneId.of("UTC")).toInstant();
 		} catch (DateTimeParseException ignored) {
 			return null;
 		} catch (DateTimeException ignored) {

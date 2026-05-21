@@ -45,11 +45,14 @@ public class Functions {
 
 	private static final String PREF = "JewUPPPref";
 	private static final ZoneId SYSTEM_ZONE = ZoneId.systemDefault();
-	private static final ZoneId UTC_ZONE = ZoneId.of("UTC");
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+	private static final DateTimeFormatter HOUR_FORMATTER = DateTimeFormatter.ofPattern("HH");
+	private static final DateTimeFormatter MINUTE_FORMATTER = DateTimeFormatter.ofPattern("mm");
 	public static final String DATE = "DATE";
 	public static final String TIME = "TIME";
+	public static final String HOUR = "HOUR";
+	public static final String MINUTE = "MINUTE";
 
 	static public void savePreferences(Context context, String key, String value) {
 		SharedPreferences mySharedPreferences = context.getSharedPreferences(PREF, Activity.MODE_PRIVATE);
@@ -294,13 +297,17 @@ public class Functions {
 		if (instant == null) {
 			returnMap.put(DATE, "");
 			returnMap.put(TIME, "");
+			returnMap.put(HOUR, "");
+			returnMap.put(MINUTE, "");
 			return returnMap;
 		}
 
-		// Backend instants are treated as UTC source values; keep UTC for consistent UI rendering.
-		ZonedDateTime zonedDateTime = instant.atZone(UTC_ZONE);
+		// Backend dates come as UTC instants; show them in device local timezone.
+		ZonedDateTime zonedDateTime = instant.atZone(SYSTEM_ZONE);
 		returnMap.put(DATE, DATE_FORMATTER.format(zonedDateTime));
 		returnMap.put(TIME, TIME_FORMATTER.format(zonedDateTime));
+		returnMap.put(HOUR, HOUR_FORMATTER.format(zonedDateTime));
+		returnMap.put(MINUTE, MINUTE_FORMATTER.format(zonedDateTime));
 		return returnMap;
 	}
 

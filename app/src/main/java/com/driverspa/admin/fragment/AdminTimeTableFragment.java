@@ -180,7 +180,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	TextView titleView;
 
 	boolean loading = false;
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.of("UTC"));
 
 	private Handler handler;
 	long lastUpdateTime = System.currentTimeMillis();
@@ -522,9 +522,10 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						for(int k = 0; k < gridBooks.size(); k++){
 							//More than 0 books at the grid
 							BookInfo gridBook = gridBooks.get(k);
-							if(gridBook.getBoxId() != null && boxId != null && gridBook.getBoxId().equals(boxId)) {
-								ZonedDateTime gridBookTime = gridBook.getTime().atZone(ZoneId.systemDefault());
-								int hour = gridBookTime.getHour();
+					if(gridBook.getBoxId() != null && boxId != null && gridBook.getBoxId().equals(boxId)) {
+						// Backend times (Instant) are in UTC; convert to system zone for display
+						ZonedDateTime gridBookTime = gridBook.getTime().atZone(ZoneId.of("UTC"));
+						int hour = gridBookTime.getHour();
 								int minute = gridBookTime.getMinute();
 								HashMap<String, String> gridBookMap = new HashMap<String, String>();
 								gridBookMap.put(GRID_ID, Integer.toString(time));
@@ -539,11 +540,12 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								if(selectedDay.equals(TODAY) && time < todayStartTime){
 									gridBookMap.put(GRID_EXPIRED, Boolean.TRUE.toString());
 								}
-								gridList.add(gridBookMap);
-								gridIndex++;
-								ZonedDateTime gridEndBookTime = gridBook.getEndTime().atZone(ZoneId.systemDefault());
-								int endHour = gridEndBookTime.getHour();
-								int endMinute = gridEndBookTime.getMinute();
+						gridList.add(gridBookMap);
+						gridIndex++;
+						// Backend times (Instant) are in UTC; convert to system zone for display
+						ZonedDateTime gridEndBookTime = gridBook.getEndTime().atZone(ZoneId.of("UTC"));
+						int endHour = gridEndBookTime.getHour();
+						int endMinute = gridEndBookTime.getMinute();
 
 								while (endHour * 60 + endMinute > time+currentTimeInterval && bookingGridObjects.get(time+currentTimeInterval) == null) {
 									time += currentTimeInterval;
@@ -952,7 +954,8 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							&& !book.getStatus().equals(CANCELED)
 							&& !book.getStatus().equals(QUEUED_REJECTED))
 					.forEach(book -> {
-						ZonedDateTime bookTime = book.getTime().atZone(ZoneId.systemDefault());
+						// Backend times (Instant) are in UTC; convert to system zone for display
+						ZonedDateTime bookTime = book.getTime().atZone(ZoneId.of("UTC"));
 						int hour = bookTime.getHour();
 						int minute = bookTime.getMinute();
 						int gridTime = hour * 60 + (minute < 30 ? 0 : 30);
