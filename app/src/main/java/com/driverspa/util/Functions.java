@@ -45,6 +45,7 @@ public class Functions {
 
 	private static final String PREF = "JewUPPPref";
 	private static final ZoneId SYSTEM_ZONE = ZoneId.systemDefault();
+	private static final ZoneId UTC_ZONE = ZoneId.of("UTC");
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 	public static final String DATE = "DATE";
@@ -296,7 +297,8 @@ public class Functions {
 			return returnMap;
 		}
 
-		ZonedDateTime zonedDateTime = instant.atZone(SYSTEM_ZONE);
+		// Backend instants are treated as UTC source values; keep UTC for consistent UI rendering.
+		ZonedDateTime zonedDateTime = instant.atZone(UTC_ZONE);
 		returnMap.put(DATE, DATE_FORMATTER.format(zonedDateTime));
 		returnMap.put(TIME, TIME_FORMATTER.format(zonedDateTime));
 		return returnMap;

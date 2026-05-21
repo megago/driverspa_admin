@@ -312,10 +312,6 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 							fadeIn.setDuration(700);
 							parentView.setHasTransientState(false);
 							final AnimatorSet mAnimationSet = new AnimatorSet();
-		//				Random rn = new Random();
-		//				int min = 0, max = 100;
-		//				int startDelay = rn.nextInt(max - min + 1) + min;
-		//				mAnimationSet.setStartDelay(startDelay);
 
 							mAnimationSet.play(fadeIn).after(fadeOut);
 							mAnimationSet.addListener(new AnimatorListenerAdapter() {
@@ -334,15 +330,9 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 							mAnimationSet.start();
 						  }
 
-//							if(bookInfo.getStatus().equals(Constants.APPROVED) && bookInfo.getServerTime().getTime() > bookInfo.getEndTime().getTime()){
-//								bookStatus.setText("К завершению");
-//							}
 						}
 						else {
 							parentView.setSelected(false);
-							//make it transparent and remove this id from push data
-		//			holder.parentView.setBackgroundColor(Color.TRANSPARENT);
-		//			BA.getEventBus().post(new RemoveBookingPushRequestEvent(new PushData(item.getId())));
 						}
 			}
 			else{
