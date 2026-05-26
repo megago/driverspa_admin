@@ -23,8 +23,8 @@
 
 	<color name="actionbar_color">#85c4ec</color>
 
-	<color name="tab_selected">#1F2332</color>
-	<color name="tab_inactive">#1A2332</color>
+	<color name="tab_selected">#FFFFFF</color>
+	<color name="tab_inactive">#7C8DA3</color>
 
 	<color name="background_main">#1A2332</color>
 	<color name="spinner_popup_background">#1A2332</color>
