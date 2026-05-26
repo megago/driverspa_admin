@@ -300,6 +300,7 @@
                         android:layout_height="@dimen/home_menu_height"
                         android:layout_gravity="bottom"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:background="#091e38">
 
                         <RelativeLayout
