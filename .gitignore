@@ -13,3 +13,13 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Gradle build outputs from sub-modules (root /build is already ignored above)
+**/build/
+
+# Build log scratch files
+/build_*.log
+/build_*.txt
+
+# Claude Code local config
+.claude/

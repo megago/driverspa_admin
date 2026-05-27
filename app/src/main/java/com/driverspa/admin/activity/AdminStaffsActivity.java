@@ -80,11 +80,11 @@ public class AdminStaffsActivity extends AdminBaseActivity {
 
     @OnClick(R.id.working)
 	public void onWorkingClicked(){
-		if(staffs != null && adapter != null && adapter.getCount() > 0) {
-			adapter.getFilter().filter(Constants.WORKS);
-			working.setSelected(true);
-			resigned.setSelected(false);
-		}
+		adapter.getFilter().filter(Constants.WORKS);
+		working.setSelected(true);
+		resigned.setSelected(false);
+//		if(staffs != null && adapter != null && adapter.getCount() > 0) {
+//		}
 	}
 
     @OnClick(R.id.resigned)

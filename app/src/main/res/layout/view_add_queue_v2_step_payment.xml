@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="16dp">
+
+    <!-- "Already paid" toggle -->
+    <LinearLayout
+        android:id="@+id/paidLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_v2_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/paid_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Клиент уже оплатил"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <CheckBox
+            android:id="@+id/paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/background_checkbox"
+            android:checked="false"
+            android:padding="0dp" />
+    </LinearLayout>
+
+    <!-- Hidden legacy nocash, kept for activity bindings -->
+    <LinearLayout
+        android:id="@+id/nocashLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/nocashText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Оплата по карте" />
+
+        <CheckBox
+            android:id="@+id/nocash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/background_checkbox"
+            android:checked="false" />
+    </LinearLayout>
+
+    <!-- extraLayout: discount + payment + comment (collapsible block kept from original) -->
+    <LinearLayout
+        android:id="@+id/extraLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <!-- Discount card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_v2_card"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Скидка"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/discount"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_v2_field"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/White"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal" />
+
+            <EditText
+                android:id="@+id/discountAmount"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_v2_field"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="5"
+                android:maxLines="1"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/White"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone" />
+
+            <com.driverspa.view.NDSpinner
+                android:id="@+id/discountSpinner"
+                android:theme="@style/SpinnerThemeOverlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:drawSelectorOnTop="true"
+                android:gravity="center"
+                android:popupBackground="@color/spinner_popup_background"
+                android:spinnerMode="dropdown"
+                android:textColor="@drawable/button_state_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Payment method card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_v2_card"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Оплата"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <!-- Method chips (horizontally scrollable so they never overflow) -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/paymentMethodChips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chipCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_v2_chip"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Наличные"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/chipCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_v2_chip"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Карта"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/chipBonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_v2_chip"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Бонусы"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/chipDeposit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_v2_chip"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Перечисление"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/chipSplit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_v2_chip"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Разделить"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Single amount field (default) -->
+        <LinearLayout
+            android:id="@+id/singleAmountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сумма"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_small" />
+
+            <EditText
+                android:id="@+id/singleAmount"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_v2_field"
+                android:gravity="end"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="7"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/White"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="₸"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+        </LinearLayout>
+
+        <!-- Split (advanced) payment breakdown -->
+        <LinearLayout
+            android:id="@+id/splitAmountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Наличные"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_small" />
+
+                <EditText
+                    android:id="@+id/cashAmount"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_v2_field"
+                    android:gravity="end"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:maxLines="1"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="12dp"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Карта"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_small" />
+
+                <EditText
+                    android:id="@+id/cardAmount"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_v2_field"
+                    android:gravity="end"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:maxLines="1"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="12dp"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Бонусы"
+                        android:textColor="@color/BlueLight"
+                        android:textSize="@dimen/text_small" />
+                    <TextView
+                        android:id="@+id/clientBonusAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="из 0 ₸"
+                        android:textColor="@color/BlueLight2"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/bonusAmount"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_v2_field"
+                    android:gravity="end"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:maxLines="1"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="12dp"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Перечисление"
+                        android:textColor="@color/BlueLight"
+                        android:textSize="@dimen/text_small" />
+                    <TextView
+                        android:id="@+id/clientDepositAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="из 0 ₸"
+                        android:textColor="@color/BlueLight2"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/depositAmount"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_v2_field"
+                    android:gravity="end"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:maxLines="1"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="12dp"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/White"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Comment card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_v2_card"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Комментарий"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_v2_field"
+            android:hint="напр. оставить ключи у мойщика"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="2"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/White"
+            android:textColorHint="@color/BlueLight"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    </LinearLayout>
+    <!-- /extraLayout -->
+
+</LinearLayout>

@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="16dp">
+
+    <!-- Quick search card -->
+    <LinearLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_v2_field"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_search" />
+
+        <com.driverspa.view.DelayAutoCompleteTextView
+            android:id="@+id/searchField"
+            style="@style/EditText.Transparent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Поиск по номеру / клиенту"
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/White"
+            android:textColorHint="@color/BlueLight"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+
+        <ProgressBar
+            android:id="@+id/search_progress_bar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/selectedClientInformationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_v2_card_accent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="4dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/selectedClientInformationText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Арман, Тойота 573FRA13"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:id="@+id/closeClient"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_close_white_24dp" />
+    </LinearLayout>
+
+    <!-- clientInformationsLayout: plate, brand, client name, phone -->
+    <LinearLayout
+        android:id="@+id/clientInformationsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- PLATE — primary field, hero-style -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Гос. номер авто *"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_smaller" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+
+            <com.driverspa.view.DelayAutoCompleteTextView
+                android:id="@+id/carNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_v2_plate"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:hint="A 000 AAA"
+                android:imeOptions="flagNoExtractUi|actionNext"
+                android:inputType="textCapCharacters"
+                android:lines="1"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="48dp"
+                android:paddingRight="48dp"
+                android:textColor="#0A1428"
+                android:textColorHint="#807C8DA3"
+                android:textCursorDrawable="@null"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/plateDetection"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end|center_vertical"
+                android:padding="12dp"
+                android:src="@drawable/ic_text_detection_camera"
+                android:contentDescription="Сканировать номер" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="14dp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- Car brand -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Марка автомобиля"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_smaller" />
+
+        <EditText
+            android:id="@+id/carMark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_v2_field"
+            android:hint="напр. Toyota Camry"
+            android:imeOptions="actionNext"
+            android:inputType="textAutoComplete|textCapWords"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/White"
+            android:textColorHint="@color/BlueLight"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+
+        <!-- Client section header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Клиент"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Имя клиента"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_smaller" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_v2_field"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <EditText
+                android:id="@+id/clientName"
+                style="@style/EditText.Transparent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Имя клиента"
+                android:imeOptions="actionNext"
+                android:inputType="textAutoComplete|textCapWords"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textColor="@color/White"
+                android:textColorHint="@color/BlueLight"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_small" />
+
+            <LinearLayout
+                android:id="@+id/client_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_add_circle_outline_white_18dp" />
+
+                <TextView
+                    android:id="@+id/clients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:text="клиенты"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Телефон"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_smaller" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_v2_field"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:text="+7"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/phone"
+                style="@style/EditText.Transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="(___) ___ __-__"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="4dp"
+                android:textColor="@color/White"
+                android:textColorHint="@color/BlueLight"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtBookTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_v2_card_accent"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Бронь на 08:00"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- carTypesLayout: type selector -->
+    <LinearLayout
+        android:id="@+id/carTypesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Тип авто"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnMini"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView112"
+                        android:layout_width="48dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_crossover" />
+                    <TextView
+                        android:id="@+id/textView111"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Мини"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnSedan"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="52dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_sedan" />
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Седан"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnUniversal"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView114"
+                        android:layout_width="56dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_crossover" />
+                    <TextView
+                        android:id="@+id/textView115"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Универсал"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnCrossover"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="56dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_crossover" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Кроссовер"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnMiniJeep"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView44"
+                        android:layout_width="54dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_jeep" />
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Мини джип"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnBigJeep"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="56dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_jeep" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Джип"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnMoto"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView33"
+                        android:layout_width="50dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_moto" />
+                    <TextView
+                        android:id="@+id/textView99"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Мотоцикл"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnMinivan"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView36"
+                        android:layout_width="54dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_minbus" />
+                    <TextView
+                        android:id="@+id/textView999"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Минивэн"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnMinbus"
+                    android:layout_width="84dp"
+                    android:layout_height="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_v2_car_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="56dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/background_button_minbus" />
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Микроавтобус"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_smaller" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+</LinearLayout>

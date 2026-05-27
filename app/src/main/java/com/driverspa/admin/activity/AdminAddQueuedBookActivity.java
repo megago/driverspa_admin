@@ -221,6 +221,33 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     TextView clientDepositAmount;
     @BindView(R.id.txtPriceDifference)
     TextView txtPriceDifference;
+
+    // --- Wizard widgets (not bound via ButterKnife since they're optional in older layouts) ---
+    private Button btnBack, btnNext;
+    private View stepHeader1, stepHeader2, stepHeader3;
+    private View stepDot1, stepDot2, stepDot3;
+    private TextView stepLabel1, stepLabel2, stepLabel3;
+    private View stepConnector12, stepConnector23;
+    private View stepCarHost, stepServicesHost, stepPaymentHost;
+    private View singleAmountLayout, splitAmountLayout;
+    private EditText singleAmount;
+    private View chipCash, chipCard, chipBonus, chipDeposit, chipSplit;
+
+    private static final int STEP_CAR = 0;
+    private static final int STEP_SERVICES = 1;
+    private static final int STEP_PAYMENT = 2;
+
+    private static final int MODE_BOX = 0;
+    private static final int MODE_QUEUE = 1;
+    private static final int MODE_OTHER = 2;
+
+    private int currentStep = STEP_CAR;
+    private int wizardMode = MODE_BOX;
+    /** 0=cash, 1=card, 2=bonus, 3=deposit, -1=split (advanced layout) */
+    private int currentPaymentField = 0;
+    /** Guards mirroring between singleAmount and the four backing fields. */
+    private boolean amountSyncing = false;
+
     private StaffGridAdapter staffGridAdapter;
     BookingRequest request;
 
@@ -272,6 +299,274 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         });
 
         prepareInitialViews();
+        setupWizard();
+    }
+
+    // -------------------------------------------------------------------------
+    // Wizard (3-step flow): Авто → Услуги → Оплата
+    // -------------------------------------------------------------------------
+
+    private void setupWizard() {
+        btnBack = findViewById(R.id.btnBack);
+        btnNext = findViewById(R.id.btnNext);
+        stepHeader1 = findViewById(R.id.stepHeader1);
+        stepHeader2 = findViewById(R.id.stepHeader2);
+        stepHeader3 = findViewById(R.id.stepHeader3);
+        stepDot1 = findViewById(R.id.stepDot1);
+        stepDot2 = findViewById(R.id.stepDot2);
+        stepDot3 = findViewById(R.id.stepDot3);
+        stepLabel1 = findViewById(R.id.stepLabel1);
+        stepLabel2 = findViewById(R.id.stepLabel2);
+        stepLabel3 = findViewById(R.id.stepLabel3);
+        stepConnector12 = findViewById(R.id.stepConnector12);
+        stepConnector23 = findViewById(R.id.stepConnector23);
+        stepCarHost = findViewById(R.id.stepCarHost);
+        stepServicesHost = findViewById(R.id.stepServicesHost);
+        stepPaymentHost = findViewById(R.id.stepPaymentHost);
+        singleAmountLayout = findViewById(R.id.singleAmountLayout);
+        splitAmountLayout = findViewById(R.id.splitAmountLayout);
+        singleAmount = findViewById(R.id.singleAmount);
+        chipCash = findViewById(R.id.chipCash);
+        chipCard = findViewById(R.id.chipCard);
+        chipBonus = findViewById(R.id.chipBonus);
+        chipDeposit = findViewById(R.id.chipDeposit);
+        chipSplit = findViewById(R.id.chipSplit);
+
+        if (btnBack != null) {
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { onWizardBack(); }
+            });
+        }
+        if (btnNext != null) {
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { onWizardNext(); }
+            });
+        }
+        if (stepHeader1 != null) {
+            stepHeader1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { if (isStepAllowed(STEP_CAR)) showStep(STEP_CAR); }
+            });
+        }
+        if (stepHeader2 != null) {
+            stepHeader2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { if (isStepAllowed(STEP_SERVICES)) showStep(STEP_SERVICES); }
+            });
+        }
+        if (stepHeader3 != null) {
+            stepHeader3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { if (isStepAllowed(STEP_PAYMENT)) showStep(STEP_PAYMENT); }
+            });
+        }
+
+        setupPaymentChips();
+
+        wizardMode = MODE_BOX;
+        applyStepVisibilityForMode();
+        showStep(STEP_CAR);
+    }
+
+    private void setupPaymentChips() {
+        View.OnClickListener chipListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                if (id == R.id.chipCash) selectPaymentChip(0);
+                else if (id == R.id.chipCard) selectPaymentChip(1);
+                else if (id == R.id.chipBonus) selectPaymentChip(2);
+                else if (id == R.id.chipDeposit) selectPaymentChip(3);
+                else if (id == R.id.chipSplit) selectPaymentChip(-1);
+            }
+        };
+        if (chipCash != null) chipCash.setOnClickListener(chipListener);
+        if (chipCard != null) chipCard.setOnClickListener(chipListener);
+        if (chipBonus != null) chipBonus.setOnClickListener(chipListener);
+        if (chipDeposit != null) chipDeposit.setOnClickListener(chipListener);
+        if (chipSplit != null) chipSplit.setOnClickListener(chipListener);
+
+        if (singleAmount != null) {
+            singleAmount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (amountSyncing) return;
+                    String v = s.toString();
+                    if (v.length() == 0) v = "0";
+                    mirrorSingleAmount(v);
+                }
+            });
+        }
+        // Initial state: cash chip visually selected but do NOT mirror into
+        // cashAmount — the existing TextWatcher would dereference finalPrice
+        // which is null before a service is picked, causing a startup NPE.
+        selectPaymentChip(0, false);
+    }
+
+    /**
+     * Routes the value entered in the single "Сумма" field into the underlying
+     * cash/card/bonus/deposit EditTexts that the existing price-calculation code
+     * already watches.
+     */
+    private void mirrorSingleAmount(String value) {
+        // The four amount fields are watched by calculatePaymentTypesTransactionAmount,
+        // which dereferences finalPrice. Skip until a service has been selected and
+        // finalPrice is populated, otherwise setText would trigger an NPE.
+        if (finalPrice == null) return;
+        amountSyncing = true;
+        try {
+            if (cashAmount != null) cashAmount.setText(currentPaymentField == 0 ? value : "0");
+            if (cardAmount != null) cardAmount.setText(currentPaymentField == 1 ? value : "0");
+            if (bonusAmount != null) bonusAmount.setText(currentPaymentField == 2 ? value : "0");
+            if (depositAmount != null) depositAmount.setText(currentPaymentField == 3 ? value : "0");
+        } finally {
+            amountSyncing = false;
+        }
+    }
+
+    private void selectPaymentChip(int idx) {
+        selectPaymentChip(idx, true);
+    }
+
+    /**
+     * @param syncAmounts when false, only updates visual chip state and does
+     *                    not touch the underlying cash/card/bonus/deposit
+     *                    EditTexts. Used at init time, before the price-calc
+     *                    watchers are safe to fire.
+     */
+    private void selectPaymentChip(int idx, boolean syncAmounts) {
+        currentPaymentField = idx;
+        if (chipCash != null) chipCash.setSelected(idx == 0);
+        if (chipCard != null) chipCard.setSelected(idx == 1);
+        if (chipBonus != null) chipBonus.setSelected(idx == 2);
+        if (chipDeposit != null) chipDeposit.setSelected(idx == 3);
+        if (chipSplit != null) chipSplit.setSelected(idx == -1);
+
+        boolean split = (idx == -1);
+        if (singleAmountLayout != null) singleAmountLayout.setVisibility(split ? View.GONE : View.VISIBLE);
+        if (splitAmountLayout != null) splitAmountLayout.setVisibility(split ? View.VISIBLE : View.GONE);
+
+        if (syncAmounts && !split && singleAmount != null) {
+            String v = singleAmount.getText() != null ? singleAmount.getText().toString() : "0";
+            if (v.length() == 0) v = "0";
+            mirrorSingleAmount(v);
+        }
+    }
+
+    private void onWizardNext() {
+        int next = nextAllowedStep(currentStep);
+        if (next == currentStep) {
+            // Already on the last allowed step — treat as submit.
+            triggerFinishAction();
+            return;
+        }
+        showStep(next);
+    }
+
+    private void onWizardBack() {
+        int prev = previousAllowedStep(currentStep);
+        if (prev == currentStep) {
+            // Already on the first allowed step — close.
+            onBackPressed();
+            return;
+        }
+        showStep(prev);
+    }
+
+    private void triggerFinishAction() {
+        if (wizardMode == MODE_QUEUE) {
+            if (buttonQueue != null) buttonQueue.performClick();
+        } else {
+            if (buttonBook != null) buttonBook.performClick();
+        }
+    }
+
+    private boolean isStepAllowed(int step) {
+        if (wizardMode == MODE_QUEUE) return step == STEP_CAR;
+        if (wizardMode == MODE_OTHER) return step != STEP_CAR;
+        return true;
+    }
+
+    private int nextAllowedStep(int from) {
+        for (int s = from + 1; s <= STEP_PAYMENT; s++) {
+            if (isStepAllowed(s)) return s;
+        }
+        return from;
+    }
+
+    private int previousAllowedStep(int from) {
+        for (int s = from - 1; s >= STEP_CAR; s--) {
+            if (isStepAllowed(s)) return s;
+        }
+        return from;
+    }
+
+    private void showStep(int step) {
+        if (!isStepAllowed(step)) step = nextAllowedStep(STEP_CAR - 1);
+        currentStep = step;
+
+        if (stepCarHost != null) stepCarHost.setVisibility(step == STEP_CAR ? View.VISIBLE : View.GONE);
+        if (stepServicesHost != null) stepServicesHost.setVisibility(step == STEP_SERVICES ? View.VISIBLE : View.GONE);
+        if (stepPaymentHost != null) stepPaymentHost.setVisibility(step == STEP_PAYMENT ? View.VISIBLE : View.GONE);
+
+        applyHeaderState(stepDot1, stepLabel1, isStepAllowed(STEP_CAR), step == STEP_CAR);
+        applyHeaderState(stepDot2, stepLabel2, isStepAllowed(STEP_SERVICES), step == STEP_SERVICES);
+        applyHeaderState(stepDot3, stepLabel3, isStepAllowed(STEP_PAYMENT), step == STEP_PAYMENT);
+
+        boolean isLast = (nextAllowedStep(step) == step);
+        if (btnNext != null) btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
+        if (buttonBook != null) {
+            buttonBook.setVisibility(isLast && wizardMode != MODE_QUEUE ? View.VISIBLE : View.GONE);
+        }
+        if (buttonQueue != null) {
+            buttonQueue.setVisibility(isLast && wizardMode == MODE_QUEUE ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void applyHeaderState(View dot, TextView label, boolean enabled, boolean selected) {
+        if (dot != null) {
+            dot.setActivated(enabled && !selected);
+            dot.setSelected(selected);
+            dot.setAlpha(enabled ? 1f : 0.35f);
+        }
+        if (label != null) {
+            label.setAlpha(enabled ? 1f : 0.35f);
+            if (selected) {
+                label.setTextColor(getResources().getColor(R.color.White));
+                label.setTypeface(label.getTypeface(), android.graphics.Typeface.BOLD);
+            } else {
+                label.setTextColor(getResources().getColor(R.color.BlueLight));
+                label.setTypeface(android.graphics.Typeface.DEFAULT);
+            }
+        }
+    }
+
+    private void applyStepVisibilityForMode() {
+        // Hide indicator headers for steps that aren't part of the current mode.
+        if (stepHeader1 != null) stepHeader1.setVisibility(isStepAllowed(STEP_CAR) ? View.VISIBLE : View.GONE);
+        if (stepHeader2 != null) stepHeader2.setVisibility(isStepAllowed(STEP_SERVICES) ? View.VISIBLE : View.GONE);
+        if (stepHeader3 != null) stepHeader3.setVisibility(isStepAllowed(STEP_PAYMENT) ? View.VISIBLE : View.GONE);
+        if (stepConnector12 != null) {
+            stepConnector12.setVisibility(
+                    isStepAllowed(STEP_CAR) && isStepAllowed(STEP_SERVICES) ? View.VISIBLE : View.GONE);
+        }
+        if (stepConnector23 != null) {
+            stepConnector23.setVisibility(
+                    isStepAllowed(STEP_SERVICES) && isStepAllowed(STEP_PAYMENT) ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void setWizardMode(int mode) {
+        wizardMode = mode;
+        applyStepVisibilityForMode();
+        int firstStep = nextAllowedStep(STEP_CAR - 1);
+        showStep(firstStep);
     }
 
     @Override
@@ -318,6 +613,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         selectedClient = null;
         createService(selectedCarType.getValue());
         buttonBook.setText("Отправить в бокс");
+        setWizardMode(MODE_BOX);
     }
 
 
@@ -342,6 +638,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         detailLayout.setVisibility(View.VISIBLE);
         titleView.setText("Другие услуги");
         buttonBook.setText("Заказать");
+        setWizardMode(MODE_OTHER);
     }
 
     @OnClick(R.id.toQueue)
@@ -361,6 +658,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         carTypesLayout.setVisibility(View.VISIBLE);
         clientInformationsLayout.setVisibility(View.VISIBLE);
         selectedClientInformationLayout.setVisibility(View.GONE);
+        setWizardMode(MODE_QUEUE);
     }
 
     @Override
