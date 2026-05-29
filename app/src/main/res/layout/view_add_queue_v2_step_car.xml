@@ -115,7 +115,7 @@
                 android:background="@drawable/bg_v2_plate"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:hint="A 000 AAA"
+                android:hint="000AAA00"
                 android:imeOptions="flagNoExtractUi|actionNext"
                 android:inputType="textCapCharacters"
                 android:lines="1"
