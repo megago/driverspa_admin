@@ -91,12 +91,10 @@ public class GroupServicePriceAdapter extends BaseExpandableListAdapter {
 
 			}
 		});
-		edit.setPaintFlags(edit.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		ReversePrices item = servicePriceExpandableList.get(groupPosition).getPrices().get(childPosition);
 
-		itemName.setText(" - "+allCarTypes.get(item.getCarType()));
-//        itemValue.setText("Цена: "+item.getPrice()+ " ₸ Время: "+item.getTime() +" мин.");
-		itemValue.setText(item.getPrice()+ " ₸    "+item.getTime() +" мин.");
+		itemName.setText(allCarTypes.get(item.getCarType()));
+		itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +" мин");
 
 		return convertView;
 	}

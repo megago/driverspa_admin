@@ -74,12 +74,10 @@ public class ServicePriceExpandableListAdapter extends BaseExpandableListAdapter
 
             }
         });
-        edit.setPaintFlags(edit.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         ReversePrices item = servicePriceExpandableList.get(groupPosition).getPricesWithCarType().get(childPosition);
 
-        itemName.setText(" - "+item.getCarTypeName());
-//        itemValue.setText("Цена: "+item.getPrice()+ " ₸ Время: "+item.getTime() +" мин.");
-        itemValue.setText(item.getPrice()+ " ₸    "+item.getTime() +" мин.");
+        itemName.setText(item.getCarTypeName());
+        itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +" мин");
 
         return convertView;
     }
@@ -126,14 +124,14 @@ public class ServicePriceExpandableListAdapter extends BaseExpandableListAdapter
 
         if(item.getPricesWithCarType() != null && item.getPricesWithCarType().size() > 0){
             checkBox.setVisibility(View.VISIBLE);
-            detail.setVisibility(View.GONE);
-//            detail.setText(item.getPricesWithCarType().size() + " типа машин");
-            detail.setText("Детали");
-            detail.setPaintFlags(detail.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            detail.setVisibility(View.VISIBLE);
+            int configured = item.getPricesWithCarType().size();
+            detail.setText("Настроено " + configured + " " + (configured == 1 ? "тип" : (configured < 5 ? "типа" : "типов")) + " авто");
         }
         else {
             checkBox.setVisibility(View.GONE);
-            detail.setVisibility(View.GONE);
+            detail.setVisibility(View.VISIBLE);
+            detail.setText("Цены не заданы");
         }
 
         return convertView;

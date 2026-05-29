@@ -7,155 +7,180 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_v2_card"
         android:orientation="vertical">
 
+        <!-- Toggle row -->
         <LinearLayout
             android:id="@+id/descLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/horizontal_margin"
-            android:paddingRight="@dimen/horizontal_margin"
-            android:background="@drawable/background_list_item"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="56dp"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/vertical_margin_third">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:text="Легковая"
+                android:textColor="@color/White"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_normal" />
 
-                <TextView
-                    android:id="@+id/desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Легковая"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/BlueLight"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/text_normal" />
-
-                <TextView
-                    android:id="@+id/detail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtLayout"
-                    android:layout_weight="0.6"
-                    android:gravity="left"
-                    android:text="Показать цены"
-                    android:textColor="@color/White"
-                    android:textSize="@dimen/text_smaller"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                android:text="Показать цены"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_smaller"
+                android:visibility="gone" />
 
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/horizontal_margin"
-                android:layout_marginRight="@dimen/horizontal_margin_half">
+                android:layout_width="28dp"
+                android:layout_height="28dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_checkmark_off" />
+                    android:background="@drawable/bg_v2_check_circle" />
+
                 <ImageView
                     android:id="@+id/checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/background_list_item_checkmark" />
+                    android:background="@drawable/bg_v2_check_circle_filled"
+                    android:padding="3dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_checkmark" />
             </FrameLayout>
-
-
         </LinearLayout>
 
+        <!-- Price + duration inputs (visible when checked) -->
         <LinearLayout
             android:id="@+id/priceLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/vertical_margin_third"
-            android:paddingLeft="@dimen/horizontal_margin"
-            android:paddingRight="@dimen/horizontal_margin"
-            android:background="@color/BlackTransparent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="14dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Цена pill -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|left"
-                android:layout_marginLeft="@dimen/horizontal_margin"
-                android:layout_marginRight="@dimen/horizontal_margin_third"
-                android:text="Цена"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/White" />
-            <EditText
-                android:id="@+id/priceItem"
-                style="@style/EditText.Transparent.WhiteBorder"
-                android:layout_width="@dimen/price_width"
-                android:layout_height="@dimen/price_height"
-                android:layout_marginTop="@dimen/vertical_margin_third"
-                android:inputType="number"
-                android:gravity="bottom|left"
-                android:singleLine="true"
-                android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_small"></EditText>
+                android:layout_weight="1"
+                android:background="@drawable/bg_v2_field"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Цена"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_smaller" />
+
+                <EditText
+                    android:id="@+id/priceItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="end|center_vertical"
+                    android:hint="0"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:minHeight="44dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="₸"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="1dp" />
+
+            <!-- Время pill -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|left"
-                android:layout_marginLeft="@dimen/horizontal_margin_third"
-                android:text="₸"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/White" />
+                android:layout_weight="1"
+                android:background="@drawable/bg_v2_field"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|left"
-                android:layout_marginLeft="@dimen/horizontal_margin"
-                android:layout_marginRight="@dimen/horizontal_margin_third"
-                android:text="Время"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/White" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Время"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_smaller" />
 
+                <EditText
+                    android:id="@+id/timeItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="end|center_vertical"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:minHeight="44dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/timeItem"
-                style="@style/EditText.Transparent.WhiteBorder"
-                android:layout_width="@dimen/price_width"
-                android:layout_height="@dimen/price_height"
-                android:layout_marginTop="@dimen/vertical_margin_third"
-                android:inputType="number"
-                android:singleLine="true"
-                android:gravity="bottom|left"
-                android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_small"></EditText>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|left"
-                android:layout_marginLeft="@dimen/horizontal_margin_third"
-                android:text="мин."
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/White" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="мин"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_below="@id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/list_divider"></FrameLayout>
 
 </RelativeLayout>

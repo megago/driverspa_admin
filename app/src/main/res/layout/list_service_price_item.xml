@@ -7,27 +7,35 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:minHeight="44dp"
+        android:orientation="horizontal"
+        android:paddingLeft="32dp"
+        android:paddingRight="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:gravity="left"
-            android:paddingLeft="@dimen/horizontal_margin"
-            android:text=""
-            android:textColor="@color/White"
+            android:layout_weight="1.1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Седан"
+            android:textColor="@color/BlueLight2"
             android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/item_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin_third"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text=""
+            android:layout_weight="1.4"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:text="1500 ₸ · 30 мин"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small" />
 
@@ -35,15 +43,17 @@
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingBottom="2dp"
-            android:paddingLeft="@dimen/vertical_margin"
-            android:paddingRight="@dimen/vertical_margin_third"
-            android:paddingTop="2dp"
+            android:background="@drawable/bg_v2_edit_chip"
+            android:gravity="center"
+            android:minHeight="32dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="Изменить"
+            android:textAllCaps="false"
             android:textColor="@color/White"
-            android:textSize="@dimen/text_small" />
-        <!--</LinearLayout>-->
-
+            android:textSize="@dimen/text_smaller"
+            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>
