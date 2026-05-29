@@ -53,7 +53,7 @@
             android:id="@+id/expandable_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/list_divider"
+            android:divider="#15FFFFFF"
             android:dividerHeight="1dp"
             android:scrollbars="none"
             android:groupIndicator="@null" />
