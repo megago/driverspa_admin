@@ -326,263 +326,265 @@
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
 
-        <HorizontalScrollView
+        <!-- Auto-wrapping flow; items per row adapt to the available width. -->
+        <com.driverspa.view.FlowLayout
+            android:id="@+id/carTypesGrid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fadingEdge="none"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_marginTop="4dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/btnMini"
+                android:layout_width="84dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/btnMini"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView112"
+                    android:layout_width="48dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_crossover" />
+                <TextView
+                    android:id="@+id/textView111"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView112"
-                        android:layout_width="48dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_crossover" />
-                    <TextView
-                        android:id="@+id/textView111"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Мини"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnSedan"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="52dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_sedan" />
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Седан"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnUniversal"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView114"
-                        android:layout_width="56dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_crossover" />
-                    <TextView
-                        android:id="@+id/textView115"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Универсал"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnCrossover"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="56dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_crossover" />
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Кроссовер"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnMiniJeep"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView44"
-                        android:layout_width="54dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_jeep" />
-                    <TextView
-                        android:id="@+id/textView33"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Мини джип"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnBigJeep"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="56dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_jeep" />
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Джип"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnMoto"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView33"
-                        android:layout_width="50dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_moto" />
-                    <TextView
-                        android:id="@+id/textView99"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Мотоцикл"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnMinivan"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView36"
-                        android:layout_width="54dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_minbus" />
-                    <TextView
-                        android:id="@+id/textView999"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Минивэн"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnMinbus"
-                    android:layout_width="84dp"
-                    android:layout_height="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_v2_car_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="6dp">
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="56dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/background_button_minbus" />
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_marginTop="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Микроавтобус"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/text_smaller" />
-                </LinearLayout>
+                    android:text="Мини"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
             </LinearLayout>
-        </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/btnSedan"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="52dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_sedan" />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Седан"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnUniversal"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView114"
+                    android:layout_width="56dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_crossover" />
+                <TextView
+                    android:id="@+id/textView115"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Универсал"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnCrossover"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="56dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_crossover" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Кроссовер"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMiniJeep"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView44"
+                    android:layout_width="54dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_jeep" />
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Мини джип"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnBigJeep"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="56dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_jeep" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Джип"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMoto"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView33"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_moto" />
+                <TextView
+                    android:id="@+id/textView99"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Мотоцикл"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMinivan"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView36"
+                    android:layout_width="54dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_minbus" />
+                <TextView
+                    android:id="@+id/textView999"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Минивэн"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMinbus"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_v2_car_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="92dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="56dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/background_button_minbus" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Микроавтобус"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_smaller" />
+            </LinearLayout>
+        </com.driverspa.view.FlowLayout>
     </LinearLayout>
 
 </LinearLayout>
