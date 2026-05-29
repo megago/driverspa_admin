@@ -100,6 +100,13 @@ public class AdminGroupServicePriceFragment extends AdminBaseFragment {
                             groupMenuList.add(menu);
                         }
                     }
+                    // Configured (priced) groups first, original order preserved.
+                    groupMenuList.sort((a, b) -> {
+                        boolean aConfigured = a.getPrices() != null && !a.getPrices().isEmpty();
+                        boolean bConfigured = b.getPrices() != null && !b.getPrices().isEmpty();
+                        if (aConfigured == bConfigured) return 0;
+                        return aConfigured ? -1 : 1;
+                    });
 //                    washer.setGroupMenu(groupMenuList);
                     adapter.setData(groupMenuList);
                     listView.setAdapter(adapter);

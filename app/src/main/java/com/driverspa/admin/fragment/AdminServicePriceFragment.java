@@ -123,25 +123,14 @@ public class AdminServicePriceFragment extends AdminBaseFragment {
                     })
                     .collect(Collectors.toList());
 
-//            try {
-//                //Sort services
-//                Collections.sort(servicePriceExpandableList, new Comparator<ServicePriceExpandable>() {
-//                    @Override
-//                    public int compare(ServicePriceExpandable lhs, ServicePriceExpandable rhs) {
-//                        if (lhs.getServiceId() < rhs.getServiceId() ||
-//                                (
-//                                        lhs.getPricesWithCarType() != null && lhs.getPricesWithCarType().size() > 0
-//                                                &&
-//                                                !(rhs.getPricesWithCarType() != null && rhs.getPricesWithCarType().size() > 0)
-//                                )
-//                                )
-//                            return -1;
-//                        else
-//                            return 1;
-//                    }
-//                });
-//            }
-//            catch(Exception e){}
+            // Configured services float to the top; within each group, original
+            // (natural) order is preserved because List.sort is stable.
+            servicePriceExpandableList.sort((a, b) -> {
+                boolean aConfigured = a.getPricesWithCarType() != null && !a.getPricesWithCarType().isEmpty();
+                boolean bConfigured = b.getPricesWithCarType() != null && !b.getPricesWithCarType().isEmpty();
+                if (aConfigured == bConfigured) return 0;
+                return aConfigured ? -1 : 1;
+            });
 
             //create adapter
             adapter = new ServicePriceExpandableListAdapter(getActivity(), servicePriceExpandableList);
