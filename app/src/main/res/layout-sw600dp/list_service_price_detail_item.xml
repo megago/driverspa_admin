@@ -24,10 +24,19 @@
             android:gravity="center_vertical"
             android:minHeight="56dp"
             android:orientation="horizontal"
-            android:paddingLeft="16dp"
+            android:paddingLeft="14dp"
             android:paddingRight="16dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/carTypeIcon"
+                android:layout_width="40dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="12dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="@null" />
 
             <TextView
                 android:id="@+id/desc"

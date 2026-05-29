@@ -11,9 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.driverspa.model.CarType;
 
 import com.driverspa.adapter.PriceDefinitionDetailAdapter;
 import com.splunk.mint.Mint;
@@ -165,12 +168,14 @@ public class AdminServicePriceDetailActivity extends AdminBaseActivity {
 
             View view = LayoutInflater.from(context).inflate(R.layout.list_service_price_detail_item, null, false);
             TextView desc = (TextView) view.findViewById(R.id.desc);
+            ImageView carTypeIcon = (ImageView) view.findViewById(R.id.carTypeIcon);
             final View checkbox = view.findViewById(R.id.checkbox);
             final View descLayout = view.findViewById(R.id.descLayout);
             final View priceLinearLayout = view.findViewById(R.id.priceLayout);
 
             priceLinearLayout.setVisibility(View.GONE);
             desc.setText(carTypeName);
+            carTypeIcon.setImageResource(iconForCarType(carType));
 
             final EditText priceItem = (EditText) view.findViewById(R.id.priceItem);
             final EditText timeItem = (EditText) view.findViewById(R.id.timeItem);
@@ -275,6 +280,27 @@ public class AdminServicePriceDetailActivity extends AdminBaseActivity {
             });
 
             priceLayout.addView(view);
+        }
+    }
+
+    /**
+     * Maps a car-type id to its silhouette drawable. "Other" (shop / misc
+     * services) gets a shopping-bag glyph since it isn't an actual vehicle.
+     */
+    private int iconForCarType(int carTypeId) {
+        CarType type = CarType.toEnum(carTypeId);
+        switch (type) {
+            case Sedan:     return R.drawable.background_button_sedan;
+            case Mini:
+            case Universal:
+            case Crossover: return R.drawable.background_button_crossover;
+            case MiniJeep:
+            case Jeep:      return R.drawable.background_button_jeep;
+            case Moto:      return R.drawable.background_button_moto;
+            case Minivan:
+            case Minibus:   return R.drawable.background_button_minbus;
+            case Other:     return R.drawable.ic_v2_other_service;
+            default:        return R.drawable.background_button_sedan;
         }
     }
 
