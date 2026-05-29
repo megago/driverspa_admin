@@ -200,6 +200,27 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	private FilterableClientsAdapter clientsAdapter;
 	private String queryText = "";
 
+	// --- Wizard widgets (looked up via findViewById; optional in older layouts) ---
+	private android.widget.Button btnBack, btnNext, buttonBook;
+	private View stepHeader1, stepHeader2, stepHeader3;
+	private View stepDot1, stepDot2, stepDot3;
+	private TextView stepLabel1, stepLabel2, stepLabel3;
+	private View stepConnector12, stepConnector23;
+	private View stepCarHost, stepServicesHost, stepPaymentHost;
+	private View singleAmountLayout, splitAmountLayout;
+	private EditText singleAmount;
+	private View chipCash, chipCard, chipBonus, chipDeposit, chipSplit;
+
+	private static final int STEP_CAR = 0;
+	private static final int STEP_SERVICES = 1;
+	private static final int STEP_PAYMENT = 2;
+
+	private int currentStep = STEP_CAR;
+	/** 0=cash, 1=card, 2=bonus, 3=deposit, -1=split (advanced layout) */
+	private int currentPaymentField = 0;
+	/** Guards mirroring between singleAmount and the four backing fields. */
+	private boolean amountSyncing = false;
+
 	@Override
     protected void onCreate(Bundle arg0) {
     	super.onCreate(arg0);
@@ -371,6 +392,198 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		}
 
 		clients.setPaintFlags(clients.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+		setupWizard();
+	}
+
+	// -------------------------------------------------------------------------
+	// Wizard (3-step flow): Авто → Услуги → Оплата
+	// -------------------------------------------------------------------------
+
+	private void setupWizard() {
+		btnBack = findViewById(R.id.btnBack);
+		btnNext = findViewById(R.id.btnNext);
+		buttonBook = findViewById(R.id.btnBook);
+		stepHeader1 = findViewById(R.id.stepHeader1);
+		stepHeader2 = findViewById(R.id.stepHeader2);
+		stepHeader3 = findViewById(R.id.stepHeader3);
+		stepDot1 = findViewById(R.id.stepDot1);
+		stepDot2 = findViewById(R.id.stepDot2);
+		stepDot3 = findViewById(R.id.stepDot3);
+		stepLabel1 = findViewById(R.id.stepLabel1);
+		stepLabel2 = findViewById(R.id.stepLabel2);
+		stepLabel3 = findViewById(R.id.stepLabel3);
+		stepConnector12 = findViewById(R.id.stepConnector12);
+		stepConnector23 = findViewById(R.id.stepConnector23);
+		stepCarHost = findViewById(R.id.stepCarHost);
+		stepServicesHost = findViewById(R.id.stepServicesHost);
+		stepPaymentHost = findViewById(R.id.stepPaymentHost);
+		singleAmountLayout = findViewById(R.id.singleAmountLayout);
+		splitAmountLayout = findViewById(R.id.splitAmountLayout);
+		singleAmount = findViewById(R.id.singleAmount);
+		chipCash = findViewById(R.id.chipCash);
+		chipCard = findViewById(R.id.chipCard);
+		chipBonus = findViewById(R.id.chipBonus);
+		chipDeposit = findViewById(R.id.chipDeposit);
+		chipSplit = findViewById(R.id.chipSplit);
+
+		// Booking is always "paid" (future reservation flow) and the toggle is
+		// hidden — preserve the original behaviour from the old layout.
+		View paidLayout = findViewById(R.id.paidLayout);
+		if (paidLayout != null) paidLayout.setVisibility(View.GONE);
+		if (paid != null) paid.setChecked(true);
+
+		// Booking time slot shown as a banner in the car step.
+		if (txtBookTime != null) txtBookTime.setVisibility(View.VISIBLE);
+
+		if (btnBack != null) {
+			btnBack.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { onWizardBack(); }
+			});
+		}
+		if (btnNext != null) {
+			btnNext.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { onWizardNext(); }
+			});
+		}
+		if (stepHeader1 != null) {
+			stepHeader1.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { showStep(STEP_CAR); }
+			});
+		}
+		if (stepHeader2 != null) {
+			stepHeader2.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { showStep(STEP_SERVICES); }
+			});
+		}
+		if (stepHeader3 != null) {
+			stepHeader3.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { showStep(STEP_PAYMENT); }
+			});
+		}
+
+		setupPaymentChips();
+		showStep(STEP_CAR);
+	}
+
+	private void setupPaymentChips() {
+		View.OnClickListener chipListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int id = v.getId();
+				if (id == R.id.chipCash) selectPaymentChip(0, true);
+				else if (id == R.id.chipCard) selectPaymentChip(1, true);
+				else if (id == R.id.chipBonus) selectPaymentChip(2, true);
+				else if (id == R.id.chipDeposit) selectPaymentChip(3, true);
+				else if (id == R.id.chipSplit) selectPaymentChip(-1, true);
+			}
+		};
+		if (chipCash != null) chipCash.setOnClickListener(chipListener);
+		if (chipCard != null) chipCard.setOnClickListener(chipListener);
+		if (chipBonus != null) chipBonus.setOnClickListener(chipListener);
+		if (chipDeposit != null) chipDeposit.setOnClickListener(chipListener);
+		if (chipSplit != null) chipSplit.setOnClickListener(chipListener);
+
+		if (singleAmount != null) {
+			singleAmount.addTextChangedListener(new TextWatcher() {
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {}
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (amountSyncing) return;
+					String v = s.toString();
+					if (v.length() == 0) v = "0";
+					mirrorSingleAmount(v);
+				}
+			});
+		}
+		// Default to cash visually, without writing amounts (finalPrice is null
+		// until a service is picked — writing would trip the price watchers).
+		selectPaymentChip(0, false);
+	}
+
+	/**
+	 * Routes the value from the single "Сумма" field into the underlying
+	 * cash/card/bonus/deposit EditTexts that the existing price logic watches.
+	 */
+	private void mirrorSingleAmount(String value) {
+		if (finalPrice == null) return;
+		amountSyncing = true;
+		try {
+			if (cashAmount != null) cashAmount.setText(currentPaymentField == 0 ? value : "0");
+			if (cardAmount != null) cardAmount.setText(currentPaymentField == 1 ? value : "0");
+			if (bonusAmount != null) bonusAmount.setText(currentPaymentField == 2 ? value : "0");
+			if (depositAmount != null) depositAmount.setText(currentPaymentField == 3 ? value : "0");
+		} finally {
+			amountSyncing = false;
+		}
+	}
+
+	private void selectPaymentChip(int idx, boolean syncAmounts) {
+		currentPaymentField = idx;
+		if (chipCash != null) chipCash.setSelected(idx == 0);
+		if (chipCard != null) chipCard.setSelected(idx == 1);
+		if (chipBonus != null) chipBonus.setSelected(idx == 2);
+		if (chipDeposit != null) chipDeposit.setSelected(idx == 3);
+		if (chipSplit != null) chipSplit.setSelected(idx == -1);
+
+		boolean split = (idx == -1);
+		if (singleAmountLayout != null) singleAmountLayout.setVisibility(split ? View.GONE : View.VISIBLE);
+		if (splitAmountLayout != null) splitAmountLayout.setVisibility(split ? View.VISIBLE : View.GONE);
+
+		if (syncAmounts && !split && singleAmount != null) {
+			String v = singleAmount.getText() != null ? singleAmount.getText().toString() : "0";
+			if (v.length() == 0) v = "0";
+			mirrorSingleAmount(v);
+		}
+	}
+
+	private void onWizardNext() {
+		if (currentStep < STEP_PAYMENT) showStep(currentStep + 1);
+		else createBookingRequest();
+	}
+
+	private void onWizardBack() {
+		if (currentStep > STEP_CAR) showStep(currentStep - 1);
+		else { finish(); overridePendingTransitionWithCommonCloseTransition(); }
+	}
+
+	private void showStep(int step) {
+		currentStep = step;
+		if (stepCarHost != null) stepCarHost.setVisibility(step == STEP_CAR ? View.VISIBLE : View.GONE);
+		if (stepServicesHost != null) stepServicesHost.setVisibility(step == STEP_SERVICES ? View.VISIBLE : View.GONE);
+		if (stepPaymentHost != null) stepPaymentHost.setVisibility(step == STEP_PAYMENT ? View.VISIBLE : View.GONE);
+
+		applyHeaderState(stepDot1, stepLabel1, step == STEP_CAR);
+		applyHeaderState(stepDot2, stepLabel2, step == STEP_SERVICES);
+		applyHeaderState(stepDot3, stepLabel3, step == STEP_PAYMENT);
+
+		boolean isLast = (step == STEP_PAYMENT);
+		if (btnNext != null) btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
+		if (buttonBook != null) buttonBook.setVisibility(isLast ? View.VISIBLE : View.GONE);
+	}
+
+	private void applyHeaderState(View dot, TextView label, boolean selected) {
+		if (dot != null) {
+			dot.setActivated(!selected);
+			dot.setSelected(selected);
+		}
+		if (label != null) {
+			if (selected) {
+				label.setTextColor(getResources().getColor(R.color.White));
+				label.setTypeface(label.getTypeface(), android.graphics.Typeface.BOLD);
+			} else {
+				label.setTextColor(getResources().getColor(R.color.BlueLight));
+				label.setTypeface(android.graphics.Typeface.DEFAULT);
+			}
+		}
 	}
 
 	protected void calculatePaymentTypesTransactionAmount() {
