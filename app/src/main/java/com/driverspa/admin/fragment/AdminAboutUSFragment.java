@@ -67,7 +67,10 @@ public class AdminAboutUSFragment extends AdminBaseFragment {
             }
         }, "btnPlayMarket");
 
-        webView.loadData(aboutUs, "text/html; charset=utf-8", null);
+        // loadData() ignores the charset and corrupts UTF-8 (Cyrillic) content and
+        // any HTML containing '#'/'%'. loadDataWithBaseURL honors the encoding and
+        // renders the page correctly.
+        webView.loadDataWithBaseURL(null, aboutUs == null ? "" : aboutUs, "text/html", "UTF-8", null);
 
         webView.setWebViewClient(new WebViewClient(){
 
