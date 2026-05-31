@@ -42,6 +42,8 @@ import com.splunk.mint.Mint;
 
 public class CityChooseActivity extends BaseActivity {
 
+    private static final float MAX_CITY_DISTANCE_KM = 100f;
+
     @BindView(R.id.list_view)
     ListView listView;
     CityChooseAdapter adapter;
@@ -153,14 +155,28 @@ public class CityChooseActivity extends BaseActivity {
     public void onLocationResponseReceived(Location location){
       setWaitScreen(false);
       if(location != null){
-         String nearestCity = findNearestCity(location);
-         if(!TextUtils.isEmpty(nearestCity)){
-             myLocationCheckbox.setVisibility(View.VISIBLE);
-             myLocationText.setText(Functions.getCityDescription(nearestCity));
-             selectedCityCode = nearestCity;
-             adapter.setSelectedCityCode(null);
-             adapter.notifyDataSetChanged();
-             UserPreferences.putCityFoundByGPS(BA.getContext(),true);
+         Reference.City nearest = findNearestCity(location);
+         if(nearest != null){
+             float distanceKm = nearest.getDistance(location) / 1000f;
+             if(distanceKm <= MAX_CITY_DISTANCE_KM){
+                 myLocationCheckbox.setVisibility(View.VISIBLE);
+                 myLocationText.setText(Functions.getCityDescription(nearest.getCode()));
+                 selectedCityCode = nearest.getCode();
+                 adapter.setSelectedCityCode(null);
+                 adapter.notifyDataSetChanged();
+                 UserPreferences.putCityFoundByGPS(BA.getContext(),true);
+                 BA.getEventBus().post(new LocationRequestEndEvent());
+                 saveData();
+                 return;
+             }
+             else{
+                 ToastUtil.display(this, "Вы находитесь в " + Math.round(distanceKm)
+                         + " км от ближайшего города (" + Functions.getCityDescription(nearest.getCode())
+                         + "). Выберите город вручную.");
+                 myLocationText.setText("Мое местоположение");
+                 myLocationCheckbox.setVisibility(View.GONE);
+                 UserPreferences.putCityFoundByGPS(BA.getContext(),false);
+             }
          }
           else{
              ToastUtil.display(this,"Не могу определить местоположение");
@@ -178,10 +194,10 @@ public class CityChooseActivity extends BaseActivity {
         BA.getEventBus().post(new LocationRequestEndEvent());
     }
 
-    public static String findNearestCity(final Location currentLoc){
-        String nearestCity = "";
-        final String cityCode = "CODE";
-        final String distance = "DISTANCE";
+    public static Reference.City findNearestCity(final Location currentLoc){
+        if(allCities == null || allCities.isEmpty()){
+            return null;
+        }
 
         List<Reference.City> sortedCities = new ArrayList<Reference.City>(allCities);
         Collections.sort(sortedCities, new Comparator<Reference.City>() {
@@ -195,16 +211,7 @@ public class CityChooseActivity extends BaseActivity {
             }
         });
 
-        if(sortedCities.get(0).getDistance(currentLoc)/1000 < 100){
-            nearestCity = sortedCities.get(0).getCode();
-        }
-
-//        for(Reference.City city: sortedCities){
-//            L.d("city "+city.getCode()+" "+city.getDistance(currentLoc)/1000);
-//        }
-
-
-        return nearestCity;
+        return sortedCities.get(0);
     }
 
     @Override

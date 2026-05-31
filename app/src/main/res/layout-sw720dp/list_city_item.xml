@@ -2,33 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_list_item"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/bg_v2_card_clickable"
+    android:gravity="center_vertical"
+    android:minHeight="54dp"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/vertical_margin_half"
-    android:paddingTop="@dimen/vertical_margin_half">
+    android:paddingLeft="20dp"
+    android:paddingRight="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
-    <!--android:clickable="true"-->
     <TextView
         android:id="@+id/desc"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:paddingLeft="@dimen/horizontal_margin_half"
-        android:text="Оффлайн"
+        android:layout_weight="1"
+        android:text="Город"
         android:textColor="@color/White"
-        android:textColorHint="@color/BlueLight"
         android:textIsSelectable="false"
         android:textSize="@dimen/text_normal" />
 
-    <ImageView
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:src="@drawable/background_list_item_checkmark" />
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp">
 
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_v2_check_circle" />
+
+        <ImageView
+            android:id="@+id/checkbox"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_v2_check_circle_filled"
+            android:padding="3dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_checkmark" />
+    </FrameLayout>
+</LinearLayout>
