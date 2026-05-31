@@ -80,19 +80,21 @@ public class AdminStaffsActivity extends AdminBaseActivity {
 
     @OnClick(R.id.working)
 	public void onWorkingClicked(){
-		adapter.getFilter().filter(Constants.WORKS);
+		selectedTab = 0;
 		working.setSelected(true);
 		resigned.setSelected(false);
-//		if(staffs != null && adapter != null && adapter.getCount() > 0) {
-//		}
+		if(adapter != null) {
+			adapter.getFilter().filter(Constants.WORKS);
+		}
 	}
 
     @OnClick(R.id.resigned)
 	public void onResignedClicked(){
-		if(staffs != null && adapter != null && adapter.getCount() > 0) {
+		selectedTab = 1;
+		working.setSelected(false);
+		resigned.setSelected(true);
+		if(adapter != null) {
 			adapter.getFilter().filter(Constants.RESIGNED);
-			working.setSelected(false);
-			resigned.setSelected(true);
 		}
 	}
 
