@@ -13,20 +13,31 @@
     <RelativeLayout
         android:id="@+id/navigationHeader"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/navigation_top_header">
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/navigation_top_header">
 
         <ImageView
             android:id="@+id/profile_avatar_invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignTop="@+id/headerContent"
+            android:layout_alignBottom="@+id/headerContent"
             android:scaleType="centerCrop"/>
 
         <FrameLayout
             android:id="@+id/fade_for_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignTop="@+id/headerContent"
+            android:layout_alignBottom="@+id/headerContent"
             android:background="@drawable/gradient_bg"
             android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/headerContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/vertical_margin_half">
 
         <ImageView
             android:id="@+id/profile_avatar"
@@ -43,7 +54,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/profile_avatar"
             android:layout_marginTop="@dimen/vertical_margin"
             android:layout_marginBottom="8dp"
@@ -54,8 +65,7 @@
             <TextView
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="название мойки"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_normal"
@@ -64,8 +74,7 @@
             <TextView
                 android:id="@+id/user_role"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="название мойки"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_smaller" />
@@ -95,19 +104,20 @@
             <TextView
                 android:id="@+id/profile_phone"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="+7 777 708 2344"
                 android:textColor="@android:color/white" />
         </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/navigationHeader"
+        android:layout_above="@id/line"
         android:clickable="true"
         android:fitsSystemWindows="true"
         android:focusable="true"
@@ -133,16 +143,14 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="Служба поддержки:"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="@dimen/horizontal_margin_third"
                 android:text="+7 778 373 6069"
