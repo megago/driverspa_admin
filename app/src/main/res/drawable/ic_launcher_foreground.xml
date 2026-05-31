@@ -1,32 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- Water droplets above the car -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M20,57c1.3,-6.8 7.5,-11.7 14.4,-11.7h5.6l6.7,-9.3c1.3,-1.8 3.3,-2.8 5.5,-2.8h11.5c2.2,0 4.2,1 5.5,2.8l6.7,9.3h5.6c6.9,0 13.1,4.9 14.4,11.7l2,10.2c0.8,4.1 -2.4,7.8 -6.6,7.8h-4.1c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-22c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-4.1c-4.2,0 -7.4,-3.7 -6.6,-7.8z" />
-    <path
-        android:fillColor="#1D3760"
-        android:pathData="M31,72m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
-    <path
-        android:fillColor="#1D3760"
-        android:pathData="M77,72m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
-    <path
-        android:fillColor="#8BE8FF"
-        android:pathData="M42.8,45.3h22.4l-4.7,-6.5c-0.3,-0.4 -0.8,-0.6 -1.3,-0.6h-10.4c-0.5,0 -1,0.2 -1.3,0.6z" />
-    <path
-        android:fillColor="#4CC9FF"
+        android:fillColor="#D6F1FF"
         android:pathData="M30.5,30.2c2.1,-2.8 5.1,-4.2 5.1,-7.4c0,-2.2 -1.8,-4 -4,-4s-4,1.8 -4,4c0,3.2 3,4.6 2.9,7.4z" />
     <path
-        android:fillColor="#4CC9FF"
+        android:fillColor="#EAF8FF"
         android:pathData="M52.4,25.6c1.8,-2.4 4.3,-3.6 4.3,-6.2c0,-1.8 -1.4,-3.2 -3.2,-3.2s-3.2,1.4 -3.2,3.2c0,2.7 2.5,3.8 2.1,6.2z" />
     <path
-        android:fillColor="#4CC9FF"
+        android:fillColor="#D6F1FF"
         android:pathData="M73,30c2.2,-2.9 5.2,-4.3 5.2,-7.6c0,-2.2 -1.8,-4 -4,-4s-4,1.8 -4,4c0,3.3 3,4.6 2.8,7.6z" />
+
+    <!-- Car body with a soft top-down sheen -->
+    <path android:pathData="M20,57c1.3,-6.8 7.5,-11.7 14.4,-11.7h5.6l6.7,-9.3c1.3,-1.8 3.3,-2.8 5.5,-2.8h11.5c2.2,0 4.2,1 5.5,2.8l6.7,9.3h5.6c6.9,0 13.1,4.9 14.4,11.7l2,10.2c0.8,4.1 -2.4,7.8 -6.6,7.8h-4.1c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-22c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-4.1c-4.2,0 -7.4,-3.7 -6.6,-7.8z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="54"
+                android:startY="33"
+                android:endX="54"
+                android:endY="83">
+                <item android:offset="0" android:color="#FFFFFFFF" />
+                <item android:offset="1" android:color="#FFDCEBFA" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Wheels -->
     <path
-        android:fillColor="#FFB703"
+        android:fillColor="#15294A"
+        android:pathData="M31,72m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <path
+        android:fillColor="#15294A"
+        android:pathData="M77,72m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <!-- Hub caps -->
+    <path
+        android:fillColor="#F1F6FF"
+        android:pathData="M31,72m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0" />
+    <path
+        android:fillColor="#F1F6FF"
+        android:pathData="M77,72m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0" />
+
+    <!-- Windshield -->
+    <path
+        android:fillColor="#A6E7FF"
+        android:pathData="M42.8,45.3h22.4l-4.7,-6.5c-0.3,-0.4 -0.8,-0.6 -1.3,-0.6h-10.4c-0.5,0 -1,0.2 -1.3,0.6z" />
+    <!-- Windshield gloss -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.45"
+        android:pathData="M45.6,44.2l3.4,-4.7c0.2,-0.3 0.5,-0.4 0.9,-0.4h1.7l-3.9,5.5z" />
+
+    <!-- Gold admin "verified" badge -->
+    <path
+        android:fillColor="#FFC21E"
         android:pathData="M79.6,34l8,3.1c1.8,0.7 3,2.4 3,4.3v8.9c0,6.5 -4.6,12.2 -11,13.6c-6.4,-1.4 -11,-7.1 -11,-13.6v-8.9c0,-1.9 1.2,-3.6 3,-4.3z" />
     <path
         android:fillColor="#FFFFFF"
