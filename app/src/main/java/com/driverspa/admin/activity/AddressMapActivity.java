@@ -1,7 +1,12 @@
 package com.driverspa.admin.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
@@ -43,6 +48,7 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
 	
 	public static final String LOC_LAT = "LOC_LAT";
 	public static final String LOC_LON = "LOC_LON";
+	private static final int REQUEST_LOCATION_PERMISSION = 1001;
 	public static FragmentManager fragmentManager;
     private GoogleMap mMap;
     private LatLng latLng;
@@ -119,7 +125,7 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
         ui.setZoomControlsEnabled(true);
         ui.setMyLocationButtonEnabled(true);
         ui.setAllGesturesEnabled(true);
-        mMap.setMyLocationEnabled(true);
+        enableMyLocation();
 //       final LatLng myLL = new LatLng(55.754684, 37.623164);
 //       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLL, ZOOM_LEVEL));
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -144,6 +150,41 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
             mMap.addMarker(marker);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+    }
+
+    private boolean hasLocationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void enableMyLocation() {
+        if (mMap == null) return;
+        if (hasLocationPermission()) {
+            try {
+                mMap.setMyLocationEnabled(true);
+            } catch (SecurityException ignored) {
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (hasLocationPermission()) {
+                enableMyLocation();
+            } else {
+                ToastUtil.display(this, "Нет доступа к местоположению");
+            }
+        }
     }
 
     @Override

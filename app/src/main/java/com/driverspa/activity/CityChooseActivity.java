@@ -2,14 +2,19 @@ package com.driverspa.activity;
 
 import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +48,7 @@ import com.splunk.mint.Mint;
 public class CityChooseActivity extends BaseActivity {
 
     private static final float MAX_CITY_DISTANCE_KM = 100f;
+    private static final int REQUEST_LOCATION_PERMISSION = 2001;
 
     @BindView(R.id.list_view)
     ListView listView;
@@ -79,16 +85,7 @@ public class CityChooseActivity extends BaseActivity {
         myLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setWaitScreen(true);
-                myLocationCheckbox.setVisibility(View.GONE);
-                if(gps.canGetLocation()){
-                   setWaitScreen(false);
-                   onLocationResponseReceived(gps.getLocation());
-                }
-                else{
-                    onGPSTurnONRequested(new TurnOnGPSRequestEvent());
-                }
-
+                requestLocation();
             }
         });
 
@@ -150,6 +147,45 @@ public class CityChooseActivity extends BaseActivity {
     public void onGPSTurnONRequested(TurnOnGPSRequestEvent event){
         setWaitScreen(false);
         showSettingsAlert();
+    }
+
+    private boolean hasLocationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestLocation() {
+        if (!hasLocationPermission()) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+            return;
+        }
+        setWaitScreen(true);
+        myLocationCheckbox.setVisibility(View.GONE);
+        if (gps.canGetLocation()) {
+            setWaitScreen(false);
+            onLocationResponseReceived(gps.getLocation());
+        } else {
+            onGPSTurnONRequested(new TurnOnGPSRequestEvent());
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (hasLocationPermission()) {
+                gps = new GPSTracker(this);
+                requestLocation();
+            } else {
+                ToastUtil.display(this, "Нет доступа к местоположению");
+            }
+        }
     }
 
     public void onLocationResponseReceived(Location location){
