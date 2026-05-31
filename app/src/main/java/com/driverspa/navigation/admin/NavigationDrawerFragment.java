@@ -204,7 +204,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 idArray[valuesArray.length-1] = "";
                 valuesArray[valuesArray.length-1] = "Добавить мойку";
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_drawer_spinner_item, valuesArray);
                 adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -399,6 +399,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         user = event.getUser();
         if(user != null) {
             if (!TextUtils.isEmpty(user.getAvatar())) {
+                profileAvatar.setVisibility(View.VISIBLE);
+                avatarBackground.setVisibility(View.VISIBLE);
+                fadeAvatar.setVisibility(View.VISIBLE);
+
                 HttpClient.getPicasso()
                         .load(RetrofitClient.API_URL_IMAGES + user.getAvatar())
                         .fit()
@@ -412,7 +416,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                         .fit()
                         .centerCrop()
                         .into(avatarBackground);
-                fadeAvatar.setVisibility(View.VISIBLE);
             } else {
                 avatarBackground.setVisibility(View.GONE);
                 fadeAvatar.setVisibility(View.GONE);
