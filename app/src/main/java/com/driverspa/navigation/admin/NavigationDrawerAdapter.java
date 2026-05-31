@@ -93,9 +93,10 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         if (lastPosition >= 0)
             notifyItemChanged(lastPosition);
         if (position >= 0) {
+            // Only update the pressed-state highlight here. Navigation is fired
+            // from the click listener; firing it here too launched the activity
+            // twice (ACTION_DOWN + click), so back appeared to reopen the screen.
             notifyItemChanged(position);
-            if (mNavigationDrawerCallbacks != null)
-                mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(position);
         }
     }
 
