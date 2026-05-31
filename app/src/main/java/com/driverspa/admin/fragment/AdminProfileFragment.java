@@ -32,6 +32,9 @@ import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -506,23 +509,50 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		startActivityForResult(intent, ActivityForResult.ADMIN_PHOTO_UPLOAD);
 	}
 
+	/**
+	 * Streams the content of a picked image Uri into an app-private cache file.
+	 * Avoids the EACCES that direct raw-path access to gallery/DCIM media hits on
+	 * Android 10+ (scoped storage). Returns the cache file, or null on failure.
+	 */
+	private File copyUriToCache(Uri uri) {
+		if (getActivity() == null || uri == null) return null;
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = getActivity().getContentResolver().openInputStream(uri);
+			if (in == null) return null;
+			File outFile = new File(getActivity().getCacheDir(), "upload_" + System.currentTimeMillis() + ".jpg");
+			out = new FileOutputStream(outFile);
+			byte[] buffer = new byte[8192];
+			int read;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			out.flush();
+			return outFile;
+		} catch (Exception e) {
+			return null;
+		} finally {
+			try { if (in != null) in.close(); } catch (Exception ignored) {}
+			try { if (out != null) out.close(); } catch (Exception ignored) {}
+		}
+	}
+
 	@Override
 	public void onActivityResult (int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == ActivityForResult.ADMIN_PHOTO_UPLOAD) {
-			if (resultCode == Activity.RESULT_OK) {
-				String selectedImagePath = null;
-				Uri selectedImageUri = data.getData();
-				Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, null, null, null, null);
-				if (cursor == null) {
-					selectedImagePath = selectedImageUri.getPath();
+			if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+				// Copy the picked image into our private cache. On Android 10+
+				// the raw MediaStore path can't be opened directly (EACCES), so we
+				// stream it via the ContentResolver and upload the cache copy.
+				File file = copyUriToCache(data.getData());
+				if (file == null) {
+					ToastUtil.display(getActivity(), "Не удалось открыть изображение");
 				} else {
-					cursor.moveToFirst();
-					int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-					selectedImagePath = cursor.getString(idx);
+					setWaitScreen(true);
+					BA.getEventBus().post(new AdminPhotoPostRequestEvent(file, washer.getId()));
 				}
-				setWaitScreen(true);
-				BA.getEventBus().post(new AdminPhotoPostRequestEvent(new File(selectedImagePath),washer.getId()));
 			}
 		}
 		else if ( requestCode == ActivityForResult.ACTIVITY_PHOTO_CHANGE ) {
@@ -586,6 +616,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.company_avatar)
 	public void onPhotoChangeClick(){
+		closeKeyboard();
 		Builder b = new MaterialAlertDialogBuilder(getActivity());
 		b.setItems(R.array.photo_options, new OnClickListener()
 		{
@@ -630,6 +661,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick(R.id.address)
 	public void onAddressClicked(){
+		closeKeyboard();
 //		Intent intent = new Intent(this,AddressMapActivity.class);
 //		intent.putExtra(AddressMapActivity.LOC_LAT, lat);
 //		intent.putExtra(AddressMapActivity.LOC_LON, lon);
@@ -657,6 +689,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.carType)
 	public void onCarTypesClicked(){
+		closeKeyboard();
 //		carTypesDialog.show();
 		Intent intent = new Intent(getActivity(),AdminServicePriceActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_PRICE);
@@ -665,11 +698,13 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.services)
 	public void onServicesClicked(){
+		closeKeyboard();
 		servicesDialog.show();
 	}
 
 	@OnClick (R.id.prices)
 	public void onPriceDefinitionClicked() {
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(), AdminPricesActivity.class);
 //		Intent intent = new Intent(getActivity(), AdminServicePriceActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_PRICE);
@@ -678,6 +713,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.extran_settings)
 	public void onExtraSettingsClicked() {
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(), ExtraSettingsActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_PRICE);
 		overridePendingTransitionWithCommoOpeningTransition(getActivity());
@@ -685,6 +721,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.group_prices)
 	public void onGroupPriceDefinitionClicked(){
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(),AdminGroupServicePriceActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_PRICE);
 		overridePendingTransitionWithCommoOpeningTransition(getActivity());
@@ -745,11 +782,13 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.boxes)
 	public void onBoxButtonClicked(){
+		closeKeyboard();
 		boxDialog.show();
 	}
 
 	@OnClick (R.id.additional)
 	public void onAdditionalInformationClicked(){
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(),AdditionalInformationActivity.class);
 		intent.putExtra(Constants.WASHER_BASE, JsonUtil.serialize(washer));
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_ADDITIONAL_INFO);
@@ -817,6 +856,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	    @OnClick(R.id.time)
     public void onTimeDefinitionClicked(){
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(),TimeShortDefinitionActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_TIME_DEFINITION);
 		overridePendingTransitionWithCommoOpeningTransition(getActivity());
@@ -825,6 +865,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	@OnClick (R.id.boxSettings)
 	public void onBoxSettingsButtonClicked(){
+		closeKeyboard();
 		Intent intent = new Intent(getActivity(), AdminBoxesActivity.class);
 		intent.putExtra(Constants.EXTRA_WASHER_ID, washer.getId());
 		startActivity(intent);
