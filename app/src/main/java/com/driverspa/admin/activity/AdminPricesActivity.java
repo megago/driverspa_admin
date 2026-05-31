@@ -75,6 +75,8 @@ public class AdminPricesActivity extends AdminBaseActivity implements AdminServi
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(selectedTab);
+
+        installFinishOnBackCallback();
     }
 
     @Override

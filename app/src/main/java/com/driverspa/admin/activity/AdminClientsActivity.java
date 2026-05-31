@@ -194,7 +194,12 @@ public class AdminClientsActivity extends AdminBaseActivity implements AdminRegi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        // Collapse an open search instead of leaving; otherwise close directly
+        // (no super: avoids the ViewPager FragmentManager swallowing the press).
+        if (searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
+            searchMenuItem.collapseActionView();
+            return;
+        }
         finish();
         overridePendingTransitionWithCommonCloseTransition();
     }

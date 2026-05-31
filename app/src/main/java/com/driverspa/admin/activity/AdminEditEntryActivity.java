@@ -162,6 +162,15 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 	private StaffGridAdapter staffGridAdapter;
 	Double finalPrice;
 	Double finalPriceDifference;
+
+	// Payment-method chips (same flow/design as AdminAddQueuedBookActivity)
+	private View singleAmountLayout, splitAmountLayout;
+	private EditText singleAmount;
+	private View chipCash, chipCard, chipBonus, chipDeposit, chipSplit;
+	/** 0=cash,1=card,2=bonus,3=deposit, -1=split. */
+	private int currentPaymentField = 0;
+	/** Guards mirroring between singleAmount and the four backing fields. */
+	private boolean amountSyncing = false;
 	@BindView(R.id.carTypesLayout)
 	View carTypesLayout;
 	@BindView(R.id.boxesLayout)
@@ -489,6 +498,137 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			gridBoxes.setColumnWidth((display.getWidth() - (int) Functions.dipToPixels(this, 40)) / 8);
 			gridStaffs.setColumnWidth((display.getWidth() - (int) Functions.dipToPixels(this, 40)) / 8);
 		}
+
+		singleAmountLayout = findViewById(R.id.singleAmountLayout);
+		splitAmountLayout = findViewById(R.id.splitAmountLayout);
+		singleAmount = findViewById(R.id.singleAmount);
+		chipCash = findViewById(R.id.chipCash);
+		chipCard = findViewById(R.id.chipCard);
+		chipBonus = findViewById(R.id.chipBonus);
+		chipDeposit = findViewById(R.id.chipDeposit);
+		chipSplit = findViewById(R.id.chipSplit);
+		setupPaymentChips();
+	}
+
+	private void setupPaymentChips() {
+		View.OnClickListener chipListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int id = v.getId();
+				if (id == R.id.chipCash) selectPaymentChip(0);
+				else if (id == R.id.chipCard) selectPaymentChip(1);
+				else if (id == R.id.chipBonus) selectPaymentChip(2);
+				else if (id == R.id.chipDeposit) selectPaymentChip(3);
+				else if (id == R.id.chipSplit) selectPaymentChip(-1);
+			}
+		};
+		if (chipCash != null) chipCash.setOnClickListener(chipListener);
+		if (chipCard != null) chipCard.setOnClickListener(chipListener);
+		if (chipBonus != null) chipBonus.setOnClickListener(chipListener);
+		if (chipDeposit != null) chipDeposit.setOnClickListener(chipListener);
+		if (chipSplit != null) chipSplit.setOnClickListener(chipListener);
+
+		if (singleAmount != null) {
+			singleAmount.addTextChangedListener(new TextWatcher() {
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {}
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (amountSyncing) return;
+					String v = s.toString();
+					if (v.length() == 0) v = "0";
+					mirrorSingleAmount(v);
+				}
+			});
+		}
+		// Visual default only; do not mirror until finalPrice is populated.
+		selectPaymentChip(0, false);
+	}
+
+	/**
+	 * Routes the value entered in the single "Сумма" field into the underlying
+	 * cash/card/bonus/deposit EditTexts that the existing price logic watches.
+	 */
+	private void mirrorSingleAmount(String value) {
+		if (finalPrice == null) return;
+		amountSyncing = true;
+		try {
+			if (cashAmount != null) cashAmount.setText(currentPaymentField == 0 ? value : "0");
+			if (cardAmount != null) cardAmount.setText(currentPaymentField == 1 ? value : "0");
+			if (bonusAmount != null) bonusAmount.setText(currentPaymentField == 2 ? value : "0");
+			if (depositAmount != null) depositAmount.setText(currentPaymentField == 3 ? value : "0");
+		} finally {
+			amountSyncing = false;
+		}
+	}
+
+	private void selectPaymentChip(int idx) {
+		selectPaymentChip(idx, true);
+	}
+
+	private void selectPaymentChip(int idx, boolean syncAmounts) {
+		currentPaymentField = idx;
+		if (chipCash != null) chipCash.setSelected(idx == 0);
+		if (chipCard != null) chipCard.setSelected(idx == 1);
+		if (chipBonus != null) chipBonus.setSelected(idx == 2);
+		if (chipDeposit != null) chipDeposit.setSelected(idx == 3);
+		if (chipSplit != null) chipSplit.setSelected(idx == -1);
+
+		boolean split = (idx == -1);
+		if (singleAmountLayout != null) singleAmountLayout.setVisibility(split ? View.GONE : View.VISIBLE);
+		if (splitAmountLayout != null) splitAmountLayout.setVisibility(split ? View.VISIBLE : View.GONE);
+
+		if (syncAmounts && !split && singleAmount != null) {
+			String v = singleAmount.getText() != null ? singleAmount.getText().toString() : "0";
+			if (v.length() == 0) v = "0";
+			mirrorSingleAmount(v);
+		}
+	}
+
+	/**
+	 * Picks the matching chip from the already-loaded cash/card/bonus/deposit
+	 * fields: a single non-zero type selects that chip (with its value shown in
+	 * the single "Сумма" field); two or more selects the split view.
+	 */
+	private void syncPaymentChipsFromAmounts() {
+		int cash = parseAmount(cashAmount);
+		int card = parseAmount(cardAmount);
+		int bonus = parseAmount(bonusAmount);
+		int deposit = parseAmount(depositAmount);
+		int nonZero = (cash > 0 ? 1 : 0) + (card > 0 ? 1 : 0) + (bonus > 0 ? 1 : 0) + (deposit > 0 ? 1 : 0);
+
+		if (nonZero > 1) {
+			selectPaymentChip(-1, false);
+			return;
+		}
+
+		int idx = 0;
+		int val = cash;
+		if (card > 0) { idx = 1; val = card; }
+		else if (bonus > 0) { idx = 2; val = bonus; }
+		else if (deposit > 0) { idx = 3; val = deposit; }
+		else if (cash > 0) { idx = 0; val = cash; }
+
+		selectPaymentChip(idx, false);
+		if (singleAmount != null) {
+			amountSyncing = true;
+			try {
+				singleAmount.setText(val + "");
+			} finally {
+				amountSyncing = false;
+			}
+		}
+	}
+
+	private int parseAmount(EditText field) {
+		if (field == null || field.getText() == null) return 0;
+		try {
+			return (int) Double.parseDouble(field.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 
 
@@ -780,6 +920,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			if (BaseAssist.isSuccess(event.getResult())) {
 				book = event.getResult().getResponse();
 				setData(book);
+				syncPaymentChipsFromAmounts();
 			}
 			else{
 				ToastUtil.display(this, event.getResult().getMessage());

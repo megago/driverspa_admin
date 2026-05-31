@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.driverspa.BA;
 import com.driverspa.R;
@@ -24,14 +25,16 @@ public class BaseActivity extends AppCompatActivity implements OnActionbarTitleC
 	private ProgressDialog pd = null;
 	
 	public void startActivity(Intent intent) {
+		hideSoftKeyboard();
 		super.startActivity(intent);
 		boolean openingAnimation = intent.getBooleanExtra(OPENING_ANIMATION, true);
 //		LogUtil.d(TAG, "open activity with animation : " + String.valueOf(openingAnimation) + " " + getClass().getSimpleName());
 		if( openingAnimation )
 			overridePendingTransitionWithCommoOpeningTransition(this);
 	}
-	
+
 	public void startActivityForResult(Intent intent, int requestCode ) {
+		hideSoftKeyboard();
 		super.startActivityForResult(intent, requestCode);
 		boolean openingAnimation = intent.getBooleanExtra(OPENING_ANIMATION, true);
 //		LogUtil.d(TAG, "open activity with animation : " + String.valueOf(openingAnimation) + " " + getClass().getSimpleName());
@@ -47,6 +50,29 @@ public class BaseActivity extends AppCompatActivity implements OnActionbarTitleC
 		   }
 	   }
 	   catch (Exception e){}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		dismissLingeringKeyboard();
+	}
+
+	/**
+	 * Hides a soft keyboard left over from a previous screen so the first back
+	 * press closes the activity instead of just dismissing the keyboard. Active
+	 * text fields are left alone, so real typing is unaffected.
+	 */
+	protected void dismissLingeringKeyboard() {
+		if (getCurrentFocus() instanceof EditText) return;
+		try {
+			InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			View decor = getWindow() != null ? getWindow().getDecorView() : null;
+			if (imm != null && decor != null && decor.getWindowToken() != null) {
+				imm.hideSoftInputFromWindow(decor.getWindowToken(), 0);
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	@Override

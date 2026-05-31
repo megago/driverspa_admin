@@ -98,6 +98,8 @@ public class AdminAnalyticsActivity extends AdminBaseActivity implements AdminAn
 				return false;
 			}
 		});
+
+		installFinishOnBackCallback();
 	}
 
 

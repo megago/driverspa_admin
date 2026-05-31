@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,13 +33,15 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
 	public static final String OPENING_ANIMATION = "OPENING_ANIMATION";
 
 	public void startActivity(Intent intent) {
+		closeKeyboard();
 		super.startActivity(intent);
 		boolean openingAnimation = intent.getBooleanExtra(OPENING_ANIMATION, true);
 		if( openingAnimation )
 			overridePendingTransitionWithCommoOpeningTransition(this);
 	}
-			
+
 	public void startActivityForResult(Intent intent, int requestCode ) {
+		closeKeyboard();
 		super.startActivityForResult(intent, requestCode);
 		boolean openingAnimation = intent.getBooleanExtra(OPENING_ANIMATION, true);
 		if( openingAnimation )
@@ -55,6 +59,27 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
 					getSupportFragmentManager().popBackStackImmediate();
 				}
 		}
+	}
+
+	/**
+	 * Registers a high-priority back callback that finishes the activity.
+	 *
+	 * Needed for ViewPager screens: FragmentPagerAdapter/FragmentStatePagerAdapter
+	 * marks the current page as the primary navigation fragment, which makes the
+	 * activity's FragmentManager register an enabled OnBackPressedCallback. That
+	 * callback swallows the first back press (it has nothing on its own back stack
+	 * to pop), so the activity never finishes until a second press. Adding our own
+	 * callback after super.onCreate() places it later in the dispatcher's LIFO
+	 * order, so it runs first and closes the screen on a single back press.
+	 */
+	protected void installFinishOnBackCallback() {
+		getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+			@Override
+			public void handleOnBackPressed() {
+				finish();
+				overridePendingTransitionWithCommonCloseTransition();
+			}
+		});
 	}
 
 	/**
@@ -150,6 +175,30 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
 			}
 			catch(Exception e){
 			}
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		dismissLingeringKeyboard();
+	}
+
+	/**
+	 * Hides a soft keyboard that lingered from a previous screen. When an IME is
+	 * showing, the first back press is swallowed to dismiss it instead of closing
+	 * the activity (causing a "press back twice" feel). We never disturb an active
+	 * text field, so real typing is unaffected.
+	 */
+	protected void dismissLingeringKeyboard() {
+		if (getCurrentFocus() instanceof EditText) return;
+		try {
+			InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			View decor = getWindow() != null ? getWindow().getDecorView() : null;
+			if (imm != null && decor != null && decor.getWindowToken() != null) {
+				imm.hideSoftInputFromWindow(decor.getWindowToken(), 0);
+			}
+		} catch (Exception e) {
 		}
 	}
 }

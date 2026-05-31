@@ -115,6 +115,8 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 				return false;
 			}
 		});
+
+		installFinishOnBackCallback();
 	}
 
 

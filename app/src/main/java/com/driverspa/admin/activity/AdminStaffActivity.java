@@ -113,6 +113,8 @@ public class AdminStaffActivity extends AdminBaseActivity implements AdminStaffF
 		viewPager.setOffscreenPageLimit(3);
 		viewPager.setAdapter(adapter);
 		viewPager.setCurrentItem(selectedTab);
+
+		installFinishOnBackCallback();
 	}
 
 	private void setTabButtons(int pos){

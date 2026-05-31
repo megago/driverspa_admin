@@ -130,6 +130,15 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         adapter.setNavigationDrawerCallbacks(this);
         mDrawerList.setAdapter(adapter);
         mDrawerList.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        // Drawer items 1..n launch separate activities. If the host activity was
+        // recreated (e.g. coming back from one of those screens, or with
+        // "Don't keep activities" enabled), restoring the saved position would
+        // relaunch that screen — making back appear to "reopen the same activity".
+        // Reset to Home so we only show Home, never relaunch.
+        if (mFromSavedInstanceState) {
+            mCurrentSelectedPosition = 0;
+            mFromSavedInstanceState = false;
+        }
         selectItem(mCurrentSelectedPosition);
 
         spinner.setOnTouchListener(new View.OnTouchListener() {
