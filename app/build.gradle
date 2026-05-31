@@ -19,7 +19,7 @@ android {
         minSdk 24
         targetSdk 33
         versionCode 98
-        versionName "2.1.4"
+        versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
