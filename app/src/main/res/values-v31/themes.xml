@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ (API 31+) draws its own system splash screen. Its background
+         comes from android:windowSplashScreenBackground; without it the system
+         falls back to a light default (the brief white flash on cold start).
+         Pin it to the app's dark color so the splash is dark from the first frame. -->
+    <style name="Theme.DriverSpa" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="materialCalendarTheme">@style/DriverSpaCalendarTheme</item>
+        <item name="materialCalendarFullscreenTheme">@style/DriverSpaCalendarTheme.Fullscreen</item>
+        <item name="android:windowBackground">@drawable/gradient_bg</item>
+        <item name="android:statusBarColor">@color/statusbarColor</item>
+        <item name="android:windowSplashScreenBackground">@color/background_main</item>
+    </style>
+</resources>

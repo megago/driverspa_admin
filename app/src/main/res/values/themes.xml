@@ -3,6 +3,10 @@
     <style name="Theme.DriverSpa" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="materialCalendarTheme">@style/DriverSpaCalendarTheme</item>
         <item name="materialCalendarFullscreenTheme">@style/DriverSpaCalendarTheme.Fullscreen</item>
+        <!-- Dark starting window so cold start / activity launches never flash
+             white before the dark content is drawn. -->
+        <item name="android:windowBackground">@drawable/gradient_bg</item>
+        <item name="android:statusBarColor">@color/statusbarColor</item>
     </style>
 
     <!-- MaterialDatePicker theme matching the app's dark navy palette so the
