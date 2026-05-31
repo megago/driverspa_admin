@@ -32,10 +32,14 @@ public abstract class AdminBaseFragment extends Fragment {
 	}
 	
 	protected void closeKeyboard() {
+		Activity activity = getActivity();
+		if (activity == null) return;
+		View focused = activity.getCurrentFocus();
+		if (focused == null) return;
 		InputMethodManager inputManager = (InputMethodManager)
-                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); 
-		
-		inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (inputManager == null) return;
+		inputManager.hideSoftInputFromWindow(focused.getWindowToken(),
                    InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 	protected void addProgressBar(ListView listView) {		

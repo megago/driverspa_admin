@@ -522,7 +522,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 		this.paymentDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
 		Window window = paymentDialog.getWindow();
 		window.setGravity(Gravity.CENTER);
-		paymentDialog.setContentView(R.layout.dialog_staff_payment);
+		paymentDialog.setContentView(R.layout.dialog_client_deposit_payment);
 		window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 		window.setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);

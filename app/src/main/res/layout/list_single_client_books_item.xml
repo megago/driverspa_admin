@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="65dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -29,8 +29,7 @@
             <TextView
                 android:id="@+id/txtBookTime"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="10:30"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_smaller" />
@@ -38,9 +37,8 @@
             <TextView
                 android:id="@+id/txtBookTS"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:lines="2"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:text="01.01.2016"
