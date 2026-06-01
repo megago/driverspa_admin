@@ -52,17 +52,19 @@ public class SplashInfoFragment extends BaseFragment {
 		ButterKnife.bind(this,view);
 		switch (index){
 			case 0:
+				title.setText("Управление автомойкой");
 				image.setImageResource(R.drawable.ic_splash_info_1);
-				mainText.setText("Находите ближайшие автомойки и бронируйте удобное для вас время");
+				mainText.setText("Принимайте и контролируйте все заказы и брони вашей автомойки в одном приложении");
 				break;
 			case 1:
+				title.setText("Финансы и сотрудники");
 				image.setImageResource(R.drawable.ic_splash_info_2);
-				mainText.setText("Сравнивайте цены и качество обслуживания в автомойках вашего города");
+				mainText.setText("Следите за финансами, управляйте сотрудниками и базой клиентов автомойки");
 				break;
 			case 2:
-				title.setText("Владельцам автомоек");
+				title.setText("Развитие бизнеса");
 				image.setImageResource(R.drawable.ic_splash_info_3);
-				mainText.setText("Привлекайте дополнительных клиентов, сообщайте об акциях и новостях!");
+				mainText.setText("Анализируйте отзывы и статистику, сообщайте клиентам об акциях и новостях");
 				break;
 		}
         return view;
