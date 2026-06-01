@@ -4,11 +4,23 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="#000000"
-        android:pathData="M20,57c1.3,-6.8 7.5,-11.7 14.4,-11.7h5.6l6.7,-9.3c1.3,-1.8 3.3,-2.8 5.5,-2.8h11.5c2.2,0 4.2,1 5.5,2.8l6.7,9.3h5.6c6.9,0 13.1,4.9 14.4,11.7l2,10.2c0.8,4.1 -2.4,7.8 -6.6,7.8h-4.1c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-22c-0.7,5.5 -5.4,9.8 -11.2,9.8c-5.8,0 -10.5,-4.3 -11.2,-9.8h-4.1c-4.2,0 -7.4,-3.7 -6.6,-7.8z" />
-    <path
-        android:fillColor="#000000"
-        android:pathData="M79.6,34l8,3.1c1.8,0.7 3,2.4 3,4.3v8.9c0,6.5 -4.6,12.2 -11,13.6c-6.4,-1.4 -11,-7.1 -11,-13.6v-8.9c0,-1.9 1.2,-3.6 3,-4.3z" />
+    <!-- Themed (monochrome) layer: same car mark, system applies the tint -->
+    <group
+        android:translateX="22.8"
+        android:translateY="28.5"
+        android:scaleX="2.6"
+        android:scaleY="2.6">
+        <path
+            android:pathData="M8,2 l-1.3,2.4 M12,1.6 l-1.3,2.6 M16,2 l-1.3,2.4"
+            android:strokeColor="#FF000000"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M5,14 l1.5,-4.5 A2,2 0 0 1 8.4,8 h7.2 a2,2 0 0 1 1.9,1.5 L19,14 m-14,0 h14 m-14,0 v4 m14,-4 v4 M7,18 h0.01 M17,18 h0.01"
+            android:strokeColor="#FF000000"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
 </vector>
-

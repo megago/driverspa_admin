@@ -5,62 +5,17 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-
-    <!-- Diagonal brand-blue gradient -->
+    <!-- DriverSPA brand gradient: 135deg #2563FF -> #00D4C8 -->
     <path android:pathData="M0,0h108v108h-108z">
         <aapt:attr name="android:fillColor">
             <gradient
                 android:type="linear"
-                android:startX="4"
+                android:startX="0"
                 android:startY="0"
-                android:endX="104"
-                android:endY="108">
-                <item android:offset="0" android:color="#FF40B0F2" />
-                <item android:offset="0.52" android:color="#FF1574CA" />
-                <item android:offset="1" android:color="#FF063C82" />
-            </gradient>
+                android:endX="108"
+                android:endY="108"
+                android:startColor="#FF2563FF"
+                android:endColor="#FF00D4C8" />
         </aapt:attr>
     </path>
-
-    <!-- Soft top-left light bloom for depth -->
-    <path android:pathData="M0,0h108v108h-108z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:type="radial"
-                android:centerX="40"
-                android:centerY="34"
-                android:gradientRadius="76">
-                <item android:offset="0" android:color="#42FFFFFF" />
-                <item android:offset="1" android:color="#00FFFFFF" />
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- Gentle deep-blue vignette at the bottom -->
-    <path android:pathData="M0,0h108v108h-108z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:type="radial"
-                android:centerX="74"
-                android:centerY="104"
-                android:gradientRadius="70">
-                <item android:offset="0" android:color="#33052E63" />
-                <item android:offset="1" android:color="#00052E63" />
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- Subtle bokeh highlights -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.16"
-        android:pathData="M17,21m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.18"
-        android:pathData="M88,17m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.12"
-        android:pathData="M94,42m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
 </vector>
