@@ -83,7 +83,19 @@ public class User{
     @DatabaseField
     private String city;
 
+    // Present only on the activate response (new password flow). Not persisted.
+    @SerializedName("password_required")
+    private Boolean passwordRequired;
+
     List<CarItem> cars;
+
+    public boolean isPasswordRequired() {
+        return passwordRequired != null && passwordRequired;
+    }
+
+    public void setPasswordRequired(Boolean passwordRequired) {
+        this.passwordRequired = passwordRequired;
+    }
 
     public String getCity() {
         return city;

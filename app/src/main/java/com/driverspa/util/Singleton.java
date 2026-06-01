@@ -15,6 +15,7 @@ import com.squareup.otto.Subscribe;
 import java.util.HashMap;
 
 import com.driverspa.BA;
+import com.driverspa.assist.AuthPasswordAssist;
 import com.driverspa.assist.AuthRegistrationAssist;
 import com.driverspa.assist.AuthVerificationAssist;
 import com.driverspa.assist.BookAssist;
@@ -57,6 +58,7 @@ public class Singleton {
 	private static Singleton instance = null;
 	private AuthRegistrationAssist authClientRegistrationAssist;
 	private AuthVerificationAssist authClientVerificationAssist;
+	private AuthPasswordAssist authPasswordAssist;
 	private WasherAssist washerGetAssist;
 	private LocationAssist locationAssist;
 	private InitilizeAssist initAssist;
@@ -75,6 +77,7 @@ public class Singleton {
 	public Singleton() {				
 		authClientRegistrationAssist = new AuthRegistrationAssist(RetrofitClient.getRestAdapter(), BA.getEventBus());
 		authClientVerificationAssist = new AuthVerificationAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
+		authPasswordAssist = new AuthPasswordAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		washerGetAssist = new WasherAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		locationAssist = new LocationAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		initAssist = new InitilizeAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
@@ -86,6 +89,7 @@ public class Singleton {
 		
 		BA.getEventBus().register(authClientRegistrationAssist);
 		BA.getEventBus().register(authClientVerificationAssist);
+		BA.getEventBus().register(authPasswordAssist);
 		BA.getEventBus().register(washerGetAssist);
 		BA.getEventBus().register(locationAssist);
 		BA.getEventBus().register(initAssist);

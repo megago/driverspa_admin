@@ -15,7 +15,10 @@ import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.admin.activity.AdminHomeActivity;
 import com.driverspa.admin.activity.AdminNewWasherActivity;
-import com.driverspa.admin.fragment.AdminRegistrationFragment;
+import com.driverspa.admin.fragment.AdminCreatePasswordFragment;
+import com.driverspa.admin.fragment.AdminPasswordLoginFragment;
+import com.driverspa.admin.fragment.AdminPhoneFragment;
+import com.driverspa.admin.fragment.AdminResetPasswordFragment;
 import com.driverspa.admin.fragment.AdminVerificationFragment;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.fragment.MainFragment;
@@ -32,7 +35,10 @@ import com.driverspa.util.otto.ws.UserLocationUpdateEvent;
  */
 public class MainActivity extends BaseActivity implements
 		MainFragment.ActivityActions,
-		AdminRegistrationFragment.ActivityActions,
+		AdminPhoneFragment.ActivityActions,
+		AdminPasswordLoginFragment.ActivityActions,
+		AdminCreatePasswordFragment.ActivityActions,
+		AdminResetPasswordFragment.ActivityActions,
 		AdminVerificationFragment.ActivityActions{
 
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -68,12 +74,35 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void openAdminRegistration() {
-		replaceFragment(new AdminRegistrationFragment());
+		replaceFragment(new AdminPhoneFragment());
 	}
 
 	@Override
 	public void openVerification() {
 		replaceFragment(new AdminVerificationFragment());
+	}
+
+	@Override
+	public void openPasswordLogin(String phone) {
+		AdminPasswordLoginFragment fragment = new AdminPasswordLoginFragment();
+		Bundle args = new Bundle();
+		args.putString(AdminPasswordLoginFragment.ARG_PHONE, phone);
+		fragment.setArguments(args);
+		replaceFragment(fragment);
+	}
+
+	@Override
+	public void openCreatePassword() {
+		replaceFragment(new AdminCreatePasswordFragment());
+	}
+
+	@Override
+	public void openResetPassword(String phone) {
+		AdminResetPasswordFragment fragment = new AdminResetPasswordFragment();
+		Bundle args = new Bundle();
+		args.putString(AdminResetPasswordFragment.ARG_PHONE, phone);
+		fragment.setArguments(args);
+		replaceFragment(fragment);
 	}
 
 	@Override

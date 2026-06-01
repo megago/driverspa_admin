@@ -25,17 +25,20 @@ import com.driverspa.util.L;
 import com.driverspa.util.RetrofitClient.DriverSpaApi;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.DummyWashersRequestEvent;
+import com.driverspa.util.otto.ws.AdminBootstrapRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationResponseEvent;
 import com.driverspa.util.otto.ws.AuthClientVerificationRequestEvent;
 import com.driverspa.util.otto.ws.AuthClientVerificationResponseEvent;
+import com.driverspa.util.otto.ws.LoginPasswordRequestEvent;
+import com.driverspa.util.otto.ws.ResetPasswordRequestEvent;
 import com.driverspa.util.otto.ws.WasherGetResponseEvent;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class AuthVerificationAssist extends BaseAssist {
-	
+
 	public AuthVerificationAssist(DriverSpaApi api, Bus eventBus) {
 		super(api, eventBus);
 	}
@@ -53,36 +56,25 @@ public class AuthVerificationAssist extends BaseAssist {
 
 	@Subscribe
 	public void onAuthRegisterRequested(AuthClientVerificationRequestEvent event) {
-		
-		logD("onAuthRegisterRequested");		
+
+		logD("onAuthRegisterRequested");
 		getApi().authClientVerify(event.getAuthVerifyRequest(), new Callback<AuthClientVerificationResponseHolder>() {
-			
+
 			@Override
 			public void success(AuthClientVerificationResponseHolder data, Response response) {
 				if( isSuccess(data) ) {
-					logD("onAuthRegisterRequested: success");							
-					String userId = data.getResponse().getId();
-					String userPhone = data.getResponse().getPhone();	
-					String userToken = data.getResponse().getToken();
-					boolean isAdmin = data.getResponse().isCompany();
-					
-//					if(isAdmin){
+					logD("onAuthRegisterRequested: success");
 					if(1!=1){
 					  displayToast("This user is registered as admin before");
 					  getEventsBus().post(new AuthClientVerificationResponseEvent(null));
 					}
-//					else{
-//						writeSelfToDb(data.getResponse());
-//						UserPreferences.onUserLogin(BA.getContext(), userId, userPhone, userToken);
-//						getEventsBus().post(new AuthClientVerificationResponseEvent(data));
-//					}
 				} else {
 					getEventsBus().post(new AuthClientVerificationResponseEvent(data));
 					logD("onAuthRegisterRequested: error " + data.getStatus());
 					onDataError(data);
 				}
 			}
-			
+
 			@Override
 			public void failure(RetrofitError error) {
 				getEventsBus().post(new AuthClientVerificationResponseEvent(null));
@@ -91,176 +83,215 @@ public class AuthVerificationAssist extends BaseAssist {
 		});
 	}
 
-	
+
 	@Subscribe
 	public void onAuthVerificationRequested(final AuthAdminVerificationRequestEvent event) {
-		logD("onAuthRegisterRequested");
+		logD("onAuthVerificationRequested");
 		getApi().authAdminVerify(event.getAuthVerifyRequest(), new Callback<AuthAdminVerificationResponseHolder>() {
 			@Override
 			public void success(AuthAdminVerificationResponseHolder verifyData, Response response) {
 				if( isSuccess(verifyData) ) {
-					logD("onAuthRegisterRequested: success");
+					logD("onAuthVerificationRequested: success");
 					final User user = verifyData.getResponse();
-					String userId = user.getId();
-					String userPhone = user.getPhone();
-					String userToken = user.getToken();
-					boolean isAdmin = user.isCompany();
-					boolean isOwner = user.isOwner();
+					// Sign the user in (store token) so the next call (set_password) is authorized.
+					UserPreferences.onAdminLogin(BA.getContext(), user.getId(), user.getPhone(), user.getToken());
+					writeSelfToDb(user);
 
-//					if(!isAdmin){
-					if(1!=1){
-						displayToast("This user is registered as client before");
-//						ToastUtil.displayAtTop(BA.getContext(), "Вы клиент!!! Не можете зайти как мойка!!!");
-						getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
+					if (user.isPasswordRequired()) {
+						// New password flow: stop here and let the UI collect a password.
+						// The carwash bootstrap happens later (after set_password + city).
+						AuthAdminVerificationResponseEvent ev = new AuthAdminVerificationResponseEvent(verifyData);
+						ev.setPasswordRequired(true);
+						getEventsBus().post(ev);
+					} else {
+						// Legacy OTP-only flow: proceed straight into the app.
+						bootstrapAdmin(user);
 					}
-					else{
-						UserPreferences.onAdminLogin(BA.getContext(), userId, userPhone, userToken);
-						// write down user id and token
-						writeSelfToDb(verifyData.getResponse());
-						//First request washer list
-						getApi().getOwnWashers(
-								null,
-								new Callback<WashersResponseHolder>() {
-									@Override
-									public void success(WashersResponseHolder data, Response response) {
-									 if(isSuccess(data)){
-
-										if (data.getResponse().getResult() != null && data.getResponse().getResult().size() > 0) {
-											UserPreferences.putOwnerWasherListData(BA.getContext(),new WasherList(data.getResponse().getResult()).serialize());
-											String washerId = "";
-											if(user.isOwner()) {
-												WasherPublic washerPublic = data.getResponse().getResult().get(0);
-												washerId = washerPublic.getId();
-											}
-											else{
-												washerId = user.getDefaultCarwashId();
-											}
-											//Request all data of the washer
-											getApi().adminWasherInfo(washerId,
-													new Callback<WasherResponseHolder>() {
-														@Override
-														public void success(WasherResponseHolder data, Response response) {
-														  if(isSuccess(data)) {
-															  Washer washer = data.getResponse().getWasher();
-															  //Create washer data preference
-															  UserPreferences.putWasherData(BA.getContext(), washer.serialize());
-															  UserPreferences.putCity(BA.getContext(),washer.getCity());
-															  //Set singleton washer
-															  BA.getEventBus().post(new WasherGetResponseEvent(washer));
-															  //Response to the UI
-															  getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
-														  }
-															else{
-															  getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-															  displayToast(data.getMessage());
-															  UserPreferences.onAdminLogout(BA.getContext());
-															  removeAllDbData();
-														  }
-															return;
-														}
-
-														@Override
-														public void failure(RetrofitError error) {
-															UserPreferences.onAdminLogout(BA.getContext());
-															removeAllDbData();
-															onRetrofitError(error);
-															getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-														}
-													});
-
-										} else {
-
-											//Create washer and redirect to wizard page
-											InitialWasherCreateRequest request = new InitialWasherCreateRequest();
-											double LAT = 43.240008;
-											double LON = 76.912231;
-											ArrayList<Double> lonLat = new ArrayList<Double>();
-											try {
-												request.setCity(UserPreferences.getCity(BA.getContext()));
-												Reference.City selectedCity = BA.getReference().getCities().stream()
-														.filter(city -> city.getCode().equals(request.getCity()))
-														.findFirst()
-														.orElse(null);
-												if (selectedCity != null) {
-													LAT = Double.parseDouble(selectedCity.getLonLat().get(1));
-													LON = Double.parseDouble(selectedCity.getLonLat().get(0));
-												}
-											} catch (Exception e) {
-												request.setCity("almaty");
-											}
-
-											lonLat.add(LON);
-											lonLat.add(LAT);
-											request.setLonLat(lonLat);
-											request.setName(user.getCompanyName());
-											request.setBoxSettings(createDefaultBoxSettings());
-
-											//if there is no washer for this user, create it
-											getApi().createInitialWasher(
-													request,
-													new Callback<WasherResponseHolder>() {
-
-														@Override
-														public void success(WasherResponseHolder data, Response response) {
-														 if(isSuccess(data)) {
-															 Washer washer = data.getResponse().getWasher();
-															 UserPreferences.putWasherData(BA.getContext(), washer.serialize());
-															 BA.getEventBus().post(new WasherGetResponseEvent(washer));
-															 //Response to the UI
-															 getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
-														 }else{
-															getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-															UserPreferences.onAdminLogout(BA.getContext());
-															removeAllDbData();
-														    displayToast(data.getMessage());
-														 }
-															return;
-														}
-
-														@Override
-														public void failure(RetrofitError error) {
-															UserPreferences.onAdminLogout(BA.getContext());
-															removeAllDbData();
-															onRetrofitError(error);
-															getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-															return;
-														}
-													});
-
-
-										}
-									 }
-										else{
-										 UserPreferences.onAdminLogout(BA.getContext());
-										 removeAllDbData();
-										 displayToast(data.getMessage());
-										 getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-									 }
-									}
-
-									@Override
-									public void failure(RetrofitError error) {
-										UserPreferences.onAdminLogout(BA.getContext());
-										removeAllDbData();
-										onRetrofitError(error);
-										getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
-										return;
-									}
-								});
-//						getEventsBus().post(new AuthAdminVerificationResponseEvent(data));
-					}					
-
 				} else {
 					getEventsBus().post(new AuthAdminVerificationResponseEvent(verifyData));
-					logD("onAuthRegisterRequested: error " + verifyData.getStatus());
+					logD("onAuthVerificationRequested: error " + verifyData.getStatus());
 					onDataError(verifyData);
 				}
 			}
-			
+
 			@Override
 			public void failure(RetrofitError error) {
-				getEventsBus().post(new AuthAdminVerificationResponseEvent(null));
+				getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
 				onRetrofitError(error);
+			}
+		});
+	}
+
+	@Subscribe
+	public void onLoginPasswordRequested(final LoginPasswordRequestEvent event) {
+		logD("onLoginPasswordRequested");
+		getApi().loginPassword(event.getRequest(), new Callback<AuthAdminVerificationResponseHolder>() {
+			@Override
+			public void success(AuthAdminVerificationResponseHolder data, Response response) {
+				if (isSuccess(data)) {
+					final User user = data.getResponse();
+					UserPreferences.onAdminLogin(BA.getContext(), user.getId(), user.getPhone(), user.getToken());
+					writeSelfToDb(user);
+					bootstrapAdmin(user);
+				} else {
+					getEventsBus().post(new AuthAdminVerificationResponseEvent(data));
+					onDataError(data);
+				}
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+				onRetrofitError(error);
+			}
+		});
+	}
+
+	@Subscribe
+	public void onResetPasswordRequested(final ResetPasswordRequestEvent event) {
+		logD("onResetPasswordRequested");
+		getApi().resetPassword(event.getRequest(), new Callback<AuthAdminVerificationResponseHolder>() {
+			@Override
+			public void success(AuthAdminVerificationResponseHolder data, Response response) {
+				if (isSuccess(data)) {
+					final User user = data.getResponse();
+					UserPreferences.onAdminLogin(BA.getContext(), user.getId(), user.getPhone(), user.getToken());
+					writeSelfToDb(user);
+					bootstrapAdmin(user);
+				} else {
+					getEventsBus().post(new AuthAdminVerificationResponseEvent(data));
+					onDataError(data);
+				}
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+				onRetrofitError(error);
+			}
+		});
+	}
+
+	@Subscribe
+	public void onAdminBootstrapRequested(AdminBootstrapRequestEvent event) {
+		logD("onAdminBootstrapRequested");
+		User user = UserSelfAssist.getUserFromDb(UserPreferences.getUserId(BA.getContext()));
+		if (user == null) {
+			getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+			return;
+		}
+		bootstrapAdmin(user);
+	}
+
+	/**
+	 * Fetches the signed-in admin's carwash (creating an initial one if none
+	 * exists, using the city already stored in preferences) and posts an
+	 * {@link AuthAdminVerificationResponseEvent} so the UI can enter the app.
+	 */
+	private void bootstrapAdmin(final User user) {
+		getApi().getOwnWashers(null, new Callback<WashersResponseHolder>() {
+			@Override
+			public void success(WashersResponseHolder data, Response response) {
+				if (isSuccess(data)) {
+					if (data.getResponse().getResult() != null && data.getResponse().getResult().size() > 0) {
+						UserPreferences.putOwnerWasherListData(BA.getContext(), new WasherList(data.getResponse().getResult()).serialize());
+						String washerId;
+						if (user.isOwner()) {
+							WasherPublic washerPublic = data.getResponse().getResult().get(0);
+							washerId = washerPublic.getId();
+						} else {
+							washerId = user.getDefaultCarwashId();
+						}
+						getApi().adminWasherInfo(washerId, new Callback<WasherResponseHolder>() {
+							@Override
+							public void success(WasherResponseHolder data, Response response) {
+								if (isSuccess(data)) {
+									Washer washer = data.getResponse().getWasher();
+									UserPreferences.putWasherData(BA.getContext(), washer.serialize());
+									UserPreferences.putCity(BA.getContext(), washer.getCity());
+									BA.getEventBus().post(new WasherGetResponseEvent(washer));
+									getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
+								} else {
+									getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+									displayToast(data.getMessage());
+									UserPreferences.onAdminLogout(BA.getContext());
+									removeAllDbData();
+								}
+							}
+
+							@Override
+							public void failure(RetrofitError error) {
+								UserPreferences.onAdminLogout(BA.getContext());
+								removeAllDbData();
+								onRetrofitError(error);
+								getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+							}
+						});
+					} else {
+						// No carwash yet — create an initial one using the chosen city.
+						InitialWasherCreateRequest request = new InitialWasherCreateRequest();
+						double LAT = 43.240008;
+						double LON = 76.912231;
+						ArrayList<Double> lonLat = new ArrayList<Double>();
+						try {
+							request.setCity(UserPreferences.getCity(BA.getContext()));
+							Reference.City selectedCity = BA.getReference().getCities().stream()
+									.filter(city -> city.getCode().equals(request.getCity()))
+									.findFirst()
+									.orElse(null);
+							if (selectedCity != null) {
+								LAT = Double.parseDouble(selectedCity.getLonLat().get(1));
+								LON = Double.parseDouble(selectedCity.getLonLat().get(0));
+							}
+						} catch (Exception e) {
+							request.setCity("almaty");
+						}
+
+						lonLat.add(LON);
+						lonLat.add(LAT);
+						request.setLonLat(lonLat);
+						request.setName(user.getCompanyName());
+						request.setBoxSettings(createDefaultBoxSettings());
+
+						getApi().createInitialWasher(request, new Callback<WasherResponseHolder>() {
+							@Override
+							public void success(WasherResponseHolder data, Response response) {
+								if (isSuccess(data)) {
+									Washer washer = data.getResponse().getWasher();
+									UserPreferences.putWasherData(BA.getContext(), washer.serialize());
+									BA.getEventBus().post(new WasherGetResponseEvent(washer));
+									getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
+								} else {
+									getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+									UserPreferences.onAdminLogout(BA.getContext());
+									removeAllDbData();
+									displayToast(data.getMessage());
+								}
+							}
+
+							@Override
+							public void failure(RetrofitError error) {
+								UserPreferences.onAdminLogout(BA.getContext());
+								removeAllDbData();
+								onRetrofitError(error);
+								getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+							}
+						});
+					}
+				} else {
+					UserPreferences.onAdminLogout(BA.getContext());
+					removeAllDbData();
+					displayToast(data.getMessage());
+					getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
+				}
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				UserPreferences.onAdminLogout(BA.getContext());
+				removeAllDbData();
+				onRetrofitError(error);
+				getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
 			}
 		});
 	}

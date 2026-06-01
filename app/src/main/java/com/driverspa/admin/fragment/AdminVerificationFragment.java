@@ -46,6 +46,7 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 	public interface ActivityActions {
 		public void openAdminHomeActivity();
 		public void openWizardActivity();
+		public void openCreatePassword();
 	}
 	
 	private final String TAG = "VerificationFragment";	
@@ -152,7 +153,9 @@ public class AdminVerificationFragment extends AdminBaseFragment {
       if(event.getAuthLoginResponse() != null){  
           if(BaseAssist.isSuccess(event.getAuthLoginResponse())){
 			UserPreferences.putRecoverySmsSentTime(getActivity(), 0);
-            if(event.isActiveCarwash())
+            if(event.isPasswordRequired())
+               activityActions.openCreatePassword();
+            else if(event.isActiveCarwash())
     		   activityActions.openAdminHomeActivity();
 			else
 			   activityActions.openWizardActivity();
