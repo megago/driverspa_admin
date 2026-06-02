@@ -259,6 +259,13 @@ public class AuthVerificationAssist extends BaseAssist {
 								if (isSuccess(data)) {
 									Washer washer = data.getResponse().getWasher();
 									UserPreferences.putWasherData(BA.getContext(), washer.serialize());
+									// Seed the owner's carwash-list cache with the just-created
+									// carwash so the left-menu spinner renders its name immediately.
+									// Without this it stays blank until the list is fetched on a
+									// later app launch.
+									ArrayList<WasherPublic> ownerWashers = new ArrayList<WasherPublic>();
+									ownerWashers.add(washer);
+									UserPreferences.putOwnerWasherListData(BA.getContext(), new WasherList(ownerWashers).serialize());
 									BA.getEventBus().post(new WasherGetResponseEvent(washer));
 									getEventsBus().post(new AuthAdminVerificationResponseEvent((BaseResponseHolder) data, Constants.APPROVED.equals(washer.getStatus())));
 								} else {
