@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -23,18 +24,23 @@ import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.request.CheckPhoneRequest;
+import com.driverspa.model.api.request.ResendActivationRequest;
 import com.driverspa.util.MaskedWatcher;
 import com.driverspa.util.ToastUtil;
+import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AuthAdminRegistrationRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminRegistrationResponseEvent;
 import com.driverspa.util.otto.ws.CheckPhoneRequestEvent;
 import com.driverspa.util.otto.ws.CheckPhoneResponseEvent;
+import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
+import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
 /**
- * Entry screen of the new auth flow. Collects a phone number and calls
- * check_phone, then branches:
+ * Entry screen of the auth flow. Collects a phone number + OTP delivery channel
+ * (WhatsApp by default, SMS optional) and calls check_phone, then branches:
  *   has_password == true   -> password login screen
- *   otherwise              -> register + OTP (activate -> create password)
+ *   exists == false        -> register (send OTP) + OTP screen
+ *   exists, no password    -> resend_activation (send OTP) + OTP screen
  */
 public class AdminPhoneFragment extends AdminBaseFragment {
 
@@ -45,9 +51,12 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 	private ActivityActions activityActions;
 	private String fullPhone;
+	private String channel;
 
 	@BindView(R.id.login_phone)
 	EditText phone;
+	@BindView(R.id.channelGroup)
+	RadioGroup channelGroup;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +68,8 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		// SMS is temporarily disabled — only WhatsApp can be selected for now.
+		channelGroup.check(R.id.channelWhatsapp);
 		phone.requestFocus();
 		phone.setOnEditorActionListener(new OnEditorActionListener() {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -84,6 +95,11 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		activityActions = null;
 	}
 
+	private String selectedChannel() {
+		return channelGroup.getCheckedRadioButtonId() == R.id.channelSms
+				? UserPreferences.CHANNEL_SMS : UserPreferences.CHANNEL_WHATSAPP;
+	}
+
 	@OnClick(R.id.btnOk)
 	protected void processPhone() {
 		String phoneStr = phone.getText().toString()
@@ -98,6 +114,8 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			return;
 		}
 		fullPhone = "+7" + phoneStr;
+		channel = selectedChannel();
+		UserPreferences.putOtpChannel(BA.getContext(), channel);
 		setWaitScreen(true);
 		BA.getEventBus().post(new CheckPhoneRequestEvent(new CheckPhoneRequest(fullPhone)));
 	}
@@ -116,10 +134,14 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			// Returning user with a password -> password login.
 			setWaitScreen(false);
 			activityActions.openPasswordLogin(fullPhone);
-		} else {
-			// New user, or existing user without a password -> request OTP.
+		} else if (!event.getData().getResponse().isExists()) {
+			// Brand-new user -> create account + send OTP.
 			BA.getEventBus().post(new AuthAdminRegistrationRequestEvent(
-					new AuthAdminRegistrationRequest("NA", fullPhone)));
+					new AuthAdminRegistrationRequest("NA", fullPhone, channel)));
+		} else {
+			// Existing user without a password -> resend OTP.
+			BA.getEventBus().post(new ResendActivationRequestEvent(
+					new ResendActivationRequest(fullPhone, channel)));
 		}
 	}
 
@@ -132,6 +154,17 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			activityActions.openVerification();
 		} else {
 			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+		}
+	}
+
+	@Subscribe
+	public void onResendActivationResponse(ResendActivationResponseEvent event) {
+		setWaitScreen(false);
+		if (event.getData() != null && "success".equals(event.getData().getStatus())) {
+			activityActions.openVerification();
+		} else {
+			ToastUtil.display(getActivity(), event.getData() != null && event.getData().getMessage() != null
+					? event.getData().getMessage() : "Ошибка, попробуйте еще раз");
 		}
 	}
 

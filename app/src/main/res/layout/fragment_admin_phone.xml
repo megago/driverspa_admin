@@ -99,6 +99,53 @@
             android:layout_marginTop="@dimen/vertical_margin"
             android:background="@color/BlueTransparent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:text="Куда отправить код:"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_small" />
+
+        <RadioGroup
+            android:id="@+id/channelGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vertical_margin_half"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/channelWhatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:buttonTint="@color/White"
+                android:checked="true"
+                android:drawableLeft="@drawable/ic_whatsapp"
+                android:drawablePadding="@dimen/horizontal_margin_third"
+                android:text="WhatsApp"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_medium" />
+
+            <!-- SMS is temporarily disabled; only WhatsApp is available for now.
+                 (The backend still auto-falls back to SMS if WhatsApp delivery fails.) -->
+            <RadioButton
+                android:id="@+id/channelSms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:buttonTint="@color/BlueLight"
+                android:clickable="false"
+                android:drawableLeft="@drawable/ic_sms"
+                android:drawablePadding="@dimen/horizontal_margin_third"
+                android:enabled="false"
+                android:text="SMS"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_medium" />
+        </RadioGroup>
+
         <Button
             android:id="@+id/btnOk"
             android:layout_width="wrap_content"

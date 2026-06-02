@@ -29,18 +29,18 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
-import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.request.AuthVerificationRequest;
+import com.driverspa.model.api.request.ResendActivationRequest;
 import com.driverspa.util.Converters;
 import com.driverspa.util.Functions;
 import com.driverspa.util.MaskedWatcher;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.SmsRecoveryReceivedEvent;
-import com.driverspa.util.otto.ws.AuthAdminRegistrationRequestEvent;
-import com.driverspa.util.otto.ws.AuthAdminRegistrationResponseEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationResponseEvent;
+import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
+import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
 public class AdminVerificationFragment extends AdminBaseFragment {
 	public interface ActivityActions {
@@ -134,7 +134,9 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 		else {
 			activationTime = System.currentTimeMillis();
 			setWaitScreen(true);
-			BA.getEventBus().post(new AuthAdminRegistrationRequestEvent(new AuthAdminRegistrationRequest("  ",phone)));
+			// Resend the OTP over the channel the user chose (WhatsApp by default).
+			String channel = UserPreferences.getOtpChannel(BA.getContext());
+			BA.getEventBus().post(new ResendActivationRequestEvent(new ResendActivationRequest(phone, channel)));
 		}
 	}
 	
@@ -168,12 +170,11 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 	}	
 	
 	@Subscribe
-	public void onAuthRetryRegistrationResponseReceived(AuthAdminRegistrationResponseEvent event) {
+	public void onResendActivationResponseReceived(ResendActivationResponseEvent event) {
 		setWaitScreen(false);
-		 if(event.getAuthLoginResponse().getStatus() != null && !event.getAuthLoginResponse().getStatus().equals("error")){			
-		 }else{
-		   ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
-	   }
+		if (event.getData() == null || !"success".equals(event.getData().getStatus())) {
+			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+		}
 	}
 
 	@Subscribe

@@ -25,6 +25,7 @@ import com.driverspa.model.api.request.CheckPhoneRequest;
 import com.driverspa.model.api.request.ClientCreateRequest;
 import com.driverspa.model.api.request.ForgotPasswordRequest;
 import com.driverspa.model.api.request.LoginPasswordRequest;
+import com.driverspa.model.api.request.ResendActivationRequest;
 import com.driverspa.model.api.request.ResetPasswordRequest;
 import com.driverspa.model.api.request.SetPasswordRequest;
 import com.driverspa.model.api.request.CloseWorkshiftRequest;
@@ -183,6 +184,11 @@ public class RetrofitClient {
 		@POST("/v1/account/forgot_password")
 		void forgotPassword(
 				@Body ForgotPasswordRequest body,
+				Callback<OkResponseHolder> callback);
+
+		@POST("/v1/account/resend_activation")
+		void resendActivation(
+				@Body ResendActivationRequest body,
 				Callback<OkResponseHolder> callback);
 
 		@POST("/v1/account/reset_password")

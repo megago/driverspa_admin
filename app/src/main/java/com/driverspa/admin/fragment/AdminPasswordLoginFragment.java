@@ -20,18 +20,19 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
-import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.request.ForgotPasswordRequest;
 import com.driverspa.model.api.request.LoginPasswordRequest;
+import com.driverspa.model.api.request.ResendActivationRequest;
 import com.driverspa.util.Converters;
 import com.driverspa.util.Functions;
 import com.driverspa.util.ToastUtil;
-import com.driverspa.util.otto.ws.AuthAdminRegistrationRequestEvent;
-import com.driverspa.util.otto.ws.AuthAdminRegistrationResponseEvent;
+import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AuthAdminVerificationResponseEvent;
 import com.driverspa.util.otto.ws.ForgotPasswordRequestEvent;
 import com.driverspa.util.otto.ws.ForgotPasswordResponseEvent;
 import com.driverspa.util.otto.ws.LoginPasswordRequestEvent;
+import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
+import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
 /**
  * Password login for returning users (check_phone -> has_password == true).
@@ -104,7 +105,8 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 	@OnClick(R.id.btnForgot)
 	protected void onForgotClicked() {
 		setWaitScreen(true);
-		BA.getEventBus().post(new ForgotPasswordRequestEvent(new ForgotPasswordRequest(phoneNumber)));
+		String channel = UserPreferences.getOtpChannel(BA.getContext());
+		BA.getEventBus().post(new ForgotPasswordRequestEvent(new ForgotPasswordRequest(phoneNumber, channel)));
 	}
 
 	@Subscribe
@@ -119,11 +121,13 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 			} else {
 				String message = event.getAuthLoginResponse().getMessage();
 				if (MSG_PASSWORD_NOT_SET.equals(message)) {
-					// Phone exists but has no password yet -> switch to the OTP flow.
+					// Phone exists but has no password yet -> resend OTP and switch
+					// to the verification flow.
 					redirectingToOtp = true;
 					setWaitScreen(true);
-					BA.getEventBus().post(new AuthAdminRegistrationRequestEvent(
-							new AuthAdminRegistrationRequest("NA", phoneNumber)));
+					String channel = UserPreferences.getOtpChannel(BA.getContext());
+					BA.getEventBus().post(new ResendActivationRequestEvent(
+							new ResendActivationRequest(phoneNumber, channel)));
 				} else {
 					ToastUtil.display(getActivity(), TextUtils.isEmpty(message) ? "Неверные данные" : message);
 				}
@@ -141,13 +145,11 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 	}
 
 	@Subscribe
-	public void onRegistrationResponse(AuthAdminRegistrationResponseEvent event) {
+	public void onResendActivationResponse(ResendActivationResponseEvent event) {
 		if (!redirectingToOtp) return;
 		redirectingToOtp = false;
 		setWaitScreen(false);
-		if (event.getAuthLoginResponse() != null
-				&& event.getAuthLoginResponse().getStatus() != null
-				&& !event.getAuthLoginResponse().getStatus().equals("error")) {
+		if (event.getData() != null && "success".equals(event.getData().getStatus())) {
 			activityActions.openVerification();
 		} else {
 			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");

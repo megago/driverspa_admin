@@ -4,6 +4,7 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import com.driverspa.BA;
+import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.response.AuthAdminRegistrationResponseHolder;
 import com.driverspa.model.api.response.AuthClientRegistrationResponseHolder;
 import com.driverspa.util.RetrofitClient.DriverSpaApi;
@@ -64,26 +65,39 @@ public class AuthRegistrationAssist extends BaseAssist {
 	 */
 	@Subscribe
 	public void onAdminAuthLoginRequested(final AuthAdminRegistrationRequestEvent event) {
-		logD("onAuthLoginRequested");				
-		getApi().authAdminRegistration(event.getAuthLoginRequest(), new Callback<AuthAdminRegistrationResponseHolder>() {
+		logD("onAuthLoginRequested");
+		sendAdminRegistration(event.getAuthLoginRequest());
+	}
+
+	/**
+	 * Sends register with the requested OTP channel ("whatsapp" by default).
+	 * If a WhatsApp send fails, automatically retries once over SMS.
+	 */
+	private void sendAdminRegistration(final AuthAdminRegistrationRequest request) {
+		getApi().authAdminRegistration(request, new Callback<AuthAdminRegistrationResponseHolder>() {
 			@Override
 			public void success(AuthAdminRegistrationResponseHolder data, Response response) {
 				if( isSuccess(data) ) {
-					logD("onAuthLoginRequested: success");					
-					String userId = data.getResponse().getId();									
-					String userPhone = data.getResponse().getPhone();					
+					logD("onAuthLoginRequested: success");
+					String userId = data.getResponse().getId();
+					String userPhone = data.getResponse().getPhone();
 					// write down admin id
 					UserPreferences.onTempAdminLogin(BA.getContext(), userId, userPhone);
 					getEventsBus().post(new AuthAdminRegistrationResponseEvent(data));
+				} else if (UserPreferences.CHANNEL_WHATSAPP.equals(request.getChannel())) {
+					// WhatsApp delivery failed — fall back to SMS automatically.
+					displayToast("Не удалось отправить через WhatsApp, отправляем по SMS");
+					request.setChannel(UserPreferences.CHANNEL_SMS);
+					sendAdminRegistration(request);
 				} else {
-					logE( "onAuthLoginRequested: error: " + data.getStatus());					
+					logE( "onAuthLoginRequested: error: " + data.getStatus());
 					onDataError(data);
 					getEventsBus().post(new AuthAdminRegistrationResponseEvent(data));
 				}
 			}
 			@Override
-			public void failure(RetrofitError error) {									
-				onRetrofitError(error);				
+			public void failure(RetrofitError error) {
+				onRetrofitError(error);
 				getEventsBus().post(new AuthAdminRegistrationResponseEvent(new AuthAdminRegistrationResponseHolder()));
 			}
 		});
