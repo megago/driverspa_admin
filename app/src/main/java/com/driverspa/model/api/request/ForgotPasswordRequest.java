@@ -6,9 +6,9 @@ public class ForgotPasswordRequest {
 
     @SerializedName("mobile")
     private String mobile;
-    // OTP delivery channel: "whatsapp" (default) or "sms".
+    // OTP delivery channel: "email" (default), "sms" or "whatsapp".
     @SerializedName("channel")
-    private String channel = "whatsapp";
+    private String channel = "email";
 
     public ForgotPasswordRequest(String mobile) {
         this.mobile = mobile;

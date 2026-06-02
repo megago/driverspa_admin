@@ -3,6 +3,7 @@ package com.driverspa.admin.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,10 +37,11 @@ import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
 import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
 /**
- * Entry screen of the auth flow. Collects a phone number + OTP delivery channel
- * (WhatsApp by default, SMS optional) and calls check_phone, then branches:
+ * Entry screen of the auth flow. Collects a phone number, an email and the OTP
+ * delivery channel (Email by default; SMS/WhatsApp optional), calls check_phone,
+ * then branches:
  *   has_password == true   -> password login screen
- *   exists == false        -> register (send OTP) + OTP screen
+ *   exists == false        -> register (send OTP, incl. email) + OTP screen
  *   exists, no password    -> resend_activation (send OTP) + OTP screen
  */
 public class AdminPhoneFragment extends AdminBaseFragment {
@@ -52,9 +54,12 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	private ActivityActions activityActions;
 	private String fullPhone;
 	private String channel;
+	private String email;
 
 	@BindView(R.id.login_phone)
 	EditText phone;
+	@BindView(R.id.login_email)
+	EditText loginEmail;
 	@BindView(R.id.channelGroup)
 	RadioGroup channelGroup;
 
@@ -68,8 +73,8 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		// SMS is temporarily disabled — only WhatsApp can be selected for now.
-		channelGroup.check(R.id.channelWhatsapp);
+		// Email is the default channel.
+		channelGroup.check(R.id.channelEmail);
 		phone.requestFocus();
 		phone.setOnEditorActionListener(new OnEditorActionListener() {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -96,8 +101,10 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	}
 
 	private String selectedChannel() {
-		return channelGroup.getCheckedRadioButtonId() == R.id.channelSms
-				? UserPreferences.CHANNEL_SMS : UserPreferences.CHANNEL_WHATSAPP;
+		int id = channelGroup.getCheckedRadioButtonId();
+		if (id == R.id.channelSms) return UserPreferences.CHANNEL_SMS;
+		if (id == R.id.channelWhatsapp) return UserPreferences.CHANNEL_WHATSAPP;
+		return UserPreferences.CHANNEL_EMAIL;
 	}
 
 	@OnClick(R.id.btnOk)
@@ -113,8 +120,18 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			phone.setError("Неправильный номер телефона");
 			return;
 		}
-		fullPhone = "+7" + phoneStr;
+
 		channel = selectedChannel();
+		email = loginEmail.getText().toString().trim();
+		// The email channel needs a valid destination email.
+		if (UserPreferences.CHANNEL_EMAIL.equals(channel)
+				&& (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
+			loginEmail.setError("Введите корректный email");
+			loginEmail.requestFocus();
+			return;
+		}
+
+		fullPhone = "+7" + phoneStr;
 		UserPreferences.putOtpChannel(BA.getContext(), channel);
 		setWaitScreen(true);
 		BA.getEventBus().post(new CheckPhoneRequestEvent(new CheckPhoneRequest(fullPhone)));
@@ -135,9 +152,10 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			setWaitScreen(false);
 			activityActions.openPasswordLogin(fullPhone);
 		} else if (!event.getData().getResponse().isExists()) {
-			// Brand-new user -> create account + send OTP.
+			// Brand-new user -> create account + send OTP (include email).
+			String emailToSend = TextUtils.isEmpty(email) ? null : email;
 			BA.getEventBus().post(new AuthAdminRegistrationRequestEvent(
-					new AuthAdminRegistrationRequest("NA", fullPhone, channel)));
+					new AuthAdminRegistrationRequest("NA", fullPhone, channel, emailToSend)));
 		} else {
 			// Existing user without a password -> resend OTP.
 			BA.getEventBus().post(new ResendActivationRequestEvent(

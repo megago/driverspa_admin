@@ -90,9 +90,9 @@ public class AuthPasswordAssist extends BaseAssist {
 			public void success(OkResponseHolder data, Response response) {
 				if (isSuccess(data)) {
 					getEventsBus().post(new ForgotPasswordResponseEvent(data));
-				} else if (UserPreferences.CHANNEL_WHATSAPP.equals(request.getChannel())) {
-					// WhatsApp delivery failed — fall back to SMS automatically.
-					displayToast("Не удалось отправить через WhatsApp, отправляем по SMS");
+				} else if (!UserPreferences.CHANNEL_SMS.equals(request.getChannel())) {
+					// Email/WhatsApp delivery failed — fall back to SMS automatically.
+					displayToast("Не удалось отправить код, отправляем по SMS");
 					request.setChannel(UserPreferences.CHANNEL_SMS);
 					sendForgot(request);
 				} else {
@@ -121,9 +121,9 @@ public class AuthPasswordAssist extends BaseAssist {
 			public void success(OkResponseHolder data, Response response) {
 				if (isSuccess(data)) {
 					getEventsBus().post(new ResendActivationResponseEvent(data));
-				} else if (UserPreferences.CHANNEL_WHATSAPP.equals(request.getChannel())) {
-					// WhatsApp delivery failed — fall back to SMS automatically.
-					displayToast("Не удалось отправить через WhatsApp, отправляем по SMS");
+				} else if (!UserPreferences.CHANNEL_SMS.equals(request.getChannel())) {
+					// Email/WhatsApp delivery failed — fall back to SMS automatically.
+					displayToast("Не удалось отправить код, отправляем по SMS");
 					request.setChannel(UserPreferences.CHANNEL_SMS);
 					sendResend(request);
 				} else {

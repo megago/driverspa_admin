@@ -33,8 +33,9 @@ public class UserPreferences extends Preferences {
 	private static final String ABOUT_US = "ABOUT_US";
 	private static final String RECOVERY_SMS_SENT_TIME = "RECOVERY_SMS_SENT_TIME";
 
-	// OTP delivery channel chosen on the phone-entry screen. WhatsApp is the
-	// default; SMS is the fallback / explicit alternative.
+	// OTP delivery channel chosen on the phone-entry screen. Email is the
+	// default; SMS is the automatic fallback; WhatsApp is an alternative.
+	public static final String CHANNEL_EMAIL = "email";
 	public static final String CHANNEL_WHATSAPP = "whatsapp";
 	public static final String CHANNEL_SMS = "sms";
 	private static final String OTP_CHANNEL = "OTP_CHANNEL";
@@ -45,7 +46,7 @@ public class UserPreferences extends Preferences {
 
 	public static String getOtpChannel(Context context) {
 		String channel = getString(context, OTP_CHANNEL);
-		return (channel == null || channel.isEmpty()) ? CHANNEL_WHATSAPP : channel;
+		return (channel == null || channel.isEmpty()) ? CHANNEL_EMAIL : channel;
 	}
 
 

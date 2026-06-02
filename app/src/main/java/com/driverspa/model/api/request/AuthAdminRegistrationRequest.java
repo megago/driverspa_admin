@@ -11,9 +11,12 @@ public class AuthAdminRegistrationRequest  implements Parcelable {
 	private String phone;
 	@SerializedName("company_name")
 	private String companyName;
-	// OTP delivery channel: "whatsapp" (default) or "sms".
+	// OTP delivery channel: "email" (default), "sms" or "whatsapp".
 	@SerializedName("channel")
-	private String channel = "whatsapp";
+	private String channel = "email";
+	// Email destination — required when channel == "email".
+	@SerializedName("email")
+	private String email;
 
 	public AuthAdminRegistrationRequest (String companyName, String phone) {
 		this.phone = phone;
@@ -24,6 +27,13 @@ public class AuthAdminRegistrationRequest  implements Parcelable {
 		this.phone = phone;
 		this.companyName = companyName;
 		this.channel = channel;
+	}
+
+	public AuthAdminRegistrationRequest (String companyName, String phone, String channel, String email) {
+		this.phone = phone;
+		this.companyName = companyName;
+		this.channel = channel;
+		this.email = email;
 	}
 
 	public String getPhone() {
@@ -42,6 +52,14 @@ public class AuthAdminRegistrationRequest  implements Parcelable {
 		this.channel = channel;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -52,12 +70,14 @@ public class AuthAdminRegistrationRequest  implements Parcelable {
 		dest.writeString(phone);
 		dest.writeString(companyName);
 		dest.writeString(channel);
+		dest.writeString(email);
 	}
 
 	public AuthAdminRegistrationRequest(Parcel in) {
 		phone = in.readString();
 		companyName = in.readString();
 		channel = in.readString();
+		email = in.readString();
 	}
 	
 	public static final Creator<AuthAdminRegistrationRequest> CREATOR = new Creator<AuthAdminRegistrationRequest>() {

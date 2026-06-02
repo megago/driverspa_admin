@@ -84,9 +84,9 @@ public class AuthRegistrationAssist extends BaseAssist {
 					// write down admin id
 					UserPreferences.onTempAdminLogin(BA.getContext(), userId, userPhone);
 					getEventsBus().post(new AuthAdminRegistrationResponseEvent(data));
-				} else if (UserPreferences.CHANNEL_WHATSAPP.equals(request.getChannel())) {
-					// WhatsApp delivery failed — fall back to SMS automatically.
-					displayToast("Не удалось отправить через WhatsApp, отправляем по SMS");
+				} else if (!UserPreferences.CHANNEL_SMS.equals(request.getChannel())) {
+					// Email/WhatsApp delivery failed — fall back to SMS automatically.
+					displayToast("Не удалось отправить код, отправляем по SMS");
 					request.setChannel(UserPreferences.CHANNEL_SMS);
 					sendAdminRegistration(request);
 				} else {
