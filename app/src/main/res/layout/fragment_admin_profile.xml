@@ -141,6 +141,31 @@
                         android:layout_marginTop="@dimen/vertical_margin_half"
                         android:background="@color/BlueTransparent"></FrameLayout>
 
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:drawableLeft="@drawable/ic_email"
+                        android:drawablePadding="@dimen/horizontal_margin_third"
+                        android:paddingLeft="@dimen/horizontal_margin_half"
+                        android:paddingTop="@dimen/vertical_margin_half"
+                        android:paddingBottom="@dimen/vertical_margin_half"
+                        android:textColor="@color/White"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/text_normal"
+                        android:visibility="gone" />
+
+                    <FrameLayout
+                        android:id="@+id/emailDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@color/BlueTransparent"
+                        android:visibility="gone" />
+
                     <LinearLayout
                         android:id="@+id/address"
                         android:layout_width="match_parent"

@@ -133,6 +133,10 @@ public class AdminProfileFragment extends AdminBaseFragment{
 	ImageView avatarBackground;
 	@BindView(R.id.fade_for_avatar)
 	View fadeAvatar;
+	@BindView(R.id.txtEmail)
+	TextView txtEmail;
+	@BindView(R.id.emailDivider)
+	View emailDivider;
 
 	boolean informationSaved = false;
 	HashMap<String,Double> menuServicesPrices = new HashMap<String,Double>();
@@ -238,6 +242,15 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		user = event.getUser();
 		profilePhotos = new ArrayList<PhotoParcelable>();
 		if(user != null){
+			// Show the account email (read-only) on the profile.
+			if (!TextUtils.isEmpty(user.getEmail())) {
+				txtEmail.setText(user.getEmail());
+				txtEmail.setVisibility(View.VISIBLE);
+				emailDivider.setVisibility(View.VISIBLE);
+			} else {
+				txtEmail.setVisibility(View.GONE);
+				emailDivider.setVisibility(View.GONE);
+			}
 			if (user.getImages() != null) {
 				profilePhotos = user.getImages().stream()
 						.map(photo -> PhotoParcelable.newPhoto(photo.getPhotoOrm(user.getId())))

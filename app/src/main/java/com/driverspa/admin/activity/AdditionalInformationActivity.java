@@ -37,11 +37,9 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 	MultipleSelectDialog addInfoDialog;
 
 	@BindView(R.id.phone)
-	EditText phone;	
-	@BindView(R.id.email)
-	EditText email;	
+	EditText phone;
 	@BindView(R.id.web)
-	EditText web;	
+	EditText web;
 	
 	@BindView(R.id.txtPayType)
 	TextView payType;	
@@ -122,10 +120,19 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
     	webContact.setType("website");
     	webContact.setValue(web.getText().toString());
         contacts.add(webContact);
+    	// Email is no longer edited here (the account email is shown on the
+    	// profile). Preserve any existing washer contact email so saving the
+    	// other fields doesn't wipe it.
+    	String existingEmail = "";
+    	if (washer != null && washer.getContacts() != null) {
+    		for (Contact c : washer.getContacts()) {
+    			if ("email".equals(c.getType())) { existingEmail = c.getValue(); break; }
+    		}
+    	}
     	Contact emailContact = new Contact();
     	emailContact.setType("email");
-    	emailContact.setValue(email.getText().toString());
-        contacts.add(emailContact);        	        
+    	emailContact.setValue(existingEmail);
+        contacts.add(emailContact);
         washer.setContacts(contacts);
 		BA.getEventBus().post(new WasherLocalUpdateRequestEvent(washer));
     }
@@ -186,9 +193,6 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 					}
 					else if(contact.getType().equals("website")){
 						web.setText(contact.getValue());
-					}
-					else if(contact.getType().equals("email")){
-						email.setText(contact.getValue());
 					}
 				}
 			}

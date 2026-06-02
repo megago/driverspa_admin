@@ -77,37 +77,6 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/email"
-                style="@style/EditText.Transparent"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="е-mail"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:lines="1"
-                android:maxLength="60"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="@color/White"
-                android:textColorHint="@color/BlueLight"
-                android:textCursorDrawable="@null"
-                android:textIsSelectable="false"
-                android:textSize="@dimen/text_normal" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/vertical_margin_half"
-            android:background="@color/BlueTransparent"></FrameLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.BlueLight"
-            app:hintTextColor="@color/BlueLight"
-            android:textColorHint="@color/BlueLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
                 android:id="@+id/web"
                 style="@style/EditText.Transparent"
                 android:layout_width="fill_parent"
