@@ -14,14 +14,19 @@ import static com.driverspa.util.Constants.RESIGNED;
 import static com.driverspa.util.Constants.URL_PREFIX;
 import static com.driverspa.util.Constants.VACATION;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.core.view.MenuItemCompat;
@@ -228,6 +233,19 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     private Handler mHandler = new Handler();
 
+    private static final int REQUEST_POST_NOTIFICATIONS = 3001;
+
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        REQUEST_POST_NOTIFICATIONS);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,6 +253,11 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         Mint.initAndStartSession(this.getApplication(), "fa7fe554");
         Mint.setUserIdentifier(UserPreferences.getUserPhone(this));
         ButterKnife.bind(this);
+
+        // Android 13+ blocks notifications until POST_NOTIFICATIONS is granted
+        // at runtime. Ask once here, on the main authenticated screen, so FCM
+        // pushes can actually be shown.
+        requestNotificationPermissionIfNeeded();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);

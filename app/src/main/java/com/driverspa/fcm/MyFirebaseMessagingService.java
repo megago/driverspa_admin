@@ -9,9 +9,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -20,9 +22,13 @@ import androidx.core.app.NotificationCompat;
 import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.admin.activity.AdminHomeActivity;
+import com.driverspa.assist.UserSelfAssist;
+import com.driverspa.model.Device;
 import com.driverspa.model.NotificationId;
 import com.driverspa.model.PushData;
+import com.driverspa.model.User;
 import com.driverspa.util.UserPreferences;
+import com.driverspa.util.otto.ws.PushRequestEvent;
 import com.driverspa.util.otto.NewBookingPushRequestEvent;
 import com.driverspa.util.otto.NewInformationPushRequestEvent;
 import com.driverspa.util.otto.NewReviewPushRequestEvent;
@@ -49,8 +55,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if (!UserPreferences.isUserLoggedIn(this)) {
-            // Without a logged-in user we can't route anywhere useful;
+        // This is the admin app — admins are signed in via onAdminLogin, which
+        // sets the ADMIN flag (not the client "user" flag). Gating on
+        // isUserLoggedIn() here would silently drop every push for admins.
+        if (!UserPreferences.isAdminLoggedIn(this)) {
+            // Without a signed-in admin we can't route anywhere useful;
             // drop the push silently rather than waking an unauthenticated UI.
             return;
         }
@@ -90,10 +99,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "FCM token refreshed: " + token);
         Context ctx = getApplicationContext();
         UserPreferences.putPushToken(ctx, token);
-        // Re-register the device with the new token. The actual POST is
-        // triggered from MainActivity.registerFcm() — calling restart()
-        // would be too aggressive here, so just persist and let the next
-        // foreground app launch push it to the backend.
+        // Register the device with the backend as soon as the token is known.
+        // This is the most reliable moment (independent of any Activity's
+        // lifecycle / Play-Services timing), so the server always ends up with
+        // a token-bearing device record.
+        registerDeviceWithBackend(ctx, token);
+    }
+
+    /**
+     * Posts the device (with its FCM token) to the backend, but only when an
+     * admin is signed in. Mirrors the payload built in SplashActivity.
+     */
+    private void registerDeviceWithBackend(Context ctx, String token) {
+        if (TextUtils.isEmpty(token) || !UserPreferences.isAdminLoggedIn(ctx)) {
+            return;
+        }
+        User user = UserSelfAssist.getUserFromDb(UserPreferences.getUserId(ctx));
+        if (user == null) {
+            return;
+        }
+        String deviceId = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+        String appVersion = "";
+        try {
+            appVersion = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        BA.getEventBus().post(new PushRequestEvent(deviceId,
+                new Device(Build.MODEL, "android", Build.VERSION.RELEASE, appVersion, token, "fcm",
+                        user.getDefaultCarwashId(), true, !user.isOwner())));
     }
 
     private PushData pushDataFromMap(Map<String, String> data) {

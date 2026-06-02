@@ -1,7 +1,9 @@
 package com.driverspa.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
@@ -20,12 +22,16 @@ import com.driverspa.admin.fragment.AdminPasswordLoginFragment;
 import com.driverspa.admin.fragment.AdminPhoneFragment;
 import com.driverspa.admin.fragment.AdminResetPasswordFragment;
 import com.driverspa.admin.fragment.AdminVerificationFragment;
+import com.driverspa.assist.UserSelfAssist;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.fragment.MainFragment;
 import com.driverspa.model.CurrentGeoPosition;
+import com.driverspa.model.Device;
+import com.driverspa.model.User;
 import com.driverspa.model.UserLocation;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.UserPreferences;
+import com.driverspa.util.otto.ws.PushRequestEvent;
 import com.driverspa.util.otto.ws.UserLocationUpdateEvent;
 
 /**
@@ -170,8 +176,36 @@ public class MainActivity extends BaseActivity implements
 					if (!TextUtils.isEmpty(token)) {
 						UserPreferences.putPushToken(this, token);
 						Log.d("FCM", "FCM token cached: " + token);
+						// Register the device with the backend right after login
+						// so pushes work without waiting for the next app launch.
+						registerDeviceWithBackend(token);
 					}
 				});
+	}
+
+	/**
+	 * Posts the freshly-obtained FCM token to the backend (PUT /v1/devices/{id}).
+	 * Mirrors the device payload built in SplashActivity so a just-logged-in user
+	 * is registered for push immediately.
+	 */
+	private void registerDeviceWithBackend(String token) {
+		User user = UserSelfAssist.getUserFromDb(UserPreferences.getUserId(BA.getContext()));
+		if (user == null) {
+			return;
+		}
+		String deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+		String phoneModel = android.os.Build.MODEL;
+		String androidVersion = android.os.Build.VERSION.RELEASE;
+		String appVersion = "";
+		try {
+			appVersion = getApplicationContext().getPackageManager()
+					.getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		BA.getEventBus().post(new PushRequestEvent(deviceId,
+				new Device(phoneModel, "android", androidVersion, appVersion, token, "fcm",
+						user.getDefaultCarwashId(), true, !user.isOwner())));
 	}
 
 	/**

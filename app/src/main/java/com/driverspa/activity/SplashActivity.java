@@ -92,7 +92,11 @@ public class SplashActivity extends BaseActivity implements AnimationListener{
 				} catch (PackageManager.NameNotFoundException e) {
 					e.printStackTrace();
 				}
-				BA.getEventBus().post(new PushRequestEvent(deviceId, new Device(phoneModel, "android", androidVersion, appVersion, token, "fcm", user.getDefaultCarwashId(), true, !user.isOwner())));
+				// Only register when we already have an FCM token. On the very
+					// first launch it may not be cached yet — onNewToken will then
+					// register the device as soon as the token arrives.
+					if (!TextUtils.isEmpty(token))
+						BA.getEventBus().post(new PushRequestEvent(deviceId, new Device(phoneModel, "android", androidVersion, appVersion, token, "fcm", user.getDefaultCarwashId(), true, !user.isOwner())));
 		  }
 		  else if(user == null) {
 			  //If database was recreated then ask for user data again

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "000000000000",
-    "project_id": "driverspa-admin-placeholder",
-    "storage_bucket": "driverspa-admin-placeholder.appspot.com"
+    "project_number": "693899870275",
+    "project_id": "driverspa-503ed",
+    "storage_bucket": "driverspa-503ed.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+        "mobilesdk_app_id": "1:693899870275:android:e9008eae114a782f5454f6",
         "android_client_info": {
           "package_name": "com.driverspaAdmin"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA-PLACEHOLDER-REPLACE-WITH-REAL-VALUE"
+          "current_key": "AIzaSyDKq82vttXzMwkSENYrMQM9H_nFqmH8odo"
         }
       ],
       "services": {
