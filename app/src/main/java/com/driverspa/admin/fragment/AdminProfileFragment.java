@@ -209,6 +209,11 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		super.onResume();
 		BA.getEventBus().register(this);
 		BA.setNotificationType(NotificationType.PROFILE);
+		// Refresh the account from the server so fields like email are current
+		// (the bus otherwise delivers a possibly-stale cached user).
+		if (!TextUtils.isEmpty(userId)) {
+			BA.getEventBus().post(new UserGetSelfRequestEvent(userId));
+		}
 	}
 
 	@Override
