@@ -898,7 +898,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Карта"
+                                    android:text="Карта (Каспи, Халык)"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
 

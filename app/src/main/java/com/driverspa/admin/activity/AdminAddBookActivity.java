@@ -67,6 +67,7 @@ import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
 import com.driverspa.util.MaskedWatcher;
 import com.driverspa.util.ToastUtil;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.GroupServiceUnselectClicked;
 import com.driverspa.util.otto.SearchEvent;
@@ -220,6 +221,8 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	private int currentPaymentField = 0;
 	/** Guards mirroring between singleAmount and the four backing fields. */
 	private boolean amountSyncing = false;
+	private boolean settingCarTypeFromClient = false;
+	private boolean depositPromptShown = false;
 
 	@Override
     protected void onCreate(Bundle arg0) {
@@ -568,6 +571,56 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		boolean isLast = (step == STEP_PAYMENT);
 		if (btnNext != null) btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
 		if (buttonBook != null) buttonBook.setVisibility(isLast ? View.VISIBLE : View.GONE);
+
+		if (step == STEP_PAYMENT) {
+			maybePromptUseDepositBonus();
+		}
+	}
+
+	private void maybePromptUseDepositBonus() {
+		if (depositPromptShown || selectedClient == null) return;
+		if (finalPrice == null || finalPrice <= 0) return;
+		final double deposit = selectedClient.getDepositAmount() != null ? selectedClient.getDepositAmount() : 0d;
+		final double bonus = selectedClient.getAccruedBonuses() != null ? selectedClient.getAccruedBonuses() : 0d;
+		if (deposit <= 0 && bonus <= 0) return;
+		depositPromptShown = true;
+
+		StringBuilder msg = new StringBuilder("У клиента есть ");
+		if (deposit > 0) msg.append("перечисление ").append((int) deposit).append(" ₸");
+		if (deposit > 0 && bonus > 0) msg.append(" и ");
+		if (bonus > 0) msg.append("бонусы ").append((int) bonus).append(" ₸");
+		msg.append(". Использовать для оплаты?");
+
+		new MaterialAlertDialogBuilder(this)
+				.setTitle("Средства клиента")
+				.setMessage(msg.toString())
+				.setNegativeButton("Нет", null)
+				.setPositiveButton("Да", (dialog, which) -> applyDepositBonus(deposit, bonus))
+				.show();
+	}
+
+	private void applyDepositBonus(double deposit, double bonus) {
+		if (finalPrice == null) return;
+		double remaining = finalPrice;
+		double useDeposit = Math.min(deposit, remaining);
+		remaining -= useDeposit;
+		double useBonus = Math.min(bonus, remaining);
+
+		selectPaymentChip(-1, true);
+		amountSyncing = true;
+		try {
+			cashAmount.setText("0");
+			cardAmount.setText("0");
+			depositAmount.setText((int) useDeposit + "");
+			bonusAmount.setText((int) useBonus + "");
+		} finally {
+			amountSyncing = false;
+		}
+		calculatePaymentTypesTransactionAmount();
+
+		if (paid != null && finalPriceDifference != null && finalPriceDifference <= 0) {
+			paid.setChecked(true);
+		}
 	}
 
 	private void applyHeaderState(View dot, TextView label, boolean selected) {
@@ -612,6 +665,10 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 
 		finalPriceDifference = finalPrice - cash - card - bonus - deposit;
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
+
+		if (paid != null && (cash > 0 || card > 0)) {
+			paid.setChecked(false);
+		}
 
 		priceDetails.clear();
 		if (cash > 0) {
@@ -676,6 +733,10 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		}
 
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
+
+		if (paid != null && (cash > 0 || card > 0)) {
+			paid.setChecked(false);
+		}
 
 		priceDetails.clear();
 		if (cash > 0) {
@@ -1079,8 +1140,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 				double totalPriceWithDiscount = (int) (Math.round(totalPrice) - Math.round(totalPrice) * discnt / 100);
 				txtPrice.setText(totalPriceWithDiscount + " ₸");
 				finalPrice = totalPriceWithDiscount;
-				cashAmount.setText(finalPrice.intValue() + "");
-				cashAmount.setSelection(cashAmount.getText().toString().length());
+				// Leave payment amounts at 0 so the difference shows the amount still owed.
 				if (request != null)
 					request.setServicePrice(totalPrice + "");
 			} else {
@@ -1100,8 +1160,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 					totalPriceWithDiscount = 0;
 				}
 				finalPrice = totalPriceWithDiscount;
-				cashAmount.setText(finalPrice.intValue() + "");
-				cashAmount.setSelection(cashAmount.getText().toString().length());
 				txtPrice.setText(totalPriceWithDiscount + " ₸");
 				if (request != null)
 					request.setServicePrice(totalPrice + "");
@@ -1114,6 +1172,30 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			if (request != null)
 				request.setServiceTotalTime(totalTime);
 
+		}
+		calculatePaymentTypesTransactionAmount();
+		autofillCashWhenNoClientFunds();
+	}
+
+	private void autofillCashWhenNoClientFunds() {
+		if (finalPrice == null || finalPrice <= 0) return;
+		boolean hasFunds = selectedClient != null
+				&& ((selectedClient.getDepositAmount() != null && selectedClient.getDepositAmount() > 0)
+					|| (selectedClient.getAccruedBonuses() != null && selectedClient.getAccruedBonuses() > 0));
+		if (hasFunds) return;
+		selectPaymentChip(0, false);
+		amountSyncing = true;
+		try {
+			if (singleAmount != null) {
+				singleAmount.setText(finalPrice.intValue() + "");
+				singleAmount.setSelection(singleAmount.getText().length());
+			}
+			cashAmount.setText(finalPrice.intValue() + "");
+			cardAmount.setText("0");
+			bonusAmount.setText("0");
+			depositAmount.setText("0");
+		} finally {
+			amountSyncing = false;
 		}
 		calculatePaymentTypesTransactionAmount();
 	}
@@ -1265,6 +1347,11 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	private View.OnClickListener buttonSelector = new View.OnClickListener() {
 		@Override
 		public void onClick(View view) {
+			if (selectedClient != null && !settingCarTypeFromClient) {
+				ToastUtil.displayAtTop(AdminAddBookActivity.this,
+						"Нельзя изменить тип машины здесь. Измените его в карточке клиента.");
+				return;
+			}
 			if ( view.getId() == buttonSedan.getId() && !buttonSedan.isSelected()){
 				buttonSedan.setSelected(true);
 				buttonMini.setSelected(false);
@@ -1445,6 +1532,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 
 	protected void setData(ClientInfo client) {
 		this.selectedClient = client;
+		depositPromptShown = false;
 		request.setCompanyClient(URL_COMPANY_CLIENT_PREFIX + client.getId());
 		if(selectedClient.getDiscount() > 0){
 			discount.setText(selectedClient.getDiscount()+"");
@@ -1507,6 +1595,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			clientInformationText = clientInformationText + " " + client.getPhone();
 		}
 
+		settingCarTypeFromClient = true;
 		if (client.getCarType(queryText) != null) {
 			selectedCarType = CarType.toEnum(client.getCarType(queryText));
 			if (selectedCarType != null && selectedCarType != CarType.Unknown) {
@@ -1542,6 +1631,8 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			}
 		}
 
+		settingCarTypeFromClient = false;
+
 		selectedClientInformationLayout.setVisibility(View.VISIBLE);
 		clientInformationsLayout.setVisibility(View.GONE);
 		selectedClientInformationText.setText(clientInformationText);
@@ -1565,6 +1656,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		clientInformationsLayout.setVisibility(View.VISIBLE);
 		selectedClientInformationText.setText("");
 		selectedClient = null;
+		depositPromptShown = false;
 		request.setCompanyClient("");
 		depositAmount.setEnabled(false);
 		bonusAmount.setEnabled(false);

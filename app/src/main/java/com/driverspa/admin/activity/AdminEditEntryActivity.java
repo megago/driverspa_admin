@@ -204,6 +204,11 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 	private View.OnClickListener buttonSelector = new View.OnClickListener() {
 		@Override
 		public void onClick(View view) {
+			if (selectedClient != null) {
+				ToastUtil.displayAtTop(AdminEditEntryActivity.this,
+						"Нельзя изменить тип машины здесь. Измените его в карточке клиента.");
+				return;
+			}
 			if ( view.getId() == buttonSedan.getId() && !buttonSedan.isSelected()){
 				buttonSedan.setSelected(true);
 				buttonMini.setSelected(false);
@@ -1303,6 +1308,10 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		finalPriceDifference = finalPrice - cash - card - bonus - deposit;
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
 
+		if (paid != null && (cash > 0 || card > 0)) {
+			paid.setChecked(false);
+		}
+
 		priceDetails.clear();
 		if (cash > 0) {
 			BookInfo.PriceDetail pdCash = new BookInfo.PriceDetail();
@@ -1392,8 +1401,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 				double totalPriceWithDiscount = (int) (Math.round(totalPrice) - Math.round(totalPrice) * discnt / 100);
 				txtPrice.setText(totalPriceWithDiscount + " ₸");
 				finalPrice = totalPriceWithDiscount;
-				cashAmount.setText(finalPrice.intValue() + "");
-				cashAmount.setSelection(cashAmount.getText().toString().length());
+				// Leave payment amounts at 0 so the difference shows the amount still owed.
 				if (request != null)
 					request.setServicePrice(totalPrice + "");
 			} else {
@@ -1413,8 +1421,6 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 					totalPriceWithDiscount = 0;
 				}
 				finalPrice = totalPriceWithDiscount;
-				cashAmount.setText(finalPrice.intValue() + "");
-				cashAmount.setSelection(cashAmount.getText().toString().length());
 				txtPrice.setText(totalPriceWithDiscount + " ₸");
 				if (request != null)
 					request.setServicePrice(totalPrice + "");
@@ -1429,6 +1435,30 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 
 		}
 
+		calculatePaymentTypesTransactionAmount();
+		autofillCashWhenNoClientFunds();
+	}
+
+	private void autofillCashWhenNoClientFunds() {
+		if (finalPrice == null || finalPrice <= 0) return;
+		boolean hasFunds = selectedClient != null
+				&& ((selectedClient.getDepositAmount() != null && selectedClient.getDepositAmount() > 0)
+					|| (selectedClient.getAccruedBonuses() != null && selectedClient.getAccruedBonuses() > 0));
+		if (hasFunds) return;
+		selectPaymentChip(0, false);
+		amountSyncing = true;
+		try {
+			if (singleAmount != null) {
+				singleAmount.setText(finalPrice.intValue() + "");
+				singleAmount.setSelection(singleAmount.getText().length());
+			}
+			cashAmount.setText(finalPrice.intValue() + "");
+			cardAmount.setText("0");
+			bonusAmount.setText("0");
+			depositAmount.setText("0");
+		} finally {
+			amountSyncing = false;
+		}
 		calculatePaymentTypesTransactionAmount();
 	}
 
@@ -1712,6 +1742,10 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		}
 
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
+
+		if (paid != null && (cash > 0 || card > 0)) {
+			paid.setChecked(false);
+		}
 
 		priceDetails.clear();
 		if (cash > 0) {
