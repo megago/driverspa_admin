@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace 'com.driverspa'
-    compileSdk 34
+    compileSdk 35
 
     buildFeatures {
         viewBinding true
@@ -17,8 +17,8 @@ android {
     defaultConfig {
         applicationId "com.driverspaAdmin"
         minSdk 24
-        targetSdk 33
-        versionCode 98
+        targetSdk 35
+        versionCode 1
         versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,6 +46,13 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    packaging {
+        jniLibs {
+            // Wizardroid ships a legacy 32-bit-only .so; exclude it to avoid Play 64-bit rejection.
+            excludes += ["**/libwizardroid.so"]
+        }
     }
 }
 
