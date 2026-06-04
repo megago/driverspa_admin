@@ -1,6 +1,7 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -8,7 +9,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -37,14 +44,13 @@ import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
 import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
 /**
- * Entry screen of the auth flow. Collects a phone number, an email and the OTP
- * delivery channel (Email by default; SMS/WhatsApp optional), calls check_phone,
- * then branches:
- *   has_password == true   -> password login screen
- *   exists == false        -> register (send OTP, incl. email) + OTP screen
- *   exists, no password    -> resend_activation (send OTP) + OTP screen
+ * Entry screen of the auth flow. Collects a phone number, email and OTP channel,
+ * calls check_phone, then branches. The "Continue" button is enabled only after
+ * the user agrees to the public offer (публичная оферта).
  */
 public class AdminPhoneFragment extends AdminBaseFragment {
+
+	private static final String OFERTA_URL = "https://driverspa.kz/oferta.html";
 
 	public interface ActivityActions {
 		void openPasswordLogin(String phone);
@@ -62,6 +68,12 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	EditText loginEmail;
 	@BindView(R.id.channelGroup)
 	RadioGroup channelGroup;
+	@BindView(R.id.ofertaCheckbox)
+	CheckBox ofertaCheckbox;
+	@BindView(R.id.ofertaLink)
+	TextView ofertaLink;
+	@BindView(R.id.btnOk)
+	Button btnOk;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +85,6 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		// Email is the default channel.
 		channelGroup.check(R.id.channelEmail);
 		phone.requestFocus();
 		phone.setOnEditorActionListener(new OnEditorActionListener() {
@@ -85,7 +96,52 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 				return false;
 			}
 		});
+
+		// Alpha-only dimming — keeps the button text readable when unchecked.
+		// setEnabled is intentionally not used (it triggers Android's gray tint).
+		ofertaCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+			btnOk.setAlpha(isChecked ? 1f : 0.35f);
+		});
+
+		ofertaLink.setOnClickListener(v -> showOfertaDialog());
+
 		return view;
+	}
+
+	/** Full-screen dialog that loads the offer page in a WebView. */
+	private void showOfertaDialog() {
+		if (getActivity() == null) return;
+		Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+		dialog.setContentView(R.layout.dialog_oferta);
+		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+		WebView webView = dialog.findViewById(R.id.ofertaWebView);
+		View progress = dialog.findViewById(R.id.ofertaProgress);
+		Button btnClose = dialog.findViewById(R.id.ofertaClose);
+		Button btnAgree = dialog.findViewById(R.id.ofertaAgree);
+
+		WebSettings ws = webView.getSettings();
+		ws.setJavaScriptEnabled(true);
+		ws.setDefaultTextEncodingName("utf-8");
+
+		webView.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+				if (progress != null) progress.setVisibility(View.GONE);
+				webView.setVisibility(View.VISIBLE);
+			}
+		});
+		webView.setVisibility(View.INVISIBLE);
+		webView.loadUrl(OFERTA_URL);
+
+		btnClose.setOnClickListener(v -> dialog.dismiss());
+		btnAgree.setOnClickListener(v -> {
+			ofertaCheckbox.setChecked(true);
+			dialog.dismiss();
+		});
+
+		dialog.show();
 	}
 
 	@Override
@@ -109,6 +165,10 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 	@OnClick(R.id.btnOk)
 	protected void processPhone() {
+		if (!ofertaCheckbox.isChecked()) {
+			ToastUtil.display(getActivity(), "Пожалуйста, примите публичную оферту");
+			return;
+		}
 		String phoneStr = phone.getText().toString()
 				.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "")
 				.replaceAll("-", "").replaceAll(" ", "");
@@ -123,7 +183,6 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 		channel = selectedChannel();
 		email = loginEmail.getText().toString().trim();
-		// The email channel needs a valid destination email.
 		if (UserPreferences.CHANNEL_EMAIL.equals(channel)
 				&& (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
 			loginEmail.setError("Введите корректный email");
@@ -148,16 +207,13 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		}
 
 		if (event.getData().getResponse().isHasPassword()) {
-			// Returning user with a password -> password login.
 			setWaitScreen(false);
 			activityActions.openPasswordLogin(fullPhone);
 		} else if (!event.getData().getResponse().isExists()) {
-			// Brand-new user -> create account + send OTP (include email).
 			String emailToSend = TextUtils.isEmpty(email) ? null : email;
 			BA.getEventBus().post(new AuthAdminRegistrationRequestEvent(
 					new AuthAdminRegistrationRequest("NA", fullPhone, channel, emailToSend)));
 		} else {
-			// Existing user without a password -> resend OTP.
 			BA.getEventBus().post(new ResendActivationRequestEvent(
 					new ResendActivationRequest(fullPhone, channel)));
 		}

@@ -195,6 +195,52 @@
                 android:textSize="@dimen/text_medium" />
         </RadioGroup>
 
+        <!-- Публичная оферта -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/ofertaCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/background_checkbox"
+                android:checked="false"
+                android:padding="0dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/horizontal_margin_third"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Я согласен с "
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/ofertaLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="публичной офертой"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:paddingLeft="0dp" />
+            </LinearLayout>
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnOk"
             android:layout_width="wrap_content"
@@ -202,6 +248,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginTop="@dimen/vertical_margin"
+            android:alpha="0.35"
             android:background="@drawable/background_button_borderless"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
