@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="6dp"
+    android:insetTop="7dp"
+    android:insetRight="6dp"
+    android:insetBottom="7dp">
+
+    <shape android:shape="rectangle">
+        <corners android:radius="20dp" />
+        <solid android:color="@color/tab_selected_bg" />
+    </shape>
+
+</inset>

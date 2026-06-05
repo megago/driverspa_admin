@@ -59,10 +59,12 @@ public class TabBarAdapter extends BaseAdapter {
         }
 
         if(position == selectedTab){
+            rowView.setBackgroundResource(R.drawable.background_tab_selected);
             tabItemTxt.setTextColor(context.getResources().getColor(R.color.White));
             tabItemTxtDetail.setTextColor(context.getResources().getColor(R.color.White));
         }
         else{
+            rowView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
             tabItemTxt.setTextColor(context.getResources().getColor(R.color.tab_inactive));
             tabItemTxtDetail.setTextColor(context.getResources().getColor(R.color.tab_inactive));
         }

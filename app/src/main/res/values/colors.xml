@@ -7,6 +7,17 @@
 	<color name="Light">#70ffffff</color>
 
 	<color name="admin_grid_item_busy">#25000000</color>
+
+	<!-- timetable grid tiles -->
+	<color name="grid_tile_normal">#212E44</color>
+	<color name="grid_tile_border">#3A4D6B</color>
+	<color name="grid_tile_selected">#3E6DDA</color>
+	<color name="grid_tile_selected_border">#5C86E8</color>
+	<color name="grid_tile_expired">#161D2A</color>
+	<color name="grid_tile_expired_border">#28344A</color>
+	<color name="grid_tile_busy">#2C3D5A</color>
+	<color name="grid_tile_busy_border">#43597E</color>
+	<color name="tab_selected_bg">#3E6DDA</color>
 	<!-- drawer navigation -->
 	<color name="myPrimaryColor">#3F51B5</color>
 	<color name="myPrimaryDarkColor">#3F51B5</color>

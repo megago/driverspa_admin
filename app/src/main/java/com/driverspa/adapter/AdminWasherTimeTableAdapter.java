@@ -137,7 +137,7 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
 			holder.txtStatus.setBackground(Functions.getBookStatusBGColor(context,item.getStatus()));
 			holder.txtStatus.setTextColor(Functions.getBookStatusTextColor(context,item.getStatus()));
 
-			holder.innerLayout.setBackgroundColor(context.getResources().getColor(R.color.admin_grid_item_busy));
+			holder.innerLayout.setBackgroundResource(R.drawable.background_grid_item_busy);
 
 			holder.txtStatus.setVisibility(View.VISIBLE);
 		}
