@@ -364,6 +364,13 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
         if (!isLoggedIn) finish();
 
+        // Restore the action bar title for the current tab. Without this a title
+        // written by another screen (e.g. "О нас") or the timetable's "30м" lingers
+        // on the toolbar after returning to the home activity.
+        if (titleView != null) {
+            setTabButtons(selectedTab);
+        }
+
         applyWasherAccessState();
     }
 
@@ -390,6 +397,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 clientButton.setSelected(false);
                 statisticsButton.setSelected(false);
                 titleView.setText("");
+                titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 break;
             case 1:
                 expressButton.setSelected(false);
@@ -501,9 +509,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 );
                 break;
             case 7: //About us
-                if(titleView != null) {
-                    titleView.setText("О нас");
-                }
                 startActivity(new Intent(this,AdminAboutUSActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
