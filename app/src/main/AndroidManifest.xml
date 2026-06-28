@@ -41,6 +41,16 @@
          for any app that posts user-visible notifications (incl. FCM). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!-- Android 11+ package visibility: needed so Intent.setPackage("com.whatsapp")
+         resolves when deep-linking into WhatsApp for registration. -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="wa.me" />
+        </intent>
+    </queries>
+
 
     <application
         android:name="com.driverspa.BA"

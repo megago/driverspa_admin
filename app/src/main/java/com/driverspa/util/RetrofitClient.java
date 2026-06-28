@@ -36,6 +36,8 @@ import com.driverspa.model.api.request.StaffOperationRequest;
 import com.driverspa.model.api.request.UserUpdateRequest;
 import com.driverspa.model.api.request.WashCountCampaignOperationRequest;
 import com.driverspa.model.api.request.WasherRequest;
+import com.driverspa.model.api.request.WhatsappRequest;
+import com.driverspa.model.api.request.WhatsappStatusRequest;
 import com.driverspa.model.api.response.AboutUSResponseHolder;
 import com.driverspa.model.api.response.AdminAnalyticsResponseHolder;
 import com.driverspa.model.api.response.AdminBoxResponseHolder;
@@ -76,6 +78,8 @@ import com.driverspa.model.api.response.UserResponseHolder;
 import com.driverspa.model.api.response.WasherResponseHolder;
 import com.driverspa.model.api.response.WasherTimeTableResponseHolder;
 import com.driverspa.model.api.response.WashersResponseHolder;
+import com.driverspa.model.api.response.WhatsappRequestResponseHolder;
+import com.driverspa.model.api.response.WhatsappStatusResponseHolder;
 import com.driverspa.util.otto.ws.AdminCarwashTransactionAddRequestEvent;
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
@@ -136,7 +140,6 @@ public class RetrofitClient {
 
 	public static String API_URL = "http://192.168.31.177:8002/api/"; // api url
 	public static String API_URL_IMAGES = "http://192.168.31.177:8002"; // api url
-
 
 //	public static String API_URL = "http://192.168.31.73:8000/api/"; // api url
 //	public static String API_URL_IMAGES = "http://192.168.31.73:8000"; // api url
@@ -210,6 +213,22 @@ public class RetrofitClient {
 		void authAdminRegistration(
 				@Body AuthAdminRegistrationRequest body,
 				Callback<AuthAdminRegistrationResponseHolder> callback);
+
+		// WhatsApp registration: request a short token + wa_link to deep-link
+		// into WhatsApp. The user isn't logged in yet, so push_token is passed
+		// in the body so the backend can push {type:"wa_verified"}.
+		@POST("/v1/account/whatsapp_request/")
+		void whatsappRequest(
+				@Body WhatsappRequest body,
+				Callback<WhatsappRequestResponseHolder> callback);
+
+		// Poll for the result of the WhatsApp verification using the SHORT token
+		// from whatsapp_request. Returns {verified:false} until the message is
+		// matched, then the full account + token (= api_key).
+		@POST("/v1/account/whatsapp_status/")
+		void whatsappStatus(
+				@Body WhatsappStatusRequest body,
+				Callback<WhatsappStatusResponseHolder> callback);
 
 		@GET("/v1/account/{id}")
 		void userGet(

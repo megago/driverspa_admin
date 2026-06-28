@@ -18,6 +18,10 @@
     <string name="kazakhstan_number_text">Казахстан (+7)</string>
     <string name="button_ok">ОК</string>
     <string name="button_next">Продолжить</string>
+    <string name="whatsapp_register_info">Нажмите кнопку ниже, чтобы открыть WhatsApp и отправить сообщение с кодом. Сообщение нужно отправить с того же номера, который вы регистрируете.</string>
+    <string name="whatsapp_send_button">Отправить через WhatsApp</string>
+    <string name="whatsapp_waiting">Ожидаем подтверждение…</string>
+    <string name="whatsapp_retry">Повторить</string>
     <string name="verification_code">Код подтверждения</string>
     <string name="button_retry">Отправить код еще раз</string>
     <string name="login_phone">Номер телефона</string>

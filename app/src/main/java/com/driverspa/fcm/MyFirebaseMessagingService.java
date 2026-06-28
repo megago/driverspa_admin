@@ -29,6 +29,7 @@ import com.driverspa.model.PushData;
 import com.driverspa.model.User;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.PushRequestEvent;
+import com.driverspa.util.otto.ws.WhatsappVerifiedPushEvent;
 import com.driverspa.util.otto.NewBookingPushRequestEvent;
 import com.driverspa.util.otto.NewInformationPushRequestEvent;
 import com.driverspa.util.otto.NewReviewPushRequestEvent;
@@ -52,9 +53,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM";
     public static final String DEFAULT_CHANNEL_ID = "default";
 
+    private static final String TYPE_WA_VERIFIED = "wa_verified";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        Map<String, String> data = remoteMessage.getData();
+        Log.d(TAG, "Push received from=" + remoteMessage.getFrom() + " data=" + data);
+
+        // WhatsApp verification arrives BEFORE the admin is logged in (the whole
+        // point is to finish registration), so this must run ahead of the
+        // admin-login gate below — otherwise it'd be dropped as "unauthenticated".
+        if (TYPE_WA_VERIFIED.equals(extractType(data))) {
+            BA.getEventBus().post(new WhatsappVerifiedPushEvent());
+            return;
+        }
+
         // This is the admin app — admins are signed in via onAdminLogin, which
         // sets the ADMIN flag (not the client "user" flag). Gating on
         // isUserLoggedIn() here would silently drop every push for admins.
@@ -63,9 +78,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // drop the push silently rather than waking an unauthenticated UI.
             return;
         }
-
-        Map<String, String> data = remoteMessage.getData();
-        Log.d(TAG, "Push received from=" + remoteMessage.getFrom() + " data=" + data);
 
         // Backend sends the actual payload in a "message" string (legacy
         // GCM contract) — keep parsing that for backwards compatibility,
@@ -128,6 +140,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         BA.getEventBus().post(new PushRequestEvent(deviceId,
                 new Device(Build.MODEL, "android", Build.VERSION.RELEASE, appVersion, token, "fcm",
                         user.getDefaultCarwashId(), true, !user.isOwner())));
+    }
+
+    /**
+     * Returns the push "type" regardless of whether the backend put it directly
+     * in the data map (native FCM data message) or nested inside the legacy
+     * "message" JSON string. Used to spot {@code wa_verified} before the
+     * admin-login gate.
+     */
+    private String extractType(Map<String, String> data) {
+        if (data == null || data.isEmpty()) {
+            return null;
+        }
+        String type = data.get("type");
+        if (!TextUtils.isEmpty(type)) {
+            return type;
+        }
+        String messageJson = data.get("message");
+        if (!TextUtils.isEmpty(messageJson)) {
+            try {
+                PushData pd = PushData.deserialize(messageJson);
+                return pd == null ? null : pd.getType();
+            } catch (Exception e) {
+                Log.w(TAG, "extractType: failed to parse 'message' JSON", e);
+            }
+        }
+        return null;
     }
 
     private PushData pushDataFromMap(Map<String, String> data) {

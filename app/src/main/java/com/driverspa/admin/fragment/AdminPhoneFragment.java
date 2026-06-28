@@ -55,6 +55,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	public interface ActivityActions {
 		void openPasswordLogin(String phone);
 		void openVerification();
+		void openWhatsappRegistration(String phone, String email, String companyName);
 	}
 
 	private ActivityActions activityActions;
@@ -66,6 +67,8 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	EditText phone;
 	@BindView(R.id.login_email)
 	EditText loginEmail;
+	@BindView(R.id.emailContainer)
+	View emailContainer;
 	@BindView(R.id.channelGroup)
 	RadioGroup channelGroup;
 	@BindView(R.id.ofertaCheckbox)
@@ -85,7 +88,11 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		channelGroup.check(R.id.channelEmail);
+		// WhatsApp is the default/first option. The email field is only relevant
+		// for the Email channel, so toggle it with the selection.
+		channelGroup.check(R.id.channelWhatsapp);
+		channelGroup.setOnCheckedChangeListener((group, checkedId) -> updateEmailVisibility());
+		updateEmailVisibility();
 		phone.requestFocus();
 		phone.setOnEditorActionListener(new OnEditorActionListener() {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -158,9 +165,14 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 	private String selectedChannel() {
 		int id = channelGroup.getCheckedRadioButtonId();
-		if (id == R.id.channelSms) return UserPreferences.CHANNEL_SMS;
 		if (id == R.id.channelWhatsapp) return UserPreferences.CHANNEL_WHATSAPP;
 		return UserPreferences.CHANNEL_EMAIL;
+	}
+
+	/** Email is only collected for the Email channel; hide it for WhatsApp. */
+	private void updateEmailVisibility() {
+		boolean isEmail = UserPreferences.CHANNEL_EMAIL.equals(selectedChannel());
+		emailContainer.setVisibility(isEmail ? View.VISIBLE : View.GONE);
 	}
 
 	@OnClick(R.id.btnOk)
@@ -182,16 +194,26 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 		}
 
 		channel = selectedChannel();
+		fullPhone = "+7" + phoneStr;
+		UserPreferences.putOtpChannel(BA.getContext(), channel);
+
+		// WhatsApp registration is a separate flow: it skips check_phone and the
+		// OTP code entirely, handing off to AdminWhatsappFragment which calls
+		// whatsapp_request and waits for the verification. Email is optional.
+		if (UserPreferences.CHANNEL_WHATSAPP.equals(channel)) {
+			String emailStr = loginEmail.getText().toString().trim();
+			activityActions.openWhatsappRegistration(fullPhone,
+					TextUtils.isEmpty(emailStr) ? null : emailStr, null);
+			return;
+		}
+
 		email = loginEmail.getText().toString().trim();
-		if (UserPreferences.CHANNEL_EMAIL.equals(channel)
-				&& (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
+		if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 			loginEmail.setError("Введите корректный email");
 			loginEmail.requestFocus();
 			return;
 		}
 
-		fullPhone = "+7" + phoneStr;
-		UserPreferences.putOtpChannel(BA.getContext(), channel);
 		setWaitScreen(true);
 		BA.getEventBus().post(new CheckPhoneRequestEvent(new CheckPhoneRequest(fullPhone)));
 	}

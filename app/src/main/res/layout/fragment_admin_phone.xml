@@ -91,6 +91,9 @@
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Divider under the phone number — always visible, independent of the
+             channel (it used to live inside emailContainer and vanished when
+             WhatsApp hid the email field). -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -99,37 +102,46 @@
             android:layout_marginTop="@dimen/vertical_margin"
             android:background="@color/BlueTransparent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextInputHint.BlueLight"
-            app:hintTextColor="@color/BlueLight"
-            android:textColorHint="@color/BlueLight"
+        <!-- Email is only needed for the Email channel; hidden when WhatsApp is
+             selected (toggled in AdminPhoneFragment). -->
+        <LinearLayout
+            android:id="@+id/emailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin_half">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/login_email"
-                style="@style/EditText.Transparent"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email (для отправки кода)"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/White"
+            <com.google.android.material.textfield.TextInputLayout
+                app:hintTextAppearance="@style/TextInputHint.BlueLight"
+                app:hintTextColor="@color/BlueLight"
                 android:textColorHint="@color/BlueLight"
-                android:textIsSelectable="false"
-                android:textSize="@dimen/text_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
-            android:background="@color/BlueTransparent" />
+                <EditText
+                    android:id="@+id/login_email"
+                    style="@style/EditText.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email (для отправки кода)"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/BlueLight"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/text_medium" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@color/BlueTransparent" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -138,15 +150,34 @@
             android:layout_marginTop="@dimen/vertical_margin_half"
             android:text="Куда отправить код:"
             android:textColor="@color/BlueLight"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
 
+        <!-- Channel picker is hidden: registration goes through WhatsApp only.
+             WhatsApp stays checked so selectedChannel() returns it; the group is
+             kept in the tree (not removed) so the existing toggle logic and ids
+             still resolve. -->
         <RadioGroup
             android:id="@+id/channelGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vertical_margin_half"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/channelWhatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vertical_margin_half"
+                android:buttonTint="@color/White"
+                android:checked="true"
+                android:drawableLeft="@drawable/ic_whatsapp"
+                android:drawablePadding="@dimen/horizontal_margin_third"
+                android:text="WhatsApp"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_medium" />
 
             <RadioButton
                 android:id="@+id/channelEmail"
@@ -154,44 +185,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/vertical_margin_half"
                 android:buttonTint="@color/White"
-                android:checked="true"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="@dimen/horizontal_margin_third"
                 android:text="Email"
                 android:textColor="@color/White"
-                android:textSize="@dimen/text_medium" />
-
-            <!-- WhatsApp is temporarily disabled in the picker; only Email is
-                 selectable for now. -->
-            <RadioButton
-                android:id="@+id/channelWhatsapp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/vertical_margin_half"
-                android:alpha="0.5"
-                android:buttonTint="@color/BlueLight"
-                android:clickable="false"
-                android:drawableLeft="@drawable/ic_whatsapp"
-                android:drawablePadding="@dimen/horizontal_margin_third"
-                android:enabled="false"
-                android:text="WhatsApp"
-                android:textColor="@color/BlueLight"
-                android:textSize="@dimen/text_medium" />
-
-            <!-- SMS is temporarily disabled in the picker; the backend still
-                 auto-falls back to SMS if email delivery fails. -->
-            <RadioButton
-                android:id="@+id/channelSms"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.5"
-                android:buttonTint="@color/BlueLight"
-                android:clickable="false"
-                android:drawableLeft="@drawable/ic_sms"
-                android:drawablePadding="@dimen/horizontal_margin_third"
-                android:enabled="false"
-                android:text="SMS"
-                android:textColor="@color/BlueLight"
                 android:textSize="@dimen/text_medium" />
         </RadioGroup>
 

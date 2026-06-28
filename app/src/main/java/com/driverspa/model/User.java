@@ -87,7 +87,16 @@ public class User{
     @SerializedName("password_required")
     private Boolean passwordRequired;
 
+    // Present only on the whatsapp_status response. false while the WhatsApp
+    // verification is pending; true (alongside a token) once matched. Not persisted.
+    @SerializedName("verified")
+    private Boolean verified;
+
     List<CarItem> cars;
+
+    public boolean isVerified() {
+        return verified != null && verified;
+    }
 
     public boolean isPasswordRequired() {
         return passwordRequired != null && passwordRequired;

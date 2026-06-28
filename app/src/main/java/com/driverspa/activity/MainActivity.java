@@ -22,6 +22,7 @@ import com.driverspa.admin.fragment.AdminPasswordLoginFragment;
 import com.driverspa.admin.fragment.AdminPhoneFragment;
 import com.driverspa.admin.fragment.AdminResetPasswordFragment;
 import com.driverspa.admin.fragment.AdminVerificationFragment;
+import com.driverspa.admin.fragment.AdminWhatsappFragment;
 import com.driverspa.assist.UserSelfAssist;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.fragment.MainFragment;
@@ -86,6 +87,17 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void openVerification() {
 		replaceFragment(new AdminVerificationFragment());
+	}
+
+	@Override
+	public void openWhatsappRegistration(String phone, String email, String companyName) {
+		AdminWhatsappFragment fragment = new AdminWhatsappFragment();
+		Bundle args = new Bundle();
+		args.putString(AdminWhatsappFragment.ARG_PHONE, phone);
+		args.putString(AdminWhatsappFragment.ARG_EMAIL, email);
+		args.putString(AdminWhatsappFragment.ARG_COMPANY, companyName);
+		fragment.setArguments(args);
+		replaceFragment(fragment);
 	}
 
 	@Override

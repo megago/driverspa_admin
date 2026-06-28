@@ -26,6 +26,7 @@ import com.driverspa.assist.LocationAssist;
 import com.driverspa.assist.UserPhotoPostAssist;
 import com.driverspa.assist.UserSelfAssist;
 import com.driverspa.assist.WasherAssist;
+import com.driverspa.assist.WhatsappAuthAssist;
 import com.driverspa.db.DriverSpaOrmLiteSqlHelper;
 import com.driverspa.model.NewPushInformation;
 import com.driverspa.model.PushData;
@@ -67,6 +68,7 @@ public class Singleton {
 	private ClientReviewAssist clientReviewAssist;
 	private UserSelfAssist userSelfAssist;
 	private BoxAssist boxAssist;
+	private WhatsappAuthAssist whatsappAuthAssist;
 	private User user;
 	private Washer washer;
 	private SearchFilter searchFilter;
@@ -86,7 +88,8 @@ public class Singleton {
 		clientReviewAssist = new ClientReviewAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		userSelfAssist = new UserSelfAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		boxAssist = new BoxAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
-		
+		whatsappAuthAssist = new WhatsappAuthAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
+
 		BA.getEventBus().register(authClientRegistrationAssist);
 		BA.getEventBus().register(authClientVerificationAssist);
 		BA.getEventBus().register(authPasswordAssist);
@@ -98,6 +101,7 @@ public class Singleton {
 		BA.getEventBus().register(clientReviewAssist);
 		BA.getEventBus().register(userSelfAssist);
 		BA.getEventBus().register(boxAssist);
+		BA.getEventBus().register(whatsappAuthAssist);
 		BA.getEventBus().register(this);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
