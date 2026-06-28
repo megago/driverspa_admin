@@ -74,8 +74,9 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
     private String email;
     private String companyName;
 
-    private String waToken;   // short WhatsApp token (poll / send with this)
-    private String waLink;
+    private String waToken;        // short WhatsApp token (poll / send with this)
+    private String waLink;         // raw link from the backend (text = token only)
+    private String waMessageLink;  // link we actually open: token wrapped in instructions
     private String whatsappNumber;
 
     private boolean requestInFlight;  // whatsapp_request has been sent, awaiting response
@@ -192,22 +193,15 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
             waToken = event.getData().getResponse().getToken();
             waLink = event.getData().getResponse().getWaLink();
             whatsappNumber = event.getData().getResponse().getWhatsappNumber();
+            waMessageLink = buildMessageLink();
 
             // Emulator helper: WhatsApp usually isn't installed, so log everything
-            // needed to verify by hand. The "message text" is what must be sent to
-            // the number from the SAME phone being registered.
-            String messageText = waToken;
-            try {
-                String fromLink = Uri.parse(waLink).getQueryParameter("text");
-                if (!TextUtils.isEmpty(fromLink)) {
-                    messageText = fromLink;
-                }
-            } catch (Exception ignored) {
-            }
+            // needed to verify by hand. The "message" is what must be sent to the
+            // number from the SAME phone being registered.
             Log.i(TAG, "=== WhatsApp registration ===");
-            Log.i(TAG, "Send to number : +" + (whatsappNumber == null ? "" : whatsappNumber.replaceAll("[^0-9]", "")));
-            Log.i(TAG, "Message text   : " + messageText);
-            Log.i(TAG, "wa_link        : " + waLink);
+            Log.i(TAG, "Send to number : +" + extractNumber());
+            Log.i(TAG, "Message        : " + buildMessageText());
+            Log.i(TAG, "wa_link (open) : " + waMessageLink);
             Log.i(TAG, "Poll token     : " + waToken);
             Log.i(TAG, "=============================");
 
@@ -234,23 +228,61 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
         }
     }
 
-    /** Opens the wa_link chat with the token pre-filled. */
+    /** Opens the chat with the full instruction message + token pre-filled. */
     private void openWhatsapp() {
-        if (TextUtils.isEmpty(waLink)) {
+        String link = TextUtils.isEmpty(waMessageLink) ? waLink : waMessageLink;
+        if (TextUtils.isEmpty(link)) {
             return;
         }
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(waLink));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
         intent.setPackage("com.whatsapp");
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException notInstalled) {
             // WhatsApp not installed — fall back to the browser (wa.me handles it).
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(waLink)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
             } catch (ActivityNotFoundException e) {
                 ToastUtil.display(getActivity(), "Установите WhatsApp, чтобы продолжить");
             }
         }
+    }
+
+    /** The message body the user sends: instructions wrapping the token. */
+    private String buildMessageText() {
+        return getString(R.string.whatsapp_message_template, waToken);
+    }
+
+    /** Digits of the destination number, from the backend field or the wa_link. */
+    private String extractNumber() {
+        if (!TextUtils.isEmpty(whatsappNumber)) {
+            return whatsappNumber.replaceAll("[^0-9]", "");
+        }
+        try {
+            String seg = Uri.parse(waLink).getLastPathSegment();
+            return seg == null ? "" : seg.replaceAll("[^0-9]", "");
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    /**
+     * Builds a wa.me link whose pre-filled text is the full instruction message
+     * (not just the bare token returned by the backend). Uri.Builder encodes the
+     * body correctly (spaces as %20, newlines as %0A).
+     */
+    private String buildMessageLink() {
+        String number = extractNumber();
+        if (TextUtils.isEmpty(number)) {
+            return waLink;
+        }
+        return new Uri.Builder()
+                .scheme("https")
+                .authority("wa.me")
+                .appendPath(number)
+                .appendQueryParameter("text", buildMessageText())
+                .build()
+                .toString();
     }
 
     private void startWaiting() {
@@ -308,6 +340,7 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
     protected void onRetryClicked() {
         waToken = null;
         waLink = null;
+        waMessageLink = null;
         whatsappNumber = null;
         startWhatsappRequest();
     }
