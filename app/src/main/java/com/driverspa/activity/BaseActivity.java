@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.Fragment;
@@ -23,7 +26,46 @@ public class BaseActivity extends AppCompatActivity implements OnActionbarTitleC
 	private final String TAG = "YERZHAN";
 	public static final String OPENING_ANIMATION = "OPENING_ANIMATION";
 	private ProgressDialog pd = null;
-	
+
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
+		applySystemBarInsetsAsPadding(this);
+	}
+
+	@Override
+	public void setContentView(View view) {
+		super.setContentView(view);
+		applySystemBarInsetsAsPadding(this);
+	}
+
+	@Override
+	public void setContentView(View view, android.view.ViewGroup.LayoutParams params) {
+		super.setContentView(view, params);
+		applySystemBarInsetsAsPadding(this);
+	}
+
+	/**
+	 * Android 15+ forces apps targeting SDK 35 into edge-to-edge, and Android 16
+	 * ignores the windowOptOutEdgeToEdgeEnforcement theme flag and
+	 * setDecorFitsSystemWindows(true). This legacy UI isn't inset-aware, so the
+	 * top Toolbar ends up drawn behind the status bar. Pad the content frame by
+	 * the system-bar insets (the pre-edge-to-edge layout) and consume them so
+	 * inner inset-aware views (DrawerLayout / ScrimInsetsFrameLayout) don't add
+	 * the same padding again. Must run after setContentView, when the content
+	 * view actually exists.
+	 */
+	static void applySystemBarInsetsAsPadding(AppCompatActivity activity) {
+		final View content = activity.findViewById(android.R.id.content);
+		if (content == null) return;
+		ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
+			Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+			return WindowInsetsCompat.CONSUMED;
+		});
+		ViewCompat.requestApplyInsets(content);
+	}
+
 	public void startActivity(Intent intent) {
 		hideSoftKeyboard();
 		super.startActivity(intent);

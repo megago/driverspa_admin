@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Resource-shrinker overrides for the release build (shrinkResources true).
+
+  The toolbar_* layouts are pulled in only via <include layout="@layout/toolbar_*">
+  from the activity layouts. The shrinker records the include edge but fails to
+  propagate reachability across it, so it marks every toolbar_* layout (and the
+  abc_action_bar_default_height_material dimen they use for the Toolbar minHeight)
+  as unused and replaces them with empty dummies in the minified APK/AAB. The
+  result is an empty / collapsed action bar that looks cut off at the top — only
+  in the Play (shrunk) build, never in debug. Keeping them here fixes that.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@layout/toolbar_*,@dimen/abc_action_bar_default_height_material" />

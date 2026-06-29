@@ -7,6 +7,9 @@ import android.content.Intent;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,6 +34,44 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
     private ProgressDialog pd;
 	private final String TAG = "YERZHAN";
 	public static final String OPENING_ANIMATION = "OPENING_ANIMATION";
+
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
+		applySystemBarInsetsAsPadding();
+	}
+
+	@Override
+	public void setContentView(View view) {
+		super.setContentView(view);
+		applySystemBarInsetsAsPadding();
+	}
+
+	@Override
+	public void setContentView(View view, ViewGroup.LayoutParams params) {
+		super.setContentView(view, params);
+		applySystemBarInsetsAsPadding();
+	}
+
+	/**
+	 * Android 15+/16 forces targetSdk-35 apps into edge-to-edge (and Android 16
+	 * ignores the windowOptOutEdgeToEdgeEnforcement flag and
+	 * setDecorFitsSystemWindows(true)), so the Toolbar ends up behind the status
+	 * bar. This legacy UI isn't inset-aware: pad the content frame by the
+	 * system-bar insets and consume them so inner inset-aware views (DrawerLayout
+	 * / ScrimInsetsFrameLayout) don't add the same padding again. Must run after
+	 * setContentView, when the content view actually exists.
+	 */
+	private void applySystemBarInsetsAsPadding() {
+		final View content = findViewById(android.R.id.content);
+		if (content == null) return;
+		ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
+			Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+			return WindowInsetsCompat.CONSUMED;
+		});
+		ViewCompat.requestApplyInsets(content);
+	}
 
 	public void startActivity(Intent intent) {
 		closeKeyboard();
