@@ -52,6 +52,10 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 	private static final String OFERTA_URL = "https://driverspa.kz/oferta.html";
 
+	// Local-use flag: when true, skip the check_phone backend call and always
+	// force the password screen. Set back to false before shipping.
+	private static final boolean LOCAL_FORCE_PASSWORD = true;
+
 	public interface ActivityActions {
 		void openPasswordLogin(String phone);
 		void openVerification();
@@ -178,24 +182,31 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	@OnClick(R.id.btnOk)
 	protected void processPhone() {
 		if (!ofertaCheckbox.isChecked()) {
-			ToastUtil.display(getActivity(), "Пожалуйста, примите публичную оферту");
+			ToastUtil.display(getActivity(), BA.str(R.string.accept_offer_please));
 			return;
 		}
 		String phoneStr = phone.getText().toString()
 				.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "")
 				.replaceAll("-", "").replaceAll(" ", "");
 		if (TextUtils.isEmpty(phoneStr)) {
-			phone.setError("Введите номер телефона");
+			phone.setError(BA.str(R.string.enter_phone));
 			return;
 		}
 		if (phoneStr.length() != 10) {
-			phone.setError("Неправильный номер телефона");
+			phone.setError(BA.str(R.string.invalid_phone));
 			return;
 		}
 
 		channel = selectedChannel();
 		fullPhone = "+7" + phoneStr;
 		UserPreferences.putOtpChannel(BA.getContext(), channel);
+
+		// Local-use shortcut: skip check_phone / WhatsApp and always force the
+		// password screen, ignoring the selected channel and the backend answer.
+		if (LOCAL_FORCE_PASSWORD) {
+			activityActions.openPasswordLogin(fullPhone);
+			return;
+		}
 
 		// WhatsApp registration is a separate flow: it skips check_phone and the
 		// OTP code entirely, handing off to AdminWhatsappFragment which calls
@@ -209,7 +220,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 		email = loginEmail.getText().toString().trim();
 		if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-			loginEmail.setError("Введите корректный email");
+			loginEmail.setError(BA.str(R.string.enter_valid_email));
 			loginEmail.requestFocus();
 			return;
 		}
@@ -224,7 +235,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 				|| !"success".equals(event.getData().getStatus())) {
 			setWaitScreen(false);
 			ToastUtil.display(getActivity(), event.getData() != null && event.getData().getMessage() != null
-					? event.getData().getMessage() : "Ошибка, попробуйте еще раз");
+					? event.getData().getMessage() : BA.str(R.string.err_try_again));
 			return;
 		}
 
@@ -249,7 +260,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 				&& !event.getAuthLoginResponse().getStatus().equals("error")) {
 			activityActions.openVerification();
 		} else {
-			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 		}
 	}
 
@@ -260,7 +271,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 			activityActions.openVerification();
 		} else {
 			ToastUtil.display(getActivity(), event.getData() != null && event.getData().getMessage() != null
-					? event.getData().getMessage() : "Ошибка, попробуйте еще раз");
+					? event.getData().getMessage() : BA.str(R.string.err_try_again));
 		}
 	}
 

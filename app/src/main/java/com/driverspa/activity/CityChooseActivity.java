@@ -91,7 +91,7 @@ public class CityChooseActivity extends BaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Выберите город");
+        titleView.setText(BA.str(R.string.select_city));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,7 +136,7 @@ public class CityChooseActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(TextUtils.isEmpty(selectedCityCode)){
-                    ToastUtil.displayAtTop(context, "Выберите город");
+                    ToastUtil.displayAtTop(context, BA.str(R.string.select_city));
                     return;
                 }
                 saveData();
@@ -183,7 +183,7 @@ public class CityChooseActivity extends BaseActivity {
                 gps = new GPSTracker(this);
                 requestLocation();
             } else {
-                ToastUtil.display(this, "Нет доступа к местоположению");
+                ToastUtil.display(this, BA.str(R.string.no_location_access));
             }
         }
     }
@@ -206,24 +206,24 @@ public class CityChooseActivity extends BaseActivity {
                  return;
              }
              else{
-                 ToastUtil.display(this, "Вы находитесь в " + Math.round(distanceKm)
-                         + " км от ближайшего города (" + Functions.getCityDescription(nearest.getCode())
-                         + "). Выберите город вручную.");
-                 myLocationText.setText("Мое местоположение");
+                 ToastUtil.display(this, BA.str(R.string.you_are_in) + Math.round(distanceKm)
+                         + BA.str(R.string.km_from_city) + Functions.getCityDescription(nearest.getCode())
+                         + BA.str(R.string.choose_city_manually));
+                 myLocationText.setText(BA.str(R.string.my_location));
                  myLocationCheckbox.setVisibility(View.GONE);
                  UserPreferences.putCityFoundByGPS(BA.getContext(),false);
              }
          }
           else{
-             ToastUtil.display(this,"Не могу определить местоположение");
-             myLocationText.setText("Мое местоположение");
+             ToastUtil.display(this,BA.str(R.string.cant_determine_location));
+             myLocationText.setText(BA.str(R.string.my_location));
              myLocationCheckbox.setVisibility(View.GONE);
              UserPreferences.putCityFoundByGPS(BA.getContext(),false);
          }
       }
         else{
-          ToastUtil.display(this,"Не могу определить местоположение");
-          myLocationText.setText("Мое местоположение");
+          ToastUtil.display(this,BA.str(R.string.cant_determine_location));
+          myLocationText.setText(BA.str(R.string.my_location));
           myLocationCheckbox.setVisibility(View.GONE);
           UserPreferences.putCityFoundByGPS(BA.getContext(),false);
         }
@@ -261,7 +261,7 @@ public class CityChooseActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if(TextUtils.isEmpty(selectedCityCode)){
-                    ToastUtil.display(this, "Выберите город");
+                    ToastUtil.display(this, BA.str(R.string.select_city));
                     return false;
                 }
                 saveData();
@@ -295,11 +295,11 @@ public class CityChooseActivity extends BaseActivity {
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new MaterialAlertDialogBuilder(context);
         // Setting Dialog Title
-        alertDialog.setTitle("Настройки GPS");
+        alertDialog.setTitle(BA.str(R.string.gps_settings));
         // Setting Dialog Message
-        alertDialog.setMessage("GPS отключен. Хотите включить?");
+        alertDialog.setMessage(BA.str(R.string.gps_off_enable));
         // On pressing the Settings button.
-        alertDialog.setPositiveButton("Настройки", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(BA.str(R.string.menu_settings), new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog,int which) {
 //            	mContext.startActivity(new Intent(mContext, ClientSettingsActivity.class).putExtra(ClientBaseActivity.OPENING_ANIMATION, false));
@@ -309,9 +309,9 @@ public class CityChooseActivity extends BaseActivity {
         });
 
         // On pressing the cancel button
-        alertDialog.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(BA.str(R.string.cancel_word), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                myLocationText.setText("Мое местоположение");
+                myLocationText.setText(BA.str(R.string.my_location));
                 adapter.setSelectedCityCode(selectedCityCode);
                 adapter.notifyDataSetChanged();
                 dialog.cancel();
@@ -328,7 +328,7 @@ public class CityChooseActivity extends BaseActivity {
             pd.setTitle("");
             pd.setIndeterminate(true);
             pd.setCancelable(true);
-            pd.setMessage("Определение местоположение");
+            pd.setMessage(BA.str(R.string.determining_location));
         }
         if(set) pd.show();
         else  pd.dismiss();
@@ -337,7 +337,7 @@ public class CityChooseActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if(TextUtils.isEmpty(selectedCityCode)){
-            ToastUtil.display(context, "Выберите город");
+            ToastUtil.display(context, BA.str(R.string.select_city));
             return;
         }
         super.onBackPressed();

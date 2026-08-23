@@ -107,9 +107,9 @@ public class AdminSettingsFragment extends AdminBaseFragment {
 //	   @OnClick(R.id.logout)
 	   public void onLogoutButtonClicked(){
 		   Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-			dialog.setTitle("Вы действительно хотите выйти?");
-			dialog.setNegativeButton("Отмена", null);
-			dialog.setPositiveButton("Ок", new OnClickListener() {
+			dialog.setTitle(BA.str(R.string.confirm_logout));
+			dialog.setNegativeButton(BA.str(R.string.cancel_word), null);
+			dialog.setPositiveButton(BA.str(R.string.ok_word), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					BA.getEventBus().post(new AuthAdminLogoutRequestEvent());

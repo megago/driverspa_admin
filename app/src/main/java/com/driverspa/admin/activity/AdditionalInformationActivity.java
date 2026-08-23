@@ -72,7 +72,7 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Дополнительно");
+		titleView.setText(BA.str(R.string.additional));
 		mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -177,12 +177,12 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 
 			if(washer.getPayOptions() != null && washer.getPayOptions().size() > 0){
 				if(washer.getPayOptions().size() == 1) payType.setText(washer.getPayOptions().get(0).toString());
-				else payType.setText("Выбрано ("+washer.getPayOptions().size()+") вид оплаты");
+				else payType.setText(BA.str(R.string.selected_paren)+washer.getPayOptions().size()+BA.str(R.string.paren_payment_type));
 			}
 
 			if(washer.getAdditionalInfo() != null && washer.getAdditionalInfo().size() > 0){
 				if(washer.getAdditionalInfo().size() == 1) addInfo.setText(washer.getAdditionalInfo().get(0));
-				else addInfo.setText("Выбрано ("+washer.getAdditionalInfo().size()+") доп. информации");
+				else addInfo.setText(BA.str(R.string.selected_paren)+washer.getAdditionalInfo().size()+BA.str(R.string.paren_additional_info));
 			}
 
 			contacts = washer.getContacts();
@@ -228,19 +228,19 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 			}
 
 			final ArrayList<String> requestPayTypes = new ArrayList<String>();
-			paymentDialog = new MultipleSelectDialog(this, listPayTypes, "Выберите тип оплаты", selectedPayTypes) {
+			paymentDialog = new MultipleSelectDialog(this, listPayTypes, BA.str(R.string.select_payment_type), selectedPayTypes) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 
 					if(namesSelectedItm.size() == 0){
-						payType.setText("Вид оплаты");
+						payType.setText(BA.str(R.string.payment_type));
 					}
 					else if(namesSelectedItm.size() == 1){
 						requestPayTypes.add(namesSelectedItm.get(0));
 						payType.setText(allPayTypes.get(namesSelectedItm.get(0).toString()));
 					}
 					else{
-						payType.setText("Выбрано ("+namesSelectedItm.size()+") вид оплаты");
+						payType.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_payment_type));
 						requestPayTypes.addAll(toOrderedSelection(namesSelectedItm));
 					}
 					washer.setPayOptions(new ArrayList<String>(requestPayTypes));
@@ -264,19 +264,19 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 			}
 
 			final ArrayList<String> requestAddInfoTypes = new ArrayList<String>();
-			addInfoDialog = new MultipleSelectDialog(this, listAddInfos, "Выберите доп. Информацию", selectedAddInfos) {
+			addInfoDialog = new MultipleSelectDialog(this, listAddInfos, BA.str(R.string.select_additional_info), selectedAddInfos) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 
 					if(namesSelectedItm.size() == 0){
-						addInfo.setText("Доп. информация");
+						addInfo.setText(BA.str(R.string.additional_info));
 					}
 					else if(namesSelectedItm.size() == 1){
 						requestAddInfoTypes.add(namesSelectedItm.get(0));
 						addInfo.setText(allPayTypes.get(namesSelectedItm.get(0)));
 					}
 					else{
-						addInfo.setText("Выбрано ("+namesSelectedItm.size()+") доп. информации");
+						addInfo.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_additional_info));
 						requestAddInfoTypes.addAll(toOrderedSelection(namesSelectedItm));
 					}
 					washer.setAdditionalInfo(new ArrayList<String>(requestAddInfoTypes));

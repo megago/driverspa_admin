@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,7 +77,7 @@ public class AdminNotificationsAdapter extends  RecyclerViewAdapter<AdminNotific
 		if(Functions.isToday(item.getTS()))
 			holder.newsDate.setText(p.format(newsTs));
 		else
-			holder.newsDate.setText(p.format(newsTs)+" ("+timeTSMap.get(Functions.DATE)+" в "+timeTSMap.get(Functions.TIME)+")");
+			holder.newsDate.setText(p.format(newsTs)+" ("+timeTSMap.get(Functions.DATE)+BA.str(R.string.space_at_space)+timeTSMap.get(Functions.TIME)+")");
 	}
 
 

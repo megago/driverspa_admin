@@ -206,7 +206,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		public void onClick(View view) {
 			if (selectedClient != null) {
 				ToastUtil.displayAtTop(AdminEditEntryActivity.this,
-						"Нельзя изменить тип машины здесь. Измените его в карточке клиента.");
+						BA.str(R.string.cant_change_cartype_here));
 				return;
 			}
 			if ( view.getId() == buttonSedan.getId() && !buttonSedan.isSelected()){
@@ -661,7 +661,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 
 
 	private void setData(BookInfo book){
-		titleView.setText("Изменить ");
+		titleView.setText(BA.str(R.string.edit_pre));
 		paid.setChecked(book.getPaid());
 		nocash.setChecked(book.getNocash());
 		carNo.setText(book.getClientKey().replaceAll("\\(","").replaceAll("\\)","").trim());
@@ -815,8 +815,8 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			}
 			selectedClientInformationText.setText(clientInformationText);
 
-			clientDepositAmount.setText("из " + selectedClient.getDepositAmount());
-			clientBonusAmount.setText("из " + selectedClient.getAccruedBonuses());
+			clientDepositAmount.setText(BA.str(R.string.of_sp) + selectedClient.getDepositAmount());
+			clientBonusAmount.setText(BA.str(R.string.of_sp) + selectedClient.getAccruedBonuses());
 
 			if(book.getPriceDetails() != null && book.getPriceDetails().size() > 0){
 				for(BookInfo.PriceDetail pd : book.getPriceDetails()){
@@ -842,12 +842,12 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			bonusAmount.setEnabled(false);
 
 			if(selectedClient != null) {
-				clientDepositAmount.setText("из " + selectedClient.getDepositAmount());
-				clientBonusAmount.setText("из " + selectedClient.getAccruedBonuses());
+				clientDepositAmount.setText(BA.str(R.string.of_sp) + selectedClient.getDepositAmount());
+				clientBonusAmount.setText(BA.str(R.string.of_sp) + selectedClient.getAccruedBonuses());
 			}
 			else{
-				clientDepositAmount.setText("из 0");
-				clientBonusAmount.setText("из 0");
+				clientDepositAmount.setText(BA.str(R.string.of_0));
+				clientBonusAmount.setText(BA.str(R.string.of_0));
 			}
 			paidLayout.setVisibility(View.GONE);
 		}
@@ -934,7 +934,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			}
 		}
 		else{
-			ToastUtil.display(this, "Ошибка при получении данных");
+			ToastUtil.display(this, BA.str(R.string.err_get_data));
 			finish();
 			overridePendingTransitionWithCommonCloseTransition();
 		}
@@ -1030,7 +1030,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 							serviceAdapter.notifyDataSetChanged();
 						}
 					} else {
-						ToastUtil.display(BA.getContext(), "Для данного типа авто и услуги - не указана цена");
+						ToastUtil.display(BA.getContext(), BA.str(R.string.err_no_price_for_type));
 					}
 				}
 
@@ -1345,7 +1345,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		finalPrice = 0d;
 		cashAmount.setText(finalPrice.intValue() + "");
 		cashAmount.setSelection(cashAmount.getText().toString().length());
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		request.setServices(new ArrayList<Integer>());
 		request.setGroupServices(new ArrayList<String>());
 		cashAmount.setText("0");
@@ -1364,7 +1364,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		depositAmount.setText("0");
 		txtPrice.setText("0 ₸");
 		finalPrice = 0d;
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		double totalPrice = 0d;
 		int totalTime = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -1429,7 +1429,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		}
 
 		if (totalTime > 0) {
-			txtTime.setText(Math.round(totalTime) + " мин");
+			txtTime.setText(Math.round(totalTime) + BA.str(R.string.space_min));
 			if (request != null)
 				request.setServiceTotalTime(totalTime);
 
@@ -1470,17 +1470,17 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		String carMarkStr = carMark.getText().toString().trim();
 
 		if(selectedCarType == null) {
-			ToastUtil.displayAtTop(this, "Выберите машину");
+			ToastUtil.displayAtTop(this, BA.str(R.string.select_car));
 			return;
 		}
 
 		if(!(request.getServices() != null && request.getServices().size() > 0) && !(request.getGroupServices() != null && request.getGroupServices().size() > 0)){
-			ToastUtil.displayAtTop(this, "Выберите услуги");
+			ToastUtil.displayAtTop(this, BA.str(R.string.select_services));
 			return;
 		}
 
 		if (finalPriceDifference != 0) {
-			ToastUtil.displayAtTop(this, "Остаток не равен нулю! Распределите суммы правильно!");
+			ToastUtil.displayAtTop(this, BA.str(R.string.balance_not_zero));
 			return;
 		}
 
@@ -1568,7 +1568,7 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 				ToastUtil.display(this, event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(this, "Ошибка при изменении");
+			ToastUtil.display(this, BA.str(R.string.err_edit));
 		}
 	}
 

@@ -349,13 +349,13 @@ public class AdminStaffActivity extends AdminBaseActivity implements AdminStaffF
 		closeKeyboard();
 
 		if(TextUtils.isEmpty(amount.getText().toString())){
-			ToastUtil.display(this,"Введите сумму");
+			ToastUtil.display(this,BA.str(R.string.enter_amount));
 			amount.requestFocus();
 			return;
 		}
 
 		if(Double.parseDouble(amount.getText().toString()) <= 0){
-			ToastUtil.display(this,"Введите сумму выше нуля");
+			ToastUtil.display(this,BA.str(R.string.enter_amount_above_zero));
 			amount.requestFocus();
 			return;
 		}
@@ -386,7 +386,7 @@ public class AdminStaffActivity extends AdminBaseActivity implements AdminStaffF
 					}
 				}
 
-				ToastUtil.display(this, "Успешно провели транзакцию");
+				ToastUtil.display(this, BA.str(R.string.transaction_ok));
 //				finish();
 			}
 			else{
@@ -394,7 +394,7 @@ public class AdminStaffActivity extends AdminBaseActivity implements AdminStaffF
 			}
 		}
 		else{
-			ToastUtil.display(this, "Ошибка при добавлении операции");
+			ToastUtil.display(this, BA.str(R.string.err_add_operation));
 		}
 	}
 }

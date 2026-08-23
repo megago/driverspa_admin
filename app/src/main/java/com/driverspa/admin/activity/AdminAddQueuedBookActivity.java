@@ -292,7 +292,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
 
         buttonToBox.setSelected(true);
         buttonToQueue.setSelected(false);
-        titleView.setText("Отправить в бокс");
+        titleView.setText(BA.str(R.string.send_to_box));
         groupBtn.setSelected(true);
         serviceBtn.setSelected(false);
 
@@ -551,17 +551,17 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         if (deposit <= 0 && bonus <= 0) return;
         depositPromptShown = true;
 
-        StringBuilder msg = new StringBuilder("У клиента есть ");
-        if (deposit > 0) msg.append("перечисление ").append((int) deposit).append(" ₸");
-        if (deposit > 0 && bonus > 0) msg.append(" и ");
-        if (bonus > 0) msg.append("бонусы ").append((int) bonus).append(" ₸");
-        msg.append(". Использовать для оплаты?");
+        StringBuilder msg = new StringBuilder(BA.str(R.string.client_has));
+        if (deposit > 0) msg.append(BA.str(R.string.transfer_pre)).append((int) deposit).append(" ₸");
+        if (deposit > 0 && bonus > 0) msg.append(BA.str(R.string.and_word));
+        if (bonus > 0) msg.append(BA.str(R.string.bonuses_pre)).append((int) bonus).append(" ₸");
+        msg.append(BA.str(R.string.use_for_payment_q));
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Средства клиента")
+                .setTitle(BA.str(R.string.client_funds))
                 .setMessage(msg.toString())
-                .setNegativeButton("Нет", null)
-                .setPositiveButton("Да", (dialog, which) -> applyDepositBonus(deposit, bonus))
+                .setNegativeButton(BA.str(R.string.no_word), null)
+                .setPositiveButton(BA.str(R.string.yes_word), (dialog, which) -> applyDepositBonus(deposit, bonus))
                 .show();
     }
 
@@ -668,7 +668,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         buttonBook.setVisibility(View.VISIBLE);
         buttonQueue.setVisibility(View.GONE);
         detailLayout.setVisibility(View.VISIBLE);
-        titleView.setText("Отправить в бокс");
+        titleView.setText(BA.str(R.string.send_to_box));
 
         this.selectedCarType = CarType.Sedan;
         boxesLayout.setVisibility(View.VISIBLE);
@@ -679,7 +679,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         selectedClientInformationLayout.setVisibility(View.GONE);
         selectedClient = null;
         createService(selectedCarType.getValue());
-        buttonBook.setText("Отправить в бокс");
+        buttonBook.setText(BA.str(R.string.send_to_box));
         setWizardMode(MODE_BOX);
     }
 
@@ -703,8 +703,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         buttonBook.setVisibility(View.VISIBLE);
         buttonQueue.setVisibility(View.GONE);
         detailLayout.setVisibility(View.VISIBLE);
-        titleView.setText("Другие услуги");
-        buttonBook.setText("Заказать");
+        titleView.setText(BA.str(R.string.other_services2));
+        buttonBook.setText(BA.str(R.string.order_verb));
         setWizardMode(MODE_OTHER);
     }
 
@@ -718,7 +718,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         buttonBook.setVisibility(View.GONE);
         buttonQueue.setVisibility(View.VISIBLE);
         detailLayout.setVisibility(View.GONE);
-        titleView.setText("Добавить в очередь");
+        titleView.setText(BA.str(R.string.add_to_queue));
         boxesLayout.setVisibility(View.VISIBLE);
         paidLayout.setVisibility(View.VISIBLE);
         searchLayout.setVisibility(View.VISIBLE);
@@ -805,7 +805,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         closeKeyboard();
         String сarNoStr = carNo.getText().toString();
         if (TextUtils.isEmpty(сarNoStr)) {
-            ToastUtil.displayAtTop(this, "Введите гос.номер машины");
+            ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
             if (carNo.hasFocus())
                 carNo.setError(null);
             else
@@ -857,7 +857,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
 
             if (selectedClient == null) {
                 if (TextUtils.isEmpty(сarNoStr)) {
-                    ToastUtil.displayAtTop(this, "Введите гос.номер машины");
+                    ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
                     carNo.setError("");
                     carNo.requestFocus();
                     return;
@@ -872,22 +872,22 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             }
 
             if (selectedCarType == null) {
-                ToastUtil.displayAtTop(this, "Выберите машину");
+                ToastUtil.displayAtTop(this, BA.str(R.string.select_car));
                 return;
             }
 
             if (!(request.getServices() != null && request.getServices().size() > 0) && !(request.getGroupServices() != null && request.getGroupServices().size() > 0)) {
-                ToastUtil.displayAtTop(this, "Выберите услуги");
+                ToastUtil.displayAtTop(this, BA.str(R.string.select_services));
                 return;
             }
 
             if (TextUtils.isEmpty(boxId)) {
-                ToastUtil.displayAtTop(this, "Выберите бокс");
+                ToastUtil.displayAtTop(this, BA.str(R.string.select_box));
                 return;
             }
 
             if (finalPriceDifference != 0) {
-                ToastUtil.displayAtTop(this, "Остаток не равен нулю! Распределите суммы правильно!");
+                ToastUtil.displayAtTop(this, BA.str(R.string.balance_not_zero));
                 return;
             }
 
@@ -931,18 +931,18 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         }
         else if(selectedCarType == CarType.Other){
             if (!(request.getServices() != null && request.getServices().size() > 0) && !(request.getGroupServices() != null && request.getGroupServices().size() > 0)) {
-                ToastUtil.displayAtTop(this, "Выберите услуги");
+                ToastUtil.displayAtTop(this, BA.str(R.string.select_services));
                 return;
             }
 
             if (finalPriceDifference != 0) {
-                ToastUtil.displayAtTop(this, "Остаток не равен нулю! Распределите суммы правильно!");
+                ToastUtil.displayAtTop(this, BA.str(R.string.balance_not_zero));
                 return;
             }
 
             request.setCarNo("");
             request.setMobile("");
-            request.setClientKey("Магазин");
+            request.setClientKey(BA.str(R.string.shop));
             request.setCarType(selectedCarType.getValue());
                   request.setTime(Instant.now());
             request.setCarwash(URL_PREFIX + washer.getId());
@@ -988,7 +988,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             } else
                 ToastUtil.display(this, event.getResult().getMessage());
         } else {
-            ToastUtil.display(this, "Ошибка при добавлении очереди");
+            ToastUtil.display(this, BA.str(R.string.err_add_queue));
         }
     }
 
@@ -996,13 +996,13 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     public void moreFieldsClicked() {
         if (detailLayout.getVisibility() == View.GONE) {
             detailLayout.setVisibility(View.VISIBLE);
-            moreButton.setText("Дополнительно");
+            moreButton.setText(BA.str(R.string.additional));
             moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_up_white_24dp, 0);
             buttonBook.setEnabled(true);
         } else {
             detailLayout.setVisibility(View.GONE);
             moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
-            moreButton.setText("Дополнительно");
+            moreButton.setText(BA.str(R.string.additional));
             buttonBook.setEnabled(false);
         }
     }
@@ -1142,8 +1142,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         clientInformationsLayout.setVisibility(View.GONE);
         selectedClientInformationText.setText(clientInformationText);
 
-        clientDepositAmount.setText("из " + client.getDepositAmount());
-        clientBonusAmount.setText("из " + client.getAccruedBonuses());
+        clientDepositAmount.setText(BA.str(R.string.of_sp) + client.getDepositAmount());
+        clientBonusAmount.setText(BA.str(R.string.of_sp) + client.getAccruedBonuses());
         depositAmount.setText("0");
         bonusAmount.setText("0");
         bonusAmount.setSelection(bonusAmount.getText().length());
@@ -1164,8 +1164,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         request.setCompanyClient(null);
         depositAmount.setEnabled(false);
         bonusAmount.setEnabled(false);
-        clientDepositAmount.setText("из 0");
-        clientBonusAmount.setText("из 0");
+        clientDepositAmount.setText(BA.str(R.string.of_0));
+        clientBonusAmount.setText(BA.str(R.string.of_0));
         depositAmount.setText("0");
         bonusAmount.setText("0");
         bonusAmount.setSelection(bonusAmount.getText().length());
@@ -1186,8 +1186,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         //Deposit and Bonus amounts
         depositAmount.setEnabled(false);
         bonusAmount.setEnabled(false);
-        clientDepositAmount.setText("из 0");
-        clientBonusAmount.setText("из 0");
+        clientDepositAmount.setText(BA.str(R.string.of_0));
+        clientBonusAmount.setText(BA.str(R.string.of_0));
         depositAmount.setText("0");
         bonusAmount.setText("0");
         bonusAmount.setSelection(bonusAmount.getText().length());
@@ -1442,7 +1442,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
                             serviceAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        ToastUtil.display(BA.getContext(), "Для данного типа авто и услуги - не указана цена");
+                        ToastUtil.display(BA.getContext(), BA.str(R.string.err_no_price_for_type));
                     }
                 }
 
@@ -1646,7 +1646,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         finalPrice = 0d;
         cashAmount.setText(finalPrice.intValue() + "");
         cashAmount.setSelection(cashAmount.getText().toString().length());
-        txtTime.setText("0 мин");
+        txtTime.setText(BA.str(R.string.zero_min));
         request.setServices(new ArrayList<Integer>());
         request.setGroupServices(new ArrayList<String>());
         cashAmount.setText("0");
@@ -1664,7 +1664,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         depositAmount.setText("0");
         txtPrice.setText("0 ₸");
         finalPrice = 0d;
-        txtTime.setText("0 мин");
+        txtTime.setText(BA.str(R.string.zero_min));
         double totalPrice = 0d;
         int totalTime = 0;
 
@@ -1734,7 +1734,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         }
 
         if (totalTime > 0) {
-            txtTime.setText(Math.round(totalTime) + " мин");
+            txtTime.setText(Math.round(totalTime) + BA.str(R.string.space_min));
             if (request != null)
                 request.setServiceTotalTime(totalTime);
 
@@ -2022,11 +2022,11 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             if (BaseAssist.isSuccess(event.getResult())) {
                 ClientInfo client = event.getResult().getClientInfo();
                 if (!TextUtils.isEmpty(textPrediction) && !TextUtils.isEmpty(client.getCarNo())) {
-                    ToastUtil.display(this, "Клиент найден в базе");
+                    ToastUtil.display(this, BA.str(R.string.client_found));
                     setData(client);
                 }
             } else {
-                ToastUtil.display(this, "Клиент не найден в базе");
+                ToastUtil.display(this, BA.str(R.string.client_not_found));
             }
         } else {
         }
@@ -2059,10 +2059,10 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
                     carNo.setSelection(carNo.getText().length());
                     carNo.requestFocus();
                 } else {
-                    ToastUtil.display(this, "Номер машины не выбран");
+                    ToastUtil.display(this, BA.str(R.string.car_number_not_selected));
                 }
             } else {
-                ToastUtil.display(this, "Ошибка при обработке номера машин");
+                ToastUtil.display(this, BA.str(R.string.err_process_car_number));
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -2116,7 +2116,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             // card and can't be changed here — warn instead of switching.
             if (selectedClient != null && !settingCarTypeFromClient) {
                 ToastUtil.displayAtTop(AdminAddQueuedBookActivity.this,
-                        "Нельзя изменить тип машины здесь. Измените его в карточке клиента.");
+                        BA.str(R.string.cant_change_cartype_here));
                 return;
             }
             if (view.getId() == buttonSedan.getId() && !buttonSedan.isSelected()) {

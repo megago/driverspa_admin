@@ -55,7 +55,7 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
     	setContentView(R.layout.activity_admin_workshifts);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Смены");
+		titleView.setText(BA.str(R.string.shifts));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -75,11 +75,11 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 				adapter.notifyDataSetChanged();
 			}
 			else {
-				addEmptyTextView(listView, "Нет смены");
+				addEmptyTextView(listView, BA.str(R.string.no_shift));
 			}
     	}
     	else {
-    		addEmptyTextView(listView, "Нет смены");
+    		addEmptyTextView(listView, BA.str(R.string.no_shift));
     	}
     }
 
@@ -94,7 +94,7 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 			}
     	}
     	else {
-			ToastUtil.display(this,"Ошибка при закрытии");
+			ToastUtil.display(this,BA.str(R.string.err_close));
     	}
     }
 
@@ -109,7 +109,7 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 			}
     	}
     	else {
-			ToastUtil.display(this,"Ошибка при открытии смены");
+			ToastUtil.display(this,BA.str(R.string.err_open_shift));
     	}
     }
 
@@ -159,9 +159,9 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 
 					if(item.getEndTime() == null) {
 						AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminWorkShiftsActivity.this);
-						dialog.setTitle("Закрыть смену?");
-						dialog.setNeutralButton("Нет", null);
-						dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+						dialog.setTitle(BA.str(R.string.close_shift_q));
+						dialog.setNeutralButton(BA.str(R.string.no_word), null);
+						dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								setWaitScreen(true);
@@ -183,9 +183,9 @@ public class AdminWorkShiftsActivity extends AdminBaseActivity {
 	@OnClick(R.id.btnAdd)
 	public void onAddClicked(){
 		AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminWorkShiftsActivity.this);
-		dialog.setTitle("Открыть смену?");
-		dialog.setNeutralButton("Нет", null);
-		dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+		dialog.setTitle(BA.str(R.string.open_shift_q));
+		dialog.setNeutralButton(BA.str(R.string.no_word), null);
+		dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				setWaitScreen(true);

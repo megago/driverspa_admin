@@ -200,14 +200,14 @@ public class ClientCarDefinitionFragment extends DialogFragment {
 			String сarMarkStr = carMark.getText().toString();
 
 			if (TextUtils.isEmpty(сarNoStr)){
-				ToastUtil.displayAtTop(getActivity(), "Введите гос.номер техники");
+				ToastUtil.displayAtTop(getActivity(), BA.str(R.string.enter_vehicle_plate));
 //				carNo.setError("Обязательное поле");
 //				carNo.requestFocus();
 				return;
 			}
 
 			if (TextUtils.isEmpty(сarMarkStr)){
-				ToastUtil.displayAtTop(getActivity(), "Введите марку техники");
+				ToastUtil.displayAtTop(getActivity(), BA.str(R.string.enter_vehicle_brand));
 //				carMark.setError("Обязательное поле");
 //				carMark.requestFocus();
 				return;

@@ -38,7 +38,7 @@ public class AdminCampaignActivity extends AdminBaseActivity implements AdminCam
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Акция");
+		titleView.setText(BA.str(R.string.promo));
 
 		fragmentManager = getSupportFragmentManager();
 

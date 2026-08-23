@@ -294,7 +294,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 if ((pushType.equals(Constants.INFORMATION) || pushType.equals(Constants.INFORMATION_WITH_UPDATE)) && !TextUtils.isEmpty(pushMessage)) {
                     AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
                     dialog.setTitle(pushMessage);
-                    dialog.setPositiveButton("Ок", null);
+                    dialog.setPositiveButton(BA.str(R.string.ok_word), null);
                     dialog.show();
                 } else if (pushType.contains("book")) {
                     String bookId = getIntent().getStringExtra(EXTRA_BOOKING_ID);
@@ -421,7 +421,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 timetableButton.setSelected(false);
                 clientButton.setSelected(false);
                 statisticsButton.setSelected(true);
-                titleView.setText("Статистика");
+                titleView.setText(BA.str(R.string.statistics));
                 break;
         }
     }
@@ -579,7 +579,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             if(!TextUtils.isEmpty(event.getData().getText())){
                 AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
                 dialog.setTitle(event.getData().getText());
-                dialog.setPositiveButton("Ок", null);
+                dialog.setPositiveButton(BA.str(R.string.ok_word), null);
                 dialog.show();
             }
         }
@@ -718,9 +718,9 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     @OnClick(R.id.logout_home)
     public void onLogoutButtonClicked(){
         AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
-        dialog.setTitle("Вы действительно хотите выйти?");
-        dialog.setNegativeButton("Отмена", null);
-        dialog.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+        dialog.setTitle(BA.str(R.string.confirm_logout));
+        dialog.setNegativeButton(BA.str(R.string.cancel_word), null);
+        dialog.setPositiveButton(BA.str(R.string.ok_word), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 BA.getEventBus().post(new DeleteDeviceRequestEvent());
@@ -881,13 +881,13 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             requestButtonsLayout.setVisibility(View.VISIBLE);
 
 
-            mainAccept.setText("Принять за "+formatter.format(item.getFare())+" ₸");
+            mainAccept.setText(BA.str(R.string.accept_for_pre)+formatter.format(item.getFare())+" ₸");
             mainAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    requestOfferText.setText("Предлагаем клиенту\n" +
-                            "за услугу "+
-                            formatter.format(item.getFare())+" ₸\nпожалуйста подождите");
+                    requestOfferText.setText(BA.str(R.string.offer_to_client_nl) +
+                            BA.str(R.string.for_service)+
+                            formatter.format(item.getFare())+BA.str(R.string.tenge_wait));
                     startUpdateTimer();
                     BA.getEventBus().post(new AdminRequestMakeBidRequestEvent(new FareRequestBid(URL_PREFIX + item.getId(),URL_PREFIX + washer.getId(),item.getFare())));
                 }
@@ -897,9 +897,9 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 @Override
                 public void onClick(View v) {
                     startUpdateTimer();
-                    requestOfferText.setText("Предлагаем клиенту\n" +
-                            "за услугу "+
-                            formatter.format(item.getFare()+100)+" ₸\nпожалуйста подождите");
+                    requestOfferText.setText(BA.str(R.string.offer_to_client_nl) +
+                            BA.str(R.string.for_service)+
+                            formatter.format(item.getFare()+100)+BA.str(R.string.tenge_wait));
                     BA.getEventBus().post(new AdminRequestMakeBidRequestEvent(new FareRequestBid(URL_PREFIX + item.getId(),URL_PREFIX + washer.getId(),item.getFare()+100)));
                 }
             });
@@ -908,9 +908,9 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 @Override
                 public void onClick(View v) {
                     startUpdateTimer();
-                    requestOfferText.setText("Предлагаем клиенту\n" +
-                            "за услугу "+
-                            formatter.format(item.getFare()+200)+" ₸\nпожалуйста подождите");
+                    requestOfferText.setText(BA.str(R.string.offer_to_client_nl) +
+                            BA.str(R.string.for_service)+
+                            formatter.format(item.getFare()+200)+BA.str(R.string.tenge_wait));
                     BA.getEventBus().post(new AdminRequestMakeBidRequestEvent(new FareRequestBid(URL_PREFIX + item.getId(),URL_PREFIX + washer.getId(),item.getFare()+200)));
                 }
             });
@@ -919,9 +919,9 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 @Override
                 public void onClick(View v) {
                     startUpdateTimer();
-                    requestOfferText.setText("Предлагаем клиенту\n" +
-                            "за услугу "+
-                            formatter.format(item.getFare()+300)+" ₸\nпожалуйста подождите");
+                    requestOfferText.setText(BA.str(R.string.offer_to_client_nl) +
+                            BA.str(R.string.for_service)+
+                            formatter.format(item.getFare()+300)+BA.str(R.string.tenge_wait));
                     BA.getEventBus().post(new AdminRequestMakeBidRequestEvent(new FareRequestBid(URL_PREFIX + item.getId(),URL_PREFIX + washer.getId(),item.getFare()+300)));
                 }
             });
@@ -946,7 +946,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 ToastUtil.display(this, event.getResponse().getMessage());
             }
         } else {
-            ToastUtil.display(this, "Ошибка при отправки предложении");
+            ToastUtil.display(this, BA.str(R.string.err_send_offer));
         }
     }
 
@@ -997,7 +997,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     @Subscribe
     public void onBidAcceptedEventReceived(FareRequestBidAcceptedEvent event){
         stopTimer();
-        ToastUtil.display(AdminHomeActivity.this, "Предложение принято клиентом");
+        ToastUtil.display(AdminHomeActivity.this, BA.str(R.string.offer_accepted));
         requestAcceptLayout.setVisibility(View.GONE);
         openBookInfo(event.getBookId());
     }
@@ -1005,7 +1005,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     @Subscribe
     public void onBidNotAcceptedEventReceived(FareRequestBidNotAcceptedEvent event){
         stopTimer();
-        ToastUtil.display(AdminHomeActivity.this, "Предложение не принято клиентом");
+        ToastUtil.display(AdminHomeActivity.this, BA.str(R.string.offer_not_accepted));
         requestAcceptLayout.setVisibility(View.GONE);
     }
     Timer tmr;
@@ -1059,17 +1059,17 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
         String role = Functions.getUserRole(washer, user.getId());
         if (!(Constants.DIRECTOR.equals(role) || Constants.OPERATOR.equals(role))) {
-            warningText.setText("Уровень доступа вашего пользователя изменен. Вы не можете пользоваться программой.");
+            warningText.setText(BA.str(R.string.access_changed));
             return true;
         }
 
         String status = Functions.getUserStatus(washer, user.getId());
         if (VACATION.equals(status)) {
-            warningText.setText("Ваша смена окончена. Вы не можете пользоваться программой.");
+            warningText.setText(BA.str(R.string.shift_ended));
             return true;
         }
         if (RESIGNED.equals(status)) {
-            warningText.setText("Вы больше не работаете на этой мойке. Вы не можете пользоваться программой.");
+            warningText.setText(BA.str(R.string.no_longer_work_here));
             return true;
         }
         return false;

@@ -77,7 +77,7 @@ public class AdminClientsActivity extends AdminBaseActivity implements AdminRegi
         ButterKnife.bind(this);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Клиенты");
+        titleView.setText(BA.str(R.string.menu_clients));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -127,7 +127,7 @@ public class AdminClientsActivity extends AdminBaseActivity implements AdminRegi
 
     private void createActionBarSpinner(){
         if(spinner != null) {
-            String[] valuesArray = new String[]{"Зарегистрированные клиенты", "Незарегистрированные клиенты"};
+            String[] valuesArray = new String[]{BA.str(R.string.registered_clients), BA.str(R.string.unregistered_clients)};
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);

@@ -74,7 +74,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Уведомление клиентам");
+        titleView.setText(BA.str(R.string.notify_clients));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -101,7 +101,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                     selectedItem = pos;
-                    txtClients.setText("Выберите клиентов");
+                    txtClients.setText(BA.str(R.string.choose_clients));
                     selectedClients = null;
                     if(pos == 1){
                         clientsLayout.setVisibility(View.GONE);
@@ -151,10 +151,10 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
                 ClientsResponse response = ClientsResponse.deserialize(data.getStringExtra(ClientSMSSendActivity.SELECTED_CLIENTS));
                 if(response != null && response.getClients() != null) {
                     selectedClients = response.getClients();
-                    txtClients.setText("Выбрано " + response.getClients().size() + " клиент(ов)");
+                    txtClients.setText(BA.str(R.string.selected_pre) + response.getClients().size() + BA.str(R.string.clients_count));
                 }
                 else{
-                    txtClients.setText("Выберите клиентов");
+                    txtClients.setText(BA.str(R.string.choose_clients));
                 }
             }
         }
@@ -176,7 +176,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
     public void onAddNewsClicked(){
 
         if(TextUtils.isEmpty(text.getText().toString())){
-            ToastUtil.display(this,"Введите сообщение");
+            ToastUtil.display(this,BA.str(R.string.enter_message));
             text.requestFocus();
             return;
         }
@@ -188,31 +188,31 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
             request.setNewsTarget(reverseTarget.get(valuesArray[selectedItem]));
         }
         else{
-            ToastUtil.display(this,"Выберите получателей");
+            ToastUtil.display(this,BA.str(R.string.choose_recipients));
             return;
         }
 
-        String title = "Автомойка "+washer.getName().toLowerCase().replace("автомойка","")+": ";
+        String title = BA.str(R.string.car_wash_label_sp)+washer.getName().toLowerCase().replace("автомойка","")+": ";
         request.setText(title+text.getText().toString());
         request.setNewsType(INFO);
         request.setStatus(PENDING);
 
         if(reverseTarget.get(valuesArray[selectedItem]).equals(CLIENT_ALL_SMS)){
             if(selectedClients == null){
-                ToastUtil.display(this,"Нет клиентов для отправки смс");
+                ToastUtil.display(this,BA.str(R.string.no_clients_for_sms));
                 return;
             }
 
             if(selectedClients.size() == 0){
-                ToastUtil.display(this,"Нет клиентов для отправки смс");
+                ToastUtil.display(this,BA.str(R.string.no_clients_for_sms));
                 return;
             }
 
             AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
-				dialog.setTitle("Внимание!");
-                dialog.setMessage("Смс будет отправлен с вашего телефона. Убедитесь в том, что у вас хватит баланса отправить смс всем клиентам. Для проверки отправленных смс, откройте приложение СМС. Хотите продолжить?");
-                dialog.setNegativeButton("Нет",null);
-				dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+				dialog.setTitle(BA.str(R.string.attention));
+                dialog.setMessage(BA.str(R.string.sms_from_phone_warn));
+                dialog.setNegativeButton(BA.str(R.string.no_word),null);
+				dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
                         request.setStatus(Constants.NEWS_SENT);
@@ -231,20 +231,20 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
         else if(reverseTarget.get(valuesArray[selectedItem]).equals(CLIENT_SMS)){
 
             if(selectedClients == null){
-                ToastUtil.display(this,"Нет клиентов для отправки смс");
+                ToastUtil.display(this,BA.str(R.string.no_clients_for_sms));
                 return;
             }
 
             if(selectedClients.size() == 0){
-                ToastUtil.display(this,"Нет клиентов для отправки смс");
+                ToastUtil.display(this,BA.str(R.string.no_clients_for_sms));
                 return;
             }
 
             AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
-            dialog.setTitle("Внимание!");
-            dialog.setMessage("Смс будет отправлен с вашего телефона. Убедитесь в том, что у вас хватит баланса отправить смс всем клиентам. Для проверки отправленных смс, откройте приложение СМС. Хотите продолжить?");
-            dialog.setNegativeButton("Нет",null);
-            dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            dialog.setTitle(BA.str(R.string.attention));
+            dialog.setMessage(BA.str(R.string.sms_from_phone_warn));
+            dialog.setNegativeButton(BA.str(R.string.no_word),null);
+            dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     request.setStatus(Constants.NEWS_SENT);
@@ -255,7 +255,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
             dialog.show();
         }
         else{
-            ToastUtil.display(this,"Выберите получателей");
+            ToastUtil.display(this,BA.str(R.string.choose_recipients));
             return;
         }
     }
@@ -276,7 +276,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
                 closeKeyboard();
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
-                ToastUtil.display(this,"Успешно отправлено");
+                ToastUtil.display(this,BA.str(R.string.sent_ok));
             }
             else{
                 ToastUtil.display(this, event.getData().getMessage());
@@ -290,7 +290,7 @@ public class AdminAddNotificationsActivity extends AdminBaseActivity {
         if (washer == null) {
             finish();
             overridePendingTransitionWithCommonCloseTransition();
-            ToastUtil.display(this,"Неизвестная ошибка, невозможно отправить уведомление");
+            ToastUtil.display(this,BA.str(R.string.err_notify_unknown));
         }
     }
 }

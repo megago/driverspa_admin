@@ -59,7 +59,7 @@ public class AdminStaffsActivity extends AdminBaseActivity {
     	setContentView(R.layout.activity_admin_staffs);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Сотрудники");
+		titleView.setText(BA.str(R.string.employees));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -155,12 +155,12 @@ public class AdminStaffsActivity extends AdminBaseActivity {
 				adapter.notifyDataSetChanged();
 			}
 			else{
-				addEmptyTextView(listView, "Нет сотрудников");
+				addEmptyTextView(listView, BA.str(R.string.no_employees2));
 			}
 
     	}
     	else {
-    		addEmptyTextView(listView, "Нет сотрудников");
+    		addEmptyTextView(listView, BA.str(R.string.no_employees2));
     	}
     }        
 

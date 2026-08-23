@@ -125,7 +125,7 @@ public class TimeDefinitionActivity extends AdminBaseActivity {
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Время работы");
+		titleView.setText(BA.str(R.string.work_hours));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -211,7 +211,7 @@ public class TimeDefinitionActivity extends AdminBaseActivity {
 	private void showTimePicker(final EditText targetText) {
 		final Dialog dialog = new Dialog(this,android.R.style.Theme_Holo_Light_NoActionBar);
 		dialog.setContentView(R.layout.dialog_time_picker);
-		dialog.setTitle("Выберите интервал");
+		dialog.setTitle(BA.str(R.string.select_interval));
 		final TimePicker timeFrom = (TimePicker) dialog.findViewById(R.id.time_from);
 		timeFrom.setIs24HourView(true);
 		final TimePicker timeTo = (TimePicker) dialog.findViewById(R.id.time_to);

@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,9 +113,9 @@ public class ClientsAdapter extends  RecyclerViewAdapter<ClientsAdapter.ClientIn
 
 		holder.finishedBooksCount.setVisibility(View.VISIBLE);
 		if(item.getDepositAmount()!=null)
-			holder.finishedBooksCount.setText("Депозит "+formatter.format(item.getDepositAmount())+" ₸");
+			holder.finishedBooksCount.setText(BA.str(R.string.deposit_pre)+formatter.format(item.getDepositAmount())+" ₸");
 		if(item.getAccruedBonuses()!=null){
-			holder.finishedBooksCount.append(" Начислено бонусов "+formatter.format(item.getAccruedBonuses())+" ₸");
+			holder.finishedBooksCount.append(BA.str(R.string.bonuses_accrued_pre)+formatter.format(item.getAccruedBonuses())+" ₸");
 		}
 
 //		if(item.getFinishedBooksCount()!=null) {
@@ -131,7 +132,7 @@ public class ClientsAdapter extends  RecyclerViewAdapter<ClientsAdapter.ClientIn
 //		}
 
 		if(item.getCars() != null && item.getCars().size() > 1){
-			holder.clientName.append("(еще "+(item.getCars().size()-1)+" машин)");
+			holder.clientName.append(BA.str(R.string.more_paren)+(item.getCars().size()-1)+BA.str(R.string.cars_paren));
 		}
 	}
 

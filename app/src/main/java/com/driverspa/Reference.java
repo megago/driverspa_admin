@@ -15,8 +15,8 @@ public class Reference {
 
 	public Reference(){
 		langs = new HashMap<String,String>();
-		langs.put(RU,"Русский");
-		langs.put(KZ,"Қазақша");
+		langs.put(RU,BA.str(R.string.russian_lang));
+		langs.put(KZ,BA.str(R.string.lang_name_kk));
 		langs.put(EN,"English");
 	}
 

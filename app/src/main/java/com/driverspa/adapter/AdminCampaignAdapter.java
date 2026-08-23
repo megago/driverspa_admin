@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class AdminCampaignAdapter extends BaseDataAdapter<Campaign> {
 	  holder.txtCompaign.setText(item.getDescription());
 	  HashMap<String,String> timeMap = Functions.formatUTCDate(item.getEndTime());
 	  HashMap<String,String> tsMap = Functions.formatUTCDate(item.getTs());
-	  holder.txtEndTime.setText("Заканчивается "+timeMap.get(Functions.DATE)+" в "+timeMap.get(Functions.TIME));
+	  holder.txtEndTime.setText(BA.str(R.string.ending_pre)+timeMap.get(Functions.DATE)+BA.str(R.string.space_at_space)+timeMap.get(Functions.TIME));
 	  return view;
 	}
 	

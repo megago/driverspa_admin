@@ -245,7 +245,7 @@ public class AdminNotificationsFragment extends AdminBaseFragment {
                 noInternetLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
-            ToastUtil.display(getActivity(), "Ошибка при получении данных");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_get_data));
         }
     }
 

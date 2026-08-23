@@ -106,7 +106,7 @@ public class ServicesGridAdapter extends BaseAdapter {
         if(item.getPrice() == 0){
             holder.serviceName.setTextColor(context.getResources().getColor(R.color.BlueLight));
             holder.serviceName.setTypeface(null, Typeface.ITALIC);
-            holder.serviceName.setText(item.getServiceName()+" - 0тг");
+            holder.serviceName.setText(item.getServiceName()+BA.str(R.string.dash_0tg));
         }
         holder.unSelectService.setOnClickListener(new View.OnClickListener() {
             @Override

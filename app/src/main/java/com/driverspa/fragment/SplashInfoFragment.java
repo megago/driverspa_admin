@@ -52,19 +52,19 @@ public class SplashInfoFragment extends BaseFragment {
 		ButterKnife.bind(this,view);
 		switch (index){
 			case 0:
-				title.setText("Управление автомойкой");
+				title.setText(BA.str(R.string.manage_car_wash));
 				image.setImageResource(R.drawable.ic_splash_info_1);
-				mainText.setText("Принимайте и контролируйте все заказы и брони вашей автомойки в одном приложении");
+				mainText.setText(BA.str(R.string.onboarding_admin_desc));
 				break;
 			case 1:
-				title.setText("Финансы и сотрудники");
+				title.setText(BA.str(R.string.finance_and_staff));
 				image.setImageResource(R.drawable.ic_splash_info_2);
-				mainText.setText("Следите за финансами, управляйте сотрудниками и базой клиентов автомойки");
+				mainText.setText(BA.str(R.string.onboarding_finance_desc));
 				break;
 			case 2:
-				title.setText("Развитие бизнеса");
+				title.setText(BA.str(R.string.business_growth));
 				image.setImageResource(R.drawable.ic_splash_info_3);
-				mainText.setText("Анализируйте отзывы и статистику, сообщайте клиентам об акциях и новостях");
+				mainText.setText(BA.str(R.string.onboarding_growth_desc));
 				break;
 		}
         return view;

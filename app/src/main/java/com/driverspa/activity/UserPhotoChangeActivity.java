@@ -1,4 +1,5 @@
 package com.driverspa.activity;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class UserPhotoChangeActivity extends BaseActivity implements UserPhotoCh
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		title = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		title.setText("Выберите фото");
+		title.setText(BA.str(R.string.select_photo));
 		if( savedInstanceState == null ) {
 			String userId = getIntent().getStringExtra(UserPhotoChangeFragment.USER_ID);
 			ArrayList<PhotoParcelable> photos = getIntent().getParcelableArrayListExtra(UserPhotoChangeFragment.USER_PHOTOS);

@@ -181,7 +181,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
     	setContentView(R.layout.activity_admin_add_client_queue);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("В бокс");
+		titleView.setText(BA.str(R.string.to_box));
 
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -193,7 +193,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 			client = ClientInfo.deserialize(clientStr);
 		}
         else{
-			ToastUtil.display(this,"Ошибка при получении клиента");
+			ToastUtil.display(this,BA.str(R.string.err_get_client));
 		}
 
 		selectedCarType = CarType.Sedan;
@@ -249,7 +249,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 		discountAmount.addTextChangedListener(discountAmountWatcher);
 
 
-		titleView.setText("Отправить в бокс");
+		titleView.setText(BA.str(R.string.send_to_box));
 		request = new BookingRequest();
 		buttonSedan.setOnClickListener(buttonSelector);
 		buttonCrossover.setOnClickListener(buttonSelector);
@@ -481,7 +481,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 //							   }
 //					      }
 						   if(selectedGroup != null && selectedGroup.getServices()!=null && selectedGroup.getServices().contains(serviceAdapter.getData().get(position).getServiceId())){
-							   ToastUtil.display(BA.getContext(),"Данная услуга уже содержится в выбранном комплексе услуг");
+							   ToastUtil.display(BA.getContext(),BA.str(R.string.service_already_in_complex));
 						   }
 						   else{
 							   serviceAdapter.setSelectedPosition(position, true);
@@ -495,7 +495,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 					   }
 					}
 					else{
-						ToastUtil.display(BA.getContext(),"Для данного типа авто и услуги - не указана цена");
+						ToastUtil.display(BA.getContext(),BA.str(R.string.err_no_price_for_type));
 					}
 				}
 
@@ -544,7 +544,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 //						  }
 //					  }
 					  if(found) {
-						  ToastUtil.display(BA.getContext(), "Вы уже выбрали услугу которая содержится в данном комплексе");
+						  ToastUtil.display(BA.getContext(), BA.str(R.string.service_already_selected_complex));
 					  }
 					  else{
 						  groupServiceAdapter.setSelectedPosition(position, true);
@@ -648,14 +648,14 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 
 	private void resetPriceAndTime(){
 		txtPrice.setText("0 ₸");
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		request.setServices(new ArrayList<Integer>());
 		request.setGroupServices(new ArrayList<String>());
 	}
 
 	public void calculatePriceAndTime(ArrayList<ServiceItem> data, ArrayList<Washer.GroupMenu> groupData) {
 		txtPrice.setText("0 ₸");
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		double totalPrice = 0d;
 		int totalTime = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -718,7 +718,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 		}
 
 		if (totalTime > 0) {
-			txtTime.setText(Math.round(totalTime) + " мин");
+			txtTime.setText(Math.round(totalTime) + BA.str(R.string.space_min));
 			if (request != null)
 				request.setServiceTotalTime(totalTime);
 
@@ -773,7 +773,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 		closeKeyboard();
 		String сarNoStr = carNo.getText().toString();
 		if (TextUtils.isEmpty(сarNoStr)){
-			ToastUtil.displayAtTop(this, "Введите гос.номер машины");
+			ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
 			carNo.setError("");
 			carNo.requestFocus();
 			return;
@@ -783,17 +783,17 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 		phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
 
 		if(selectedCarType == null) {
-			ToastUtil.displayAtTop(this, "Выберите машину");
+			ToastUtil.displayAtTop(this, BA.str(R.string.select_car));
 			return;
 		}
 
 		if(!(request.getServices() != null && request.getServices().size() > 0) && !(request.getGroupServices() != null && request.getGroupServices().size() > 0)){
-			ToastUtil.displayAtTop(this, "Выберите услуги");
+			ToastUtil.displayAtTop(this, BA.str(R.string.select_services));
 			return;
 		}
 
 		if(TextUtils.isEmpty(boxId)){
-			ToastUtil.displayAtTop(this, "Выберите бокс");
+			ToastUtil.displayAtTop(this, BA.str(R.string.select_box));
 			return;
 		}
 
@@ -846,7 +846,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 		setWaitScreen(false);
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
-				ToastUtil.display(this, "Успешно отправлен в бокс");
+				ToastUtil.display(this, BA.str(R.string.sent_to_box_ok));
 				finish();
 				overridePendingTransitionWithCommonCloseTransition();
 			}
@@ -854,7 +854,7 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 				ToastUtil.display(this, event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(this, "Ошибка при отправлении в бокс");
+			ToastUtil.display(this, BA.str(R.string.err_send_to_box));
 		}
 	}
 
@@ -862,14 +862,14 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 	public void moreFieldsClicked(){
 	  if(detailLayout.getVisibility() == View.GONE) {
 		  detailLayout.setVisibility(View.VISIBLE);
-		  moreButton.setText("Дополнительно");
+		  moreButton.setText(BA.str(R.string.additional));
 		  moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_up_white_24dp, 0);
 		  buttonBook.setEnabled(true);
 	  }
 		else{
 		  detailLayout.setVisibility(View.GONE);
 		  moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
-		  moreButton.setText("Дополнительно");
+		  moreButton.setText(BA.str(R.string.additional));
 		  buttonBook.setEnabled(false);
 	  }
 	}
@@ -1246,12 +1246,12 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 			if(BaseAssist.isSuccess(event.getResult())) {
 				ClientInfo client = event.getResult().getClientInfo();
 				if(!TextUtils.isEmpty(textPrediction) && !TextUtils.isEmpty(client.getCarNo())) {
-					ToastUtil.display(this, "Клиент найден в базе");
+					ToastUtil.display(this, BA.str(R.string.client_found));
 					setData(client);
 				}
 			}
 			else{
-				ToastUtil.display(this,"Клиент не найден в базе");
+				ToastUtil.display(this,BA.str(R.string.client_not_found));
 			}
 		}
 		else{
@@ -1284,10 +1284,10 @@ public class AdminAddClientQueueActivity extends AdminBaseActivity {
 					carNo.setSelection(carNo.getText().length());
 					carNo.requestFocus();
 				} else {
-					ToastUtil.display(this,"Номер машины не выбран");
+					ToastUtil.display(this,BA.str(R.string.car_number_not_selected));
 				}
 			} else {
-				ToastUtil.display(this,"Ошибка при обработке номера машин");
+				ToastUtil.display(this,BA.str(R.string.err_process_car_number));
 			}
 		}
 		else {

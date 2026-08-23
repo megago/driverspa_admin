@@ -51,7 +51,7 @@ public class AdminServicePriceActivity extends AdminBaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Услуги и цены");
+        titleView.setText(BA.str(R.string.services_and_prices));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

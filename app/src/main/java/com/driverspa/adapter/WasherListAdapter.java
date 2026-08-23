@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.location.Location;
@@ -87,7 +88,7 @@ public class WasherListAdapter extends BaseDataAdapter<WasherPublic> {
 
 			holder.imageAvailability.setSelected(item.isBookable());
 //		holder.price.setText("");
-			holder.price.setText("от " + (item.getPrice()!=null?item.getPrice()+"":"500") + " ₸");
+			holder.price.setText(BA.str(R.string.from_pre) + (item.getPrice()!=null?item.getPrice()+"":"500") + " ₸");
 			holder.reviewCount.setText(item.getRating().intValue()+"");
 			holder.address.setText(item.getAddress());
 

@@ -96,8 +96,8 @@ public class CustomCarwashCreateWizard extends WizardFragment implements View.On
      */
     private void updateWizardControls() {
         nextButton.setText(wizard.isLastStep()
-                ? "Готово"
-                : "Далее");
+                ? BA.str(R.string.done)
+                : BA.str(R.string.next));
         previousButton.setEnabled(!wizard.isFirstStep());
     }
 

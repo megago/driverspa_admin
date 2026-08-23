@@ -1,4 +1,5 @@
 package com.driverspa.util;
+import com.driverspa.R;
 
 import android.content.Context;
 
@@ -50,6 +51,7 @@ public final class LocaleManager {
      * (never translated), so users can recognise their own language.
      */
     public static String displayName(String resourceTag) {
+        // Language names are always shown in their own language, never translated.
         if (KK.equals(resourceTag)) return "Қазақша";
         if (EN.equals(resourceTag)) return "English";
         return "Русский";

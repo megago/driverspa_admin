@@ -85,7 +85,7 @@ public class AdminExpressWashFragment extends AdminBaseFragment {
 			actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
 			actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
 			titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-			titleView.setText("Экспресс мойка");
+			titleView.setText(BA.str(R.string.express_wash));
 
 			if(fragmentVisible && actionBarRefreshButton != null)
 				actionBarRefreshButton.setVisibility(View.GONE);
@@ -185,7 +185,7 @@ public class AdminExpressWashFragment extends AdminBaseFragment {
 				spinner.setVisibility(View.GONE);
 			if(titleView != null) {
 				titleView.setVisibility(View.VISIBLE);
-				titleView.setText("Экспресс мойка");
+				titleView.setText(BA.str(R.string.express_wash));
 			}
 		}
 	}

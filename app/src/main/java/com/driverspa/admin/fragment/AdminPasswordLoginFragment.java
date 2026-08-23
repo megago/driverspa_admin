@@ -95,7 +95,7 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 	protected void processLogin() {
 		String pass = password.getText().toString();
 		if (TextUtils.isEmpty(pass)) {
-			password.setError("Введите пароль");
+			password.setError(BA.str(R.string.enter_password));
 			return;
 		}
 		setWaitScreen(true);
@@ -129,11 +129,11 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 					BA.getEventBus().post(new ResendActivationRequestEvent(
 							new ResendActivationRequest(phoneNumber, channel)));
 				} else {
-					ToastUtil.display(getActivity(), TextUtils.isEmpty(message) ? "Неверные данные" : message);
+					ToastUtil.display(getActivity(), TextUtils.isEmpty(message) ? BA.str(R.string.invalid_data) : message);
 				}
 			}
 		} else {
-			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 		}
 	}
 
@@ -152,7 +152,7 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 		if (event.getData() != null && "success".equals(event.getData().getStatus())) {
 			activityActions.openVerification();
 		} else {
-			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 		}
 	}
 

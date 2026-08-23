@@ -71,7 +71,7 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Добавление акции");
+		titleView.setText(BA.str(R.string.add_promo_title));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -154,19 +154,19 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 
 	public void onAddCampaignButtonClicked(){
 		if(TextUtils.isEmpty(description.getText().toString())){
-			ToastUtil.display(this,"Введите описание акции");
+			ToastUtil.display(this,BA.str(R.string.enter_promo_desc));
 			description.requestFocus();
-			description.setError("Обязательное поле");
+			description.setError(BA.str(R.string.required_field));
 			return;
 		}
 		if(TextUtils.isEmpty(endDate.getText().toString())){
-			ToastUtil.display(this,"Введите дата окончания акции");
+			ToastUtil.display(this,BA.str(R.string.enter_promo_end_date));
 			return;
 		}
 
 		if(TextUtils.isEmpty(discount.getText().toString())){
 			discount.requestFocus();
-			ToastUtil.display(this,"Введите скидку для акции");
+			ToastUtil.display(this,BA.str(R.string.enter_promo_discount));
 			return;
 		}
 
@@ -179,7 +179,7 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
 		}
 		if(discountInt == 0){
 			discount.requestFocus();
-			ToastUtil.display(this,"Введите скидку для акции");
+			ToastUtil.display(this,BA.str(R.string.enter_promo_discount));
 			return;
 		}
 
@@ -194,7 +194,7 @@ public class AdminAddCampaignActivity extends AdminBaseActivity  implements Date
     		if(BaseAssist.isSuccess(event.getData())){
 				finish();
 				overridePendingTransitionWithCommonCloseTransition();
-				ToastUtil.display(this,"Успешно добавлена новая акция");
+				ToastUtil.display(this,BA.str(R.string.promo_added_ok));
     		}
     		else{
     			ToastUtil.display(this, event.getData().getMessage());

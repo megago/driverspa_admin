@@ -58,7 +58,7 @@ public class AdminClientsFragment extends AdminBaseFragment {
         actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
         actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
         titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Клиенты");
+        titleView.setText(BA.str(R.string.menu_clients));
 
         if(fragmentVisible && actionBarRefreshButton != null)
             actionBarRefreshButton.setVisibility(View.GONE);
@@ -168,7 +168,7 @@ public class AdminClientsFragment extends AdminBaseFragment {
               spinner.setVisibility(View.GONE);
             if(titleView != null) {
                 titleView.setVisibility(View.VISIBLE);
-                titleView.setText("Клиенты");
+                titleView.setText(BA.str(R.string.menu_clients));
             }
         }
         else{

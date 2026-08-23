@@ -58,7 +58,7 @@ public class AdminAddWashCountCampaignFragment extends AdminBaseFragment {
 			ButterKnife.bind(this, view);
 			Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 			TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-			titleView.setText("По количеству мойки");
+			titleView.setText(BA.str(R.string.by_wash_count));
 //			titleView.setCompoundDrawablePadding((int) Functions.dipToPixels(getActivity(),5f));
 //			titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_discount_list, 0);
 			mToolbar.findViewById(R.id.action_done).setVisibility(View.VISIBLE);
@@ -82,14 +82,14 @@ public class AdminAddWashCountCampaignFragment extends AdminBaseFragment {
 
 	public void onAddCampaignButtonClicked(){
 		if(TextUtils.isEmpty(description.getText().toString())){
-			ToastUtil.display(BA.getContext(),"Введите описание акции");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_promo_desc));
 			description.requestFocus();
 			return;
 		}
 
 		int length = description.getText().toString().length();
 		if(length < 15){
-			ToastUtil.display(BA.getContext(),"Описание акции не может быть меньше 15 символов");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.promo_desc_min15));
 			description.requestFocus();
 			return;
 		}
@@ -97,7 +97,7 @@ public class AdminAddWashCountCampaignFragment extends AdminBaseFragment {
 
 		if(TextUtils.isEmpty(washCount.getText().toString())){
 			washCount.requestFocus();
-			ToastUtil.display(BA.getContext(),"Введите количество мойки");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_wash_count));
 			return;
 		}
 
@@ -110,7 +110,7 @@ public class AdminAddWashCountCampaignFragment extends AdminBaseFragment {
 		}
 		if(washCountInt == 0){
 			washCount.requestFocus();
-			ToastUtil.display(BA.getContext(),"Введите количество мойки");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_wash_count));
 			return;
 		}
 
@@ -125,7 +125,7 @@ public class AdminAddWashCountCampaignFragment extends AdminBaseFragment {
 			if(BaseAssist.isSuccess(event.getData())){
 				closeKeyboard();
 				activityActions.openCampaign();
-				ToastUtil.display(BA.getContext(),"Успешно добавлена новая акция");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.promo_added_ok));
 			}
 			else{
 				ToastUtil.display(BA.getContext(), event.getData().getMessage());

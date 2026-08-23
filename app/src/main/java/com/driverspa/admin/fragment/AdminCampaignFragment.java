@@ -155,7 +155,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 		ButterKnife.bind(this, view);
 		mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 		titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Акция");
+		titleView.setText(BA.str(R.string.promo));
 //		titleView.setCompoundDrawablePadding((int)Functions.dipToPixels(getActivity(),5f));
 //		titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_discount_list, 0);
 
@@ -282,13 +282,13 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 		description.setText(campaign.getDescription());
 		discount.setText("-"+campaign.getCampaignDiscount()+"%");
 		if(campaign.getCampaignType() == CampaignType.Both){
-			campaignType.setText("Распространяется на все виды мойки (Онлайн бронирование, живая очередь)");
+			campaignType.setText(BA.str(R.string.applies_all_wash));
 		}
 		else if(campaign.getCampaignType() == CampaignType.Online){
-			campaignType.setText("Распространяется только на онлайн бронирования");
+			campaignType.setText(BA.str(R.string.applies_online_only));
 		}
 		else if(campaign.getCampaignType() == CampaignType.Offline){
-			campaignType.setText("Распространяется только на живую очередь");
+			campaignType.setText(BA.str(R.string.applies_live_only));
 		}
 	}
 
@@ -296,7 +296,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 	public void onResume() {
 		super.onResume();
 		if(titleView != null)
-		   titleView.setText("Акция");
+		   titleView.setText(BA.str(R.string.promo));
 		if(customHandler != null && updateTimerThread != null)
 			customHandler.postDelayed(updateTimerThread, 0);
 		BA.getEventBus().register(this);
@@ -395,7 +395,7 @@ public class AdminCampaignFragment extends AdminBaseFragment{
 		if (washer != null) {
 			setWaitScreen(true);
 			mToolbar.findViewById(R.id.action_done).setVisibility(View.GONE);
-			titleView.setText("Акция");
+			titleView.setText(BA.str(R.string.promo));
 			BA.getEventBus().post(new AdminCampaignListRequestEvent(washer.getId()));
 			BA.getEventBus().post(new AdminWashCountCampaignListRequestEvent(washer.getId()));
 		}

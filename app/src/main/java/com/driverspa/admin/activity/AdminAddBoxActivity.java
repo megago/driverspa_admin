@@ -62,7 +62,7 @@ public class AdminAddBoxActivity extends AdminBaseActivity {
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Добавление бокса");
+		titleView.setText(BA.str(R.string.add_box_title));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -158,9 +158,9 @@ public class AdminAddBoxActivity extends AdminBaseActivity {
 	@OnClick(R.id.btnAddBox)
 	public void onAddBoxButtonClicked(){
 		if(TextUtils.isEmpty(boxName.getText().toString())){
-			ToastUtil.display(this,"Введите название бокса");
+			ToastUtil.display(this,BA.str(R.string.enter_box_name));
 			boxName.requestFocus();
-			boxName.setError("Обязательное поле");
+			boxName.setError(BA.str(R.string.required_field));
 			return;
 		}
 
@@ -182,7 +182,7 @@ public class AdminAddBoxActivity extends AdminBaseActivity {
     		if(BaseAssist.isSuccess(event.getData())){
 				finish();
 				overridePendingTransitionWithCommonCloseTransition();
-				ToastUtil.display(this,"Успешно добавлен новый бокс");
+				ToastUtil.display(this,BA.str(R.string.box_added_ok));
 //				Builder dialog = new Builder(this);
 //    			dialog.setCancelable(false);
 //    			dialog.setTitle("Успешно добавлен новый бокс");

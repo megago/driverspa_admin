@@ -59,14 +59,14 @@ public class GalleryPhotosActivity extends BaseActivity implements GalleryFragme
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		TextView delete = (TextView) mToolbar.findViewById(R.id.action_done);
-		delete.setText("Удалить фото");
+		delete.setText(BA.str(R.string.delete_photo));
 		delete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(GalleryPhotosActivity.this);
-				dialog.setTitle("Хотите удалить данное фото?");
-				dialog.setNeutralButton("Нет", null);
-				dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+				dialog.setTitle(BA.str(R.string.confirm_delete_photo));
+				dialog.setNeutralButton(BA.str(R.string.no_word), null);
+				dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						setWaitScreen(true);

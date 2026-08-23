@@ -110,7 +110,7 @@ public class FilterableClientsAdapter extends BaseAdapter implements Filterable 
 		}
 		else {
 //			holder.mobile.setVisibility(View.GONE);
-			holder.mobile.setText("телефон не указан");
+			holder.mobile.setText(BA.str(R.string.phone_not_specified));
 		}
 
 		String carNo = item.getCarNo(this.searchedPossibleCarNo);
@@ -123,16 +123,16 @@ public class FilterableClientsAdapter extends BaseAdapter implements Filterable 
 			holder.clientName.append(" "+carNo.replaceAll("\\(","").replaceAll("\\)",""));
 
 		if(item.getDepositAmount()!=null)
-			holder.finishedBooksCount.setText("Депозит "+formatter.format(item.getDepositAmount())+" ₸");
+			holder.finishedBooksCount.setText(BA.str(R.string.deposit_pre)+formatter.format(item.getDepositAmount())+" ₸");
 		if(item.getAccruedBonuses()!=null){
-			holder.finishedBooksCount.append(" Начислено бонусов "+formatter.format(item.getAccruedBonuses())+" ₸");
+			holder.finishedBooksCount.append(BA.str(R.string.bonuses_accrued_pre)+formatter.format(item.getAccruedBonuses())+" ₸");
 		}
 
 		if(item.getFinishedBooksCount()!=null)
-		  holder.finishedBooksCount.setText("Помыта "+item.getFinishedBooksCount()+" раз(а).");
+		  holder.finishedBooksCount.setText(BA.str(R.string.washed_pre)+item.getFinishedBooksCount()+BA.str(R.string.times_dot));
 		if(item.getLastFinishedBookDate()!=null){
 			HashMap<String,String> timeMap = Functions.formatUTCDate(item.getLastFinishedBookDate());
-			holder.finishedBooksCount.append(" Последняя мойка "+timeMap.get(Functions.DATE));
+			holder.finishedBooksCount.append(BA.str(R.string.last_wash_pre)+timeMap.get(Functions.DATE));
 		}
 
 		try {

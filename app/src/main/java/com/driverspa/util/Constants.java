@@ -2,6 +2,8 @@
  * 
  */
 package com.driverspa.util;
+import com.driverspa.R;
+import com.driverspa.BA;
 
 import android.graphics.Typeface;
 
@@ -144,55 +146,55 @@ public class Constants {
 
         //Book status map
 		bookStatus = new HashMap<String,String>();
-		bookStatus.put(QUEUED, "В очереди");
-		bookStatus.put(QUEUED_APPROVED, "Выполняется");
-		bookStatus.put(QUEUED_REJECTED, "Отменен");
-		bookStatus.put(QUEUED_FINISHED, "Выполнен");
-		bookStatus.put(PENDING, "Ожидает");
-		bookStatus.put(FINISHED, "Выполнен");
-		bookStatus.put(APPROVED, "Одобрен");
-		bookStatus.put(REJECTED, "Отклонен");
-		bookStatus.put(STARTED, "Начато");
-		bookStatus.put(NOCOME, "Клиент не пришел");
-		bookStatus.put(CANCELED, "Отменен клиентом");
-		bookStatus.put(EXPRESS, "Быстрая запись");
-		bookStatus.put(EXPRESS_CANCELED, "Запись отменена");
-		bookStatus.put(EXPRESS_REJECTED, "Запись отклонена");
+		bookStatus.put(QUEUED, BA.str(R.string.in_queue));
+		bookStatus.put(QUEUED_APPROVED, BA.str(R.string.in_progress_status));
+		bookStatus.put(QUEUED_REJECTED, BA.str(R.string.cancelled_status));
+		bookStatus.put(QUEUED_FINISHED, BA.str(R.string.completed_status));
+		bookStatus.put(PENDING, BA.str(R.string.pending_status));
+		bookStatus.put(FINISHED, BA.str(R.string.completed_status));
+		bookStatus.put(APPROVED, BA.str(R.string.approved_status));
+		bookStatus.put(REJECTED, BA.str(R.string.rejected_status));
+		bookStatus.put(STARTED, BA.str(R.string.started_status));
+		bookStatus.put(NOCOME, BA.str(R.string.client_no_show_status));
+		bookStatus.put(CANCELED, BA.str(R.string.cancelled_by_client));
+		bookStatus.put(EXPRESS, BA.str(R.string.quick_booking));
+		bookStatus.put(EXPRESS_CANCELED, BA.str(R.string.booking_cancelled_status));
+		bookStatus.put(EXPRESS_REJECTED, BA.str(R.string.booking_rejected_status));
 
         //Box type map
-        boxTypeMap.put(HYBRID,"Гибрид");
-        boxTypeMap.put(ONLINE,"Онлайн бронь и живая очередь");
-        boxTypeMap.put(OFFLINE,"Живая очередь");
+        boxTypeMap.put(HYBRID,BA.str(R.string.hybrid));
+        boxTypeMap.put(ONLINE,BA.str(R.string.online_booking_live_queue));
+        boxTypeMap.put(OFFLINE,BA.str(R.string.live_queue));
 
         newsTarget = new HashMap<String,String>();
-        newsTarget.put(CLIENT_ALL_SMS, "СМС всем клиентам");
-        newsTarget.put(CLIENT_DRIVERSPA_PUSH, "Пуш зарегистрированным клиентам");
-        newsTarget.put(CLIENT_SMS, "СМС не зарегистрированным клиентам");
-        newsTarget.put(COMPANY, "Уведомление компании");
-        newsTarget.put(ALL, "Всем клиентам DriverSpa-Admin");
+        newsTarget.put(CLIENT_ALL_SMS, BA.str(R.string.sms_all_clients));
+        newsTarget.put(CLIENT_DRIVERSPA_PUSH, BA.str(R.string.push_registered_clients));
+        newsTarget.put(CLIENT_SMS, BA.str(R.string.sms_unregistered_clients));
+        newsTarget.put(COMPANY, BA.str(R.string.company_notification));
+        newsTarget.put(ALL, BA.str(R.string.all_driverspa_clients));
 
         newsType = new HashMap<String,String>();
-        newsType.put(INFO, "Информационные");
-        newsType.put(CAMPAIGN, "Акция");
-        newsType.put(CARWASH, "Новая мойка");
-        newsType.put(PRICE_DECREASE, "Занижение цен");
+        newsType.put(INFO, BA.str(R.string.informational));
+        newsType.put(CAMPAIGN, BA.str(R.string.promo));
+        newsType.put(CARWASH, BA.str(R.string.new_wash));
+        newsType.put(PRICE_DECREASE, BA.str(R.string.price_dumping));
 
         newsStatus = new HashMap<String,String>();
-        newsStatus.put(NEWS_PENDING, "Отправляется...");
-        newsStatus.put(NEWS_SENT, "Отправлено");
-        newsStatus.put(NEWS_ERROR, "Ошибка при отправке");
-        newsStatus.put(NEWS_PARTIAL_SENT, "Отправлено частично");
+        newsStatus.put(NEWS_PENDING, BA.str(R.string.sending_dots));
+        newsStatus.put(NEWS_SENT, BA.str(R.string.sent_status));
+        newsStatus.put(NEWS_ERROR, BA.str(R.string.err_send));
+        newsStatus.put(NEWS_PARTIAL_SENT, BA.str(R.string.sent_partially));
 
 
         staffRole = new HashMap<String,String>();
-        staffRole.put(DIRECTOR, "Директор");
-        staffRole.put(OPERATOR, "Оператор");
-        staffRole.put(CARWASHER, "Мойщик");
+        staffRole.put(DIRECTOR, BA.str(R.string.role_director));
+        staffRole.put(OPERATOR, BA.str(R.string.role_operator));
+        staffRole.put(CARWASHER, BA.str(R.string.role_washer));
 
         staffStatus = new HashMap<String,String>();
-        staffStatus.put(WORKS, "Работает");
-        staffStatus.put(VACATION, "В отпуске");
-        staffStatus.put(RESIGNED, "Уволен");
+        staffStatus.put(WORKS, BA.str(R.string.status_working));
+        staffStatus.put(VACATION, BA.str(R.string.status_on_leave));
+        staffStatus.put(RESIGNED, BA.str(R.string.status_dismissed));
 
     }
 

@@ -209,7 +209,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 		profilePhotos = new ArrayList<PhotoParcelable>();
 		Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Клиент");
+		titleView.setText(BA.str(R.string.client));
 		makeList();
 		finishedBooksLabel.setVisibility(View.GONE);
 
@@ -395,16 +395,16 @@ public class AdminClientFragment extends AdminBaseFragment{
 		  if(!TextUtils.isEmpty(client.getPhone()))
 		     mobile.setText(Functions.formatPhoneNumber("+7 ### ### ## ##",client.getPhone()));
 
-		  txtDiscount.setText("Скидка "+client.getDiscount()+"%");
-		  bonusPercentage.setText("Процент начисление бонуса "+client.getBonusAccrualPercentage()+"%");
+		  txtDiscount.setText(BA.str(R.string.discount_pre)+client.getDiscount()+"%");
+		  bonusPercentage.setText(BA.str(R.string.bonus_percent_pre)+client.getBonusAccrualPercentage()+"%");
 
 		  if(client.isDisableBonusAccrual())
-		     disableBonusAccrual.setText("Начисление бонусов запрешено");
+		     disableBonusAccrual.setText(BA.str(R.string.bonus_accrual_forbidden));
  		  else
-			 disableBonusAccrual.setText("Начисление бонусов разрешено");
+			 disableBonusAccrual.setText(BA.str(R.string.bonus_accrual_allowed));
 
-		  accruedBonus.setText("Начислено бонусов "+formatter.format(client.getAccruedBonuses())+" ₸");
-		  depositAmount.setText("Депозит клиента "+formatter.format(client.getDepositAmount())+" ₸");
+		  accruedBonus.setText(BA.str(R.string.bonuses_accrued_pre2)+formatter.format(client.getAccruedBonuses())+" ₸");
+		  depositAmount.setText(BA.str(R.string.client_deposit_pre)+formatter.format(client.getDepositAmount())+" ₸");
 
 		  txtClientName.setText("");
 		  if(!TextUtils.isEmpty(client.getName()))
@@ -421,26 +421,26 @@ public class AdminClientFragment extends AdminBaseFragment{
 		  clientOptions.setText("");
 		  if(client.getRegistered()) {
 			  filter.setUsername(client.getPhone());
-			  clientOptions.setText("Зарегистрированный пользователь");
+			  clientOptions.setText(BA.str(R.string.registered_user));
 		  }
 		  else{
 			  filter.setClientKey(client.getCarNo());
-			  clientOptions.setText("Незарегистрированный пользователь");
+			  clientOptions.setText(BA.str(R.string.unregistered_user));
 		  }
 
 		  if(client.getFinishedBooksCount() != null && client.getFinishedBooksCount() > 0){
-			  clientOptions.append("\n\nпомыл "+client.getFinishedBooksCount()+" раз(а).");
+			  clientOptions.append(BA.str(R.string.nl_washed)+client.getFinishedBooksCount()+BA.str(R.string.times_dot));
 		  }
 
 		  if(client.getLastFinishedBookDate()!=null){
 			  HashMap<String,String> timeMap = Functions.formatUTCDate(client.getLastFinishedBookDate());
-			  clientOptions.append("\nпоследняя мойка "+timeMap.get(Functions.DATE));
+			  clientOptions.append(BA.str(R.string.nl_last_wash)+timeMap.get(Functions.DATE));
 		  }
           if(client.getNocomeBooksCount() != null && client.getNocomeBooksCount() > 0){
-			 clientOptions.append("\nне пришел "+client.getNocomeBooksCount()+" раз(а).");
+			 clientOptions.append(BA.str(R.string.nl_no_show)+client.getNocomeBooksCount()+BA.str(R.string.times_dot));
 		  }
           if(client.getRejectedByClientBooksCount() != null && client.getRejectedByClientBooksCount() > 0){
-			 clientOptions.append("\nотменил мойку "+client.getRejectedByClientBooksCount()+" раз(а).");
+			 clientOptions.append(BA.str(R.string.nl_cancelled_wash)+client.getRejectedByClientBooksCount()+BA.str(R.string.times_dot));
 		  }
 	  }
 	}
@@ -512,7 +512,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 				ToastUtil.display(getActivity(),event.getData().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(),"Ошибка при удалении клиента");
+			ToastUtil.display(getActivity(),BA.str(R.string.err_delete_client));
 		}
 	}
 
@@ -530,10 +530,10 @@ public class AdminClientFragment extends AdminBaseFragment{
 		final View rootView = (FrameLayout) paymentDialog.findViewById(R.id.root_view);
 		final EditText amountEditText = (EditText) paymentDialog.findViewById(R.id.amount);
 		if(selectedOperationType == 5){
-			((Button) paymentDialog.findViewById(R.id.btnPay)).setText("Оплата");
+			((Button) paymentDialog.findViewById(R.id.btnPay)).setText(BA.str(R.string.payment));
 		}
 		else{
-			((Button) paymentDialog.findViewById(R.id.btnPay)).setText("Списать");
+			((Button) paymentDialog.findViewById(R.id.btnPay)).setText(BA.str(R.string.write_off));
 		}
 
 		amountEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -573,13 +573,13 @@ public class AdminClientFragment extends AdminBaseFragment{
 		closeKeyboard();
 
 		if(TextUtils.isEmpty(amount.getText().toString())){
-			ToastUtil.display(getActivity(),"Введите сумму");
+			ToastUtil.display(getActivity(),BA.str(R.string.enter_amount));
 			amount.requestFocus();
 			return;
 		}
 
 		if(Double.parseDouble(amount.getText().toString()) <= 0){
-			ToastUtil.display(getActivity(),"Введите сумму выше нуля");
+			ToastUtil.display(getActivity(),BA.str(R.string.enter_amount_above_zero));
 			amount.requestFocus();
 			return;
 		}
@@ -607,7 +607,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 						loadData();
 					}
 				}
-				ToastUtil.display(getActivity(), "Успешно провели транзакцию");
+				ToastUtil.display(getActivity(), BA.str(R.string.transaction_ok));
 //				finish();
 			}
 			else{
@@ -615,7 +615,7 @@ public class AdminClientFragment extends AdminBaseFragment{
 			}
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении операции");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_operation));
 		}
 	}
 

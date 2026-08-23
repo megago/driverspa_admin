@@ -1,4 +1,5 @@
 package com.driverspa.assist;
+import com.driverspa.R;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -47,7 +48,7 @@ public class AuthVerificationAssist extends BaseAssist {
 		return IntStream.range(0, 1)
 				.mapToObj(i -> {
 					Box boxSetting = new Box();
-					boxSetting.setBoxName("Бокс " + (i + 1));
+					boxSetting.setBoxName(BA.str(R.string.box_sp) + (i + 1));
 					boxSetting.setBookingType(BookingType.Online);
 					return boxSetting;
 				})

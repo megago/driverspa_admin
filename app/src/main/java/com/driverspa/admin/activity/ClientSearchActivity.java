@@ -296,7 +296,7 @@ public class ClientSearchActivity extends AdminBaseActivity {
                 noInternetLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
-            ToastUtil.display(this, "Ошибка при получении данных");
+            ToastUtil.display(this, BA.str(R.string.err_get_data));
         }
     }
 
@@ -346,13 +346,13 @@ public class ClientSearchActivity extends AdminBaseActivity {
         setWaitScreen(false);
         if(event.getResult() != null){
             if(BaseAssist.isSuccess(event.getResult())) {
-                ToastUtil.display(this, "Клиент добавлен в очередь");
+                ToastUtil.display(this, BA.str(R.string.client_added_queue));
             }
             else
                 ToastUtil.display(this, event.getResult().getMessage());
         }
         else{
-            ToastUtil.display(this, "Ошибка при добавлении очереди");
+            ToastUtil.display(this, BA.str(R.string.err_add_queue));
         }
     }
 }

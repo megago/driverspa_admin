@@ -125,7 +125,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
         actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
         actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
         titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Клиенты");
+        titleView.setText(BA.str(R.string.menu_clients));
 //        addClientButton = getActivity().findViewById(R.id.button_add_client);
         if(fragmentVisible && actionBarRefreshButton != null)
             actionBarRefreshButton.setVisibility(View.GONE);
@@ -152,7 +152,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
 
     private void createActionBarSpinner(){
         if(clientTypeSpinner != null) {
-            String[] valuesArray = new String[]{"Все", "Зарегистрированные", "Незарегистрированные"};
+            String[] valuesArray = new String[]{BA.str(R.string.all_word), BA.str(R.string.registered), BA.str(R.string.unregistered)};
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
             clientTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -289,7 +289,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
                     if(!lazyLoading){
                         if(event.getResult().getResponse().getMeta() != null) {
                             recordsCount.setVisibility(View.VISIBLE);
-                            recordsCount.setText(event.getResult().getResponse().getMeta().getTotalCount()+" клиент(ов)");
+                            recordsCount.setText(event.getResult().getResponse().getMeta().getTotalCount()+BA.str(R.string.clients_count));
                         }
                         clientInfoAdapterData.clear();
                         clientInfoAdapterData.addAll(event.getResult().getResponse().getClients());
@@ -340,7 +340,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
                 noInternetLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
-            ToastUtil.display(getActivity(), "Ошибка при получении данных");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_get_data));
         }
     }
 
@@ -399,7 +399,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
                 spinner.setVisibility(View.GONE);
             if(titleView != null) {
                 titleView.setVisibility(View.VISIBLE);
-                titleView.setText("Клиенты");
+                titleView.setText(BA.str(R.string.menu_clients));
             }
 
             if(filter != null && washer != null && !(clientInfoAdapterData != null && clientInfoAdapterData.size() > 0)){
@@ -454,7 +454,7 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
             String clientName = client.getName();
             if(!TextUtils.isEmpty(client.getCarNo()))
                 clientName= clientName + " "+carNo.replaceAll("\\(","").replaceAll("\\)","");
-            b.setTitle("Операция по клиенту " + clientName);
+            b.setTitle(BA.str(R.string.op_client) + clientName);
 //            b.show();
 
             activityActions.openClientInfo(client);
@@ -488,13 +488,13 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
         setWaitScreen(false);
         if(event.getResult() != null){
             if(BaseAssist.isSuccess(event.getResult())) {
-                ToastUtil.display(getActivity(), "Клиент добавлен в очередь");
+                ToastUtil.display(getActivity(), BA.str(R.string.client_added_queue));
             }
             else
                 ToastUtil.display(getActivity(), event.getResult().getMessage());
         }
         else{
-            ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
         }
     }
 

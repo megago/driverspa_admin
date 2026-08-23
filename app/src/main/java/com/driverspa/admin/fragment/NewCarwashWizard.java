@@ -1,4 +1,5 @@
 package com.driverspa.admin.fragment;
+import com.driverspa.R;
 
 import com.driverspa.assist.BaseAssist;
 import com.squareup.otto.Subscribe;
@@ -23,9 +24,9 @@ public class NewCarwashWizard extends BasicWizardLayout {
 
     @Override
     public WizardFlow onSetup() {
-        setNextButtonText("Далее");
-        setBackButtonText("Назад");
-        setFinishButtonText("Готово");
+        setNextButtonText(BA.str(R.string.next));
+        setBackButtonText(BA.str(R.string.back));
+        setFinishButtonText(BA.str(R.string.done));
 
         return new WizardFlow.Builder()
                 .addStep(WasherCreateStep1.class)

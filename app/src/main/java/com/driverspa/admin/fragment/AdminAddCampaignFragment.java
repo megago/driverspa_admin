@@ -86,7 +86,7 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 			ButterKnife.bind(this, view);
 			Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 			TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-			titleView.setText("Новая акция");
+			titleView.setText(BA.str(R.string.new_promo));
 //			titleView.setCompoundDrawablePadding((int) Functions.dipToPixels(getActivity(),5f));
 //			titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_discount_list, 0);
 			mToolbar.findViewById(R.id.action_done).setVisibility(View.VISIBLE);
@@ -146,20 +146,20 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 
 	public void onAddCampaignButtonClicked(){
 		if(TextUtils.isEmpty(description.getText().toString())){
-			ToastUtil.display(BA.getContext(),"Введите описание акции");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_promo_desc));
 			description.requestFocus();
 			return;
 		}
 
 		int length = description.getText().toString().length();
 		if(length < 30){
-			ToastUtil.display(BA.getContext(),"Описание акции не может быть меньше 30 символов");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.promo_desc_min30));
 			description.requestFocus();
 			return;
 		}
 
 		if(TextUtils.isEmpty(endDate.getText().toString())){
-			ToastUtil.display(BA.getContext(),"Введите дата окончания акции");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_promo_end_date));
 			return;
 		}
 
@@ -175,7 +175,7 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 
 		if(TextUtils.isEmpty(discount.getText().toString())){
 			discount.requestFocus();
-			ToastUtil.display(BA.getContext(),"Введите скидку для акции");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_promo_discount));
 			return;
 		}
 
@@ -188,7 +188,7 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 		}
 		if(discountInt == 0){
 			discount.requestFocus();
-			ToastUtil.display(BA.getContext(),"Введите скидку для акции");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.enter_promo_discount));
 			return;
 		}
 
@@ -203,7 +203,7 @@ public class AdminAddCampaignFragment extends AdminBaseFragment implements DateP
 			if(BaseAssist.isSuccess(event.getData())){
 				closeKeyboard();
 				activityActions.openCampaign();
-				ToastUtil.display(BA.getContext(),"Успешно добавлена новая акция");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.promo_added_ok));
 			}
 			else{
 				ToastUtil.display(BA.getContext(), event.getData().getMessage());

@@ -172,41 +172,41 @@ public class AdminCashFragment extends AdminBaseFragment  {
 
 	@OnClick(R.id.cashService)
 	public void cashTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("2","Платежи за услуги: "+cashService.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("2",BA.str(R.string.service_payments_pre)+cashService.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,1));
 	}
 
 	@OnClick(R.id.salaryPaid)
 	public void salaryPaidTransaction(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("4","Выдача зарплаты: "+salaryPaid.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("4",BA.str(R.string.salary_payout_pre)+salaryPaid.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,3));
 	}
 	@OnClick(R.id.cashIn)
 	public void cashInTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("10","Внесение в кассу: "+cashIn.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("10",BA.str(R.string.cashbox_deposit_pre)+cashIn.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,9));
 	}
 	@OnClick(R.id.cashOut)
 	public void cashOutTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("11","Инкассация: "+cashOut.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("11",BA.str(R.string.collection_pre)+cashOut.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,10));
 	}
 
 	@OnClick(R.id.otherExpense)
 	public void otherExpenseTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("8,9","Прочие расходы: "+otherExpense.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("8,9",BA.str(R.string.other_expenses_pre)+otherExpense.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,8));
 	}
 
 	@OnClick(R.id.otherRevenue)
 	public void otherRevenueTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("3","Прочие доходы: "+otherRevenue.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("3",BA.str(R.string.other_incomes_pre)+otherRevenue.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,2));
 	}
 
 	@OnClick(R.id.unearnedRevenue)
 	public void unearnedRevenueTransactions(){
-		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("5,6,7,12","Не признанные доходы: "+unearnedRevenue.getText());
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("5,6,7,12",BA.str(R.string.unrecognized_income_pre)+unearnedRevenue.getText());
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,2));
 	}
 

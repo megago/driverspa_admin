@@ -66,7 +66,7 @@ public class AdminAddStaffActivity extends AdminBaseActivity {
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Добавление сотрудника");
+		titleView.setText(BA.str(R.string.add_employee));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -154,9 +154,9 @@ public class AdminAddStaffActivity extends AdminBaseActivity {
 	public void onAddBoxButtonClicked(){
 		closeKeyboard();
 		if(TextUtils.isEmpty(staffName.getText().toString())){
-			ToastUtil.display(this,"Введите ФИО сотрудника");
+			ToastUtil.display(this,BA.str(R.string.enter_employee_name));
 			staffName.requestFocus();
-			staffName.setError("Обязательное поле");
+			staffName.setError(BA.str(R.string.required_field));
 			return;
 		}
 
@@ -181,7 +181,7 @@ public class AdminAddStaffActivity extends AdminBaseActivity {
     		if(BaseAssist.isSuccess(event.getData())){
 				finish();
 				overridePendingTransitionWithCommonCloseTransition();
-				ToastUtil.display(this,"Успешно добавлен новый сотрудник");
+				ToastUtil.display(this,BA.str(R.string.employee_added_ok));
     		}
     		else{
     			ToastUtil.display(this, event.getData().getMessage());
@@ -202,7 +202,7 @@ public class AdminAddStaffActivity extends AdminBaseActivity {
 
 	private void createStaffRoleSpinner(){
 		if(staffRole != null) {
-				final String[] valuesArray =  {"Мойщик","Оператор","Директор"};
+				final String[] valuesArray =  {BA.str(R.string.role_washer),BA.str(R.string.role_operator),BA.str(R.string.role_director)};
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
 				adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 				staffRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -238,7 +238,7 @@ public class AdminAddStaffActivity extends AdminBaseActivity {
 
 	private void createStaffStatusSpinner(){
 		if(staffStatus != null) {
-			final String[] valuesArray =  {"Работает","В отпуске","Уволен"};
+			final String[] valuesArray =  {BA.str(R.string.status_working),BA.str(R.string.status_on_leave),BA.str(R.string.status_dismissed)};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
 			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			staffStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

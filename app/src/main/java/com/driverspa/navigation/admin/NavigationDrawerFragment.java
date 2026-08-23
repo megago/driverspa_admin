@@ -466,7 +466,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             }
             else{
 //                profileName.setText("");
-                createWasherListSpinner("Нет названии",washer.getId());
+                createWasherListSpinner(BA.str(R.string.no_name),washer.getId());
             }
         }
     }
@@ -495,9 +495,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @OnClick(R.id.logout)
     public void onLogoutButtonClicked(){
         AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-        dialog.setTitle("Вы действительно хотите выйти?");
-        dialog.setNegativeButton("Отмена", null);
-        dialog.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+        dialog.setTitle(BA.str(R.string.confirm_logout));
+        dialog.setNegativeButton(BA.str(R.string.cancel_word), null);
+        dialog.setPositiveButton(BA.str(R.string.ok_word), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 BA.getEventBus().post(new DeleteDeviceRequestEvent());

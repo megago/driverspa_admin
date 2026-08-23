@@ -351,22 +351,22 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			publicWasher.setChecked(washer.isWasherPublic());
 
 			if(washer.getStatus() != null && washer.getStatus().equals(Constants.PENDING)){
-				washerStatus.setText("Ваш запрос находится в обработке...");
+				washerStatus.setText(BA.str(R.string.request_in_progress));
 			}
 			else if(washer.getStatus() != null && washer.getStatus().equals(Constants.TEST)){
-				washerStatus.setText("Тестовая мойка");
+				washerStatus.setText(BA.str(R.string.test_wash));
 			}
 			else if(washer.getStatus() != null && washer.getStatus().equals(Constants.APPROVED)){
-				washerStatus.setText("Мойка активна");
+				washerStatus.setText(BA.str(R.string.washer_active));
 			}
 			else if(washer.getStatus() != null && washer.getStatus().equals("information")){
-				washerStatus.setText("Вы не принимаете брони");
+				washerStatus.setText(BA.str(R.string.not_accepting_bookings));
 			}
 
 			if(!TextUtils.isEmpty(washer.getAddress()))
 				txtAddress.setText(washer.getAddress());
 			else
-				txtAddress.setText("Адрес");
+				txtAddress.setText(BA.str(R.string.address));
 
 			//Car types initilize
 			List<HashMap<String,String>> carTypeMapList = new ArrayList<HashMap<String,String>>();
@@ -385,24 +385,24 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				txtCarType.setText(allCarTypes.get(Integer.parseInt(selectedCarTypeMapList.get(0).get(MultipleSelectDialog.ID))));
 			}
 			else{
-				txtCarType.setText("Выбрано ("+selectedCarTypeMapList.size()+") типа машин");
+				txtCarType.setText(BA.str(R.string.selected_paren)+selectedCarTypeMapList.size()+BA.str(R.string.paren_car_types));
 			}
 
 			final ArrayList<Integer> requestCarTypes = new ArrayList<Integer>();
-			carTypesDialog = new MultipleSelectDialog(getActivity(), carTypeMapList, "Выберите услуги", selectedCarTypeMapList) {
+			carTypesDialog = new MultipleSelectDialog(getActivity(), carTypeMapList, BA.str(R.string.select_services), selectedCarTypeMapList) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 					requestCarTypes.clear();
 					requestCarTypes.addAll(toSelectedIds(namesSelectedItm));
 
 					if(namesSelectedItm.size() == 0){
-						txtCarType.setText("Выберите типы машин");
+						txtCarType.setText(BA.str(R.string.select_car_types));
 					}
 					else if(namesSelectedItm.size() == 1){
 						txtCarType.setText(allCarTypes.get(Integer.parseInt(namesSelectedItm.get(0))));
 					}
 					else{
-						txtCarType.setText("Выбрано ("+namesSelectedItm.size()+") типа машин");
+						txtCarType.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_car_types));
 					}
 					washer.setCarTypes(new ArrayList<Integer>(requestCarTypes));
 				}
@@ -425,24 +425,24 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				txtServices.setText(allServices.get(Integer.parseInt(selectedServicesMapList.get(0).get(MultipleSelectDialog.ID))));
 			}
 			else{
-				txtServices.setText("Выбрано ("+selectedServicesMapList.size()+") услуг");
+				txtServices.setText(BA.str(R.string.selected_paren)+selectedServicesMapList.size()+BA.str(R.string.paren_services));
 			}
 
 			final ArrayList<Integer> requestServices = new ArrayList<Integer>();
-			servicesDialog = new MultipleSelectDialog(getActivity(), servicesMapList, "Выберите услуги", selectedServicesMapList) {
+			servicesDialog = new MultipleSelectDialog(getActivity(), servicesMapList, BA.str(R.string.select_services), selectedServicesMapList) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 					requestServices.clear();
 					requestServices.addAll(toSelectedIds(namesSelectedItm));
 
 					if(namesSelectedItm.size() == 0){
-						txtServices.setText("Выберите услуги");
+						txtServices.setText(BA.str(R.string.select_services));
 					}
 					else if(namesSelectedItm.size() == 1){
 						txtServices.setText(allServices.get(Integer.parseInt(namesSelectedItm.get(0))));
 					}
 					else{
-						txtServices.setText("Выбрано ("+namesSelectedItm.size()+") услуг");
+						txtServices.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_services));
 					}
 					washer.setServices(new ArrayList<Integer>(requestServices));
 				}
@@ -456,7 +456,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				HashMap<String,String> selectedBox = new HashMap<String,String>();
 				selectedBox.put(size, size);
 				selectedBoxMapList.add(selectedBox);
-				txtBoxes.setText("Количество боксов: "+washer.getBoxSettings().size());
+				txtBoxes.setText(BA.str(R.string.boxes_count_pre)+washer.getBoxSettings().size());
 			}
 
 			boxMapList = IntStream.rangeClosed(1, 15)
@@ -464,11 +464,11 @@ public class AdminProfileFragment extends AdminBaseFragment{
 					.collect(Collectors.toList());
 
 			final ArrayList<Box> boxSettings = new ArrayList<Box>();
-			boxDialog = new SingleSelectDialog(getActivity(), boxMapList, "Количество боксов", selectedBoxMapList) {
+			boxDialog = new SingleSelectDialog(getActivity(), boxMapList, BA.str(R.string.boxes_count_label), selectedBoxMapList) {
 				@Override
 				public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 					if(namesSelectedItm.get(0) != null){
-						txtBoxes.setText("Количество боксов: "+namesSelectedItm.get(0));
+						txtBoxes.setText(BA.str(R.string.boxes_count_pre)+namesSelectedItm.get(0));
 						boxSettings.clear();
 						boxSettings.addAll(IntStream.range(0, Integer.parseInt(namesSelectedItm.get(0).toString()))
 								.mapToObj(i -> {
@@ -479,7 +479,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 								.collect(Collectors.toList()));
 					}
 					else
-						txtBoxes.setText("Боксы");
+						txtBoxes.setText(BA.str(R.string.boxes));
 	//				  washer.setBoxSettings(boxSettings);
 //					washer.setBoxSettings(null);
 					boxSettings.clear();
@@ -572,7 +572,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				// stream it via the ContentResolver and upload the cache copy.
 				File file = copyUriToCache(data.getData());
 				if (file == null) {
-					ToastUtil.display(getActivity(), "Не удалось открыть изображение");
+					ToastUtil.display(getActivity(), BA.str(R.string.cant_open_image));
 				} else {
 					setWaitScreen(true);
 					BA.getEventBus().post(new AdminPhotoPostRequestEvent(file, washer.getId()));
@@ -594,7 +594,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 				if(!TextUtils.isEmpty(washer.getAddress()))
 					txtAddress.setText(washer.getAddress());
 				else
-					txtAddress.setText("Адрес");
+					txtAddress.setText(BA.str(R.string.address));
 //
 //				ArrayList<Double> lonLat = new ArrayList<Double>();
 //				lonLat.add(data.getDoubleExtra(AddressMapActivity.LOC_LON, AddressMapActivity.LON));
@@ -627,7 +627,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		setWaitScreen(false);
 		if(event.getResponse() != null){
 			if(BaseAssist.isSuccess(event.getResponse())){
-				ToastUtil.display(getActivity(), "Успешно загрузили фото");
+				ToastUtil.display(getActivity(), BA.str(R.string.photo_uploaded_ok));
 				BA.getEventBus().post(new UserGetSelfRequestEvent(userId));
 			}
 			else{
@@ -666,7 +666,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 							startActivityForResult(GalleryPhotosActivity.newIntent(getActivity(), profilePhotos, 0, true), ActivityForResult.ACTIVITY_GALLERY_PHOTOS);
 						}
 						else{
-							ToastUtil.display(getActivity(), "Загрузите 1 и более фото для просмотра!");
+							ToastUtil.display(getActivity(), BA.str(R.string.upload_photo_hint));
 						}
 						break;
 				}
@@ -832,7 +832,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 
 	public void saveData(){
         if(TextUtils.isEmpty(companyName.getText().toString())){
-			companyName.setError("Введите название мойки");
+			companyName.setError(BA.str(R.string.enter_washer_name));
 			companyImage.requestFocus();
 			return;
 		}
@@ -848,7 +848,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 	public boolean saveExitData(){
 		if(TextUtils.isEmpty(companyName.getText().toString())){
 //			ToastUtil.displayAtTop(getActivity(),"Введите название мойки");
-			companyName.setError("Введите название мойки");
+			companyName.setError(BA.str(R.string.enter_washer_name));
 			companyImage.requestFocus();
 			return false;
 		}
@@ -870,17 +870,17 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			if(BaseAssist.isSuccess(event.getData())){
 				informationSaved = true;
 				if(washer.getStatus() != null && washer.getStatus().equals(Constants.PENDING)) {
-					ToastUtil.displayAtTop(getActivity(), "Успешно сохранено");
+					ToastUtil.displayAtTop(getActivity(), BA.str(R.string.saved_ok));
 				}
 				else
-					ToastUtil.displayAtTop(getActivity(), "Успешно сохранено");
+					ToastUtil.displayAtTop(getActivity(), BA.str(R.string.saved_ok));
 			}
 			else{
 				ToastUtil.displayAtTop(getActivity(), event.getData().getMessage());
 			}
 		}
 		else{
-			ToastUtil.displayAtTop(getActivity(), "Неизвестная ошибка при сохранении профиля пользователя");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.err_save_profile));
 		}
 	}
 

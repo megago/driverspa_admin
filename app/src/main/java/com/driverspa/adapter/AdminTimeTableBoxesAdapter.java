@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -61,7 +62,7 @@ public class AdminTimeTableBoxesAdapter extends BaseDataAdapter {
       String boxId = boxIds[position];
 	  BoxItem boxItem = boxes.get(boxId);
 		
-	  holder.boxNumber.setText("Бокс "+(position+1)); 
+	  holder.boxNumber.setText(BA.str(R.string.box_sp)+(position+1)); 
 	  return view;
 	}
 	

@@ -1,4 +1,6 @@
 package com.driverspa.util;
+import com.driverspa.R;
+import com.driverspa.BA;
 
 import android.text.TextUtils;
 
@@ -10,7 +12,7 @@ public class PasswordUtil {
 
     public static String validate(String password, String passwordConfirm) {
         if (TextUtils.isEmpty(password) || password.length() < 8) {
-            return "Пароль должен содержать минимум 8 символов";
+            return BA.str(R.string.password_min8);
         }
         boolean hasLetter = false;
         boolean hasDigit = false;
@@ -20,13 +22,13 @@ public class PasswordUtil {
             else if (Character.isDigit(c)) hasDigit = true;
         }
         if (!hasLetter) {
-            return "Пароль должен содержать хотя бы одну букву";
+            return BA.str(R.string.password_one_letter);
         }
         if (!hasDigit) {
-            return "Пароль должен содержать хотя бы одну цифру";
+            return BA.str(R.string.password_one_digit);
         }
         if (!password.equals(passwordConfirm)) {
-            return "Пароли не совпадают";
+            return BA.str(R.string.passwords_dont_match);
         }
         return null;
     }

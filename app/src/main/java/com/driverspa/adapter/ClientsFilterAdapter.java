@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,10 +105,10 @@ public class ClientsFilterAdapter extends  RecyclerViewAdapter<ClientsFilterAdap
 		if(!TextUtils.isEmpty(item.getCarNo()))
 			holder.clientName.append(" "+carNo.replaceAll("\\(","").replaceAll("\\)",""));
 //		if(!TextUtils.isEmpty(item.getCarNo()))
-			holder.finishedBooksCount.setText("Помыта "+item.getFinishedBooksCount()+" раз(а).");
+			holder.finishedBooksCount.setText(BA.str(R.string.washed_pre)+item.getFinishedBooksCount()+BA.str(R.string.times_dot));
 		if(item.getLastFinishedBookDate()!=null){
 			HashMap<String,String> timeMap = Functions.formatUTCDate(item.getLastFinishedBookDate());
-			holder.finishedBooksCount.append(" Последняя мойка "+timeMap.get(Functions.DATE));
+			holder.finishedBooksCount.append(BA.str(R.string.last_wash_pre)+timeMap.get(Functions.DATE));
 		}
 	}
 

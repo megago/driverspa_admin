@@ -94,7 +94,7 @@ public class GroupServicePriceAdapter extends BaseExpandableListAdapter {
 		ReversePrices item = servicePriceExpandableList.get(groupPosition).getPrices().get(childPosition);
 
 		itemName.setText(allCarTypes.get(item.getCarType()));
-		itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +" мин");
+		itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +BA.str(R.string.space_min));
 
 		return convertView;
 	}

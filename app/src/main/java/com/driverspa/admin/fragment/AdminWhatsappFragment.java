@@ -210,8 +210,8 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
             openWhatsapp();
             startWaiting();
         } else {
-            ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
-            txtTimeout.setText("Не удалось начать регистрацию через WhatsApp.");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
+            txtTimeout.setText(BA.str(R.string.err_whatsapp_start));
             txtTimeout.setVisibility(View.VISIBLE);
             retryButton.setVisibility(View.VISIBLE);
         }
@@ -243,7 +243,7 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
             } catch (ActivityNotFoundException e) {
-                ToastUtil.display(getActivity(), "Установите WhatsApp, чтобы продолжить");
+                ToastUtil.display(getActivity(), BA.str(R.string.install_whatsapp));
             }
         }
     }
@@ -310,8 +310,8 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
 
     private void onTimeout() {
         stopWaiting();
-        txtTimeout.setText("Мы не получили ваше сообщение с номера " + phone
-                + ". Убедитесь, что WhatsApp установлен на этой SIM, и повторите.");
+        txtTimeout.setText(BA.str(R.string.whatsapp_no_message) + phone
+                + BA.str(R.string.whatsapp_check_sim));
         txtTimeout.setVisibility(View.VISIBLE);
         retryButton.setVisibility(View.VISIBLE);
     }
@@ -366,7 +366,7 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
                 ToastUtil.display(getActivity(), event.getAuthLoginResponse().getMessage());
             }
         } else {
-            ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
         }
     }
 }

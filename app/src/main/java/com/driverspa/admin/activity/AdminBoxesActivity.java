@@ -51,7 +51,7 @@ public class AdminBoxesActivity extends AdminBaseActivity {
     	setContentView(R.layout.activity_admin_boxes);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Боксы");
+		titleView.setText(BA.str(R.string.boxes));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -80,7 +80,7 @@ public class AdminBoxesActivity extends AdminBaseActivity {
     		adapter.notifyDataSetChanged();
     	}
     	else {
-    		addEmptyTextView(listView, "Боксы не настроены");
+    		addEmptyTextView(listView, BA.str(R.string.boxes_not_configured));
     	}
     }        
 

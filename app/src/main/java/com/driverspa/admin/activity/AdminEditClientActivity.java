@@ -86,7 +86,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Добавить клиента");
+        titleView.setText(BA.str(R.string.add_client));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -136,9 +136,9 @@ public class AdminEditClientActivity extends AdminBaseActivity {
                     openCarDefinition();
                 } else {
                     AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminEditClientActivity.this);
-                    dialog.setTitle("Удалить машину?");
-                    dialog.setNegativeButton("Нет", null);
-                    dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    dialog.setTitle(BA.str(R.string.delete_car_q));
+                    dialog.setNegativeButton(BA.str(R.string.no_word), null);
+                    dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             carItemList.remove(position);
@@ -159,9 +159,9 @@ public class AdminEditClientActivity extends AdminBaseActivity {
                     openCarDefinition();
                 } else {
                     AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(AdminEditClientActivity.this);
-                    dialog.setTitle("Удалить машину?");
-                    dialog.setNegativeButton("Нет", null);
-                    dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    dialog.setTitle(BA.str(R.string.delete_car_q));
+                    dialog.setNegativeButton(BA.str(R.string.no_word), null);
+                    dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             carItemList.remove(position);
@@ -223,7 +223,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
         if(carItemList != null && carItemList.size() > 0)
             for(CarItem car : carItemList) {
                 if (car.getCarNumber() != null && event.getCar().getCarNumber().toLowerCase().equals(car.getCarNumber().toLowerCase())) {
-                    ToastUtil.displayAtTop(this, "С таким номером уже есть автомобиль");
+                    ToastUtil.displayAtTop(this, BA.str(R.string.car_with_number_exists));
                     return;
                 }
             }
@@ -274,7 +274,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
         phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
 //
         if(TextUtils.isEmpty(phoneStr)){
-            ToastUtil.display(this,"Введите номер телефона");
+            ToastUtil.display(this,BA.str(R.string.enter_phone));
             phone.requestFocus();
             return;
         }
@@ -307,7 +307,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
     public void onClientEditResponseReceived(ClientEditResponseEvent event) {
         if(event.getData() != null){
             if(BaseAssist.isSuccess(event.getData())){
-                ToastUtil.display(this,"Клиент успешно изменен");
+                ToastUtil.display(this,BA.str(R.string.client_updated_ok));
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
             }
@@ -315,7 +315,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
                 ToastUtil.display(this,event.getData().getMessage());
         }
         else{
-            ToastUtil.display(this,"Ошибка при добавлении клиента");
+            ToastUtil.display(this,BA.str(R.string.err_add_client));
         }
     }
 
@@ -325,7 +325,7 @@ public class AdminEditClientActivity extends AdminBaseActivity {
         if (washer == null) {
             finish();
             overridePendingTransitionWithCommonCloseTransition();
-            ToastUtil.display(this,"Неизвестная ошибка, невозможно добавить клиента");
+            ToastUtil.display(this,BA.str(R.string.err_add_client_unknown));
         }
     }
 }

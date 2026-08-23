@@ -55,7 +55,7 @@ public class ExtraSettingsActivity extends AdminBaseActivity {
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Дополнительные настройки");
+		titleView.setText(BA.str(R.string.extra_settings));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -171,7 +171,7 @@ public class ExtraSettingsActivity extends AdminBaseActivity {
 
 	private void createAvailableAfterBooksSpinner(){
 		if(availableAfterBooksSpinner != null) {
-			final String[] valuesArray =  {"0 минут", "30 минут","1 час","2 часа"};
+			final String[] valuesArray =  {BA.str(R.string.min_0), BA.str(R.string.min_30full),BA.str(R.string.hour_1),BA.str(R.string.hour_2)};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
 			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			availableAfterBooksSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

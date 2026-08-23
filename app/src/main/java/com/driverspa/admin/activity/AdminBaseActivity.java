@@ -1,4 +1,5 @@
 package com.driverspa.admin.activity;
+import com.driverspa.BA;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -155,7 +156,7 @@ public class AdminBaseActivity extends AppCompatActivity implements OnActionbarT
 			  pd = new ProgressDialog(this);
 			  pd.setTitle("");
 			  pd.setIndeterminate(true);
-			  pd.setMessage("Загрузка...");
+			  pd.setMessage(BA.str(R.string.loading_dots));
 		  }
 
 		  if(set) pd.show();

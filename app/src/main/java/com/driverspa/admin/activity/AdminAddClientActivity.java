@@ -77,7 +77,7 @@ public class AdminAddClientActivity extends AdminBaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Добавить клиента");
+        titleView.setText(BA.str(R.string.add_client));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -169,7 +169,7 @@ public class AdminAddClientActivity extends AdminBaseActivity {
         if(carItemList != null && carItemList.size() > 0)
             for(CarItem car : carItemList) {
                 if (car.getCarNumber() != null && event.getCar().getCarNumber().toLowerCase().equals(car.getCarNumber().toLowerCase())) {
-                    ToastUtil.displayAtTop(this, "С таким номером уже есть автомобиль");
+                    ToastUtil.displayAtTop(this, BA.str(R.string.car_with_number_exists));
                     return;
                 }
             }
@@ -254,7 +254,7 @@ public class AdminAddClientActivity extends AdminBaseActivity {
         setWaitScreen(false);
         if(event.getData() != null){
             if(BaseAssist.isSuccess(event.getData())){
-                ToastUtil.display(this,"Клиент успешно добавлен");
+                ToastUtil.display(this,BA.str(R.string.client_added_ok));
                 setResult(RESULT_OK);
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
@@ -263,7 +263,7 @@ public class AdminAddClientActivity extends AdminBaseActivity {
                 ToastUtil.display(this,event.getData().getMessage());
         }
         else{
-            ToastUtil.display(this,"Ошибка при добавлении клиента");
+            ToastUtil.display(this,BA.str(R.string.err_add_client));
         }
     }
 
@@ -273,7 +273,7 @@ public class AdminAddClientActivity extends AdminBaseActivity {
         if (washer == null) {
             finish();
             overridePendingTransitionWithCommonCloseTransition();
-            ToastUtil.display(this,"Неизвестная ошибка, невозможно добавить клиента");
+            ToastUtil.display(this,BA.str(R.string.err_add_client_unknown));
         }
     }
 }

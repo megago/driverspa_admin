@@ -81,7 +81,7 @@ public class AdminFareRequestFragment extends AdminBaseFragment {
         actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
         spinner = (Spinner) toolbar.findViewById(R.id.spinner);
         titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Предложения от клиентов");
+        titleView.setText(BA.str(R.string.offers_from_clients));
 
         if(fragmentVisible && actionBarRefreshButton != null)
             actionBarRefreshButton.setVisibility(View.GONE);
@@ -195,7 +195,7 @@ public class AdminFareRequestFragment extends AdminBaseFragment {
                 titleView.setCompoundDrawablePadding(0);
                 titleView.setOnClickListener(null);
                 titleView.setVisibility(View.VISIBLE);
-                titleView.setText("Предложения от клиентов");
+                titleView.setText(BA.str(R.string.offers_from_clients));
             }
         }
     }

@@ -120,7 +120,7 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
     	setContentView(R.layout.activity_admin_financial_statistics);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Финансы");
+		titleView.setText(BA.str(R.string.finance));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -146,11 +146,11 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 				adapter.notifyDataSetChanged();
 			}
 			else {
-				addEmptyTextView(listView, "Нет счетов");
+				addEmptyTextView(listView, BA.str(R.string.no_accounts));
 			}
     	}
     	else {
-    		addEmptyTextView(listView, "Нет счетов");
+    		addEmptyTextView(listView, BA.str(R.string.no_accounts));
     	}
     }
 
@@ -209,12 +209,12 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 	public void allAccountsClicked() {
 		if (listView.getVisibility() == View.GONE) {
 			listView.setVisibility(View.VISIBLE);
-			allAccounts.setText("Все счета");
+			allAccounts.setText(BA.str(R.string.all_accounts));
 			allAccounts.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_up_white_24dp, 0);
 		} else {
 			listView.setVisibility(View.GONE);
 			allAccounts.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
-			allAccounts.setText("Все счета");
+			allAccounts.setText(BA.str(R.string.all_accounts));
 		}
 	}
 
@@ -344,13 +344,13 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 			closeKeyboard();
 
 			if(TextUtils.isEmpty(amount.getText().toString())){
-				ToastUtil.display(this,"Введите сумму");
+				ToastUtil.display(this,BA.str(R.string.enter_amount));
 				amount.requestFocus();
 				return;
 			}
 
 			if(Double.parseDouble(amount.getText().toString()) <= 0){
-				ToastUtil.display(this,"Введите сумму выше нуля");
+				ToastUtil.display(this,BA.str(R.string.enter_amount_above_zero));
 				amount.requestFocus();
 				return;
 			}
@@ -373,14 +373,14 @@ public class AdminFinancialStatisticsActivity extends AdminBaseActivity implemen
 		if(event.getData() != null){
 			if(BaseAssist.isSuccess(event.getData())){
 				loadData(washer,startTimeDt);
-				ToastUtil.display(this, "Успешно провели инкассацию");
+				ToastUtil.display(this, BA.str(R.string.collection_ok));
 			}
 			else{
 				ToastUtil.display(this, event.getData().getMessage());
 			}
 		}
 		else{
-			ToastUtil.display(this, "Ошибка при проведении инкассации");
+			ToastUtil.display(this, BA.str(R.string.err_collection));
 		}
 	}
 

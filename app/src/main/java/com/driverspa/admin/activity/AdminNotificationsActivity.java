@@ -1,4 +1,5 @@
 package com.driverspa.admin.activity;
+import com.driverspa.BA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class AdminNotificationsActivity extends BaseActivity implements AdminNot
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ((TextView)mToolbar.findViewById(R.id.action_bar_title)).setText("Уведомления клиентам");
+        ((TextView)mToolbar.findViewById(R.id.action_bar_title)).setText(BA.str(R.string.notifications_clients));
 
         fragmentManager = getSupportFragmentManager();
         if( savedInstanceState == null ) {

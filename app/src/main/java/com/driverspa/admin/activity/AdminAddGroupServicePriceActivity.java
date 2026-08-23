@@ -73,7 +73,7 @@ public class AdminAddGroupServicePriceActivity extends AdminBaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Добавить комплекс");
+        titleView.setText(BA.str(R.string.add_complex));
         mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,25 +124,25 @@ public class AdminAddGroupServicePriceActivity extends AdminBaseActivity {
 
     private void saveData(){
         if(TextUtils.isEmpty(groupName.getText().toString())){
-            ToastUtil.display(this,"Введите название комплексной услуги");
-            groupName.setError("Обязательное поле");
+            ToastUtil.display(this,BA.str(R.string.enter_complex_name));
+            groupName.setError(BA.str(R.string.required_field));
             return;
         }
 
         if(!(serviceList!=null && serviceList.size()>1)){
-            ToastUtil.display(this,"Нужно выбрать более одной услуги");
+            ToastUtil.display(this,BA.str(R.string.select_more_than_one));
             return;
         }
 
         if(!(priceList!=null&&priceList.size()>0)){
-            ToastUtil.display(this,"Определите цены хотя бы на один тип машины");
+            ToastUtil.display(this,BA.str(R.string.set_price_one_type));
             return;
         }
 
        if(washer != null && washer.getGroupMenu() != null && washer.getGroupMenu().size() > 0) {
            for (Washer.GroupMenu g : washer.getGroupMenu()) {
                if (((g.getServices() != null && g.getServices().size() > 0)) && g.getName().toLowerCase().equals(groupName.getText().toString().toLowerCase())) {
-                   ToastUtil.display(this, "С таким названием существует комплекс, выберите другое имя");
+                   ToastUtil.display(this, BA.str(R.string.complex_name_exists));
                    return;
                }
 
@@ -182,7 +182,7 @@ public class AdminAddGroupServicePriceActivity extends AdminBaseActivity {
             if(BaseAssist.isSuccess(event.getData())){
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
-                ToastUtil.display(this,"Успешно добавлена услуга");
+                ToastUtil.display(this,BA.str(R.string.service_added_ok));
 //				Builder dialog = new Builder(this);
 //    			dialog.setCancelable(false);
 //    			dialog.setTitle("Успешно добавлен новый бокс");
@@ -267,19 +267,19 @@ public class AdminAddGroupServicePriceActivity extends AdminBaseActivity {
 
 
 
-            servicesDialog = new MultipleSelectDialog(AdminAddGroupServicePriceActivity.this, servicesMapList, "Выберите услуги", selectedServicesMapList) {
+            servicesDialog = new MultipleSelectDialog(AdminAddGroupServicePriceActivity.this, servicesMapList, BA.str(R.string.select_services), selectedServicesMapList) {
                 @Override
                 public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
                     serviceList.clear();
                     if(namesSelectedItm.size() == 0){
-                        textServices.setText("Выберите услуги");
+                        textServices.setText(BA.str(R.string.select_services));
                     }
                     else if(namesSelectedItm.size() == 1){
                         serviceList.add(Integer.parseInt(namesSelectedItm.get(0)));
                         textServices.setText(allServices.get(Integer.parseInt(namesSelectedItm.get(0))));
                     }
                     else{
-                        textServices.setText("Выбрано ("+namesSelectedItm.size()+") услуг");
+                        textServices.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_services));
                         String serviceNames = "";
                         for(int i = 0; i < namesSelectedItm.size(); i++){
                             serviceNames = ((i==0)?"":(serviceNames + " + ")) + ((BA.getReference().getServices().get(Integer.parseInt(namesSelectedItm.get(i)))));

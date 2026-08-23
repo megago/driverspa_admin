@@ -151,7 +151,7 @@ public class WasherCreateStep4 extends WizardStep {
         ButterKnife.bind(this,view);
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText("Выйти");
+        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText(BA.str(R.string.logout));
     }
 
 //    @Override
@@ -235,14 +235,14 @@ public class WasherCreateStep4 extends WizardStep {
         washer.getSchedule().setComment(comment.getText().toString());
 
         if(mondayFromHour*60+mondayFromMinute >= mondayToHour*60+mondayToMinute){
-            ToastUtil.display(getActivity(),"Время начало не может быть больше или равно времени окончании");
+            ToastUtil.display(getActivity(),BA.str(R.string.err_start_after_end));
             mondayToHour = 23;
             mondayToMinute = 59;
             return;
         }
 
         if(saturdayFromHour*60+saturdayFromMinute >= saturdayToHour*60+saturdayToMinute){
-            ToastUtil.display(getActivity(),"Время начало не может быть больше или равно времени окончании");
+            ToastUtil.display(getActivity(),BA.str(R.string.err_start_after_end));
             saturdayToHour = 23;
             saturdayToMinute = 59;
             return;
@@ -254,7 +254,7 @@ public class WasherCreateStep4 extends WizardStep {
     private void showTimePicker(final TextView targetText) {
         final Dialog dialog = new Dialog(getActivity(), R.style.DialogWithNoActionBar);
         dialog.setContentView(R.layout.dialog_time_picker);
-        dialog.setTitle("Выберите интервал");
+        dialog.setTitle(BA.str(R.string.select_interval));
         final TimePicker timeFrom = (TimePicker) dialog.findViewById(R.id.time_from);
         timeFrom.setIs24HourView(true);
 
@@ -298,12 +298,12 @@ public class WasherCreateStep4 extends WizardStep {
 
                         }
                         if(mondayFromHour*60+mondayFromMinute >= mondayToHour*60+mondayToMinute){
-                            ToastUtil.display(getActivity(),"Время начало не может быть больше или равно времени окончании");
+                            ToastUtil.display(getActivity(),BA.str(R.string.err_start_after_end));
                             mondayToHour = 23;
                             mondayToMinute = 59;
                         }
 
-                        targetText.setText("Время работы в будние: "+ Functions.formatTimeInterval(mondayFromHour, mondayFromMinute, mondayToHour, mondayToMinute));
+                        targetText.setText(BA.str(R.string.work_hours_weekday_pre1)+ Functions.formatTimeInterval(mondayFromHour, mondayFromMinute, mondayToHour, mondayToMinute));
                         break;
 
                     case R.id.weekendTime:
@@ -318,11 +318,11 @@ public class WasherCreateStep4 extends WizardStep {
                         }
 
                         if(saturdayFromHour*60+saturdayFromMinute >= saturdayToHour*60+saturdayToMinute){
-                            ToastUtil.display(getActivity(),"Время начало не может быть больше или равно времени окончании");
+                            ToastUtil.display(getActivity(),BA.str(R.string.err_start_after_end));
                             saturdayToHour = 23;
                             saturdayToMinute = 59;
                         }
-                        targetText.setText("Время работы в выходные:  "+Functions.formatTimeInterval(saturdayFromHour, saturdayFromMinute, saturdayToHour, saturdayToMinute));
+                        targetText.setText(BA.str(R.string.work_hours_weekend_pre)+Functions.formatTimeInterval(saturdayFromHour, saturdayFromMinute, saturdayToHour, saturdayToMinute));
                         break;
                 }
 
@@ -464,17 +464,17 @@ public class WasherCreateStep4 extends WizardStep {
                 final HashMap<String,String> allPayTypes = BA.getReference().getPayoptions();
                 final HashMap<String,String> allAddInfo = BA.getReference().getAdditionalInfo();
 
-                monday.setText("Время работы в будние:  "+Functions.formatTimeInterval(mondayFromHour, mondayFromMinute, mondayToHour, mondayToMinute));
-                saturday.setText("Время работы в выходные:  "+Functions.formatTimeInterval(saturdayFromHour, saturdayFromMinute, saturdayToHour, saturdayToMinute));
+                monday.setText(BA.str(R.string.work_hours_weekday_pre2)+Functions.formatTimeInterval(mondayFromHour, mondayFromMinute, mondayToHour, mondayToMinute));
+                saturday.setText(BA.str(R.string.work_hours_weekend_pre)+Functions.formatTimeInterval(saturdayFromHour, saturdayFromMinute, saturdayToHour, saturdayToMinute));
 
                 if(washer.getPayOptions() != null && washer.getPayOptions().size() > 0){
                     if(washer.getPayOptions().size() == 1)  payType.setText(allPayTypes.get(washer.getPayOptions().get(0).toString())); //payType.setText(washer.getPayOptions().get(0).toString());
-                    else payType.setText("Выбрано ("+washer.getPayOptions().size()+") вид оплаты");
+                    else payType.setText(BA.str(R.string.selected_paren)+washer.getPayOptions().size()+BA.str(R.string.paren_payment_type));
                 }
 
                 if(washer.getAdditionalInfo() != null && washer.getAdditionalInfo().size() > 0){
                     if(washer.getAdditionalInfo().size() == 1) addInfo.setText(allAddInfo.get(washer.getAdditionalInfo().get(0)));// addInfo.setText(washer.getAdditionalInfo().get(0));
-                    else addInfo.setText("Выбрано ("+washer.getAdditionalInfo().size()+") доп. информации");
+                    else addInfo.setText(BA.str(R.string.selected_paren)+washer.getAdditionalInfo().size()+BA.str(R.string.paren_additional_info));
                 }
 
                 contacts = washer.getContacts();
@@ -515,20 +515,20 @@ public class WasherCreateStep4 extends WizardStep {
                 }
 
                 final ArrayList<String> requestPayTypes = new ArrayList<String>();
-                paymentDialog = new MultipleSelectDialog(getActivity(), listPayTypes, "Выберите тип оплаты", selectedPayTypes) {
+                paymentDialog = new MultipleSelectDialog(getActivity(), listPayTypes, BA.str(R.string.select_payment_type), selectedPayTypes) {
                     @Override
                     public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 						requestPayTypes.clear();
 						requestPayTypes.addAll(toOrderedSelection(namesSelectedItm));
 
                         if(namesSelectedItm.size() == 0){
-                            payType.setText("Вид оплаты");
+                            payType.setText(BA.str(R.string.payment_type));
                         }
                         else if(namesSelectedItm.size() == 1){
                             payType.setText(allPayTypes.get(namesSelectedItm.get(0).toString()));
                         }
                         else{
-                            payType.setText("Выбрано ("+namesSelectedItm.size()+") вид оплаты");
+                            payType.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_payment_type));
                         }
                         washer.setPayOptions(new ArrayList<String>(requestPayTypes));
                     }
@@ -550,20 +550,20 @@ public class WasherCreateStep4 extends WizardStep {
                 }
 
                 final ArrayList<String> requestAddInfoTypes = new ArrayList<String>();
-                addInfoDialog = new MultipleSelectDialog(getActivity(), listAddInfos, "Выберите доп. Информацию", selectedAddInfos) {
+                addInfoDialog = new MultipleSelectDialog(getActivity(), listAddInfos, BA.str(R.string.select_additional_info), selectedAddInfos) {
                     @Override
                     public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
 						requestAddInfoTypes.clear();
 						requestAddInfoTypes.addAll(toOrderedSelection(namesSelectedItm));
 
                         if(namesSelectedItm.size() == 0){
-                            addInfo.setText("Доп. информация");
+                            addInfo.setText(BA.str(R.string.additional_info));
                         }
                         else if(namesSelectedItm.size() == 1){
                             addInfo.setText(allAddInfo.get(namesSelectedItm.get(0)));
                         }
                         else{
-                            addInfo.setText("Выбрано ("+namesSelectedItm.size()+") доп. информации");
+                            addInfo.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_additional_info));
                         }
                         washer.setAdditionalInfo(new ArrayList<String>(requestAddInfoTypes));
                     }
@@ -581,7 +581,7 @@ public class WasherCreateStep4 extends WizardStep {
         isFragmentVisible = isVisibleToUser;
         if(isVisibleToUser){
             if(titleView!=null) {
-                titleView.setText("Доп. информация");
+                titleView.setText(BA.str(R.string.additional_info));
                 mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

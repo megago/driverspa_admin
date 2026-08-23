@@ -75,7 +75,7 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Изменить услугу");
+        titleView.setText(BA.str(R.string.edit_service));
         mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,8 +128,8 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
 
     private void saveData(){
         if(TextUtils.isEmpty(groupName.getText().toString())){
-            ToastUtil.display(this,"Введите название комплексной услуги");
-            groupName.setError("Обязательное поле");
+            ToastUtil.display(this,BA.str(R.string.enter_complex_name));
+            groupName.setError(BA.str(R.string.required_field));
             return;
         }
 //        if(!(serviceList!=null && serviceList.size()>1)){
@@ -138,14 +138,14 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
 //        }
 
         if(!(priceList!=null&&priceList.size()>0)){
-            ToastUtil.display(this,"Определите цены хотя бы на один тип машины");
+            ToastUtil.display(this,BA.str(R.string.set_price_one_type));
             return;
         }
 
         for(Washer.GroupMenu g : washer.getGroupMenu()){
             if(!g.getId().equals(groupMenuId)) {
                 if (g.getName().toLowerCase().equals(groupName.getText().toString().toLowerCase())) {
-                    ToastUtil.display(this, "С таким названием существует комплекс, выберите другое имя");
+                    ToastUtil.display(this, BA.str(R.string.complex_name_exists));
                     return;
                 }
 //
@@ -167,7 +167,7 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
             if(BaseAssist.isSuccess(event.getData())){
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
-                ToastUtil.display(this,"Успешно изменен комплекс услуг");
+                ToastUtil.display(this,BA.str(R.string.complex_updated_ok));
             }
             else{
                 ToastUtil.display(this, event.getData().getMessage());
@@ -232,10 +232,10 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
                 textServices.setText(serviceNames);
             }
             else{
-                 textServices.setText("Выберите услуги");
+                 textServices.setText(BA.str(R.string.select_services));
             }
 
-            servicesDialog = new MultipleSelectDialog(AdminChangeGroupServicePriceActivity.this, servicesMapList, "Выберите услуги", selectedServicesMapList) {
+            servicesDialog = new MultipleSelectDialog(AdminChangeGroupServicePriceActivity.this, servicesMapList, BA.str(R.string.select_services), selectedServicesMapList) {
                 @Override
                 public void onDismiss(HashMap<Integer, String> namesSelectedItm) {
                     if(serviceList != null)
@@ -243,14 +243,14 @@ public class AdminChangeGroupServicePriceActivity extends AdminBaseActivity {
                     else
                        serviceList = new ArrayList<Integer>();
                     if(namesSelectedItm.size() == 0){
-                        textServices.setText("Выберите услуги");
+                        textServices.setText(BA.str(R.string.select_services));
                     }
                     else if(namesSelectedItm.size() == 1){
                         serviceList.add(Integer.parseInt(namesSelectedItm.get(0)));
                         textServices.setText(allServices.get(Integer.parseInt(namesSelectedItm.get(0))));
                     }
                     else{
-                        textServices.setText("Выбрано ("+namesSelectedItm.size()+") услуг");
+                        textServices.setText(BA.str(R.string.selected_paren)+namesSelectedItm.size()+BA.str(R.string.paren_services));
                         String serviceNames = "";
                         for(int i = 0; i < namesSelectedItm.size(); i++){
                             serviceNames = ((i==0)?"":(serviceNames + " + ")) + ((BA.getReference().getServices().get(Integer.parseInt(namesSelectedItm.get(i)))));

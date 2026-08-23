@@ -1,4 +1,5 @@
 package com.driverspa.db;
+import com.driverspa.R;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -181,13 +182,13 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 				Statistic statistic = new Statistic();
 				List<Statistic.StatisticDetail> statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 				final List<Statistic.StatisticDetail> baseDetails = statisticDetails;
-				statistic.setTitle("Общие показатели");
+				statistic.setTitle(BA.str(R.string.general_metrics));
 
 				//Total count of booked and queued items
 				Cursor c = null;
 				c = this.getWritableDatabase().rawQuery("SELECT count(*) as cnt FROM bookinfo where status in ('finished','queued_finished')", null);
 
-				forEachCursorRow(c, row -> baseDetails.add(new Statistic.StatisticDetail("Количество машин", row.getString(row.getColumnIndex("cnt")))));
+				forEachCursorRow(c, row -> baseDetails.add(new Statistic.StatisticDetail(BA.str(R.string.cars_count_label), row.getString(row.getColumnIndex("cnt")))));
 
 				if (washer != null && washer.getCarTypes() != null && washer.getCarTypes().size() > 0) {
 					//Booked items for each carType
@@ -205,8 +206,8 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 						" FROM bookinfo where status in ('finished','queued_finished')", null);
 
 				forEachCursorRow(c, row -> {
-					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail("Общая сумма", "Cо скидкой "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
-							" \nБез скидок "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
+					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(BA.str(R.string.total_amount), BA.str(R.string.with_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
+							BA.str(R.string.without_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
 					baseDetails.add(statisticDetail);
 				});
 
@@ -214,7 +215,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 				c = null;
 				c = this.getWritableDatabase().rawQuery("SELECT sum(CAST(discount_amount AS INTEGER)) as sum FROM bookinfo where status in ('finished','queued_finished')", null);
 
-				forEachCursorRow(c, row -> baseDetails.add(new Statistic.StatisticDetail("Скидки", (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum")))) + " ₸")));
+				forEachCursorRow(c, row -> baseDetails.add(new Statistic.StatisticDetail(BA.str(R.string.discounts), (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum")))) + " ₸")));
 
 				statistic.setStatisticsList(statisticDetails);
 				statistics.add(statistic);
@@ -223,12 +224,12 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 				statistic = new Statistic();
 				statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 				final List<Statistic.StatisticDetail> queueDetails = statisticDetails;
-				statistic.setTitle("Живая очередь");
+				statistic.setTitle(BA.str(R.string.live_queue));
 				//Total count of booked items
 				c = null;
 				c = this.getWritableDatabase().rawQuery("SELECT count(*) as cnt FROM bookinfo where status in ('finished','queued_finished') and queued=1", null);
 
-				forEachCursorRow(c, row -> queueDetails.add(new Statistic.StatisticDetail("Количество машин", row.getString(row.getColumnIndex("cnt")))));
+				forEachCursorRow(c, row -> queueDetails.add(new Statistic.StatisticDetail(BA.str(R.string.cars_count_label), row.getString(row.getColumnIndex("cnt")))));
 
 				//Booked items for each carType
 				if (washer != null && washer.getCarTypes() != null && washer.getCarTypes().size() > 0) {
@@ -246,8 +247,8 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 						"FROM bookinfo where status in ('finished','queued_finished') and queued=1", null);
 
 				forEachCursorRow(c, row -> {
-					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail("Общая сумма", "Cо скидкой "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
-							" \nБез скидок "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
+					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(BA.str(R.string.total_amount), BA.str(R.string.with_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
+							BA.str(R.string.without_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
 					queueDetails.add(statisticDetail);
 				});
 
@@ -258,12 +259,12 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 				statistic = new Statistic();
 				statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 				final List<Statistic.StatisticDetail> bookingDetails = statisticDetails;
-				statistic.setTitle("Брони");
+				statistic.setTitle(BA.str(R.string.bookings));
 				//Total count of booked items
 				c = null;
 				c = this.getWritableDatabase().rawQuery("SELECT count(*) as cnt FROM bookinfo where status in ('finished','queued_finished') and queued=0", null);
 
-				forEachCursorRow(c, row -> bookingDetails.add(new Statistic.StatisticDetail("Количество машин", row.getString(row.getColumnIndex("cnt")))));
+				forEachCursorRow(c, row -> bookingDetails.add(new Statistic.StatisticDetail(BA.str(R.string.cars_count_label), row.getString(row.getColumnIndex("cnt")))));
 
 				//Booked items for each carType
 				if (washer != null && washer.getCarTypes() != null && washer.getCarTypes().size() > 0) {
@@ -281,8 +282,8 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 						" FROM bookinfo where status in ('finished','queued_finished') and queued=0", null);
 
 				forEachCursorRow(c, row -> {
-					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail("Общая сумма", "Cо скидкой "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
-							" \nБез скидок "+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
+					Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(BA.str(R.string.total_amount), BA.str(R.string.with_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸ "+
+							BA.str(R.string.without_discount_pre)+(TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸");
 					bookingDetails.add(statisticDetail);
 				});
 				statistic.setStatisticsList(statisticDetails);
@@ -292,7 +293,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 				statistic = new Statistic();
 				statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 				final List<Statistic.StatisticDetail> boxDetails = statisticDetails;
-				statistic.setTitle("По боксам");
+				statistic.setTitle(BA.str(R.string.by_boxes));
 
 				//Total count of booked items
 				c = null;
@@ -305,9 +306,9 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 							forEachCursorRow(boxCursor, row -> {
 								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(Functions.getBoxName(washer, bs.getUid())
 										+ "(" + bs.getBookingType() + ")" + (TextUtils.isEmpty(bs.getWasherPerson()) ? "" : " - " + bs.getWasherPerson())
-										, "Количество " + row.getString(row.getColumnIndex("cnt"))
-										+ "\nсо скидкой " + (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸"
-										+ "\nбез скидок " + (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸"
+										, BA.str(R.string.count_pre2) + row.getString(row.getColumnIndex("cnt"))
+										+ BA.str(R.string.nl_with_discount) + (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_with"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_with")))) + " ₸"
+										+ BA.str(R.string.nl_without_discount) + (TextUtils.isEmpty(row.getString(row.getColumnIndex("sum_without"))) ? "0" : decimalFormatter.format(row.getLong(row.getColumnIndex("sum_without")))) + " ₸"
 								);
 								boxDetails.add(statisticDetail);
 							});
@@ -326,7 +327,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 							statistic = new Statistic();
 							statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 							final List<Statistic.StatisticDetail> staffDetails = statisticDetails;
-							statistic.setTitle("По сотрудникам");
+							statistic.setTitle(BA.str(R.string.by_employees));
 							washer.getStaffs().forEach(staff -> {
 								long count = books.stream()
 										.filter(book -> book.getStaffs().contains(staff.getUid()) && (book.getStatus().equals(Constants.FINISHED) || book.getStatus().equals(Constants.QUEUED_FINISHED)))
@@ -341,7 +342,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 											}
 										})
 										.sum();
-								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(staff.getFirstName(),"Количество: "+count+" \nна сумму "+decimalFormatter.format(sum)+" ₸");
+								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(staff.getFirstName(),BA.str(R.string.count_pre)+count+BA.str(R.string.nl_for_amount)+decimalFormatter.format(sum)+" ₸");
 								staffDetails.add(statisticDetail);
 							});
 						}
@@ -363,12 +364,12 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 							statistic = new Statistic();
 							statisticDetails = new ArrayList<Statistic.StatisticDetail>();
 							final List<Statistic.StatisticDetail> serviceDetails = statisticDetails;
-							statistic.setTitle("По услугам");
+							statistic.setTitle(BA.str(R.string.by_services));
 							washer.getGroupMenu().forEach(groupMenu -> {
 								long count = books.stream()
 										.filter(book -> book.getGroupServices().contains(groupMenu.getId()) && (book.getStatus().equals(Constants.FINISHED) || book.getStatus().equals(Constants.QUEUED_FINISHED)))
 										.count();
-								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(groupMenu.getName(),"Количество: "+count);
+								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(groupMenu.getName(),BA.str(R.string.count_pre)+count);
 								serviceDetails.add(statisticDetail);
 							});
 
@@ -376,7 +377,7 @@ public class DriverSpaOrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
 								long count = books.stream()
 										.filter(book -> book.getServices().contains(service) && (book.getStatus().equals(Constants.FINISHED) || book.getStatus().equals(Constants.QUEUED_FINISHED)))
 										.count();
-								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(allServices.get(service),"Количество: "+count);
+								Statistic.StatisticDetail statisticDetail = new Statistic.StatisticDetail(allServices.get(service),BA.str(R.string.count_pre)+count);
 								serviceDetails.add(statisticDetail);
 							});
 						}

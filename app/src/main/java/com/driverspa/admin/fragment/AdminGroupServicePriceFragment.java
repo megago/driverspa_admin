@@ -119,7 +119,7 @@ public class AdminGroupServicePriceFragment extends AdminBaseFragment {
                 ToastUtil.display(getActivity(), event.getData().getMessage());
             }
         } else {
-            addEmptyTextView(listView, "Нет комплексных услуг");
+            addEmptyTextView(listView, BA.str(R.string.no_complex_services2));
         }
     }
 

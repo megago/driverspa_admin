@@ -144,13 +144,13 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 		}
 		else{
 			HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
-			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+"\nв "+timeTSMap.get(Functions.TIME));
+			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+BA.str(R.string.nl_at)+timeTSMap.get(Functions.TIME));
 		}
 
 		//For tomorrow or different date bookings
 		if(!Functions.isToday(bookDateTime) && Instant.now().isBefore(bookDateTime)) {
 			holder.bookTS.setText(""+timeMap.get(Functions.TIME));
-			holder.bookTime.setText("Завтра");
+			holder.bookTime.setText(BA.str(R.string.tomorrow));
 		}
 
 		holder.errorOutline.setVisibility(View.GONE);
@@ -200,13 +200,13 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 				holder.queueCarNo.setText(item.getClientKey().toUpperCase().substring(0,item.getClientKey().indexOf("(")));
 
 			if(item.getStatus().equals(QUEUED_APPROVED)){
-				holder.bookKey.setText("Загрузка...");
+				holder.bookKey.setText(BA.str(R.string.loading_dots));
 			}
 			else if(item.getStatus().equals(QUEUED_REJECTED)){
-				holder.bookKey.setText("Заказ отменен");
+				holder.bookKey.setText(BA.str(R.string.order_cancelled));
 			}
 			else if(item.getStatus().equals(QUEUED_FINISHED)){
-				holder.bookKey.setText("Заказ завершен");
+				holder.bookKey.setText(BA.str(R.string.order_finished));
 			}
 
 		}
@@ -347,19 +347,19 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 					minutes = hours*60 + minutes;
 					if (bookInfo.getStatus().equals(QUEUED_APPROVED) //&& minutes > 0
 						) {
-						bookKey.setText("Автозавершение через "+String.format("%02d", (minutes)) + ":" + String.format("%02d", (seconds)));
+						bookKey.setText(BA.str(R.string.auto_finish_after)+String.format("%02d", (minutes)) + ":" + String.format("%02d", (seconds)));
 						bookStatus.setText(Constants.bookStatus.get(QUEUED_APPROVED));
 					}
 					else{
-						if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Заказ отменен");
+						if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText(BA.str(R.string.order_cancelled));
 						else bookKey.setText("");
 					}
 				}
 				else{
-					if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText("Заказ отменен");
-					else if(bookInfo.getStatus().equals(QUEUED_FINISHED)) bookKey.setText("Заказ завершен");
+					if(bookInfo.getStatus().equals(QUEUED_REJECTED)) bookKey.setText(BA.str(R.string.order_cancelled));
+					else if(bookInfo.getStatus().equals(QUEUED_FINISHED)) bookKey.setText(BA.str(R.string.order_finished));
 					else {
-						bookKey.setText("Время вышло");
+						bookKey.setText(BA.str(R.string.time_out));
 						bookStatus.setText(Constants.bookStatus.get(bookInfo.getStatus()));
 					}
 				}

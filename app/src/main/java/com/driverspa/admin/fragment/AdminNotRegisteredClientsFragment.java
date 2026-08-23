@@ -241,7 +241,7 @@ public class AdminNotRegisteredClientsFragment extends AdminBaseFragment {
                 noInternetLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
-            ToastUtil.display(getActivity(), "Ошибка при получении данных");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_get_data));
         }
     }
 
@@ -317,7 +317,7 @@ public class AdminNotRegisteredClientsFragment extends AdminBaseFragment {
             String clientName = "";
             if(!TextUtils.isEmpty(client.getCarNo()))
                 clientName= clientName + " "+carNo.replaceAll("\\(","").replaceAll("\\)","");
-            b.setTitle("Операция по клиенту " + clientName);
+            b.setTitle(BA.str(R.string.op_client) + clientName);
             b.show();
         }
     }
@@ -349,13 +349,13 @@ public class AdminNotRegisteredClientsFragment extends AdminBaseFragment {
         setWaitScreen(false);
         if(event.getResult() != null){
             if(BaseAssist.isSuccess(event.getResult())) {
-                ToastUtil.display(getActivity(), "Клиент добавлен в очередь");
+                ToastUtil.display(getActivity(), BA.str(R.string.client_added_queue));
             }
             else
                 ToastUtil.display(getActivity(), event.getResult().getMessage());
         }
         else{
-            ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
         }
     }
 

@@ -86,7 +86,7 @@ public class WasherCreateStep3 extends WizardStep {
 
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText("Выйти");
+        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText(BA.str(R.string.logout));
     }
 
     @Subscribe
@@ -106,7 +106,7 @@ public class WasherCreateStep3 extends WizardStep {
             pd = new ProgressDialog(getActivity());
             pd.setTitle("");
             pd.setIndeterminate(true);
-            pd.setMessage("Загрузка...");
+            pd.setMessage(BA.str(R.string.loading_dots));
         }
 
         if(set) pd.show();
@@ -172,7 +172,7 @@ public class WasherCreateStep3 extends WizardStep {
         isVisible = isVisibleToUser;
         if(isVisibleToUser){
             if(titleView!=null) {
-                titleView.setText("Услуги");
+                titleView.setText(BA.str(R.string.services));
                 mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

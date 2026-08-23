@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -45,7 +46,7 @@ public class AdminBoxesAdapter extends BaseDataAdapter<Box> {
 		  holder.washerPerson.setText(item.getWasherPerson());
 	  }
 		else
-		  holder.washerPerson.setText("Мойщик не указан");
+		  holder.washerPerson.setText(BA.str(R.string.washer_not_set));
 	  return view;
 	}
 	

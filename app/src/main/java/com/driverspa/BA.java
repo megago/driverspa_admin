@@ -6,7 +6,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
+
+import java.util.Locale;
 
 import com.squareup.otto.Subscribe;
 
@@ -36,9 +42,9 @@ public class BA extends BaseApplication {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			NotificationChannel channel = new NotificationChannel(
 					MyFirebaseMessagingService.DEFAULT_CHANNEL_ID,
-					"DriverSpa уведомления",
+					BA.str(R.string.notif_channel_name),
 					NotificationManager.IMPORTANCE_HIGH);
-			channel.setDescription("Push-уведомления от DriverSpa");
+			channel.setDescription(BA.str(R.string.notif_channel_desc));
 			NotificationManager nm = getSystemService(NotificationManager.class);
 			if (nm != null) {
 				nm.createNotificationChannel(channel);
@@ -50,9 +56,24 @@ public class BA extends BaseApplication {
 		return Singleton.getInstance();
 	}
 
+	/**
+	 * Locale-aware string lookup usable from anywhere (activities, adapters,
+	 * plain classes). Resolves against the language chosen via the per-app
+	 * language API so strings are correct even when read from a non-activity
+	 * context, on all supported API levels.
+	 */
+	public static String str(int resId) {
+		Context ctx = getContext();
+		LocaleListCompat locales = AppCompatDelegate.getApplicationLocales();
+		Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		Configuration cfg = new Configuration(ctx.getResources().getConfiguration());
+		cfg.setLocale(locale);
+		return ctx.createConfigurationContext(cfg).getResources().getString(resId);
+	}
+
 	@Subscribe
 	public void onApiError(ApiErrorEvent event) {
-		ToastUtil.displayShort(this, "Ошибка соединения");
+		ToastUtil.displayShort(this, BA.str(R.string.connection_error));
 		event.getRetrofitError().printStackTrace();
 	}
 

@@ -48,7 +48,7 @@ public class PriceDefinitionActivity extends AdminBaseActivity {
     	setContentView(R.layout.activity_price_definition);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Цены");
+        titleView.setText(BA.str(R.string.prices));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

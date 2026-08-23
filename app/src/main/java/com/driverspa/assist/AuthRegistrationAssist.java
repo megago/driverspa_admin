@@ -1,4 +1,5 @@
 package com.driverspa.assist;
+import com.driverspa.R;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -86,7 +87,7 @@ public class AuthRegistrationAssist extends BaseAssist {
 					getEventsBus().post(new AuthAdminRegistrationResponseEvent(data));
 				} else if (!UserPreferences.CHANNEL_SMS.equals(request.getChannel())) {
 					// Email/WhatsApp delivery failed — fall back to SMS automatically.
-					displayToast("Не удалось отправить код, отправляем по SMS");
+					displayToast(BA.str(R.string.code_fallback_sms));
 					request.setChannel(UserPreferences.CHANNEL_SMS);
 					sendAdminRegistration(request);
 				} else {

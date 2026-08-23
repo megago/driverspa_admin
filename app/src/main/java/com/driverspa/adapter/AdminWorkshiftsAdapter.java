@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -47,7 +48,7 @@ public class AdminWorkshiftsAdapter extends BaseDataAdapter<Workshift> {
 		}
 		if(item.getStartTime()!=null){
 			HashMap<String,String> startTime = Functions.formatUTCDate(item.getStartTime());
-			holder.openedDate.setText(startTime.get(Functions.DATE)+" в "+startTime.get(Functions.TIME)+ (TextUtils.isEmpty(openedName)?"":(" ("+openedName+")")));
+			holder.openedDate.setText(startTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+startTime.get(Functions.TIME)+ (TextUtils.isEmpty(openedName)?"":(" ("+openedName+")")));
 		}
 
 		String closedName = "";
@@ -60,14 +61,14 @@ public class AdminWorkshiftsAdapter extends BaseDataAdapter<Workshift> {
 
 		if(item.getEndTime()!=null){
 			HashMap<String,String> endTime = Functions.formatUTCDate(item.getEndTime());
-			holder.closedDate.setText(endTime.get(Functions.DATE)+" в "+endTime.get(Functions.TIME)+ (TextUtils.isEmpty(closedName)?"":(" ("+closedName+")")));
+			holder.closedDate.setText(endTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+endTime.get(Functions.TIME)+ (TextUtils.isEmpty(closedName)?"":(" ("+closedName+")")));
 			holder.closeView.setVisibility(View.VISIBLE);
-			holder.status.setText("Закрыт");
+			holder.status.setText(BA.str(R.string.closed));
 			holder.arrowRight.setVisibility(View.VISIBLE);
 		}
 		else{
 			holder.arrowRight.setVisibility(View.GONE);
-			holder.status.setText("Открыт - нажмите чтобы закрыть");
+			holder.status.setText(BA.str(R.string.open_tap_to_close));
 			holder.closeView.setVisibility(View.GONE);
 		}
 

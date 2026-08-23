@@ -79,7 +79,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
         return IntStream.range(0, 1)
                 .mapToObj(i -> {
                     Box boxSetting = new Box();
-                    boxSetting.setBoxName("Бокс " + (i + 1));
+                    boxSetting.setBoxName(BA.str(R.string.box_sp) + (i + 1));
                     boxSetting.setBookingType(BookingType.Online);
                     return boxSetting;
                 })
@@ -99,7 +99,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
         ButterKnife.bind(this,view);
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText("Выйти");
+        ((TextView)(mToolbar.findViewById(R.id.action_done))).setText(BA.str(R.string.logout));
         mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +108,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
                 }
             }
         });
-        titleView.setText("Название и адрес");
+        titleView.setText(BA.str(R.string.name_and_address));
     }
 
     /**
@@ -185,20 +185,20 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
         String washerName = companyName.getText().toString();
         String addressStr = street.getText().toString();
         if(TextUtils.isEmpty(washerName)){
-            companyName.setError("Обязательное поле");
-            ToastUtil.display(getActivity(),"Введите название мойки");
+            companyName.setError(BA.str(R.string.required_field));
+            ToastUtil.display(getActivity(),BA.str(R.string.enter_washer_name));
             return;
         }
 
         if(TextUtils.isEmpty(addressStr)){
-            street.setError("Обязательное поле");
-            ToastUtil.display(getActivity(),"Введите адрес");
+            street.setError(BA.str(R.string.required_field));
+            ToastUtil.display(getActivity(),BA.str(R.string.enter_address));
             return;
         }
 
         LatLng cityDefaultLatLng = Functions.getCityLatLng(city);
         if((cityDefaultLatLng.latitude == latLng.latitude && cityDefaultLatLng.longitude == latLng.longitude)) {
-            ToastUtil.display(getActivity(), "Выберите на карте местоположение мойки");
+            ToastUtil.display(getActivity(), BA.str(R.string.select_wash_location_map));
 //            L.d(cityDefaultLatLng.latitude+" lat "+ latLng.latitude);
 //            L.d(cityDefaultLatLng.longitude+" lat "+latLng.longitude);
             return;
@@ -249,7 +249,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
             }
         }
         else{
-            ToastUtil.display(getActivity(), "Ошибка при создании мойки");
+            ToastUtil.display(getActivity(), BA.str(R.string.err_create_wash));
         }
     }
 
@@ -272,7 +272,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
         }
 
         if(titleView!=null && isVisible) {
-            titleView.setText("Название и адрес");
+            titleView.setText(BA.str(R.string.name_and_address));
             mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -309,7 +309,7 @@ public class WasherCreateStep1 extends WizardStep implements OnMapReadyCallback 
             pd = new ProgressDialog(getActivity());
             pd.setTitle("");
             pd.setIndeterminate(true);
-            pd.setMessage("Загрузка...");
+            pd.setMessage(BA.str(R.string.loading_dots));
         }
 
         if(set) pd.show();

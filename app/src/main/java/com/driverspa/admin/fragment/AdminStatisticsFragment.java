@@ -135,7 +135,7 @@ public class AdminStatisticsFragment extends AdminBaseFragment implements DatePi
 			titleView.setVisibility(View.VISIBLE);
 			if(spinner != null) spinner.setVisibility(View.GONE);
 			actionBarProgress.setVisibility(View.GONE);
-			titleView.setText("Статистика");
+			titleView.setText(BA.str(R.string.statistics));
 			adapter = new StatisticsExpandableListAdapter(getActivity());
 			actionBarRefreshButton.setOnClickListener(new View.OnClickListener() {
 				@Override

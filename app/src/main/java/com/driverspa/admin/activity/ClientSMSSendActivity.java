@@ -163,7 +163,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
 
     private void createWashCountFilterSpinner(){
         if(washCountFilterSpinner != null) {
-            String[] valuesArray = new String[]{"Все", "Помыли менее 3 раза", "Помыли менее 6 раз", "Помыли менее 10 раз", "Помыли более 15 раз"};
+            String[] valuesArray = new String[]{BA.str(R.string.all_word), BA.str(R.string.washed_lt_3), BA.str(R.string.washed_lt_6), BA.str(R.string.washed_lt_10), BA.str(R.string.washed_gt_15)};
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
@@ -183,7 +183,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
     }
     private void createWashDateFilterSpinner(){
         if(washDateFilterSpinner != null) {
-            String[] valuesArray = new String[]{"Все", "Помыли более 10 дней назад", "Помыли более месяц назад", "Помыли более 3 мес. назад"};
+            String[] valuesArray = new String[]{BA.str(R.string.all_word), BA.str(R.string.washed_gt_10days), BA.str(R.string.washed_gt_month), BA.str(R.string.washed_gt_3month)};
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
             adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
@@ -269,12 +269,12 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
                 }
                 clientFilteredAdapterData.clear();
                 clientFilteredAdapterData.addAll(filteredInfo3);
-                recordsCount.setText(clientFilteredAdapterData.size()+" клиент(ов)");
+                recordsCount.setText(clientFilteredAdapterData.size()+BA.str(R.string.clients_count));
                 listAdapter.notifyDataSetChanged();
             } else {
                 clientFilteredAdapterData.clear();
                 clientFilteredAdapterData.addAll(filteredInfo2);
-                recordsCount.setText(clientFilteredAdapterData.size()+" клиент(ов)");
+                recordsCount.setText(clientFilteredAdapterData.size()+BA.str(R.string.clients_count));
                 listAdapter.notifyDataSetChanged();
             }
         }
@@ -410,7 +410,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
                     if(!lazyLoading){
                         if(event.getResult().getResponse().getMeta() != null) {
                             recordsCount.setVisibility(View.VISIBLE);
-                            recordsCount.setText(event.getResult().getResponse().getMeta().getTotalCount()+" клиент(ов)");
+                            recordsCount.setText(event.getResult().getResponse().getMeta().getTotalCount()+BA.str(R.string.clients_count));
                         }
                         clientInfoAdapterData.clear();
                         clientInfoAdapterData.addAll(event.getResult().getResponse().getClients());
@@ -463,7 +463,7 @@ public class ClientSMSSendActivity extends AdminBaseActivity {
                 noInternetLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
-            ToastUtil.display(this, "Ошибка при получении данных");
+            ToastUtil.display(this, BA.str(R.string.err_get_data));
         }
     }
 

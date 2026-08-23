@@ -1,4 +1,5 @@
 package com.driverspa.admin.fragment;
+import com.driverspa.BA;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -136,7 +137,7 @@ public abstract class AdminBaseFragment extends Fragment {
 			pd = new ProgressDialog(getActivity());
 			pd.setTitle("");
 			pd.setIndeterminate(true);
-			pd.setMessage("Загрузка...");
+			pd.setMessage(BA.str(R.string.loading_dots));
 		}
 
 		if(set) pd.show();

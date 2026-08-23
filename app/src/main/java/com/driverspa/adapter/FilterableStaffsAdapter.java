@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -79,7 +80,7 @@ public class FilterableStaffsAdapter extends BaseAdapter implements Filterable {
 		}
 		else {
 			holder.mobile.setVisibility(View.GONE);
-			holder.mobile.setText("телефон не указан");
+			holder.mobile.setText(BA.str(R.string.phone_not_specified));
 		}
 
 		if(item.getAmount()!=null)

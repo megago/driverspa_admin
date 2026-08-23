@@ -1,5 +1,7 @@
 
 package com.driverspa.dialog;
+import com.driverspa.R;
+import com.driverspa.BA;
 
 import android.app.Activity;
 import androidx.appcompat.app.AlertDialog;
@@ -83,7 +85,7 @@ public abstract class SingleSelectDialog2 {
 
 		dialogBuilder = new MaterialAlertDialogBuilder(activity);
 		dialogBuilder.setTitle(title);
-		dialogBuilder.setPositiveButton("Ок",
+		dialogBuilder.setPositiveButton(BA.str(R.string.ok_word),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						onDismiss(getSelectedMap(1));

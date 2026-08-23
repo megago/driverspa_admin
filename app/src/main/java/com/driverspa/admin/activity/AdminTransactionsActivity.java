@@ -98,7 +98,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
         spinner.setVisibility(View.VISIBLE);
 
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Транзакции");
+        titleView.setText(BA.str(R.string.transactions));
         titleView.setVisibility(View.GONE);
         mToolbar.findViewById(R.id.action_done).setVisibility(View.GONE);
 
@@ -168,17 +168,17 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
                     adapter.set(transactions);
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                    if(transactions.size() == 0) addEmptyTextView(listView, "Нет проводок");
+                    if(transactions.size() == 0) addEmptyTextView(listView, BA.str(R.string.no_transactions));
                 } else {
-                    addEmptyTextView(listView, "Нет проводок");
+                    addEmptyTextView(listView, BA.str(R.string.no_transactions));
                 }
             } else {
-                addEmptyTextView(listView, "Нет проводок");
+                addEmptyTextView(listView, BA.str(R.string.no_transactions));
                 ToastUtil.display(this, event.getData().getMessage());
             }
         } else {
-            addEmptyTextView(listView, "Нет проводок");
-            ToastUtil.display(this, "Ошибка при получении данных");
+            addEmptyTextView(listView, BA.str(R.string.no_transactions));
+            ToastUtil.display(this, BA.str(R.string.err_get_data));
         }
     }
 
@@ -276,7 +276,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
             final Integer[] keysArray = new Integer[operationTypes.size()+1];
 
             int i = 0;
-            valuesArray[i] = "Все типы операции";
+            valuesArray[i] = BA.str(R.string.all_operation_types);
             keysArray[i++] = null;
             for(LinkedHashMap.Entry<Integer,String> entry : operationTypes.entrySet()){
                 String operationType = entry.getValue();

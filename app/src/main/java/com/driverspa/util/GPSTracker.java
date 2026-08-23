@@ -1,4 +1,6 @@
 package com.driverspa.util;
+import com.driverspa.R;
+import com.driverspa.BA;
 
 import android.app.AlertDialog;
 import android.app.Service;
@@ -138,13 +140,13 @@ public class GPSTracker extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
-        alertDialog.setTitle("Настройки GPS");
+        alertDialog.setTitle(BA.str(R.string.gps_settings));
 
         // Setting Dialog Message
-        alertDialog.setMessage("GPS отключен. Хотите включить?");
+        alertDialog.setMessage(BA.str(R.string.gps_off_enable));
 
         // On pressing the Settings button.
-        alertDialog.setPositiveButton("Настройки", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(BA.str(R.string.menu_settings), new DialogInterface.OnClickListener() {
         	
             public void onClick(DialogInterface dialog,int which) {
 //            	mContext.startActivity(new Intent(mContext, ClientSettingsActivity.class).putExtra(ClientBaseActivity.OPENING_ANIMATION, false));
@@ -154,7 +156,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // On pressing the cancel button
-        alertDialog.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(BA.str(R.string.cancel_word), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             dialog.cancel();
             }

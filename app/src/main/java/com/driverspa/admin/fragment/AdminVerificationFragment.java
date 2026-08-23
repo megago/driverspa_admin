@@ -111,7 +111,7 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 		if( verificationCode.length() > 0) {					
 			processVerify(verificationCodeStr);			
 		} else {
-			verificationCode.setError("Обязательное поле");
+			verificationCode.setError(BA.str(R.string.required_field));
 //			ToastUtil.display(getActivity(), "Введите код подтверждение");
 		}		
 	}
@@ -126,9 +126,9 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 
 		if (seconds < TIMER_SECONDS){
 			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-			dialog.setTitle("Подождите немного");
-			dialog.setMessage("Мы можем отправить смс каждые 30 секунд");
-			dialog.setPositiveButton("Ок",null);
+			dialog.setTitle(BA.str(R.string.wait_a_bit));
+			dialog.setMessage(BA.str(R.string.sms_every_30s));
+			dialog.setPositiveButton(BA.str(R.string.ok_word),null);
 			dialog.show();
 		}
 		else {
@@ -166,14 +166,14 @@ public class AdminVerificationFragment extends AdminBaseFragment {
     	   }
         }
 		else
-		  ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+		  ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 	}	
 	
 	@Subscribe
 	public void onResendActivationResponseReceived(ResendActivationResponseEvent event) {
 		setWaitScreen(false);
 		if (event.getData() == null || !"success".equals(event.getData().getStatus())) {
-			ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 		}
 	}
 

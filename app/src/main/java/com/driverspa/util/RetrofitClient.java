@@ -107,53 +107,11 @@ import retrofit.mime.TypedFile;
 
 public class RetrofitClient {
 
-	//local
-//	static String ip = "http://192.168.0.102";
-//	public static String API_URL = ip+":8000/api/"; // api url
-//	public static String API_URL_IMAGES = ip+":8000"; // api url
+//	public static String API_URL = "https://api.driverspa.kz/api/"; // api url
+//	public static String API_URL_IMAGES = "https://api.driverspa.kz"; // api url
 
-//	public static String API_URL = "http://192.168.100.5:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.100.5:8000"; // api url
-
-	// mobile hotspot
-//	public static String API_URL = "http://192.168.43.61:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.43.61:8000"; // api url
-
-//  public static String API_URL = "http://192.168.1.17:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.1.17:8000"; // api url
-
-	//Avral kafe
-//	public static String API_URL = "http://192.168.1.108:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.1.108:8000"; // api url
-
-//	public static String API_URL = "http://172.20.10.2:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://172.20.10.2:8000"; // api url
-
-//	public static String API_URL = "http://10.45.22.243:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://10.45.22.243:8000"; // api url
-
-//	public static String API_URL = "http://192.168.1.178:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.1.178:8000"; // api url
-
-	public static String API_URL = "https://api.driverspa.kz/api/"; // api url
-	public static String API_URL_IMAGES = "https://api.driverspa.kz"; // api url
-
-//	public static String API_URL = "http://192.168.31.177:8002/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.31.177:8002"; // api url
-
-//	public static String API_URL = "http://192.168.31.73:8000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://192.168.31.73:8000"; // api url
-
-	///prod
-//	public static String API_URL = "http://api.driverspa.kz/"; // api url
-//	public static String API_URL_IMAGES = "http://api.driverspa.kz"; // api url
-
-	/////test
-//	public static String API_URL = "http://test.api.driverspa.kz/"; // api url
-//	public static String API_URL_IMAGES = "http://test.api.driverspa.kz"; // api urlr
-
-//	public static String API_URL = "http://balhash.driverspa.kz:5000/api/"; // api url
-//	public static String API_URL_IMAGES = "http://balhash.driverspa.kz:5000/api"; // api url
+	public static String API_URL = "http://192.168.31.177:8002/api/"; // api url
+	public static String API_URL_IMAGES = "http://192.168.31.177:8002"; // api url
 
 	/**
 	 * Interface for connecting to DriverSpa API

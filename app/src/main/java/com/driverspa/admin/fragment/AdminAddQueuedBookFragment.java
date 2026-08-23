@@ -183,7 +183,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 
 		Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 		titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Добавление брони");
+		titleView.setText(BA.str(R.string.add_booking));
 
 		selectedCarType = CarType.Sedan;
 		groupBtn.setSelected(true);
@@ -218,7 +218,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 			}
 		});
 
-		titleView.setText("Отправить в бокс");
+		titleView.setText(BA.str(R.string.send_to_box));
 		request = new BookingRequest();
 		buttonSedan.setOnClickListener(buttonSelector);
 		buttonCrossover.setOnClickListener(buttonSelector);
@@ -287,7 +287,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		buttonBook.setVisibility(View.VISIBLE);
 		buttonQueue.setVisibility(View.GONE);
 		detailLayout.setVisibility(View.VISIBLE);
-		titleView.setText("Отправить в бокс");
+		titleView.setText(BA.str(R.string.send_to_box));
 	}
 
 	@OnClick(R.id.toQueue)
@@ -298,7 +298,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		buttonBook.setVisibility(View.GONE);
 		buttonQueue.setVisibility(View.VISIBLE);
 		detailLayout.setVisibility(View.GONE);
-		titleView.setText("Добавить в очередь");
+		titleView.setText(BA.str(R.string.add_to_queue));
 	}
 
 	@Subscribe
@@ -366,7 +366,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 										.orElse(null);
 							}
 							if(selectedGroup != null && selectedGroup.getServices()!=null && selectedGroup.getServices().contains(serviceAdapter.getData().get(position).getServiceId())){
-								ToastUtil.display(BA.getContext(),"Данная услуга уже содержится в выбранном комплексе услуг");
+								ToastUtil.display(BA.getContext(),BA.str(R.string.service_already_in_complex));
 							}
 							else{
 								serviceAdapter.setSelectedPosition(position, true);
@@ -380,7 +380,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 						}
 					}
 					else{
-						ToastUtil.display(BA.getContext(),"Для данного типа авто и услуги - не указана цена");
+						ToastUtil.display(BA.getContext(),BA.str(R.string.err_no_price_for_type));
 					}
 				}
 
@@ -423,7 +423,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 					if(selectedGroup != null && selectedGroup.getServices() != null && request != null && request.getServices() != null && request.getServices().size() > 0){
 						boolean found = request.getServices().stream().anyMatch(s -> selectedGroup.getServices().contains(s));
 						if(found) {
-							ToastUtil.display(BA.getContext(), "Вы уже выбрали услугу которая содержится в данном комплексе");
+							ToastUtil.display(BA.getContext(), BA.str(R.string.service_already_selected_complex));
 						}
 						else{
 							groupServiceAdapter.setSelectedPosition(position, true);
@@ -507,14 +507,14 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 
 	private void resetPriceAndTime(){
 		txtPrice.setText("0 ₸");
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		request.setServices(new ArrayList<Integer>());
 		request.setGroupServices(new ArrayList<String>());
 	}
 
 	public void calculatePriceAndTime(ArrayList<ServiceItem> data, ArrayList<Washer.GroupMenu> groupData){
 		txtPrice.setText("0 ₸");
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		Double totalPrice = 0d;
 		Integer totalTime = 0;
 		for(int i = 0; i < data.size(); i++){
@@ -553,7 +553,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		}
 
 		if(totalTime > 0){
-			txtTime.setText(Math.round(totalTime)+" мин");
+			txtTime.setText(Math.round(totalTime)+BA.str(R.string.space_min));
 			if(request != null)
 				request.setServiceTotalTime(totalTime);
 
@@ -587,7 +587,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		closeKeyboard();
 		String сarNoStr = carNo.getText().toString();
 		if (TextUtils.isEmpty(сarNoStr)){
-			ToastUtil.displayAtTop(getActivity(), "Введите гос.номер машины");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.enter_car_plate));
 			if(carNo.hasFocus())
 				carNo.setError(null);
 			else
@@ -623,7 +623,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		closeKeyboard();
 		String сarNoStr = carNo.getText().toString();
 		if (TextUtils.isEmpty(сarNoStr)){
-			ToastUtil.displayAtTop(getActivity(), "Введите гос.номер машины");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.enter_car_plate));
 			carNo.setError("");
 			carNo.requestFocus();
 			return;
@@ -633,17 +633,17 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 		phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
 
 		if(selectedCarType == null) {
-			ToastUtil.displayAtTop(getActivity(), "Выберите машину");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.select_car));
 			return;
 		}
 
 		if(!(request.getServices() != null && request.getServices().size() > 0) && !(request.getGroupServices() != null && request.getGroupServices().size() > 0)){
-			ToastUtil.displayAtTop(getActivity(), "Выберите услуги");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.select_services));
 			return;
 		}
 
 		if(TextUtils.isEmpty(boxId)){
-			ToastUtil.displayAtTop(getActivity(), "Выберите бокс");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.select_box));
 			return;
 		}
 
@@ -684,7 +684,7 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -709,14 +709,14 @@ public class AdminAddQueuedBookFragment extends AdminBaseFragment {
 
 		if(detailLayout.getVisibility() == View.GONE) {
 			detailLayout.setVisibility(View.VISIBLE);
-			moreButton.setText("Дополнительно");
+			moreButton.setText(BA.str(R.string.additional));
 			moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_up_white_24dp, 0);
 			buttonBook.setEnabled(true);
 		}
 		else{
 			detailLayout.setVisibility(View.GONE);
 			moreButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
-			moreButton.setText("Дополнительно");
+			moreButton.setText(BA.str(R.string.additional));
 			buttonBook.setEnabled(false);
 		}
 	}

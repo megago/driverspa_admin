@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.location.Location;
@@ -76,7 +77,7 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 		    view.setTag(holder);
 //		}
 
-		holder.name.setText(item.getName().toLowerCase().contains("автомойка")?item.getName():"Автомойка "+item.getName());
+		holder.name.setText(item.getName().toLowerCase().contains("автомойка")?item.getName():BA.str(R.string.car_wash_label_sp)+item.getName());
 		
 	   if(!isCompany){		
 //		holder.imageAvailability.setVisibility(View.VISIBLE);
@@ -90,7 +91,7 @@ public class WasherListNearByAdapter extends BaseDataAdapter<WasherPublic> {
 
 //		holder.imageAvailability.setSelected(item.isBookable());
 //		holder.price.setText("");
-		holder.price.setText("Кузов-салон от " + (item.getPrice()!=null?formatter.format(item.getPrice()).replaceAll(",", " ")+"":"500"));
+		holder.price.setText(BA.str(R.string.body_interior_from_pre) + (item.getPrice()!=null?formatter.format(item.getPrice()).replaceAll(",", " ")+"":"500"));
 		holder.review.setRating((float)item.getRating().doubleValue());
 		holder.reviewCount.setText(item.getRating().intValue()+"");
 		holder.address.setText(item.getAddress());

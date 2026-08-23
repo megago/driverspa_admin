@@ -50,7 +50,7 @@ public class AdminGroupServicePriceActivity extends AdminBaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Комплексные услуги");
+        titleView.setText(BA.str(R.string.complex_services));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -101,7 +101,7 @@ public class AdminGroupServicePriceActivity extends AdminBaseActivity {
            }
         }
         else {
-            addEmptyTextView(listView, "Нет комплексных услуг");
+            addEmptyTextView(listView, BA.str(R.string.no_complex_services2));
         }
     }
 

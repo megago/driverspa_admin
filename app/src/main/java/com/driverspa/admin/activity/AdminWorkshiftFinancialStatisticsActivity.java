@@ -100,7 +100,7 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
     	setContentView(R.layout.activity_admin_workshift_financial_statistics);
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Смена");
+		titleView.setText(BA.str(R.string.shift));
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -116,7 +116,7 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 		}
 		if(workshift.getStartTime()!=null){
 			HashMap<String,String> startTime = Functions.formatUTCDate(workshift.getStartTime());
-			openedDate.setText(startTime.get(Functions.DATE)+" в "+startTime.get(Functions.TIME)+ (TextUtils.isEmpty(openedName)?"":(" ("+openedName+")")));
+			openedDate.setText(startTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+startTime.get(Functions.TIME)+ (TextUtils.isEmpty(openedName)?"":(" ("+openedName+")")));
 		}
 
 		String closedName = "";
@@ -128,13 +128,13 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 		}
 		if(workshift.getEndTime()!=null){
 			HashMap<String,String> endTime = Functions.formatUTCDate(workshift.getEndTime());
-			closedDate.setText(endTime.get(Functions.DATE)+" в "+endTime.get(Functions.TIME)+ (TextUtils.isEmpty(closedName)?"":(" ("+closedName+")")));
+			closedDate.setText(endTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+endTime.get(Functions.TIME)+ (TextUtils.isEmpty(closedName)?"":(" ("+closedName+")")));
 		}
 
 		int h = workshift.getDuration()/60;
 		int m = workshift.getDuration()%60;
 
-		duration.setText(h+" часов "+m+" минут");
+		duration.setText(h+BA.str(R.string.hours_sp)+m+BA.str(R.string.space_minutes));
 
 		statistics = workshift.getFinancialStatistics();
 		accountDetails = statistics.getAccounts();
@@ -146,7 +146,7 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 			adapter.notifyDataSetChanged();
 		}
 		else {
-			addEmptyTextView(listView, "Нет счетов");
+			addEmptyTextView(listView, BA.str(R.string.no_accounts));
 		}
 
 		listView.setVisibility(View.GONE);
@@ -204,13 +204,13 @@ public class AdminWorkshiftFinancialStatisticsActivity extends AdminBaseActivity
 	public void allAccountsClicked() {
 		if (listView.getVisibility() == View.GONE) {
 			listView.setVisibility(View.VISIBLE);
-			allAccounts.setText("Состояние счетов при смене");
+			allAccounts.setText(BA.str(R.string.accounts_state_shift));
 			allAccounts.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
 
 		} else {
 			listView.setVisibility(View.GONE);
 			allAccounts.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_up_white_24dp, 0);
-			allAccounts.setText("Состояние счетов при смене");
+			allAccounts.setText(BA.str(R.string.accounts_state_shift));
 		}
 	}
 

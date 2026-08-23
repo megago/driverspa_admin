@@ -103,7 +103,7 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 			}
 		});
 
-		titleView.setText("Финансы");
+		titleView.setText(BA.str(R.string.finance));
 		viewPager.setOffscreenPageLimit(3);
 		viewPager.setAdapter(adapter);
 		viewPager.setCurrentItem(selectedTab);
@@ -122,7 +122,7 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 
 	private void createSpinner(){
 		if(spinner != null) {
-			final String[] valuesArray =  {"За период","За день","За неделю", "За месяц"};
+			final String[] valuesArray =  {BA.str(R.string.for_period),BA.str(R.string.for_day),BA.str(R.string.for_week), BA.str(R.string.for_month)};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.navigation_spinner_item, valuesArray);
 			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -154,7 +154,7 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 	public void onDatePickerDataset(Long time,String type) {
 		if(type.equals("start")) {
 			if(time > endTimeDt.toEpochMilli()) {
-				ToastUtil.display(this,"Дата начало не может быть позднее чем дата окончания");
+				ToastUtil.display(this,BA.str(R.string.err_start_date_after_end));
 				return;
 			}
 
@@ -164,7 +164,7 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 
 		if(type.equals("end")) {
 			if(time < startTimeDt.toEpochMilli()) {
-				ToastUtil.display(this,"Дата окончания не может быть ранее чем дата начало");
+				ToastUtil.display(this,BA.str(R.string.err_end_date_before_start));
 				return;
 			}
 

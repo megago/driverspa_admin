@@ -155,7 +155,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener{
 		else{
 			noConnectionLayout.setVisibility(View.VISIBLE);
 			logo.setVisibility(View.GONE);
-			ToastUtil.display(this, "Ошибка при инициализации, проверьте соединение");
+			ToastUtil.display(this, BA.str(R.string.err_init_connection));
 		}
 	}
 

@@ -124,7 +124,7 @@ public class AdminIncomeExpenseFragment extends AdminBaseFragment implements Dat
 
 	private void createSpinner(){
 		if(spinner != null) {
-			final String[] valuesArray =  {"За период","За день","За неделю", "За месяц"};
+			final String[] valuesArray =  {BA.str(R.string.for_period),BA.str(R.string.for_day),BA.str(R.string.for_week), BA.str(R.string.for_month)};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
 			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
 			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -180,7 +180,7 @@ public class AdminIncomeExpenseFragment extends AdminBaseFragment implements Dat
 	public void onDatePickerDataset(Long time,String type) {
 		if(type.equals("start")) {
 			if(time > endTimeDt.toEpochMilli()) {
-				ToastUtil.display(getActivity(),"Дата начало не может быть позднее чем дата окончания");
+				ToastUtil.display(getActivity(),BA.str(R.string.err_start_date_after_end));
 				return;
 			}
 
@@ -190,7 +190,7 @@ public class AdminIncomeExpenseFragment extends AdminBaseFragment implements Dat
 
 		if(type.equals("end")) {
 			if(time < startTimeDt.toEpochMilli()) {
-				ToastUtil.display(getActivity(),"Дата окончания не может быть ранее чем дата начало");
+				ToastUtil.display(getActivity(),BA.str(R.string.err_end_date_before_start));
 				return;
 			}
 

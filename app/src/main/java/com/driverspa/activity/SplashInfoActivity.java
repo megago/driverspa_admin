@@ -78,19 +78,19 @@ public class SplashInfoActivity extends BaseActivity implements SplashInfoFragme
 					dot1.setImageResource(R.drawable.ic_selected_dot);
 					dot2.setImageResource(R.drawable.ic_unselected_dot);
 					dot3.setImageResource(R.drawable.ic_unselected_dot);
-					nextButton.setText("Далее");
+					nextButton.setText(BA.str(R.string.next));
 					break;
 				case 1:
 					dot1.setImageResource(R.drawable.ic_unselected_dot);
 					dot2.setImageResource(R.drawable.ic_selected_dot);
 					dot3.setImageResource(R.drawable.ic_unselected_dot);
-					nextButton.setText("Далее");
+					nextButton.setText(BA.str(R.string.next));
 					break;
 				case 2:
 					dot1.setImageResource(R.drawable.ic_unselected_dot);
 					dot2.setImageResource(R.drawable.ic_unselected_dot);
 					dot3.setImageResource(R.drawable.ic_selected_dot);
-					nextButton.setText("Начать");
+					nextButton.setText(BA.str(R.string.start_word));
 					break;
 			}
 	}

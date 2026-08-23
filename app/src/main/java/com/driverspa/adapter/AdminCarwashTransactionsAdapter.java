@@ -55,7 +55,7 @@ public class AdminCarwashTransactionsAdapter extends BaseDataAdapter<CarwashTran
 		holder.amount.setText(formatter.format(item.getAmount())+" ₸");
 		if(item.getTranDate()!=null){
 			HashMap<String,String> startTime = Functions.formatUTCDate(item.getTranDate());
-			holder.tranDate.setText(startTime.get(Functions.DATE)+" в "+startTime.get(Functions.TIME));
+			holder.tranDate.setText(startTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+startTime.get(Functions.TIME));
 		}
 		else{
 			holder.tranDate.setText("");

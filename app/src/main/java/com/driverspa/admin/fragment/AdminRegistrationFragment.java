@@ -108,17 +108,17 @@ public class AdminRegistrationFragment extends AdminBaseFragment {
 //
 //
 		if (TextUtils.isEmpty(selectedCity)){
-			ToastUtil.displayAtTop(getActivity(), "Выберите город");
+			ToastUtil.displayAtTop(getActivity(), BA.str(R.string.select_city));
 			return;
 		}
 
 		if(!TextUtils.isEmpty(phoneStr)) {			
 			if(!isPhoneValid(phoneStr) ) {
-				phone.setError("Неправильный номер телефона");
+				phone.setError(BA.str(R.string.invalid_phone));
 				return;
 			}
 		} else {
-			phone.setError("Введите номер телефона");
+			phone.setError(BA.str(R.string.enter_phone));
 			return;
 		}
 
@@ -143,7 +143,7 @@ public class AdminRegistrationFragment extends AdminBaseFragment {
 		 if(event.getAuthLoginResponse().getStatus() != null && !event.getAuthLoginResponse().getStatus().equals("error")){			
 		   activityActions.openVerification();
 		 }else{
-		   ToastUtil.display(getActivity(), "Ошибка, попробуйте еще раз");
+		   ToastUtil.display(getActivity(), BA.str(R.string.err_try_again));
 	   }
 	}
 	

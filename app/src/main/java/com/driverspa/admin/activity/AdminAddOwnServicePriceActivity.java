@@ -69,7 +69,7 @@ public class AdminAddOwnServicePriceActivity extends AdminBaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Добавить свои услуги");
+        titleView.setText(BA.str(R.string.add_own_services));
         mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,20 +114,20 @@ public class AdminAddOwnServicePriceActivity extends AdminBaseActivity {
 
     private void saveData(){
         if(TextUtils.isEmpty(groupName.getText().toString())){
-            ToastUtil.display(this,"Введите название комплексной услуги");
-            groupName.setError("Обязательное поле");
+            ToastUtil.display(this,BA.str(R.string.enter_complex_name));
+            groupName.setError(BA.str(R.string.required_field));
             return;
         }
 
         if(!(priceList!=null&&priceList.size()>0)){
-            ToastUtil.display(this,"Определите цены хотя бы на один тип машины");
+            ToastUtil.display(this,BA.str(R.string.set_price_one_type));
             return;
         }
 
        if(washer != null && washer.getGroupMenu() != null && washer.getGroupMenu().size() > 0) {
            for (Washer.GroupMenu g : washer.getGroupMenu()) {
                if ((!(g.getServices() != null && g.getServices().size() > 0)) && g.getName().toLowerCase().equals(groupName.getText().toString().toLowerCase())) {
-                   ToastUtil.display(this, "Такая услуга существует в свои услуги, выберите другое имя");
+                   ToastUtil.display(this, BA.str(R.string.own_service_exists));
                    return;
                }
            }
@@ -162,7 +162,7 @@ public class AdminAddOwnServicePriceActivity extends AdminBaseActivity {
             if(BaseAssist.isSuccess(event.getData())){
                 finish();
                 overridePendingTransitionWithCommonCloseTransition();
-                ToastUtil.display(this,"Успешно добавлена услуга");
+                ToastUtil.display(this,BA.str(R.string.service_added_ok));
 
             }
             else{

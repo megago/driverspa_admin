@@ -79,7 +79,7 @@ public class AdminWasherReviewFragment extends AdminBaseFragment implements View
 	        ButterKnife.bind(this, view);
 			toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 			TextView titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-			titleView.setText("Отзывы");
+			titleView.setText(BA.str(R.string.reviews));
 
 			itemDecoration = new DividerItemDecoration(getActivity());
 			makeList();

@@ -72,7 +72,7 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Адрес и местоположение");
+        titleView.setText(BA.str(R.string.address_and_location));
         mToolbar.findViewById(R.id.action_done).setVisibility(View.VISIBLE);
         mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +182,7 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
             if (hasLocationPermission()) {
                 enableMyLocation();
             } else {
-                ToastUtil.display(this, "Нет доступа к местоположению");
+                ToastUtil.display(this, BA.str(R.string.no_location_access));
             }
         }
     }
@@ -229,14 +229,14 @@ public class AddressMapActivity extends AdminBaseActivity implements OnMapReadyC
     private void saveData(){
         String addressStr = street.getText().toString();
         if(TextUtils.isEmpty(addressStr)){
-            street.setError("Обязательное поле");
-            ToastUtil.display(this,"Введите адрес");
+            street.setError(BA.str(R.string.required_field));
+            ToastUtil.display(this,BA.str(R.string.enter_address));
             return;
         }
 
         LatLng cityDefaultLatLng = Functions.getCityLatLng(city);
         if((cityDefaultLatLng.latitude == latLng.latitude && cityDefaultLatLng.longitude == latLng.longitude)) {
-            ToastUtil.display(this, "Выберите на карте местоположение мойки");
+            ToastUtil.display(this, BA.str(R.string.select_wash_location_map));
             L.d(cityDefaultLatLng.latitude+" lat "+ latLng.latitude);
             L.d(cityDefaultLatLng.longitude+" lat "+latLng.longitude);
             return;

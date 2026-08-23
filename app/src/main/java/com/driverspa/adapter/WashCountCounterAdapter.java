@@ -34,7 +34,7 @@ public class WashCountCounterAdapter extends BaseDataAdapter<WashCountCampaign> 
 
 	  final WashCountCampaign item = getItem(position);
 	  holder.description.setText(item.getDescription());
-	  holder.washCount.setText("Количество мойки: "+item.getWashCount());
+	  holder.washCount.setText(BA.str(R.string.wash_count_pre)+item.getWashCount());
 	  holder.options.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

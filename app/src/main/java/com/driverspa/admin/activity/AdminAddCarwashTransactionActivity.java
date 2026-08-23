@@ -112,7 +112,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
         setContentView(R.layout.activity_admin_add_carwash_transaction);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Финансовая операция");
+        titleView.setText(BA.str(R.string.financial_operation));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -181,29 +181,29 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
     public void onAddBoxButtonClicked(){
         closeKeyboard();
         if(TextUtils.isEmpty(description.getText().toString())){
-            ToastUtil.display(this,"Введите назначение платежа");
+            ToastUtil.display(this,BA.str(R.string.enter_payment_purpose));
             description.requestFocus();
-            description.setError("Обязательное поле");
+            description.setError(BA.str(R.string.required_field));
             return;
         }
 
         if(clientLayout.getVisibility() == View.VISIBLE && selectedClient == null){
-            ToastUtil.display(this,"Выберите клиента");
+            ToastUtil.display(this,BA.str(R.string.select_client));
             clientComplete.requestFocus();
-            clientComplete.setError("Обязательное поле");
+            clientComplete.setError(BA.str(R.string.required_field));
             return;
         }
         if(staffLayout.getVisibility() == View.VISIBLE && selectedStaff == null){
-            ToastUtil.display(this,"Выберите сотрудника");
+            ToastUtil.display(this,BA.str(R.string.select_employee));
             clientComplete.requestFocus();
-            clientComplete.setError("Обязательное поле");
+            clientComplete.setError(BA.str(R.string.required_field));
             return;
         }
 
         if(TextUtils.isEmpty(amount.getText().toString())){
-            ToastUtil.display(this,"Введите сумму");
+            ToastUtil.display(this,BA.str(R.string.enter_amount));
             amount.requestFocus();
-            amount.setError("Обязательное поле");
+            amount.setError(BA.str(R.string.required_field));
             return;
         }
 
@@ -228,7 +228,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
         setWaitScreen(false);
         if(event.getData() != null){
             if(BaseAssist.isSuccess(event.getData())){
-                ToastUtil.display(this, "Успешно добавили операцию");
+                ToastUtil.display(this, BA.str(R.string.operation_added_ok));
                 finish();
             }
             else{
@@ -236,7 +236,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
             }
         }
         else{
-            ToastUtil.display(this, "Ошибка при добавлении операции");
+            ToastUtil.display(this, BA.str(R.string.err_add_operation));
         }
     }
 
@@ -447,25 +447,25 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
         request.setPaymentType("C");
         switch (selectedOperationType){
             case 1:
-                description.setText("Вручное начисление зп");
+                description.setText(BA.str(R.string.manual_salary_accrual));
                 paymentTypeLayout.setVisibility(View.GONE);
                 clientLayout.setVisibility(View.GONE);
                 staffLayout.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 paymentTypeLayout.setVisibility(View.VISIBLE);
-                description.setText("Вручное поступление");
+                description.setText(BA.str(R.string.manual_income));
                 clientLayout.setVisibility(View.GONE);
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 3:
-                description.setText("Приход");
+                description.setText(BA.str(R.string.income_word));
                 paymentTypeLayout.setVisibility(View.VISIBLE);
                 clientLayout.setVisibility(View.GONE);
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 4:
-                description.setText("Выдача зп");
+                description.setText(BA.str(R.string.salary_issue));
                 paymentTypeLayout.setVisibility(View.VISIBLE);
                 clientLayout.setVisibility(View.GONE);
                 staffLayout.setVisibility(View.VISIBLE);
@@ -477,24 +477,24 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 6:
-                description.setText("Предоплата наличными");
+                description.setText(BA.str(R.string.prepay_cash));
                 clientLayout.setVisibility(View.VISIBLE);
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 7:
-                description.setText("Предоплата картой");
+                description.setText(BA.str(R.string.prepay_card));
                 clientLayout.setVisibility(View.VISIBLE);
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 8:
                 paymentTypeLayout.setVisibility(View.VISIBLE);
-                description.setText("Предоплата перечислением");
+                description.setText(BA.str(R.string.prepay_transfer));
                 clientLayout.setVisibility(View.VISIBLE);
                 staffLayout.setVisibility(View.GONE);
                 break;
             case 9:
                 paymentTypeLayout.setVisibility(View.VISIBLE);
-                description.setText("Расход");
+                description.setText(BA.str(R.string.expense));
                 clientLayout.setVisibility(View.GONE);
                 staffLayout.setVisibility(View.GONE);
                 break;
@@ -538,7 +538,7 @@ public class AdminAddCarwashTransactionActivity extends AdminBaseActivity implem
     private void showTimePicker(final TextView targetText) {
         final Dialog dialog = new Dialog(this, R.style.DialogWithNoActionBar);
         dialog.setContentView(R.layout.dialog_time_picker_single);
-        dialog.setTitle("время");
+        dialog.setTitle(BA.str(R.string.time_lc));
         final TimePicker timeFrom = (TimePicker) dialog.findViewById(R.id.time);
         timeFrom.setIs24HourView(true);
 

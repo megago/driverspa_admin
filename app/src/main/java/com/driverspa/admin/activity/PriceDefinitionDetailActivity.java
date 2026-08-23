@@ -125,7 +125,7 @@ public class PriceDefinitionDetailActivity extends AdminBaseActivity {
             preparePriceView();
             HashMap<Integer,String> allCarTypes = BA.getReference().getCarType();
             String carTypeDesc = allCarTypes.get(selectedCarType);
-            textTitle.setText("Цены на "+carTypeDesc.toLowerCase());
+            textTitle.setText(BA.str(R.string.prices_for_pre)+carTypeDesc.toLowerCase());
         }
     }
 

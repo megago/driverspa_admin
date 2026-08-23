@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import static com.driverspa.util.Constants.*;
 
@@ -53,9 +54,9 @@ public class TabBarAdapter extends BaseAdapter {
         tabItemTxt.setText(tabBars.get(position).getBoxName());
         tabItemTxtDetail.setVisibility(View.VISIBLE);
         if(tabBars.get(position).getBookingType().getValue().equals("online"))
-          tabItemTxtDetail.setText("Онлайн/Живая оч.");
+          tabItemTxtDetail.setText(BA.str(R.string.online_live_short));
         else{
-            tabItemTxtDetail.setText("Живая оч.");
+            tabItemTxtDetail.setText(BA.str(R.string.live_queue_short));
         }
 
         if(position == selectedTab){

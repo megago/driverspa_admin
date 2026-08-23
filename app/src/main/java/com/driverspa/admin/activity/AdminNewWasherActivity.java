@@ -1,4 +1,5 @@
 package com.driverspa.admin.activity;
+import com.driverspa.BA;
 
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -26,7 +27,7 @@ public class AdminNewWasherActivity extends AdminBaseActivity implements AdminSe
         setContentView(R.layout.activity_new_carwash_wizard);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-        titleView.setText("Создание мойки");
+        titleView.setText(BA.str(R.string.create_wash));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

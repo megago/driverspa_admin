@@ -252,13 +252,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 
 				noPaid.setVisibility(View.GONE);
 				if(!book.isQueued()) {
-					titleView.setText("Бронь");
+					titleView.setText(BA.str(R.string.booking_word));
 				}
 				  else{
 					if(!book.getPaid()) {
 						noPaid.setVisibility(View.VISIBLE);
 					}
-					titleView.setText("Мойка");
+					titleView.setText(BA.str(R.string.wash));
 				}
 
 				if(book.getNocash()){
@@ -293,7 +293,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 							}
 						}
 					});
-					b.setTitle("Услуга оказана клиенту "+book.getClientKey()+"?");
+					b.setTitle(BA.str(R.string.service_rendered_to)+book.getClientKey()+"?");
 //					b.setNeutralButton("Отменить", null);
 					b.show();
 				}
@@ -315,10 +315,10 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 					 startUpdateTimer();
 				}
 
-				txtDuration.setText(book.getDuration()+" минут");
+				txtDuration.setText(book.getDuration()+BA.str(R.string.space_minutes));
 	    		pendingLayout.setVisibility(View.GONE);
 
-	    		if(book.getStatus().equals(APPROVED)) btnBookStartStop.setText("Завершить выполнение услуг");
+	    		if(book.getStatus().equals(APPROVED)) btnBookStartStop.setText(BA.str(R.string.finish_services));
 	    		btnBookStartStop.setVisibility(book.getStatus().equals(APPROVED)||book.getStatus().equals(STARTED)?View.VISIBLE:View.GONE);
 	    		btnNoClient.setVisibility(book.getStatus().equals(APPROVED)?View.VISIBLE:View.GONE);
 	    		btnBookFail.setVisibility(View.GONE);
@@ -368,7 +368,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				txtDiscount.setText((book.getDiscount()!=null?book.getDiscount():"0")+" %");
 
 				if(DateUtils.isToday(book.getTime().toEpochMilli()))
-	    		  clientServiceDate.setText("Сегодня ("+timeMap.get(Functions.DATE)+")");
+	    		  clientServiceDate.setText(BA.str(R.string.today_paren)+timeMap.get(Functions.DATE)+")");
 				else clientServiceDate.setText(timeMap.get(Functions.DATE));
 
 	    		clientServiceTime.setText(timeMap.get(Functions.TIME));
@@ -406,7 +406,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 					  staffLayout.setVisibility(View.GONE);
 					  if(washer.getStaffs() != null && washer.getStaffs().size() > 0)
 					  	errorOutline.setVisibility(View.VISIBLE);
-					  txtWasherStaffName.setText("Сотрудники не указаны");
+					  txtWasherStaffName.setText(BA.str(R.string.employees_not_set));
 				  }
 			  }
 	    	  else{
@@ -414,7 +414,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 	    	  }
 	    	}
 			else{
-				ToastUtil.display(getActivity(), "Ошибка при получении данных");
+				ToastUtil.display(getActivity(), BA.str(R.string.err_get_data));
 			}
 		}
 
@@ -480,9 +480,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		@OnClick(R.id.btnCancelBooking)
 		public void onCancelBooking(){
 			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-			dialog.setTitle("Отменить бронь?");
-			dialog.setNeutralButton("Нет", null);
-			dialog.setPositiveButton("Да", new OnClickListener() {
+			dialog.setTitle(BA.str(R.string.cancel_booking_q));
+			dialog.setNeutralButton(BA.str(R.string.no_word), null);
+			dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					setWaitScreen(true);
@@ -500,9 +500,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		@OnClick(R.id.btnApproveBooking)
 		public void onApproveBooking(){
 			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-			dialog.setTitle("Принять бронь?");
-			dialog.setNeutralButton("Нет", null);
-			dialog.setPositiveButton("Да", new OnClickListener() {
+			dialog.setTitle(BA.str(R.string.accept_booking_q));
+			dialog.setNeutralButton(BA.str(R.string.no_word), null);
+			dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					setWaitScreen(true);
@@ -516,9 +516,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		public void onStartStopBooking(){
 			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
 //			dialog.setTitle(book.getStatus().equals(APPROVED)?"Начать выполнение услуг?":"Завершить выполнение услуг?");
-			dialog.setTitle("Завершить выполнение услуг?");
-			dialog.setNeutralButton("Нет", null);
-			dialog.setPositiveButton("Да", new OnClickListener() {
+			dialog.setTitle(BA.str(R.string.finish_services_q));
+			dialog.setNeutralButton(BA.str(R.string.no_word), null);
+			dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					setWaitScreen(true);
@@ -534,9 +534,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		@OnClick(R.id.btnNoClient)
 		public void onNoClientButtonClicked(){
 			AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-			dialog.setTitle("Не пришел клиент?");
-			dialog.setNeutralButton("Нет", null);
-			dialog.setPositiveButton("Да", new OnClickListener() {
+			dialog.setTitle(BA.str(R.string.client_no_show_q));
+			dialog.setNeutralButton(BA.str(R.string.no_word), null);
+			dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					setWaitScreen(true);
@@ -552,13 +552,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadData();
-				ToastUtil.display(BA.getContext(),"Бронь принята");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.booking_accepted));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при принятии брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_accept_booking));
 		}
 	}
 
@@ -568,13 +568,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadData();
-				ToastUtil.display(BA.getContext(),"Услуга завершена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_finished));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при стопе выполнении услуг");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_stop_service));
 		}
 	}
 
@@ -585,14 +585,14 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadData();
-				ToastUtil.display(BA.getContext(),"Заказ отклонен в связи с не явкой клиента");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_noshow));
 
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибкa");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_typo));
 		}
 	}
 
@@ -602,13 +602,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadData();
-				ToastUtil.display(BA.getContext(),"Заказ отколнен");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при отмене брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_cancel_booking));
 		}
 	}
 
@@ -620,13 +620,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 			if(BaseAssist.isSuccess(event.getResult())) {
 //				ToastUtil.display(this, "Успешно забронировали");
 				loadData();
-				ToastUtil.display(BA.getContext(),"Очередь отколнена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.queue_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -636,13 +636,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadData();
-				ToastUtil.display(BA.getContext(),"Услуга оказана");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_provided));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -652,13 +652,13 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadData();
-				ToastUtil.display(BA.getContext(),"Успешно продлена на 10 минут");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.extended_10min_ok));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при продлении");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_extend));
 		}
 	}
 
@@ -673,7 +673,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_word));
 		}
 	}
 
@@ -755,9 +755,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 								break;
 							case 1:
 								AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-								dialog.setTitle("Не пришел клиент?");
-								dialog.setNeutralButton("Нет", null);
-								dialog.setPositiveButton("Да", new OnClickListener() {
+								dialog.setTitle(BA.str(R.string.client_no_show_q));
+								dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										setWaitScreen(true);
@@ -768,9 +768,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 								break;
 							case 2:
 								dialog = new MaterialAlertDialogBuilder(getActivity());
-								dialog.setTitle("Отменить бронь?");
-								dialog.setNeutralButton("Нет", null);
-								dialog.setPositiveButton("Да", new OnClickListener() {
+								dialog.setTitle(BA.str(R.string.cancel_booking_q));
+								dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										setWaitScreen(true);
@@ -788,7 +788,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 						}
 					}
 				});
-				b.setTitle("Услуга оказана клиенту "+book.getClientKey()+"?");
+				b.setTitle(BA.str(R.string.service_rendered_to)+book.getClientKey()+"?");
 //						b.setNeutralButton("Отменить", null);
 				b.show();
 			}
@@ -812,7 +812,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 						}
 					}
 				});
-				b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+				b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 //						b.setNeutralButton("Отменить", null);
 				b.show();
 			}
@@ -838,9 +838,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 									break;
 								case 1:
 									AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									dialog.setTitle("Завершить заказ?");
-									dialog.setNeutralButton("Нет", null);
-									dialog.setPositiveButton("Да", new OnClickListener() {
+									dialog.setTitle(BA.str(R.string.finish_order_q));
+									dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
 											setWaitScreen(true);
@@ -853,9 +853,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 									break;
 								case 2:
 									dialog = new MaterialAlertDialogBuilder(getActivity());
-									dialog.setTitle("Отменить заказ?");
-									dialog.setNeutralButton("Нет", null);
-									dialog.setPositiveButton("Да", new OnClickListener() {
+									dialog.setTitle(BA.str(R.string.cancel_order_q));
+									dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
 											setWaitScreen(true);
@@ -897,9 +897,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 									break;
 								case 2:
 									AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									dialog.setTitle("Завершить заказ?");
-									dialog.setNeutralButton("Нет", null);
-									dialog.setPositiveButton("Да", new OnClickListener() {
+									dialog.setTitle(BA.str(R.string.finish_order_q));
+									dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
 											setWaitScreen(true);
@@ -912,9 +912,9 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 									break;
 								case 3:
 									dialog = new MaterialAlertDialogBuilder(getActivity());
-									dialog.setTitle("Отменить заказ?");
-									dialog.setNeutralButton("Нет", null);
-									dialog.setPositiveButton("Да", new OnClickListener() {
+									dialog.setTitle(BA.str(R.string.cancel_order_q));
+									dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									dialog.setPositiveButton(BA.str(R.string.yes_word), new OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
 											setWaitScreen(true);
@@ -937,7 +937,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 					});
 
 				}
-				b.setTitle("Операция по клиенту "+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
+				b.setTitle(BA.str(R.string.op_client)+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
 				b.show();
 			}
 			else{
@@ -960,7 +960,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 							}
 						}
 					});
-					b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+					b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 					b.show();
 				}
 				else{
@@ -976,7 +976,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 		if(client!=null){
 			if(client.getFinishedBooksCount() != null){
 				countsLayout.setVisibility(View.VISIBLE);
-				finishedBooksCount.setText(client.getFinishedBooksCount()+" раз(а)");
+				finishedBooksCount.setText(client.getFinishedBooksCount()+BA.str(R.string.times_no_dot));
 //						if(client.getRegistered())
 				finishedBooksCount.setPaintFlags(finishedBooksCount.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 				if(client.getLastFinishedBookDate() != null){

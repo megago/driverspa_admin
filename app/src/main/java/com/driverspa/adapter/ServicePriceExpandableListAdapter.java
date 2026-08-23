@@ -1,4 +1,5 @@
 package com.driverspa.adapter;
+import com.driverspa.BA;
 
 import android.content.Context;
 import android.content.Intent;
@@ -77,7 +78,7 @@ public class ServicePriceExpandableListAdapter extends BaseExpandableListAdapter
         ReversePrices item = servicePriceExpandableList.get(groupPosition).getPricesWithCarType().get(childPosition);
 
         itemName.setText(item.getCarTypeName());
-        itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +" мин");
+        itemValue.setText(item.getPrice()+ " ₸ · "+item.getTime() +BA.str(R.string.space_min));
 
         return convertView;
     }
@@ -126,12 +127,12 @@ public class ServicePriceExpandableListAdapter extends BaseExpandableListAdapter
             checkBox.setVisibility(View.VISIBLE);
             detail.setVisibility(View.VISIBLE);
             int configured = item.getPricesWithCarType().size();
-            detail.setText("Настроено " + configured + " " + (configured == 1 ? "тип" : (configured < 5 ? "типа" : "типов")) + " авто");
+            detail.setText(BA.str(R.string.configured_pre) + configured + " " + (configured == 1 ? BA.str(R.string.type_1) : (configured < 5 ? BA.str(R.string.type_2) : BA.str(R.string.type_5))) + BA.str(R.string.space_auto));
         }
         else {
             checkBox.setVisibility(View.GONE);
             detail.setVisibility(View.VISIBLE);
-            detail.setText("Цены не заданы");
+            detail.setText(BA.str(R.string.prices_not_set));
         }
 
         return convertView;

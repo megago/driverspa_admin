@@ -208,7 +208,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 						  activityActions.openAddQuee();
 						}
 						else
-						 ToastUtil.display(BA.getContext(),"Ваша мойка еще не активирована");
+						 ToastUtil.display(BA.getContext(),BA.str(R.string.wash_not_activated_short));
 				    }
 			});
 			actionBarRefreshButton.setOnClickListener(this);
@@ -386,24 +386,24 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 						  noRecords.setVisibility(View.VISIBLE);
 						  if(washer != null && (washer.getStatus().equals(APPROVED) || washer.getStatus().equals(TEST))){
 							  if(selectedDay.equals(PENDING)){
-								  noRecords.setText("Нет заказов для обработки");
+								  noRecords.setText(BA.str(R.string.no_orders_to_process));
 							  }
 							  else if(selectedDay.equals(TODAY)){
-								  noRecords.setText("На сегодня мойка не осуществлялась");
+								  noRecords.setText(BA.str(R.string.no_wash_today));
 							  }
 							  else if(selectedDay.equals(TOMORROW)){
-								  noRecords.setText("Нет заказов на завтра");
+								  noRecords.setText(BA.str(R.string.no_orders_tomorrow));
 							  }
 							  else if(selectedDay.equals(ALL)){
-								  noRecords.setText("В истории нет заказов");
+								  noRecords.setText(BA.str(R.string.no_orders_history));
 							  }
 							  else if(selectedDay.equals(FOR_DATE)){
 								  String dateStr = DATE_FORMATTER.format(java.time.Instant.ofEpochSecond(currentTime));
-								  noRecords.setText("Нет заказов на дату "+dateStr);
+								  noRecords.setText(BA.str(R.string.no_orders_on_date)+dateStr);
 							  }
 						  }
 						  else
-							  noRecords.setText("Ваша мойка еще не активирована. Вы не можете создать очереди, брони и видеть статистику. Для этого вам необходимо в настройках мойки заполнить обязательные поля и отправить на проверку модератору. После проверки, вы можете стать частью DriverSpa-Admin!");
+							  noRecords.setText(BA.str(R.string.wash_not_activated_full));
 					  }
 				  }
 				  else{
@@ -479,7 +479,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 					noInternetLayout.setVisibility(View.GONE);
 					progressBar.setVisibility(View.GONE);
 				}
-				ToastUtil.display(getActivity(), "Ошибка при получении данных");
+				ToastUtil.display(getActivity(), BA.str(R.string.err_get_data));
 			}
 		}
 
@@ -651,13 +651,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadWithUpdate = true;
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Бронь принята");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.booking_accepted));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при принятии брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_accept_booking));
 		}
 	}
 
@@ -667,13 +667,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Услуга завершена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_finished));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при стопе выполнении услуг");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_stop_service));
 		}
 	}
 
@@ -684,14 +684,14 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Заказ отклонен в связи с не явкой клиента");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_noshow));
 
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибкa");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_typo));
 		}
 	}
 
@@ -701,13 +701,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Заказ отколнен");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при отмене брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_cancel_booking));
 		}
 	}
 
@@ -718,13 +718,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Очередь отколнена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.queue_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -734,13 +734,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Услуга оказана");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_provided));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -750,13 +750,13 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadData(0,false);
-				ToastUtil.display(BA.getContext(),"Успешно продлена на 10 минут");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.extended_10min_ok));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при продлении");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_extend));
 		}
 	}
 
@@ -771,16 +771,16 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_word));
 		}
 	}
 
 	private void createActionBarSpinner(){
 		if(spinner != null) {
-		  String[] valuesArray = new String[]{"Заказы в обработке", "Все заказы на сегодня", "Заказы на завтра", "История заказов", "Заказы на дату"};
+		  String[] valuesArray = new String[]{BA.str(R.string.orders_in_progress), BA.str(R.string.all_orders_today), BA.str(R.string.orders_tomorrow), BA.str(R.string.orders_history), BA.str(R.string.orders_on_date)};
 		  if (currentTime != -1) {
 			  String dateStr = DATE_FORMATTER.format(java.time.Instant.ofEpochSecond(currentTime));
-			  valuesArray = new String[]{"Заказы в обработке", "Все заказы на сегодня", "История заказов","Заказы на завтра", "Заказы на дату " + dateStr};
+			  valuesArray = new String[]{BA.str(R.string.orders_in_progress), BA.str(R.string.all_orders_today), BA.str(R.string.orders_history),BA.str(R.string.orders_tomorrow), BA.str(R.string.orders_on_date_pre) + dateStr};
 		  }
 		  ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
 		  adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
@@ -908,9 +908,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   break;
 							   case 1:
 								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-								   dialog.setTitle("Не пришел клиент?");
-								   dialog.setNeutralButton("Нет", null);
-								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+								   dialog.setTitle(BA.str(R.string.client_no_show_q));
+								   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 									   @Override
 									   public void onClick(DialogInterface dialog, int which) {
 										   setWaitScreen(true);
@@ -921,9 +921,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   break;
 							   case 2:
 								   dialog = new MaterialAlertDialogBuilder(getActivity());
-								   dialog.setTitle("Отменить бронь?");
-								   dialog.setNeutralButton("Нет", null);
-								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+								   dialog.setTitle(BA.str(R.string.cancel_booking_q));
+								   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 									   @Override
 									   public void onClick(DialogInterface dialog, int which) {
 										   setWaitScreen(true);
@@ -943,7 +943,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 						   }
 					   }
 				   });
-				   b.setTitle("Услуга оказана клиенту "+book.getClientKey()+"?");
+				   b.setTitle(BA.str(R.string.service_rendered_to)+book.getClientKey()+"?");
 				   b.show();
 			   }
 			   else if(book.getStatus().equals(PENDING)){
@@ -958,9 +958,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 								   break;
 							   case 1:
 								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-								   dialog.setTitle("Отменить бронь?");
-								   dialog.setNeutralButton("Нет", null);
-								   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+								   dialog.setTitle(BA.str(R.string.cancel_booking_q));
+								   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 									   @Override
 									   public void onClick(DialogInterface dialog, int which) {
 										   setWaitScreen(true);
@@ -976,7 +976,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 						   }
 					   }
 				   });
-				   b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+				   b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 				   b.show();
 			   }
 			   else{
@@ -1001,9 +1001,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   break;
 								   case 1:
 									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle("Завершить заказ?");
-									   dialog.setNeutralButton("Нет", null);
-									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+									   dialog.setTitle(BA.str(R.string.finish_order_q));
+									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 										   @Override
 										   public void onClick(DialogInterface dialog, int which) {
 											   setWaitScreen(true);
@@ -1016,9 +1016,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   break;
 								   case 2:
 									   dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle("Отменить заказ?");
-									   dialog.setNeutralButton("Нет", null);
-									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+									   dialog.setTitle(BA.str(R.string.cancel_order_q));
+									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 										   @Override
 										   public void onClick(DialogInterface dialog, int which) {
 											   setWaitScreen(true);
@@ -1063,9 +1063,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   break;
 								   case 2:
 									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle("Завершить заказ?");
-									   dialog.setNeutralButton("Нет", null);
-									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+									   dialog.setTitle(BA.str(R.string.finish_order_q));
+									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 										   @Override
 										   public void onClick(DialogInterface dialog, int which) {
 											   setWaitScreen(true);
@@ -1078,9 +1078,9 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 									   break;
 								   case 3:
 									   dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle("Отменить заказ?");
-									   dialog.setNeutralButton("Нет", null);
-									   dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+									   dialog.setTitle(BA.str(R.string.cancel_order_q));
+									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
 										   @Override
 										   public void onClick(DialogInterface dialog, int which) {
 											   setWaitScreen(true);
@@ -1104,7 +1104,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 					   });
 
 				   }
-				   b.setTitle("Операция по клиенту "+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
+				   b.setTitle(BA.str(R.string.op_client)+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
 				   b.show();
 			   }
 			   else{
@@ -1129,7 +1129,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 							   }
 						   }
 					   });
-					   b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+					   b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 					   b.show();
 				   }
 				   else{

@@ -58,7 +58,7 @@ public class AddressActivity extends AdminBaseActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Адрес");
+		titleView.setText(BA.str(R.string.address));
 		mToolbar.findViewById(R.id.action_done).setVisibility(View.VISIBLE);
 		mToolbar.findViewById(R.id.action_done).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -134,9 +134,9 @@ public class AddressActivity extends AdminBaseActivity {
     private void saveData(){
 		String addressStr = street.getText().toString();
 		if(TextUtils.isEmpty(addressStr)){
-			street.setError("Обязательное поле");
+			street.setError(BA.str(R.string.required_field));
 			mapText.requestFocus();
-			ToastUtil.display(this,"Введите адрес");
+			ToastUtil.display(this,BA.str(R.string.enter_address));
 			return;
 		}
 

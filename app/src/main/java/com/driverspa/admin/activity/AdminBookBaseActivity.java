@@ -243,7 +243,7 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 							serviceAdapter.notifyDataSetChanged();
 						}
 					} else {
-						ToastUtil.display(BA.getContext(), "Для данного типа авто и услуги - не указана цена");
+						ToastUtil.display(BA.getContext(), BA.str(R.string.err_no_price_for_type));
 					}
 				}
 
@@ -400,7 +400,7 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 
 	protected void resetPriceAndTime() {
 		txtPrice.setText("0 ₸");
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		request.setServices(new ArrayList<Integer>());
 		request.setGroupServices(new ArrayList<String>());
 	}
@@ -457,7 +457,7 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 		depositAmount.setText("0");
 		txtPrice.setText("0 ₸");
 		finalPrice = 0d;
-		txtTime.setText("0 мин");
+		txtTime.setText(BA.str(R.string.zero_min));
 		double totalPrice = 0d;
 		int totalTime = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -525,7 +525,7 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 		}
 
 		if (totalTime > 0) {
-			txtTime.setText(Math.round(totalTime) + " мин");
+			txtTime.setText(Math.round(totalTime) + BA.str(R.string.space_min));
 			if (request != null)
 				request.setServiceTotalTime(totalTime);
 
@@ -722,11 +722,11 @@ public class AdminBookBaseActivity extends AdminBaseActivity {
 			if (BaseAssist.isSuccess(event.getResult())) {
 				ClientInfo client = event.getResult().getClientInfo();
 				if (!TextUtils.isEmpty(textPrediction) && !TextUtils.isEmpty(client.getCarNo())) {
-					ToastUtil.display(this, "Клиент найден в базе");
+					ToastUtil.display(this, BA.str(R.string.client_found));
 					setData(client);
 				}
 			} else {
-				ToastUtil.display(this, "Клиент не найден в базе");
+				ToastUtil.display(this, BA.str(R.string.client_not_found));
 			}
 		} else {
 		}

@@ -211,7 +211,7 @@ public class AdminChangeBoxTypeActivity extends AdminBaseActivity {
     		if(BaseAssist.isSuccess(event.getData())){
 				finish();
 				overridePendingTransitionWithCommonCloseTransition();
-				ToastUtil.display(this, "Бокс успешно изменен");
+				ToastUtil.display(this, BA.str(R.string.box_updated_ok));
 //    			boxType = event.getData().getResponse().getBookingType();
 //    			setSelectedBoxType();
     		}
@@ -224,9 +224,9 @@ public class AdminChangeBoxTypeActivity extends AdminBaseActivity {
 	@OnClick(R.id.btnDeleteBox)
     public void deleteBox(){
 		Builder dialog = new MaterialAlertDialogBuilder(this);
-		dialog.setTitle("Действительно хотите удалить бокс?");
-		dialog.setNegativeButton("Отмена", null);
-		dialog.setPositiveButton("Ок", new OnClickListener() {
+		dialog.setTitle(BA.str(R.string.confirm_delete_box));
+		dialog.setNegativeButton(BA.str(R.string.cancel_word), null);
+		dialog.setPositiveButton(BA.str(R.string.ok_word), new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				BA.getEventBus().post(new AdminBoxDeleteRequestEvent(washer.getId(), boxId));			}
@@ -242,7 +242,7 @@ public class AdminChangeBoxTypeActivity extends AdminBaseActivity {
     		if(BaseAssist.isSuccess(event.getData())){
     	        finish();
     	        overridePendingTransitionWithCommonCloseTransition();
-				ToastUtil.display(this, "Бокс успешно удален.");
+				ToastUtil.display(this, BA.str(R.string.box_deleted_ok));
 //    			Builder dialog = new Builder(this);
 //    			dialog.setCancelable(false);
 //    			dialog.setTitle("Бокс "+boxName+" успешно удален. Номером "+boxName+" может стать следующий бокс.");
@@ -264,9 +264,9 @@ public class AdminChangeBoxTypeActivity extends AdminBaseActivity {
 	@OnClick(R.id.btnEditBox)
 	public void onEditBoxClicked(){
 		if(TextUtils.isEmpty(boxName.getText().toString())){
-			ToastUtil.display(this,"Введите название бокса");
+			ToastUtil.display(this,BA.str(R.string.enter_box_name));
 			boxName.requestFocus();
-			boxName.setError("Обязательное поле");
+			boxName.setError(BA.str(R.string.required_field));
 			return;
 		}
 

@@ -223,9 +223,9 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		addBookButton = getActivity().findViewById(R.id.button_add_book);
 		titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
 		if (currentTimeInterval == 30) {
-			titleView.setText("30м");
+			titleView.setText(BA.str(R.string.min_30m));
 		} else {
-			titleView.setText("15м");
+			titleView.setText(BA.str(R.string.min_15m));
 		}
 
 		addBookButton.setOnClickListener(new View.OnClickListener() {
@@ -621,7 +621,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 										}
 									}
 								});
-								b.setTitle("Услуга оказана клиенту "+book.getClientKey()+"?");
+								b.setTitle(BA.str(R.string.service_rendered_to)+book.getClientKey()+"?");
 								b.show();
 							}
 							else if(book.getStatus().equals(PENDING)){
@@ -644,7 +644,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 										}
 									}
 								});
-								b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+								b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 								b.show();
 							}
 							else {
@@ -731,7 +731,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 									});
 
 								}
-								b.setTitle("Операция по клиенту "+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
+								b.setTitle(BA.str(R.string.op_client)+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
 								b.show();
 							}
 							else{
@@ -754,7 +754,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 											}
 										}
 									});
-									b.setTitle("Операция брони по клиенту "+book.getClientKey()+"");
+									b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 									b.show();
 								}
 								else{
@@ -829,7 +829,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 			activityActions.openAddBook(boxName, boxId,gridTime, gridTitle,selectedDay);
 		}
 		else
-			ToastUtil.display(BA.getContext(),"Ваша мойка еще не активирована");
+			ToastUtil.display(BA.getContext(),BA.str(R.string.wash_not_activated_short));
 	}
 
 	@Subscribe
@@ -852,9 +852,9 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 				titleView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_time, 0, 0, 0);
 				titleView.setVisibility(View.VISIBLE);
 				if (currentTimeInterval == 30) {
-					titleView.setText("30м");
+					titleView.setText(BA.str(R.string.min_30m));
 				} else {
-					titleView.setText("15м");
+					titleView.setText(BA.str(R.string.min_15m));
 				}
 				titleView.setCompoundDrawablePadding((int)Functions.dipToPixels(getActivity(),5f));
 				titleView.setOnClickListener(new View.OnClickListener() {
@@ -862,11 +862,11 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 					public void onClick(View v) {
 						if (currentTimeInterval == 30) {
 							currentTimeInterval = 15;
-							titleView.setText("15м");
+							titleView.setText(BA.str(R.string.min_15m));
 							loadBoxTimeTable();
 						} else {
 							currentTimeInterval = 30;
-							titleView.setText("30м");
+							titleView.setText(BA.str(R.string.min_30m));
 							loadBoxTimeTable();
 						}
 					}
@@ -899,10 +899,10 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 
 	private void createActionBarSpinner(){
 		if(spinner != null) {
-			String[] valuesArray = new String[]{"Сегодня", "Завтра", "Заказы на дату"};
+			String[] valuesArray = new String[]{BA.str(R.string.today), BA.str(R.string.tomorrow), BA.str(R.string.orders_on_date)};
 			if(currentTime != -1) {
 				String dateStr = DATE_FORMATTER.format(Instant.ofEpochSecond(currentTime));
-				valuesArray = new String[]{"Сегодня", "Завтра", "Заказы на дату "+dateStr};
+				valuesArray = new String[]{BA.str(R.string.today), BA.str(R.string.tomorrow), BA.str(R.string.orders_on_date_pre)+dateStr};
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_spinner_item, valuesArray);
 			adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
@@ -976,13 +976,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Бронь принята");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.booking_accepted));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при принятии брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_accept_booking));
 		}
 	}
 
@@ -992,13 +992,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Услуга завершена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_finished));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при стопе выполнении услуг");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_stop_service));
 		}
 	}
 
@@ -1009,14 +1009,14 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Заказ отклонен в связи с не явкой клиента");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_noshow));
 
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибкa");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_typo));
 		}
 	}
 
@@ -1026,13 +1026,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())){
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Заказ отколнен");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.order_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при отмене брони");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_cancel_booking));
 		}
 	}
 
@@ -1044,13 +1044,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 			if(BaseAssist.isSuccess(event.getResult())) {
 //				ToastUtil.display(this, "Успешно забронировали");
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Очередь отколнена");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.queue_rejected_typo));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -1060,13 +1060,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Услуга оказана");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.service_provided));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при добавлении очереди");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_add_queue));
 		}
 	}
 
@@ -1076,13 +1076,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		if(event.getResult() != null){
 			if(BaseAssist.isSuccess(event.getResult())) {
 				loadTimeTableDataWithoutLoader();
-				ToastUtil.display(BA.getContext(),"Успешно продлена на 10 минут");
+				ToastUtil.display(BA.getContext(),BA.str(R.string.extended_10min_ok));
 			}
 			else
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка при продлении");
+			ToastUtil.display(getActivity(), BA.str(R.string.err_extend));
 		}
 	}
 
@@ -1097,7 +1097,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 				ToastUtil.display(getActivity(), event.getResult().getMessage());
 		}
 		else{
-			ToastUtil.display(getActivity(), "Ошибка");
+			ToastUtil.display(getActivity(), BA.str(R.string.error_word));
 		}
 	}
 
