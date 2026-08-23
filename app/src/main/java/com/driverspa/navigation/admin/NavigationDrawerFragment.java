@@ -202,7 +202,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 }
 
                 idArray[valuesArray.length-1] = "";
-                valuesArray[valuesArray.length-1] = "Добавить мойку";
+                valuesArray[valuesArray.length-1] = getString(R.string.add_washer);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.navigation_drawer_spinner_item, valuesArray);
                 adapter.setDropDownViewResource(R.layout.home_spinner_dropdown_item);
@@ -295,16 +295,17 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
         String city = Functions.getCityDescription(UserPreferences.getCity(getActivity()));
-        items.add(new NavigationItem(""+(TextUtils.isEmpty(city)?"Заказы":"Заказы("+city+")"), getResources().getDrawable(R.drawable.ic_business_white_24dp)));
-        items.add(new NavigationItem("Клиенты", getResources().getDrawable(R.drawable.ic_clients)));
-        items.add(new NavigationItem("Сотрудники", getResources().getDrawable(R.drawable.ic_clients_normal)));
+        String orders = getString(R.string.menu_orders);
+        items.add(new NavigationItem(TextUtils.isEmpty(city)?orders:orders+"("+city+")", getResources().getDrawable(R.drawable.ic_business_white_24dp)));
+        items.add(new NavigationItem(getString(R.string.menu_clients), getResources().getDrawable(R.drawable.ic_clients)));
+        items.add(new NavigationItem(getString(R.string.menu_employees), getResources().getDrawable(R.drawable.ic_clients_normal)));
 //        items.add(new NavigationItem("Смены", getResources().getDrawable(R.drawable.ic_work_shifts)));
-        items.add(new NavigationItem("Финансы", getResources().getDrawable(R.drawable.ic_finance)));
+        items.add(new NavigationItem(getString(R.string.menu_finance), getResources().getDrawable(R.drawable.ic_finance)));
 //        items.add(new NavigationItem("Акция", getResources().getDrawable(R.drawable.ic_tab_campaign_normal)));
-        items.add(new NavigationItem("Аналитика", getResources().getDrawable(R.drawable.ic_assessment_white_24dp)));
-        items.add(new NavigationItem("Отзывы", getResources().getDrawable(R.drawable.ic_tab_comment_normal)));
-        items.add(new NavigationItem("Настройки", getResources().getDrawable(R.drawable.ic_settings_white_24dp)));
-        items.add(new NavigationItem("О нас", getResources().getDrawable(R.drawable.ic_share_white_24dp)));
+        items.add(new NavigationItem(getString(R.string.menu_analytics), getResources().getDrawable(R.drawable.ic_assessment_white_24dp)));
+        items.add(new NavigationItem(getString(R.string.menu_reviews), getResources().getDrawable(R.drawable.ic_tab_comment_normal)));
+        items.add(new NavigationItem(getString(R.string.menu_settings), getResources().getDrawable(R.drawable.ic_settings_white_24dp)));
+        items.add(new NavigationItem(getString(R.string.menu_about), getResources().getDrawable(R.drawable.ic_share_white_24dp)));
         return items;
     }
 

@@ -36,6 +36,17 @@
     <!-- settings -->
     <string name="settings_language">Тіл</string>
 
+    <!-- left navigation drawer menu -->
+    <string name="menu_orders">Тапсырыстар</string>
+    <string name="menu_clients">Клиенттер</string>
+    <string name="menu_employees">Қызметкерлер</string>
+    <string name="menu_finance">Қаржы</string>
+    <string name="menu_analytics">Аналитика</string>
+    <string name="menu_reviews">Пікірлер</string>
+    <string name="menu_settings">Баптаулар</string>
+    <string name="menu_about">Біз туралы</string>
+    <string name="add_washer">Автожуу қосу</string>
+
     <!-- admin profile / settings screen -->
     <string name="profile_title">Профиль</string>
     <string name="address">Мекенжай</string>

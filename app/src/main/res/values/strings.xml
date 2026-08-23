@@ -33,6 +33,17 @@
     <!-- settings -->
     <string name="settings_language">Язык</string>
 
+    <!-- left navigation drawer menu -->
+    <string name="menu_orders">Заказы</string>
+    <string name="menu_clients">Клиенты</string>
+    <string name="menu_employees">Сотрудники</string>
+    <string name="menu_finance">Финансы</string>
+    <string name="menu_analytics">Аналитика</string>
+    <string name="menu_reviews">Отзывы</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_about">О нас</string>
+    <string name="add_washer">Добавить мойку</string>
+
     <!-- admin profile / settings screen -->
     <string name="profile_title">Профиль</string>
     <string name="address">Адрес</string>
