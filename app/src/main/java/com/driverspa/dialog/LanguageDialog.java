@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.util.LocaleManager;
+import com.driverspa.util.otto.ws.AboutUSRequestEvent;
+import com.driverspa.util.otto.ws.InitRequestEvent;
 
 /**
  * Simple single-choice language picker. Applying a choice switches the app UI
@@ -36,7 +39,13 @@ public final class LanguageDialog {
                         dialog.dismiss();
                         String selected = tags[which];
                         if (!selected.equals(LocaleManager.current())) {
+                            // Apply first so the stored language (used by the request
+                            // interceptor) is updated before we refresh, then re-fetch
+                            // the server-provided reference dictionary (roles, statuses,
+                            // car/payment types, etc.) so it comes back localized.
                             LocaleManager.apply(selected);
+                            BA.getEventBus().post(new InitRequestEvent(LocaleManager.backendCode(selected)));
+                            BA.getEventBus().post(new AboutUSRequestEvent());
                         }
                     }
                 })

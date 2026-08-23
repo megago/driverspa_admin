@@ -774,18 +774,17 @@ public class RetrofitClient {
 			public void intercept(RequestFacade request) {
 				// if there is a user token, add that to request
 			String token = UserPreferences.getUserToken(BA.getContext());
-			request.addHeader("Content-Language", "ru");
-			if(!forUpload){
-				if( !TextUtils.isEmpty(token) ){
-					request.addHeader("Authorization", "ApiKey "+token);
-					request.addHeader("Accept-Language", UserPreferences.getUserLocale(BA.getContext()));
-			    }
-			 }
-			else{
-				if( !TextUtils.isEmpty(token) ){
-					request.addHeader("Authorization", "ApiKey "+token);
-			    }								
-			 }												 				
+			// Send the selected UI language on every request so the backend
+			// localizes responses (references, statistics, messages) accordingly.
+			String lang = UserPreferences.getUserLocale(BA.getContext());
+			if (TextUtils.isEmpty(lang)) {
+				lang = LocaleManager.backendCode(LocaleManager.current());
+			}
+			request.addHeader("Accept-Language", lang);
+			request.addHeader("Content-Language", lang);
+			if( !TextUtils.isEmpty(token) ){
+				request.addHeader("Authorization", "ApiKey "+token);
+			}
 			}
 		};
 

@@ -32,7 +32,11 @@ public class InitilizeAssist extends BaseAssist {
 			public void success(ReferenceResponseHolder data, Response response) {
 				if( isSuccess(data) ) {
 					logD("onPeopleOnlineRequested: success " + response.getUrl());
-					BA.getEventBus().post(new InitResponseEvent(data.getResponse()));					
+					// Persist the (re)fetched reference dictionary globally so a
+					// language change refreshes it even when the splash screen — the
+					// only other place that calls setReference — isn't active.
+					BA.setReference(data.getResponse());
+					BA.getEventBus().post(new InitResponseEvent(data.getResponse()));
 				} else {
 					BA.getEventBus().post(new InitResponseEvent(null));
 					logE("onPeopleOnlineRequested: error");

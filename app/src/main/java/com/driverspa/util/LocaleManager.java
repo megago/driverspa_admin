@@ -57,10 +57,15 @@ public final class LocaleManager {
         return "Русский";
     }
 
-    /** Maps a resource tag to the code the backend expects in {@code Accept-Language}. */
+    /**
+     * The code the backend expects in {@code Accept-Language}. The washme_be
+     * LocaleMiddleware special-cases {@code kk} for Kazakh and resolves {@code ru}/
+     * {@code en} via Django, so the resource tag and backend code are identical for
+     * all three languages. (Earlier this sent {@code kz}, which the backend doesn't
+     * recognise, so it fell back to the default language.)
+     */
     public static String backendCode(String resourceTag) {
-        if (KK.equals(resourceTag)) return "kz";
-        return resourceTag; // ru / en are identical in both spaces
+        return resourceTag; // kk / ru / en match the backend's Accept-Language codes
     }
 
     /**
@@ -69,8 +74,10 @@ public final class LocaleManager {
      * {@link UserPreferences} so network requests send the matching Accept-Language.
      */
     public static void apply(String resourceTag) {
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(resourceTag));
+        // Persist the backend code first so any request fired during/after the
+        // recreation setApplicationLocales triggers already carries the new language.
         UserPreferences.putUserLocale(BA.getContext(), backendCode(resourceTag));
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(resourceTag));
     }
 
     /** The currently active resource tag (falls back to {@link #DEFAULT}). */
