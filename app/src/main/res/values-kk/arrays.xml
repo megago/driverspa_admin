@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string-array name="astrology_names">
+        <item>Тоқты</item>
+        <item>Торпақ</item>
+        <item>Егіздер</item>
+        <item>Шаян</item>
+        <item>Арыстан</item>
+        <item>Егіздер</item>
+        <item>Бикеш</item>
+        <item>Таразы</item>
+        <item>Сарышаян</item>
+        <item>Мерген</item>
+        <item>Тауешкі</item>
+        <item>Суқұйғыш</item>
+        <item>Балықтар</item>
+    </string-array>
+
+    <string-array name="photo_options">
+        <item>Фото қосу</item>
+        <item>Фотоны ашу</item>
+    </string-array>
+
+    <string-array name="admin_approved_book_detail_options">
+        <item>Иә, қызмет көрсетілді</item>
+        <item>Клиент келмеді</item>
+        <item>Брондаудан бас тарту</item>
+    </string-array>
+
+    <string-array name="admin_approved_book_options">
+        <item>Қызмет көрсетілді</item>
+        <item>Клиент келмеді</item>
+        <item>Брондауды болдырмау</item>
+        <item>Брондауды өзгерту</item>
+        <item>Мәліметтер</item>
+    </string-array>
+
+    <string-array name="campaign_options">
+        <item>Жою</item>
+    </string-array>
+
+    <string-array name="admin_pending_book_options">
+        <item>Брондауды қабылдау</item>
+        <item>Брондаудан бас тарту</item>
+        <item>Мәліметтер</item>
+    </string-array>
+    <string-array name="admin_approved_queue_options">
+        <item>10 минутқа ұзарту</item>
+        <item>Қызмет көрсетілді (аяқтау)</item>
+        <item>Бас тарту</item>
+        <item>Өзгерту</item>
+        <item>Мәліметтер</item>
+    </string-array>
+    <string-array name="admin_approved_queue_not_paid_options">
+        <item>Клиент жуу үшін төледі</item>
+        <item>10 минутқа ұзарту</item>
+        <item>Қызмет көрсетілді (аяқтау)</item>
+        <item>Бас тарту</item>
+        <item>Өзгерту</item>
+        <item>Мәліметтер</item>
+    </string-array>
+    <string-array name="admin_not_paid_options">
+        <item>Клиент жуу үшін төледі</item>
+        <item>Мәліметтер</item>
+    </string-array>
+    <string-array name="add_to_favs">
+        <item>Таңдаулыларға қосу</item>
+        <item>Автожуу мәліметтері</item>
+    </string-array>
+
+    <string-array name="client_options">
+        <item>Боксқа жіберу</item>
+        <item>Кезекке қосу</item>
+        <item>Мәліметтер</item>
+    </string-array>
+
+    <string-array name="client_not_registered_options">
+        <item>Боксқа жіберу</item>
+        <item>Кезекке қосу</item>
+    </string-array>
+
+    <array name="day">
+        <item>күн</item>
+        <item>күн</item>
+        <item>күн</item>
+    </array>
+    <array name="hour">
+        <item>сағат</item>
+        <item>сағат</item>
+        <item>сағат</item>
+    </array>
+    <array name="minute">
+        <item>минут</item>
+        <item>минут</item>
+        <item>минут</item>
+    </array>
+    <array name="second">
+        <item>секунд</item>
+        <item>секунд</item>
+        <item>секунд</item>
+    </array>
+
+    <array name="newsTarget">
+        <item>Барлық клиенттерге СМС</item>
+        <item>Тіркелген клиенттерге пуш</item>
+        <item>Тіркелмеген клиенттерге СМС</item>
+    </array>
+
+    <string-array name="company_client_options">
+        <item>Клиент деректерін өзгерту</item>
+        <item>Қолма-қол алдын ала төлем</item>
+        <item>Клиенттің ішкі қаражатын есептен шығару</item>
+        <item>Клиентті жою</item>
+    </string-array>
+
+    <string-array name="staff_options">
+        <item>Өзгерту</item>
+        <item>Жалақы есептеу</item>
+        <item>Жалақы беру</item>
+    </string-array>
+
+</resources>
