@@ -19,7 +19,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center"
-        android:text="Регистрация"
+        android:text="@string/registration"
         android:textColor="@color/White"
         android:textSize="@dimen/text_medium" />
 
@@ -57,7 +57,7 @@
                         style="@style/EditText.Transparent"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Имя*"
+                        android:hint="@string/name_required"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="20"
@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:paddingLeft="@dimen/horizontal_margin_half"
-                        android:text="Город"
+                        android:text="@string/city"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
@@ -174,7 +174,7 @@
                     android:layout_marginTop="@dimen/vertical_margin_double"
                     android:background="@drawable/background_button_border"
                     android:padding="10dp"
-                    android:text="Продолжить"
+                    android:text="@string/button_next"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="22sp" />
             </LinearLayout>

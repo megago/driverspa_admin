@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_marginTop="@dimen/vertical_margin_half"
             android:gravity="center"
-            android:text="Цены"
+            android:text="@string/prices"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:visibility="gone" />
@@ -50,7 +50,7 @@
                 android:gravity="left"
                 android:padding="@dimen/vertical_margin"
                 android:paddingLeft="@dimen/horizontal_margin_half"
-                android:text="Все услуги"
+                android:text="@string/all_services"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
         </LinearLayout>
@@ -89,7 +89,7 @@
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:paddingTop="10dp"
-            android:text="Добавить"
+            android:text="@string/add"
             android:textColor="@drawable/button_state_color"
             android:textSize="@dimen/text_normal" />
     </LinearLayout>

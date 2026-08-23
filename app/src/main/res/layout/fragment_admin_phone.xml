@@ -125,7 +125,7 @@
                     style="@style/EditText.Transparent"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email (для отправки кода)"
+                    android:hint="@string/email_for_code"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/White"
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vertical_margin_half"
-            android:text="Куда отправить код:"
+            android:text="@string/where_send_code"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_small"
             android:visibility="gone" />
@@ -220,7 +220,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Я согласен с "
+                    android:text="@string/i_agree_with"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
 
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="публичной офертой"
+                    android:text="@string/public_offer_lc"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold"

@@ -42,7 +42,7 @@
                 android:layout_marginRight="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:gravity="center"
-                android:text="Необходимо подтвердить бронь в течении"
+                android:text="@string/confirm_booking_within"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -98,7 +98,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Имя:"
+                            android:text="@string/name_label_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/vertical_margin"
-                        android:text="Мойка на имя"
+                        android:text="@string/wash_on_name"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
                         android:textColor="@color/White"
@@ -136,7 +136,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Телефон:"
+                            android:text="@string/phone_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -209,7 +209,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Марка авто:"
+                            android:text="@string/car_brand_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -234,7 +234,7 @@
                             android:id="@+id/txt7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Тип авто"
+                            android:text="@string/car_type"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -282,7 +282,7 @@
                             android:id="@+id/txt9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="за"
+                            android:text="@string/for_prep"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -326,7 +326,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="со скидкой"
+                            android:text="@string/with_discount"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -352,7 +352,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="оплата без нал."
+                            android:text="@string/cashless_payment"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal"
                             android:textStyle="bold" />
@@ -376,7 +376,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/horizontal_margin_third"
-                            android:text="в"
+                            android:text="@string/prep_at"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -401,7 +401,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="длительность"
+                            android:text="@string/duration_lc"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -430,7 +430,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:paddingRight="@dimen/horizontal_margin_third"
-                            android:text="Не оплачен"
+                            android:text="@string/not_paid"
                             android:textColor="@color/IndianRed"
                             android:textSize="@dimen/text_normal"
                             android:textStyle="bold" />
@@ -453,7 +453,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Статус:"
+                            android:text="@string/status_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -479,7 +479,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Сотрудники:"
+                            android:text="@string/employees_colon"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:textColor="@color/White"
@@ -518,7 +518,7 @@
                             android:layout_gravity="right|center"
                             android:layout_marginLeft="@dimen/horizontal_margin_third"
                             android:gravity="center"
-                            android:text="Мойщик не выбран"
+                            android:text="@string/washer_not_selected"
                             android:textColor="#f44336"
                             android:textSize="@dimen/text_normal" />
                     </LinearLayout>
@@ -604,7 +604,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="На указанный Вами мобильный телефон придет СМС-сообщение с деталями брони."
+                            android:text="@string/sms_booking_details"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -614,7 +614,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Для подтверждения брони вам позвонит администратор автомойки."
+                            android:text="@string/booking_confirm_call"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -625,7 +625,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/horizontal_margin"
                             android:gravity="center"
-                            android:text="Спасибо, что выбрали нас!"
+                            android:text="@string/thanks_for_choosing"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -640,7 +640,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="ОК"
+                            android:text="@string/button_ok"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="22sp" />
                     </LinearLayout>
@@ -667,7 +667,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="Принять"
+                            android:text="@string/accept"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="22sp" />
 
@@ -682,7 +682,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="Отменить"
+                            android:text="@string/cancel"
                             android:textColor="@color/Red"
                             android:textSize="22sp" />
                     </LinearLayout>
@@ -709,7 +709,7 @@
                             android:paddingLeft="30dp"
                             android:paddingRight="30dp"
                             android:paddingTop="10dp"
-                            android:text="Услуга оказана"
+                            android:text="@string/service_provided"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="22sp" />
 
@@ -724,7 +724,7 @@
                             android:paddingLeft="30dp"
                             android:paddingRight="30dp"
                             android:paddingTop="10dp"
-                            android:text="Клиент не явился"
+                            android:text="@string/client_no_show"
                             android:textColor="@color/Orange"
                             android:textSize="22sp" />
 
@@ -739,7 +739,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="Отменить"
+                            android:text="@string/cancel"
                             android:textColor="@color/Red"
                             android:textSize="22sp" />
 
@@ -754,7 +754,7 @@
                             android:paddingLeft="30dp"
                             android:paddingRight="30dp"
                             android:paddingTop="10dp"
-                            android:text="Экстренное завершение услуг"
+                            android:text="@string/emergency_finish"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="22sp" />
                     </LinearLayout>
@@ -772,7 +772,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Помыл(а) машину"
+                        android:text="@string/washed_car"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 
@@ -790,7 +790,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin_third"
-                        android:text="раз(а) "
+                        android:text="@string/times_count"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:visibility="gone" />
@@ -807,7 +807,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Последняя мойка"
+                        android:text="@string/last_wash"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 

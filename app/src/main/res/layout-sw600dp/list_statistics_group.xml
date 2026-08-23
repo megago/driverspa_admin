@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Брони"
+        android:text="@string/bookings"
         android:gravity="center"
         android:paddingTop="@dimen/vertical_margin_third"
         android:paddingBottom="@dimen/vertical_margin_third"

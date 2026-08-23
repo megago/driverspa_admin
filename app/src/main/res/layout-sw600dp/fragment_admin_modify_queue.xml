@@ -63,7 +63,7 @@
                                 android:layout_marginLeft="@dimen/horizontal_margin"
                                 android:layout_marginRight="@dimen/horizontal_margin"
                                 android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:hint="Гос. номер*"
+                                android:hint="@string/plate_required"
                                 android:imeOptions="actionNext"
                                 android:inputType="text"
                                 android:textColor="@color/White"
@@ -102,7 +102,7 @@
                                 android:layout_marginLeft="@dimen/horizontal_margin"
                                 android:layout_marginRight="@dimen/horizontal_margin"
                                 android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:hint="Номер телефона"
+                                android:hint="@string/login_phone"
                                 android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:textColor="@color/White"
@@ -133,7 +133,7 @@
                             android:layout_marginTop="@dimen/vertical_margin_half"
                             android:gravity="left"
                             android:padding="@dimen/vertical_margin_half"
-                            android:text="Дополнительно"
+                            android:text="@string/additional"
                             android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="@dimen/text_normal" />
@@ -154,7 +154,7 @@
                             android:layout_marginLeft="@dimen/horizontal_margin"
                             android:layout_marginRight="@dimen/horizontal_margin"
                             android:gravity="center"
-                            android:text="Бронь на 08:00"
+                            android:text="@string/booking_at_0800"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_medium"
                             android:visibility="gone" />
@@ -188,7 +188,7 @@
                                     android:layout_marginLeft="@dimen/horizontal_margin"
                                     android:layout_marginRight="@dimen/horizontal_margin"
                                     android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:hint="Имя клиента"
+                                    android:hint="@string/client_name"
                                     android:imeOptions="actionNext"
                                     android:inputType="text"
                                     android:textColor="@color/White"
@@ -224,7 +224,7 @@
                                     android:layout_marginLeft="@dimen/horizontal_margin"
                                     android:layout_marginRight="@dimen/horizontal_margin"
                                     android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:hint="Марка автомобиля"
+                                    android:hint="@string/car_brand"
                                     android:imeOptions="actionNext"
                                     android:inputType="text"
                                     android:textColor="@color/White"
@@ -284,7 +284,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginTop="@dimen/vertical_margin_third"
                                             android:gravity="center"
-                                            android:text="Седан"
+                                            android:text="@string/sedan"
                                             android:textColor="@drawable/button_state_color_cars"
                                             android:textSize="@dimen/text_smaller" />
                                     </RelativeLayout>
@@ -313,7 +313,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginTop="@dimen/vertical_margin_third"
                                             android:gravity="center"
-                                            android:text="Кроссовер"
+                                            android:text="@string/crossover"
                                             android:textColor="@drawable/button_state_color_cars"
                                             android:textSize="@dimen/text_smaller" />
                                     </RelativeLayout>
@@ -342,7 +342,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginTop="@dimen/vertical_margin_third"
                                             android:gravity="center"
-                                            android:text="Джип"
+                                            android:text="@string/jeep"
                                             android:textColor="@drawable/button_state_color_cars"
                                             android:textSize="@dimen/text_smaller" />
                                     </RelativeLayout>
@@ -371,7 +371,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginTop="@dimen/vertical_margin_third"
                                             android:gravity="center"
-                                            android:text="Мотоцикл"
+                                            android:text="@string/motorcycle"
                                             android:textColor="@drawable/button_state_color_cars"
                                             android:textSize="@dimen/text_smaller" />
                                     </RelativeLayout>
@@ -400,7 +400,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginTop="@dimen/vertical_margin_third"
                                             android:gravity="center"
-                                            android:text="Микроавтобус"
+                                            android:text="@string/minibus"
                                             android:textColor="@drawable/button_state_color_cars"
                                             android:textSize="@dimen/text_smaller" />
                                     </RelativeLayout>
@@ -440,7 +440,7 @@
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:layout_weight="5"
                                 android:paddingLeft="@dimen/horizontal_margin_half"
-                                android:text="Нет доступных услуг"
+                                android:text="@string/no_available_services"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -480,7 +480,7 @@
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:layout_weight="5"
                                 android:paddingLeft="@dimen/horizontal_margin_half"
-                                android:text="Нет оффлайн боксов для создания очереди, нажмите чтобы добавить..."
+                                android:text="@string/no_offline_boxes"
                                 android:textColor="@drawable/button_state_color"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -507,7 +507,7 @@
                                 android:drawablePadding="@dimen/horizontal_margin_third"
                                 android:gravity="center"
                                 android:paddingLeft="@dimen/horizontal_margin_half"
-                                android:text="0 мин"
+                                android:text="@string/zero_min"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_normal" />
 
@@ -562,7 +562,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/background_button_border"
                 android:padding="10dp"
-                android:text="Добавить \n в очередь"
+                android:text="@string/add_to_queue_nl"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_normal" />
 
@@ -579,7 +579,7 @@
                 android:background="@drawable/background_button_border"
                 android:enabled="false"
                 android:padding="10dp"
-                android:text="Отправить\n в бокс"
+                android:text="@string/send_to_box_nl"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_normal" />
         </LinearLayout>

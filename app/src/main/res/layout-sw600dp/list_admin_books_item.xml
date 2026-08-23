@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center"
                     android:gravity="center"
-                    android:text="Номер машины: x001xxx"
+                    android:text="@string/car_number_example"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
 
@@ -149,7 +149,7 @@
                     android:gravity="bottom"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
-                    android:text="Закончен"
+                    android:text="@string/finished"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
 
@@ -246,7 +246,7 @@
             android:layout_gravity="right|center"
             android:layout_marginLeft="@dimen/horizontal_margin_third"
             android:gravity="center"
-            android:text="Мойщик не выбран"
+            android:text="@string/washer_not_selected"
             android:textColor="#f44336"
             android:textSize="@dimen/text_smaller" />
     </LinearLayout>

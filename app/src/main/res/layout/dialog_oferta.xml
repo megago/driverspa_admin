@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Публичная оферта"
+            android:text="@string/public_offer"
             android:textColor="@color/White"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -58,7 +58,7 @@
         android:background="@drawable/background_button_borderless"
         android:paddingBottom="14dp"
         android:paddingTop="14dp"
-        android:text="Согласен с офертой"
+        android:text="@string/agree_offer"
         android:textColor="@color/White"
         android:textSize="16sp"
         android:textStyle="bold" />

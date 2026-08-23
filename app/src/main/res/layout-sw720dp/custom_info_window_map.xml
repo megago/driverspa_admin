@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="от 500 ₸"
+            android:text="@string/from_500"
             android:textColor="@color/Black"
             android:textSize="@dimen/text_normal" />
 
@@ -88,7 +88,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin_half"
             android:layout_toRightOf="@+id/imgWasherAvatar"
             android:lines="1"
-            android:text="Автомойка"
+            android:text="@string/car_wash"
             android:textColor="@color/Black"
             android:textSize="@dimen/text_normal" />
 
@@ -100,7 +100,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin_half"
             android:layout_toRightOf="@+id/imgWasherAvatar"
             android:lines="1"
-            android:text="Автомойка"
+            android:text="@string/car_wash"
             android:textColor="@color/LightGrey"
             android:textSize="@dimen/text_normal" />
 
@@ -112,7 +112,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin_half"
             android:layout_toRightOf="@+id/imgWasherAvatar"
             android:lines="1"
-            android:text="Автомойка"
+            android:text="@string/car_wash"
             android:textColor="@color/LightGrey"
             android:textSize="@dimen/text_normal" />
     </RelativeLayout>
@@ -176,7 +176,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/horizontal_margin_third"
                 android:clickable="true"
-                android:text="Круглосуточно"
+                android:text="@string/around_clock"
                 android:textColor="@color/RosyBrown"
                 android:textColorLink="@color/White"
                 android:textSize="@dimen/text_small" />
@@ -193,7 +193,7 @@
         android:background="@drawable/background_blue_button"
         android:paddingLeft="@dimen/horizontal_margin"
         android:paddingRight="@dimen/horizontal_margin"
-        android:text="ПРОЛОЖИТЬ МАРШРУТ"
+        android:text="@string/build_route"
         android:textColor="@drawable/button_state_color"
         android:layout_marginBottom="@dimen/vertical_margin"
         android:textSize="@dimen/text_small" />

@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:text="Бокс 1"
+            android:text="@string/box_1"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
     </LinearLayout>

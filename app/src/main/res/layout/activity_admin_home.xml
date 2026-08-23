@@ -135,7 +135,7 @@
                                     android:layout_below="@id/tab_express"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:text="ЗАКАЗЫ"
+                                    android:text="@string/orders_caps"
                                     android:textSize="@dimen/text_smaller"
                                     android:visibility="gone"
                                     android:textColor="@color/White" />
@@ -200,7 +200,7 @@
                                     android:layout_below="@id/tab_orders"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:text="ЗАКАЗЫ"
+                                    android:text="@string/orders_caps"
                                     android:textSize="@dimen/text_smaller"
                                     android:visibility="gone"
                                     android:textColor="@color/White" />
@@ -274,7 +274,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:gravity="center"
-                                android:text="ТАБЛИЦА"
+                                android:text="@string/table_caps"
                                 android:textSize="@dimen/text_smaller"
                                 android:visibility="gone"
                                 android:textColor="@color/White" />
@@ -327,7 +327,7 @@
                                 android:layout_below="@id/tab_clients"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:text="ОТЗЫВЫ"
+                                android:text="@string/reviews_caps"
                                 android:textSize="@dimen/text_smaller"
                                 android:visibility="gone"
                                 android:textColor="@color/White" />
@@ -384,7 +384,7 @@
                             android:layout_below="@id/tab_statistics"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/vertical_margin_half"
-                            android:text="СТАТИСТИКА"
+                            android:text="@string/statistics_caps"
                             android:textSize="@dimen/text_smaller"
                             android:textColor="@color/White" />
                     </RelativeLayout>
@@ -423,7 +423,7 @@
                         android:layout_marginLeft="@dimen/horizontal_margin_double"
                         android:layout_marginRight="@dimen/horizontal_margin_double"
                         android:gravity="center"
-                        android:text="Ваша мойка еще не активирована. Для этого вам необходимо настроить мойку и заполнить обязательные поля. После настройки, обратитесь в службу поддержки для проверки ваших данных и последующих активации."
+                        android:text="@string/wash_not_activated"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 
@@ -454,7 +454,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/vertical_margin_half"
                         android:padding="@dimen/vertical_margin_half"
-                        android:text="НАСТРОЙТЬ МОЙКУ"
+                        android:text="@string/setup_wash_caps"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@drawable/button_state_color"
                         android:textSize="@dimen/text_normal"
@@ -466,7 +466,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/vertical_margin_double"
                         android:layout_weight="1"
-                        android:text="Служба поддержки:"
+                        android:text="@string/support_colon"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_small" />
 
@@ -491,7 +491,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/vertical_margin_double"
                         android:clickable="true"
-                        android:text="Выйти"
+                        android:text="@string/logout"
                         android:textColor="@drawable/button_state_color"
                         android:textSize="@dimen/text_normal" />
                 </LinearLayout>
@@ -518,7 +518,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:maxLines="3"
-                    android:text="Предлагаем клиенту\n\nваше предложение"
+                    android:text="@string/offering_to_client"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -640,7 +640,7 @@
                                         android:inputType="number"
                                         android:lines="1"
                                         android:maxLines="2"
-                                        android:text="Кузов + салон"
+                                        android:text="@string/body_interior"
                                         android:textColor="@color/Black"
                                         android:textColorHint="@color/Gray"
                                         android:textCursorDrawable="@null"
@@ -700,7 +700,7 @@
                                     android:lines="1"
                                     android:maxLength="100"
                                     android:maxLines="2"
-                                    android:text="Комментарий"
+                                    android:text="@string/comment"
                                     android:textColor="@color/Black"
                                     android:textColorHint="@color/Gray"
                                     android:textCursorDrawable="@null"
@@ -742,7 +742,7 @@
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
                                 android:layout_marginRight="@dimen/horizontal_margin_half"
                                 android:background="@drawable/background_green_button"
-                                android:text="Принять за 600 ₸"
+                                android:text="@string/accept_for_600"
                                 android:textAllCaps="false"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_normal" />
@@ -757,7 +757,7 @@
                                 android:layout_marginTop="@dimen/vertical_margin_half"
                                 android:gravity="center"
                                 android:maxLines="3"
-                                android:text="Предложите свою цену"
+                                android:text="@string/offer_your_price"
                                 android:textColor="@color/Black"
                                 android:textSize="@dimen/text_small" />
 
@@ -818,7 +818,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginBottom="@dimen/horizontal_margin_half"
                                 android:padding="@dimen/horizontal_margin_half"
-                                android:text="Закрыть"
+                                android:text="@string/close"
                                 android:textColor="@color/Green"
                                 android:textStyle="bold" />
 

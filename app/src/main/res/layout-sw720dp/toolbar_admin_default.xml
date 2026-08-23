@@ -37,7 +37,7 @@
             android:layout_toRightOf="@id/spinner"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Заказы"
+            android:text="@string/orders"
             android:textColor="@drawable/button_state_color"
             android:textSize="@dimen/text_medium"
             android:visibility="gone" />

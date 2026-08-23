@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Моя бронь"
+            android:text="@string/my_booking"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/White"
             android:textSize="@dimen/text_medium" />
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Нет брони"
+        android:text="@string/no_bookings"
         android:textColor="@color/White"
         android:textSize="@dimen/text_small"
         android:visibility="gone" />

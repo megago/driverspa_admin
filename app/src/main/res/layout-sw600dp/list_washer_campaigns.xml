@@ -24,7 +24,7 @@
                 android:id="@+id/txtWasherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Автомойка "
+                android:text="@string/car_wash_label_sp"
                 android:textColor="@color/White"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_small" />
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="кузов + салон от 1500"
+                android:text="@string/body_interior_from_1500"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
@@ -85,7 +85,7 @@
             android:layout_marginRight="@dimen/horizontal_margin_third"
             android:layout_toLeftOf="@+id/imageView1"
             android:gravity="right"
-            android:text="добавлено год назад"
+            android:text="@string/added_year_ago"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>

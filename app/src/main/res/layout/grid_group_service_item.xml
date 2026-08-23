@@ -24,7 +24,7 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:maxLines="1"
-            android:text="Бокс 1"
+            android:text="@string/box_1"
             android:ellipsize="end"
             android:textColor="@color/White"
             android:textSize="@dimen/text_smaller" />
@@ -39,7 +39,7 @@
             android:ellipsize="end"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="оффлайн"
+            android:text="@string/offline"
             android:textColor="@color/White"
             android:textSize="@dimen/text_smallest" />
 

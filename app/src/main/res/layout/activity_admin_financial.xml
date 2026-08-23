@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
-                    android:text="От"
+                    android:text="@string/from_word"
                     android:textColor="@color/AntiqueWhite"
                     android:textSize="@dimen/text_small" />
 
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/horizontal_margin"
-                    android:text="До"
+                    android:text="@string/to_word"
                     android:textColor="@color/AntiqueWhite"
                     android:textSize="@dimen/text_small" />
 
@@ -154,7 +154,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Касса"
+                        android:text="@string/cashbox"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 
@@ -190,7 +190,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Деньги"
+                        android:text="@string/money"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 
@@ -227,7 +227,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Прочие доходы/расходы"
+                        android:text="@string/other_income_expense"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 

@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center"
                     android:gravity="center"
-                    android:text="Номер машины: x001xxx"
+                    android:text="@string/car_number_example"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
 
@@ -150,7 +150,7 @@
                     android:gravity="bottom"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
-                    android:text="Закончен"
+                    android:text="@string/finished"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
 

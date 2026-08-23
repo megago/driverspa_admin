@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin"
                         android:layout_marginTop="@dimen/vertical_margin_half"
-                        android:text="Общие доходы"
+                        android:text="@string/total_incomes"
                         android:textStyle="bold"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
@@ -65,7 +65,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Оказание услуг:"
+                                android:text="@string/service_rendering"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -107,7 +107,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Продажа товаров:"
+                                android:text="@string/goods_sales"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -147,7 +147,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Прочие доходы:"
+                                android:text="@string/other_incomes"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -186,7 +186,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Не признанные доходы:"
+                                android:text="@string/unrecognized_income"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -225,7 +225,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Итого:"
+                                android:text="@string/total_colon"
                                 android:textStyle="bold"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
@@ -263,7 +263,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin"
                         android:layout_marginTop="@dimen/vertical_margin_half"
-                        android:text="Общие расходы"
+                        android:text="@string/total_expenses"
                         android:textStyle="bold"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
@@ -285,7 +285,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Зарплата (Проценты от заказов):"
+                                android:text="@string/salary_percent_orders"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -326,7 +326,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Прочие расходы:"
+                                android:text="@string/other_expenses"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -368,7 +368,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Итого:"
+                                android:text="@string/total_colon"
                                 android:textStyle="bold"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
@@ -417,7 +417,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Итого:"
+                                android:text="@string/total_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_normal" />
 

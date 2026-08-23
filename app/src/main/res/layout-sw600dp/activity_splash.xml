@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ошибка соединения"
+            android:text="@string/connection_error"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
@@ -124,7 +124,7 @@
                 android:layout_marginLeft="@dimen/horizontal_margin_double"
                 android:layout_marginRight="@dimen/horizontal_margin_double"
                 android:gravity="center"
-                android:text="К сожалению версия вашей программы устарела. Для стабильной работы необходимо обновить приложение."
+                android:text="@string/version_outdated"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:padding="@dimen/vertical_margin_half"
-                android:text="Обновить"
+                android:text="@string/refresh"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_normal"
@@ -146,7 +146,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_double"
                 android:layout_weight="1"
-                android:text="Служба поддержки:"
+                android:text="@string/support_colon"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_small" />
 

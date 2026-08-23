@@ -128,7 +128,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/vertical_margin_third"
                                 android:visibility="gone"
-                                android:text="Избранные"
+                                android:text="@string/favorites"
                                 android:textSize="@dimen/text_smaller"
                                 android:textColor="@color/White" />
                         </RelativeLayout>
@@ -177,7 +177,7 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="@dimen/vertical_margin_half"
                                     android:visibility="gone"
-                                    android:text="Мои брони"
+                                    android:text="@string/my_bookings"
                                     android:textSize="@dimen/text_smaller"
                                     android:textColor="@color/White" />
 
@@ -245,7 +245,7 @@
                                 android:layout_below="@id/nearby"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:text="Все мойки"
+                                android:text="@string/all_washes"
                                 android:visibility="gone"
                                 android:textSize="@dimen/text_smaller"
                                 android:textColor="@color/White" />
@@ -289,7 +289,7 @@
                                 android:layout_below="@id/available"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/vertical_margin_third"
-                                android:text="На карте"
+                                android:text="@string/on_map"
                                 android:visibility="gone"
                                 android:textSize="@dimen/text_smaller"
                                 android:textColor="@color/White" />

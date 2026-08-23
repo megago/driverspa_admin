@@ -17,7 +17,7 @@
         android:layout_weight="0.5"
         android:visibility="gone"
         android:gravity="center"
-        android:text="Профиль"
+        android:text="@string/profile_title"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal" />
 
@@ -83,7 +83,7 @@
                     android:layout_marginLeft="@dimen/horizontal_margin"
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_half"
-                    android:hint="Имя"
+                    android:hint="@string/name_label"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/White"
@@ -164,7 +164,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="Город"
+                        android:text="@string/city"
                         android:paddingLeft="@dimen/horizontal_margin_half"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
@@ -197,7 +197,7 @@
                     android:layout_marginTop="@dimen/vertical_margin_double"
                     android:background="@drawable/background_button_border"
                     android:padding="10dp"
-                    android:text="Сохранить"
+                    android:text="@string/save"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="22sp" />
             </LinearLayout>

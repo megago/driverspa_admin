@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin"
                         android:layout_marginTop="@dimen/vertical_margin_half"
-                        android:text="Тип операции"
+                        android:text="@string/operation_type"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small"
                         android:textStyle="bold" />
@@ -64,7 +64,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Платежи за услуги:"
+                                android:text="@string/service_payments"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -100,7 +100,7 @@
                                 android:id="@+id/manualCashService"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Внесение за услуги вручную"
+                                android:text="@string/manual_service_entry"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -126,7 +126,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Инкассация:"
+                                android:text="@string/collection_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -162,7 +162,7 @@
                                 android:id="@+id/manualCashOut"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Инкассировать"
+                                android:text="@string/collect_cash"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -187,7 +187,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Внесение в кассу:"
+                                android:text="@string/cashbox_deposit"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -222,7 +222,7 @@
                                 android:id="@+id/manualCashIn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Внести"
+                                android:text="@string/deposit_action"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -247,7 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Выдача зарплаты:"
+                                android:text="@string/salary_payout_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -280,7 +280,7 @@
                                 android:id="@+id/manualSalaryPaid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Выдать"
+                                android:text="@string/issue"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -305,7 +305,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Платежи за товары:"
+                                android:text="@string/goods_payments"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -345,7 +345,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Прочие доходы:"
+                                android:text="@string/other_incomes"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -381,7 +381,7 @@
                                 android:id="@+id/manualOtherRevenue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Приход"
+                                android:text="@string/income_word"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -404,7 +404,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Не признанные доходы:"
+                                android:text="@string/unrecognized_income"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -439,7 +439,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Приход"
+                                android:text="@string/income_word"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -463,7 +463,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Прочие расходы:"
+                                android:text="@string/other_expenses"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -496,7 +496,7 @@
                                 android:id="@+id/manualOtherExpense"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Расход"
+                                android:text="@string/expense"
                                 android:textStyle="bold"
                                 android:textColor="@drawable/button_state_color"
                                 android:textSize="@dimen/text_small" />
@@ -520,7 +520,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Итого:"
+                                android:text="@string/total_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small"
                                 android:textStyle="bold" />

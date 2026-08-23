@@ -47,7 +47,7 @@
                     android:paddingRight="6dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:text="Готовые"
+                    android:text="@string/ready_plural"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
@@ -74,7 +74,7 @@
                     android:paddingRight="6dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:text="Свои"
+                    android:text="@string/own"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                     android:paddingRight="6dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:text="Комплекс"
+                    android:text="@string/complex_pkg"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />

@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Раз.:"
+                android:text="@string/misc_short"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                android:text="Нач.:"
+                android:text="@string/start_short"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                android:text="Кон.:"
+                android:text="@string/end_short"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 

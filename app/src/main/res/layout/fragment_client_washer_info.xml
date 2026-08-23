@@ -43,7 +43,7 @@
                     android:paddingLeft="40dp"
                     android:paddingRight="40dp"
                     android:paddingTop="10dp"
-                    android:text="ЗАБРОНИРОВАТЬ"
+                    android:text="@string/book_caps"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_normal" />
 
@@ -186,7 +186,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Веб:"
+                            android:text="@string/web_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_small" />
 
@@ -331,7 +331,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_third"
-                                android:text="Кафе"
+                                android:text="@string/cafe"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
                         </LinearLayout>
@@ -372,7 +372,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_half"
-                        android:text="В избранное"
+                        android:text="@string/to_favorites"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
                 </LinearLayout>
@@ -410,7 +410,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_five"
-                        android:text="Цены"
+                        android:text="@string/prices"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
                 </LinearLayout>
@@ -448,7 +448,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_six"
-                        android:text="Отзывы"
+                        android:text="@string/reviews"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
                 </LinearLayout>
@@ -488,7 +488,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_half"
-                        android:text="Расписание"
+                        android:text="@string/schedule"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
                 </LinearLayout>
@@ -511,7 +511,7 @@
                     android:paddingLeft="40dp"
                     android:paddingRight="40dp"
                     android:paddingTop="10dp"
-                    android:text="ЗАБРОНИРОВАТЬ"
+                    android:text="@string/book_caps"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_normal" />
             </LinearLayout>

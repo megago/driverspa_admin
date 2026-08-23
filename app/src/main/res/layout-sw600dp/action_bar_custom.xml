@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"                
         android:layout_gravity="center"
-        android:text="Астана"                
+        android:text="@string/astana"                
         android:textColor="@color/White"
         android:textSize="25sp" />
 

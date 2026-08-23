@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="2 мин"
+            android:text="@string/min_2"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smallest" />
     </LinearLayout>
@@ -100,7 +100,7 @@
             android:clickable="false"
             android:lines="1"
             android:maxLines="1"
-            android:text="Кузов + салон"
+            android:text="@string/body_interior"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small" />
 

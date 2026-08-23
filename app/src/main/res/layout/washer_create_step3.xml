@@ -47,7 +47,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Услуги\nсо списка"
+                        android:text="@string/services_from_list"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 
@@ -82,7 +82,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Создать\nсвои услуги"
+                        android:text="@string/create_own_services"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -117,7 +117,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="@dimen/text_normal"
-                        android:text="Комплексные\nуслуги"
+                        android:text="@string/complex_services_nl"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
                 </LinearLayout>

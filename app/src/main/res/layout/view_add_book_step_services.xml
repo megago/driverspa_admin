@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Услуги"
+                android:text="@string/services"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
@@ -45,7 +45,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:text="Комплекс"
+                    android:text="@string/complex_pkg"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_smaller"
                     android:visibility="gone" />
@@ -58,7 +58,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:text="Все услуги"
+                    android:text="@string/all_services"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller"
                     android:textStyle="bold" />
@@ -103,7 +103,7 @@
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Выберите тип авто, чтобы увидеть услуги"
+            android:text="@string/choose_cartype_to_see"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
@@ -120,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сотрудник"
+            android:text="@string/employee"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -148,7 +148,7 @@
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Нет доступных мойщиков"
+            android:text="@string/no_available_washers"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

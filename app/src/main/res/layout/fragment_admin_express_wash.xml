@@ -64,7 +64,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Количество направляющихся машин:"
+                        android:text="@string/incoming_cars_count"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
                     <TextView

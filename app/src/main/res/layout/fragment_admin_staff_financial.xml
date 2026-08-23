@@ -78,7 +78,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="От"
+                                android:text="@string/from_word"
                                 android:textColor="@color/AntiqueWhite"
                                 android:textSize="@dimen/text_small" />
 
@@ -103,7 +103,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="До"
+                                android:text="@string/to_word"
                                 android:textColor="@color/AntiqueWhite"
                                 android:textSize="@dimen/text_small" />
 
@@ -143,7 +143,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Количество машин:"
+                                android:text="@string/car_count"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -168,7 +168,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="На сумму:"
+                                android:text="@string/for_amount"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -224,7 +224,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Начис.:"
+                                android:text="@string/accrued_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -264,7 +264,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Другие услуги:"
+                                android:text="@string/other_services_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -289,7 +289,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="На сумму:"
+                                android:text="@string/for_amount"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -346,7 +346,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Начис.:"
+                                android:text="@string/accrued_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -385,7 +385,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Вручные начисления:"
+                                android:text="@string/manual_accruals"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -417,7 +417,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Общие начисления:"
+                                android:text="@string/total_accruals"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -452,7 +452,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Списано:"
+                                android:text="@string/written_off"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -484,7 +484,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Выдано:"
+                                android:text="@string/issued_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 

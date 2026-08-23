@@ -21,7 +21,7 @@
             android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Мойка кузова"
+            android:text="@string/body_wash"
             android:textColor="@color/White"
             android:textIsSelectable="false"
             android:textSize="@dimen/text_normal"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Детали"
+            android:text="@string/details"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller"
             android:visibility="gone" />

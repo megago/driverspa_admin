@@ -24,9 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="left"
-            android:text="  DriverSpa-Admin — это мобильное приложение для поиска и бронирования ближайших к вам автомоек с лучшим качеством обслуживания. Больше никаких очередей! Вы всегда сможете найти ближайшую свободную мойку и забронировать удобное время. И всё это — совершенно бесплатно для автомобилистов!
-Сравнивайте цены автомоек и их рейтинг по отзывы других пользователей DriverSpa-Admin. Мы тщательно следим за качеством оказания услуг нашим пользователям. В случае жалобы на качество работы персонала мы рассматриваем её совместно с руководством мойки и принимаем необходимые меры, чтобы подобные случае не повторялись. При многочисленных жалобах на автомойку мы удаляем её из нашей базы.
-Ваши отзывы очень помогут нам для развития и распространения DriverSpa-Admin. Мы будем очень благодарны вам за отзыв в магазине приложений."
+            android:text="@string/about_app_full"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
 
@@ -36,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="left"
-            android:text="Мы днём и ночью работаем над улучшением DriverSpa-Admin. Мы всегда рады любым предложениям от наших пользователей — каждое из предложение будет рассмотрено и включено в наш план развития."
+            android:text="@string/about_improvement"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
 
@@ -46,7 +44,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="left"
-            android:text="Если у вас возникли вопросы или проблемы при работе с приложением — напишите нам:"
+            android:text="@string/contact_us_info"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
 
@@ -56,7 +54,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="center"
-            android:text="Если у вас возникли вопросы или проблемы при работе с приложением — напишите нам:"
+            android:text="@string/contact_us_info"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />
 
@@ -124,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="5"
-                                android:text="Автогеолокация"
+                                android:text="@string/auto_geolocation"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -161,7 +159,7 @@
                             android:layout_marginTop="@dimen/vertical_margin_double"
                             android:layout_weight="5"
                             android:paddingLeft="@dimen/horizontal_margin"
-                            android:text="Язык интерфейса"
+                            android:text="@string/interface_language"
                             android:textColor="@color/White"
                             android:textColorHint="@color/BlueLight"
                             android:textIsSelectable="false"
@@ -192,7 +190,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="5"
-                                android:text="Русский"
+                                android:text="@string/russian_lang"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -231,7 +229,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="5"
-                                android:text="Оценить приложение"
+                                android:text="@string/rate_app"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -267,7 +265,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="5"
-                                android:text="Я согласен получать\nинформационные уведомления"
+                                android:text="@string/agree_notifications"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -315,7 +313,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="5"
-                                android:text="Выход"
+                                android:text="@string/exit"
                                 android:textColor="@color/White"
                                 android:textColorHint="@color/BlueLight"
                                 android:textIsSelectable="false"
@@ -337,7 +335,7 @@
                             android:layout_marginTop="@dimen/vertical_margin_double"
                             android:background="@drawable/background_button_border"
                             android:padding="10dp"
-                            android:text="Сохранить"
+                            android:text="@string/save"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="22sp"
                             android:visibility="gone" />

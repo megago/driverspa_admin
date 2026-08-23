@@ -96,7 +96,7 @@
                 android:id="@+id/txtWasherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Автомойка "
+                android:text="@string/car_wash_label_sp"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/text_normal" />
         </LinearLayout>
@@ -149,7 +149,7 @@
             android:padding="10dp"
             android:paddingLeft="@dimen/horizontal_margin_double"
             android:paddingRight="@dimen/horizontal_margin"
-            android:text="1000 ₸. Принять"
+            android:text="@string/accept_1000"
             android:textAllCaps="false"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal" />

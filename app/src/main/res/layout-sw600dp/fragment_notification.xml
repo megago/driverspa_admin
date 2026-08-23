@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Моя бронь"
+            android:text="@string/my_booking"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/White"
             android:textSize="@dimen/text_medium" />
@@ -81,7 +81,7 @@
             android:id="@+id/noLoggedInMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Необходимо войти"
+            android:text="@string/login_required"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Black"
             android:textSize="@dimen/text_normal" />
@@ -90,7 +90,7 @@
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ВОЙТИ"
+            android:text="@string/login_caps"
             android:textStyle="bold"
             android:padding="@dimen/vertical_margin_half"
             android:textAppearance="?android:attr/textAppearanceMedium"

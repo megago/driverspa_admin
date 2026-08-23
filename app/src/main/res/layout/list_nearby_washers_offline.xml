@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Автомойка Тап Таза fgsdgf sdfgsdf gsd fgsdfg sdfg df gdf gsdf g fdgsdf gsdf gsdf gsd gfs dg sdfg sdfg sdfg sdfg sdf s"
+                android:text="@string/demo_washer_name_long"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="italic" />
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="кузов + салон от 1500"
+                android:text="@string/body_interior_from_1500"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="italic" />

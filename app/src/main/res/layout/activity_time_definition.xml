@@ -22,7 +22,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center"
-        android:text="Время работы"
+        android:text="@string/work_hours"
         android:visibility="gone"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal" />
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
-                android:text="Комментарии"
+                android:text="@string/comments"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
             <EditText
@@ -73,22 +73,22 @@
                   android:id="@+id/allweek"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="круглосуточно(с 00 до 23:59)"/>
+                  android:text="@string/around_clock_hours"/>
               <RadioButton
                   android:id="@+id/daytime"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="с 08 до 21"/>
+                  android:text="@string/hours_08_21"/>
               <RadioButton
                   android:id="@+id/daytime2"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="с 08 до 24"/>
+                  android:text="@string/hours_08_24"/>
               <RadioButton
                   android:id="@+id/other"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Другое"/>
+                  android:text="@string/other"/>
           </RadioGroup>
 
             <TextView
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
-                android:text="Понедельник"
+                android:text="@string/monday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Вторник"
+                android:text="@string/tuesday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Среда"
+                android:text="@string/wednesday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Четверг"
+                android:text="@string/thursday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -205,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Пятница"
+                android:text="@string/friday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Суббота"
+                android:text="@string/saturday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin_third"
-                android:text="Воскресенье"
+                android:text="@string/sunday"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 

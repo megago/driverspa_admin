@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/horizontal_margin_half"
         android:layout_below="@+id/txtClientName"
-        android:text="телефон не указан"
+        android:text="@string/phone_not_specified"
         android:maxLines="1"
         android:ellipsize="end"
         android:textColorLink="@color/GreenYellow"

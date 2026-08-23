@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:gravity="center"
-            android:text="Добавление акции"
+            android:text="@string/add_promo_title"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:visibility="gone" />
@@ -84,7 +84,7 @@
             android:gravity="center"
             android:paddingBottom="@dimen/vertical_margin_third"
             android:paddingTop="@dimen/vertical_margin_third"
-            android:text="Дата окончания акции(включительно)"
+            android:text="@string/promo_end_date_incl"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small"
             android:visibility="gone" />
@@ -124,7 +124,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/horizontal_margin_half"
                 android:gravity="center"
-                android:text="Скидка"
+                android:text="@string/discount"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -189,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Осталось:"
+                    android:text="@string/remaining_colon"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium"
                     android:textStyle="bold" />
@@ -199,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="неизвестно"
+                    android:text="@string/unknown"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -229,7 +229,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_third"
                         android:gravity="center"
-                        android:text="мес."
+                        android:text="@string/month_short"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
 
@@ -252,7 +252,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/horizontal_margin_third"
                         android:gravity="center"
-                        android:text="дней"
+                        android:text="@string/days"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
@@ -286,7 +286,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="часов"
+                            android:text="@string/hours"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_smaller" />
                     </LinearLayout>
@@ -329,7 +329,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="минут"
+                            android:text="@string/minutes"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_smaller" />
                     </LinearLayout>
@@ -372,7 +372,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="секунды"
+                            android:text="@string/seconds"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_smaller" />
                     </LinearLayout>
@@ -390,7 +390,7 @@
             android:gravity="center"
             android:paddingBottom="@dimen/vertical_margin_third"
             android:paddingTop="@dimen/vertical_margin_third"
-            android:text="Краткое описание акции (100 символов)"
+            android:text="@string/promo_short_desc"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small"
             android:visibility="gone" />
@@ -437,7 +437,7 @@
             android:background="@drawable/background_button_border"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Забронировать"
+            android:text="@string/book_verb"
             android:textAllCaps="true"
             android:textColor="@drawable/button_state_color"
             android:textSize="@dimen/text_normal"

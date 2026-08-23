@@ -39,7 +39,7 @@
                     android:clickable="true"
                     android:drawablePadding="@dimen/horizontal_margin_third"
                     android:gravity="center"
-                    android:text="Фильтры"
+                    android:text="@string/filters"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_medium"
                     android:textStyle="bold" />
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Астана"
+                    android:text="@string/astana"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium" />
 
@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Отображать мойки в рудиусе:"
+                    android:text="@string/show_washes_radius"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium" />
 
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:gravity="right"
-                    android:text="4 км"
+                    android:text="@string/distance_4km"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium" />
 
@@ -144,7 +144,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Кузов-салон не более"
+                    android:text="@string/body_interior_max"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium" />
 
@@ -218,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Рейтинг более"
+                    android:text="@string/rating_more"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_medium" />
 
@@ -307,7 +307,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Кафе"
+                    android:text="@string/cafe"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -352,7 +352,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Кофе"
+                    android:text="@string/coffee"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -444,7 +444,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Зона отдыха"
+                    android:text="@string/rest_area"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -492,7 +492,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Банкомат"
+                    android:text="@string/atm"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -537,7 +537,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Оплата по карте"
+                    android:text="@string/card_payment"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -584,7 +584,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingTop="10dp"
-                android:text="ПРИМЕНИТЬ"
+                android:text="@string/apply_caps"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_normal" />
 

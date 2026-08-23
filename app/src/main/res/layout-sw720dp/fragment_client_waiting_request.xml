@@ -40,7 +40,7 @@
                     android:gravity="center|right"
                     android:maxLines="3"
                     android:padding="@dimen/horizontal_margin"
-                    android:text="Отменить"
+                    android:text="@string/cancel"
                     android:textColor="@color/Gray"
                     android:textSize="@dimen/text_large"
                     android:textStyle="bold" />
@@ -70,9 +70,9 @@
                 android:gravity="center"
                 android:layout_marginTop="@dimen/vertical_margin_half"
                 android:layout_marginBottom="@dimen/vertical_margin_half"
-                android:hint="Предлагаем вашу цену автомойкам, пожалуйста подождите"
+                android:hint="@string/offering_price_wait"
                 android:maxLines="3"
-                android:text="Возможно #AMOUNT# ₸. не заинтересует автомоек, рекомендуем поднять цену"
+                android:text="@string/amount_may_not_interest_raise"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold" />
@@ -185,7 +185,7 @@
                                 android:inputType="number"
                                 android:lines="1"
                                 android:maxLines="2"
-                                android:text="Кузов + салон"
+                                android:text="@string/body_interior"
                                 android:textColor="@color/Black"
                                 android:textColorHint="@color/Gray"
                                 android:textCursorDrawable="@null"
@@ -235,7 +235,7 @@
                             android:lines="1"
                             android:maxLength="100"
                             android:maxLines="2"
-                            android:text="Комментарий"
+                            android:text="@string/comment"
                             android:textColor="@color/Black"
                             android:textColorHint="@color/Gray"
                             android:textCursorDrawable="@null"
@@ -317,7 +317,7 @@
                             android:layout_marginTop="@dimen/vertical_margin"
                             android:background="@drawable/background_green_button"
                             android:enabled="false"
-                            android:text="Поднять цену"
+                            android:text="@string/raise_price"
                             android:textAllCaps="false"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
@@ -346,7 +346,7 @@
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:gravity="center"
                 android:maxLines="3"
-                android:text="Предложения от автомоек"
+                android:text="@string/offers_from_washes"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold" />
@@ -444,7 +444,7 @@
                                 android:id="@+id/txtWasherName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Автомойка "
+                                android:text="@string/car_wash_label_sp"
                                 android:textColor="@color/Black"
                                 android:textSize="@dimen/text_normal" />
                         </LinearLayout>
@@ -528,7 +528,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin"
                         android:gravity="center"
                         android:maxLines="3"
-                        android:text="Через какое время можете быть на автомойке?"
+                        android:text="@string/eta_question"
                         android:textColor="@color/Black"
                         android:textSize="@dimen/text_medium"
                         android:textStyle="bold" />
@@ -542,7 +542,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin_half"
                         android:layout_marginTop="@dimen/vertical_margin"
                         android:background="@drawable/background_green_button"
-                        android:text="5 мин."
+                        android:text="@string/min_5"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
@@ -556,7 +556,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin_half"
                         android:layout_marginTop="@dimen/horizontal_margin_half"
                         android:background="@drawable/background_green_button"
-                        android:text="10 мин."
+                        android:text="@string/min_10"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
@@ -570,7 +570,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin_half"
                         android:layout_marginTop="@dimen/horizontal_margin_half"
                         android:background="@drawable/background_green_button"
-                        android:text="20 мин."
+                        android:text="@string/min_20"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
@@ -585,7 +585,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin_half"
                         android:layout_marginTop="@dimen/horizontal_margin_half"
                         android:background="@drawable/background_green_button"
-                        android:text="30 мин."
+                        android:text="@string/min_30"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />

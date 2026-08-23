@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:maxLines="3"
-                    android:text="Возможно #AMOUNT# не заинтересует автомоек"
+                    android:text="@string/amount_may_not_interest"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/text_medium"
                     android:textStyle="bold" />
@@ -60,7 +60,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:maxLines="3"
-                    android:text="Поднять цену"
+                    android:text="@string/raise_price"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/text_medium"
                     android:textStyle="bold" />
@@ -128,7 +128,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin_half"
                     android:layout_marginTop="@dimen/vertical_margin"
                     android:background="@drawable/background_green_button"
-                    android:text="Изменить цену"
+                    android:text="@string/change_price"
                     android:enabled="false"
                     android:textAllCaps="false"
                     android:textColor="@color/White"
@@ -144,7 +144,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin_half"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:background="@drawable/background_green_button"
-                    android:text="Продолжить с #AMOUNT#"
+                    android:text="@string/continue_with_amount"
                     android:textAllCaps="false"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />

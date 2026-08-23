@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Авто"
+                    android:text="@string/car"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Услуги"
+                    android:text="@string/services"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Оплата"
+                    android:text="@string/payment"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
@@ -215,7 +215,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Стоимость"
+                        android:text="@string/cost"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_smaller" />
                     <TextView
@@ -229,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="6dp"
-                        android:text="Время"
+                        android:text="@string/time_word"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_smaller" />
                 </LinearLayout>
@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="0 мин"
+                        android:text="@string/zero_min"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
@@ -270,7 +270,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Остаток 0 ₸"
+                    android:text="@string/balance_zero"
                     android:textColor="@color/BlueLight2"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -284,7 +284,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:text="Назад"
+                android:text="@string/back"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
@@ -297,7 +297,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="Далее"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"
@@ -311,7 +311,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="Бронировать"
+                android:text="@string/book"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"

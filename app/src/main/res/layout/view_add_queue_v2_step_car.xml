@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Поиск по номеру / клиенту"
+            android:hint="@string/search_number_client"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="textCapWords"
             android:lines="1"
@@ -75,7 +75,7 @@
             android:maxLines="1"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Арман, Тойота 573FRA13"
+            android:text="@string/name_arman_example"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small" />
 
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Гос. номер авто *"
+            android:text="@string/car_plate_required_2"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller" />
 
@@ -138,7 +138,7 @@
                 android:layout_gravity="end|center_vertical"
                 android:padding="12dp"
                 android:src="@drawable/ic_text_detection_camera"
-                android:contentDescription="Сканировать номер" />
+                android:contentDescription="@string/scan_plate" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Марка автомобиля"
+            android:text="@string/car_brand"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller" />
 
@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/bg_v2_field"
-            android:hint="напр. Toyota Camry"
+            android:hint="@string/example_toyota"
             android:imeOptions="actionNext"
             android:inputType="textAutoComplete|textCapWords"
             android:paddingLeft="12dp"
@@ -182,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Клиент"
+            android:text="@string/client"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -191,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Имя клиента"
+            android:text="@string/client_name"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller" />
 
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Имя клиента"
+                android:hint="@string/client_name"
                 android:imeOptions="actionNext"
                 android:inputType="textAutoComplete|textCapWords"
                 android:paddingTop="12dp"
@@ -243,7 +243,7 @@
                     android:ellipsize="end"
                     android:maxLength="30"
                     android:maxLines="1"
-                    android:text="клиенты"
+                    android:text="@string/clients_lc"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -253,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Телефон"
+            android:text="@string/phone"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller" />
 
@@ -303,7 +303,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Бронь на 08:00"
+            android:text="@string/booking_at_0800"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold"
@@ -321,7 +321,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Тип авто"
+            android:text="@string/car_type"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -356,7 +356,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Мини"
+                    android:text="@string/mini"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -384,7 +384,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Седан"
+                    android:text="@string/sedan"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -412,7 +412,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Универсал"
+                    android:text="@string/wagon"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -440,7 +440,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Кроссовер"
+                    android:text="@string/crossover"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -468,7 +468,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Мини джип"
+                    android:text="@string/mini_jeep"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -496,7 +496,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Джип"
+                    android:text="@string/jeep"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -524,7 +524,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Мотоцикл"
+                    android:text="@string/motorcycle"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -552,7 +552,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Минивэн"
+                    android:text="@string/minivan"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -580,7 +580,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Микроавтобус"
+                    android:text="@string/minibus"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>

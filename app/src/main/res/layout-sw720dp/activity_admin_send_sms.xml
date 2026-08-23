@@ -58,7 +58,7 @@
         android:textSize="@dimen/text_small"
         android:layout_marginTop="@dimen/vertical_margin_third"
         android:layout_marginLeft="@dimen/horizontal_margin"
-        android:hint="Фильтр (например 707 или 701)"
+        android:hint="@string/filter_hint_boxes"
         android:textColorHint="@color/BlueLight"
         android:transitionName="title_transition"
         android:textColor="@drawable/button_state_color"/>
@@ -142,7 +142,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/horizontal_margin_double"
         android:layout_marginRight="@dimen/horizontal_margin_double"
-        android:text="Нет клиентов, попробуйте позже"
+        android:text="@string/no_clients_later"
         android:gravity="center"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"

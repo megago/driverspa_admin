@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin_half"
-                        android:text="в"
+                        android:text="@string/prep_at"
                         android:textColor="@drawable/button_state_color"
                         android:textSize="@dimen/text_small"
                         android:textStyle="normal" />
@@ -74,7 +74,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Вид операции"
+                    android:text="@string/operation_kind"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -110,7 +110,7 @@
                         android:paddingBottom="@dimen/vertical_margin_third"
                         android:paddingLeft="@dimen/horizontal_margin"
                         android:paddingTop="@dimen/vertical_margin_third"
-                        android:text="Тип оплаты"
+                        android:text="@string/payment_kind"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 
@@ -141,7 +141,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Назначение"
+                    android:text="@string/purpose"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -155,7 +155,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Назначение"
+                    android:hint="@string/purpose"
                     android:imeOptions="actionNext"
                     android:inputType="text|textMultiLine|textCapSentences"
                     android:lines="1"
@@ -183,7 +183,7 @@
                         android:paddingBottom="@dimen/vertical_margin_third"
                         android:paddingLeft="@dimen/horizontal_margin"
                         android:paddingTop="@dimen/vertical_margin_third"
-                        android:text="Клиент"
+                        android:text="@string/client"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 
@@ -206,7 +206,7 @@
                                 android:layout_gravity="bottom"
                                 android:background="@android:color/transparent"
                                 android:gravity="bottom"
-                                android:hint="начните набирать..."
+                                android:hint="@string/start_typing"
                                 android:imeOptions="flagNoExtractUi|actionSearch"
                                 android:inputType="textCapWords"
                                 android:lines="1"
@@ -246,7 +246,7 @@
                         android:paddingBottom="@dimen/vertical_margin_third"
                         android:paddingLeft="@dimen/horizontal_margin"
                         android:paddingTop="@dimen/vertical_margin_third"
-                        android:text="Сотрудник"
+                        android:text="@string/employee"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal" />
 
@@ -270,7 +270,7 @@
                                 android:layout_gravity="bottom"
                                 android:background="@android:color/transparent"
                                 android:gravity="bottom"
-                                android:hint="начните набирать..."
+                                android:hint="@string/start_typing"
                                 android:imeOptions="flagNoExtractUi|actionSearch"
                                 android:inputType="textCapWords"
                                 android:lines="1"
@@ -305,7 +305,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Сумма"
+                    android:text="@string/amount"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -319,7 +319,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Сумма"
+                    android:hint="@string/amount"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:lines="1"
@@ -345,7 +345,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="5dp"
-                    android:text="Сохранить"
+                    android:text="@string/save"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_normal" />
             </LinearLayout>

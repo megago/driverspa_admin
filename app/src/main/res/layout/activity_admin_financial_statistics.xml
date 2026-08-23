@@ -53,7 +53,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="От"
+                                android:text="@string/from_word"
                                 android:textColor="@color/AntiqueWhite"
                                 android:textSize="@dimen/text_small" />
 
@@ -79,7 +79,7 @@
                             android:paddingBottom="@dimen/horizontal_margin_half"
                             android:paddingLeft="@dimen/horizontal_margin_half"
                             android:paddingRight="@dimen/horizontal_margin_half"
-                            android:text="Инкассация"
+                            android:text="@string/collection"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="@dimen/text_small"
                             android:textStyle="bold" />
@@ -109,7 +109,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Касса:"
+                                android:text="@string/cashbox_colon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -134,7 +134,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Нач.:"
+                                android:text="@string/start_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -158,7 +158,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Кон.:"
+                                android:text="@string/end_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -190,7 +190,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Карт.:"
+                                android:text="@string/card_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -215,7 +215,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Нач.:"
+                                android:text="@string/start_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -239,7 +239,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Кон.:"
+                                android:text="@string/end_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -270,7 +270,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Переч.:"
+                                android:text="@string/transfer_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -295,7 +295,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Нач.:"
+                                android:text="@string/start_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -319,7 +319,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Кон.:"
+                                android:text="@string/end_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -351,7 +351,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Доход.:"
+                                android:text="@string/income_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -377,7 +377,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Нач.:"
+                                android:text="@string/start_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -401,7 +401,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Кон.:"
+                                android:text="@string/end_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -433,7 +433,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin"
-                                android:text="Расх.:"
+                                android:text="@string/expense_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -458,7 +458,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Нач.:"
+                                android:text="@string/start_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -482,7 +482,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Кон.:"
+                                android:text="@string/end_short"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -523,7 +523,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/horizontal_margin_half"
-                                android:text="Чистая прибыль:"
+                                android:text="@string/net_profit"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_small" />
 
@@ -564,7 +564,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="Транзакции"
+                            android:text="@string/transactions"
                             android:textColor="@color/White"
                             android:textColorHint="@color/BlueLight"
                             android:textIsSelectable="false"
@@ -610,7 +610,7 @@
                     android:paddingBottom="@dimen/vertical_margin_half"
                     android:paddingLeft="0dp"
                     android:paddingTop="@dimen/vertical_margin_half"
-                    android:text="Все счета"
+                    android:text="@string/all_accounts"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_small" />
 

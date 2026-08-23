@@ -31,7 +31,7 @@
                 android:id="@+id/paid_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Клиент уже оплатил"
+                android:text="@string/client_already_paid"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Включите, если оплата получена заранее"
+                android:text="@string/enable_if_prepaid"
                 android:textColor="@color/BlueLight"
                 android:textSize="@dimen/text_smaller" />
         </LinearLayout>
@@ -67,7 +67,7 @@
             android:id="@+id/nocashText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Оплата по карте" />
+            android:text="@string/card_payment" />
 
         <CheckBox
             android:id="@+id/nocash"
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Скидка"
+            android:text="@string/discount"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -173,7 +173,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Оплата"
+            android:text="@string/payment"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -206,7 +206,7 @@
                 android:paddingRight="14dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="Наличные"
+                android:text="@string/cash"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -223,7 +223,7 @@
                 android:paddingRight="14dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="Карта (Каспи, Халык)"
+                android:text="@string/card_kaspi_halyk"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -240,7 +240,7 @@
                 android:paddingRight="14dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="Бонусы"
+                android:text="@string/bonuses"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -257,7 +257,7 @@
                 android:paddingRight="14dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="Перечисление"
+                android:text="@string/transfer"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -274,7 +274,7 @@
                 android:paddingRight="14dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="Разделить"
+                android:text="@string/split"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
@@ -293,7 +293,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Сумма"
+                android:text="@string/amount"
                 android:textColor="@color/BlueLight"
                 android:textSize="@dimen/text_small" />
 
@@ -346,7 +346,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Наличные"
+                    android:text="@string/cash"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
 
@@ -381,7 +381,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Карта"
+                    android:text="@string/card"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
 
@@ -420,14 +420,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Бонусы"
+                        android:text="@string/bonuses"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_small" />
                     <TextView
                         android:id="@+id/clientBonusAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="из 0 ₸"
+                        android:text="@string/of_zero_tenge"
                         android:textColor="@color/BlueLight2"
                         android:textSize="@dimen/text_smaller" />
                 </LinearLayout>
@@ -467,14 +467,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Перечисление"
+                        android:text="@string/transfer"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_small" />
                     <TextView
                         android:id="@+id/clientDepositAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="из 0 ₸"
+                        android:text="@string/of_zero_tenge"
                         android:textColor="@color/BlueLight2"
                         android:textSize="@dimen/text_smaller" />
                 </LinearLayout>
@@ -513,7 +513,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Комментарий"
+            android:text="@string/comment"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />
@@ -524,7 +524,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_v2_field"
-            android:hint="напр. оставить ключи у мойщика"
+            android:hint="@string/example_leave_keys"
             android:imeOptions="actionDone"
             android:inputType="textCapSentences|textMultiLine"
             android:minLines="2"

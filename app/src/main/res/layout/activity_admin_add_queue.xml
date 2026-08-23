@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="6dp"
-                    android:text="В очередь"
+                    android:text="@string/to_queue"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="6dp"
-                    android:text="В бокс"
+                    android:text="@string/to_box"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="6dp"
-                    android:text="Магаз./Другие усл."
+                    android:text="@string/shop_other_services"
                     android:textColor="@drawable/button_bar_state_color"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Авто"
+                    android:text="@string/car"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Услуги"
+                    android:text="@string/services"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Оплата"
+                    android:text="@string/payment"
                     android:textColor="@color/BlueLight"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
@@ -236,14 +236,14 @@
                     android:id="@+id/more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Дополнительно"
+                    android:text="@string/additional"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/extra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Скидки и прочее"
+                    android:text="@string/discounts_and_other"
                     android:visibility="gone" />
             </FrameLayout>
         </androidx.core.widget.NestedScrollView>
@@ -287,7 +287,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Стоимость "
+                        android:text="@string/cost_sp"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_smaller" />
                     <TextView
@@ -300,7 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"
-                        android:text="Время"
+                        android:text="@string/time_word"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_smaller" />
                 </LinearLayout>
@@ -331,7 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="0 мин"
+                        android:text="@string/zero_min"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
@@ -341,7 +341,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Остаток 0 ₸"
+                    android:text="@string/balance_zero"
                     android:textColor="@color/BlueLight2"
                     android:textSize="@dimen/text_smaller" />
             </LinearLayout>
@@ -355,7 +355,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:text="Назад"
+                android:text="@string/back"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
@@ -368,7 +368,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="Далее"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"
@@ -382,7 +382,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="В бокс"
+                android:text="@string/to_box"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"
@@ -397,7 +397,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="В очередь"
+                android:text="@string/to_queue"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"

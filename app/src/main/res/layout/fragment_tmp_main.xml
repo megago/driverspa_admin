@@ -94,7 +94,7 @@
                 android:paddingBottom="@dimen/vertical_margin_half"
                 android:paddingTop="@dimen/vertical_margin_half"
                 android:paddingLeft="@dimen/horizontal_margin_half"
-                android:text="Город"
+                android:text="@string/city"
                 android:textColor="@color/White"
                 android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"

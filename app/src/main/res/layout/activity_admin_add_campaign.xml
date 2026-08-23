@@ -22,7 +22,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center"
-        android:text="Добавление акции"
+        android:text="@string/add_promo_title"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"
         android:visibility="gone" />
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
-                android:text="Краткое описание акции (100 символов)"
+                android:text="@string/promo_short_desc"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
-                android:text="Дата окончания акции(включительно)"
+                android:text="@string/promo_end_date_incl"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -134,7 +134,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Скидка:"
+                    android:text="@string/discount_colon"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
 
@@ -190,7 +190,7 @@
                 android:gravity="center"
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
-                android:text="Распространяется:"
+                android:text="@string/applies_to"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:paddingLeft="@dimen/horizontal_margin_half"
-                    android:text="На все виды заказов"
+                    android:text="@string/all_order_types"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:paddingLeft="@dimen/horizontal_margin_half"
-                        android:text="Живая очередь"
+                        android:text="@string/live_queue"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
@@ -298,7 +298,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:paddingLeft="@dimen/horizontal_margin_half"
-                        android:text="Онлайн бронирование"
+                        android:text="@string/online_booking"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"

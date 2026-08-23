@@ -37,7 +37,7 @@
                 android:id="@+id/myLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Мое местоположение"
+                android:text="@string/my_location"
                 android:textColor="@color/White"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/text_normal"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Определить город по GPS"
+                android:text="@string/detect_city_gps"
                 android:textColor="@color/BlueLight"
                 android:textSize="@dimen/text_smaller" />
         </LinearLayout>
@@ -97,7 +97,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginBottom="4dp"
             android:letterSpacing="0.08"
-            android:text="ВЫБЕРИТЕ ГОРОД"
+            android:text="@string/choose_city_caps"
             android:textColor="@color/BlueLight"
             android:textSize="@dimen/text_smaller"
             android:textStyle="bold" />

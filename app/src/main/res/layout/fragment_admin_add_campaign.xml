@@ -16,7 +16,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center"
-        android:text="Добавление акции"
+        android:text="@string/add_promo_title"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"
         android:visibility="gone" />
@@ -42,7 +42,7 @@
                 android:background="#50000000"
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
-                android:text="Краткое описание акции (100 символов)"
+                android:text="@string/promo_short_desc"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -59,7 +59,7 @@
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:gravity="top|left"
                 android:text=""
-                android:hint="Описание"
+                android:hint="@string/description"
                 android:textColor="@color/White"
                 android:textColorHint="@color/BlueLight"
                 android:textCursorDrawable="@null"
@@ -84,7 +84,7 @@
                 android:gravity="left"
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
-                android:text="Дата окончания акции(включительно)"
+                android:text="@string/promo_end_date_incl"
                 android:background="#50000000"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
@@ -98,7 +98,7 @@
                 android:layout_marginTop="@dimen/vertical_margin_third"
                 android:layout_marginLeft="@dimen/horizontal_margin"
                 android:layout_marginRight="@dimen/horizontal_margin"
-                android:hint="Дата окончания"
+                android:hint="@string/end_date"
                 android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
                 android:text=""
@@ -127,7 +127,7 @@
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
                 android:background="#50000000"
-                android:text="Скидка"
+                android:text="@string/discount"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -146,7 +146,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Скидка:"
+                    android:text="@string/discount_colon"
                     android:visibility="gone"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
@@ -204,7 +204,7 @@
                 android:paddingBottom="@dimen/vertical_margin_third"
                 android:paddingTop="@dimen/vertical_margin_third"
                 android:background="#50000000"
-                android:text="Распространяется:"
+                android:text="@string/applies_to"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal" />
 
@@ -227,7 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:paddingLeft="@dimen/horizontal_margin_half"
-                    android:text="На все виды мойки"
+                    android:text="@string/all_wash_types"
                     android:textColor="@color/White"
                     android:textColorHint="@color/BlueLight"
                     android:textIsSelectable="false"
@@ -275,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:paddingLeft="@dimen/horizontal_margin_half"
-                        android:text="Живая очередь"
+                        android:text="@string/live_queue"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
@@ -316,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:paddingLeft="@dimen/horizontal_margin_half"
-                        android:text="Онлайн бронирование"
+                        android:text="@string/online_booking"
                         android:textColor="@color/White"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
@@ -355,7 +355,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
-                android:text="Добавить акцию"
+                android:text="@string/add_promo"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_normal" />
         </LinearLayout>

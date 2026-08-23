@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:cursorVisible="true"
-    android:hint="Поиск по карте"
+    android:hint="@string/search_on_map"
     android:imeOptions="actionDone"
     android:textColor="@color/White"
     android:textColorHint="@color/BlueLight"

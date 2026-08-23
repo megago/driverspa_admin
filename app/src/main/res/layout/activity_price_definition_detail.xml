@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center"
-        android:text="Цены на седан"
+        android:text="@string/sedan_prices"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal" />
 

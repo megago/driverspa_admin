@@ -23,7 +23,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:gravity="center"
-            android:text="Боксы"
+            android:text="@string/boxes"
             android:textColor="@color/White"
             android:textSize="@dimen/text_normal"
             android:visibility="gone" />
@@ -71,7 +71,7 @@
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:paddingTop="10dp"
-            android:text="Добавить бокс"
+            android:text="@string/add_box"
             android:textColor="@drawable/button_state_color"
             android:textSize="@dimen/text_normal" />
 

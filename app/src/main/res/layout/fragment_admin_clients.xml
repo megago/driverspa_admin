@@ -47,7 +47,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center"
-                        android:text="Зарегистрированные"
+                        android:text="@string/registered"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 
@@ -80,7 +80,7 @@
                         android:layout_gravity="center"
                         android:background="@null"
                         android:gravity="center"
-                        android:text="Остальные"
+                        android:text="@string/others"
                         android:textColor="@drawable/button_bar_state_color"
                         android:textStyle="bold" />
 

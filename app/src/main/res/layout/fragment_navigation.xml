@@ -66,7 +66,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="название мойки"
+                android:text="@string/washer_name_lc"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                 android:id="@+id/user_role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="название мойки"
+                android:text="@string/washer_name_lc"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_smaller" />
 
@@ -144,7 +144,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Служба поддержки:"
+                android:text="@string/support_colon"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_small" />
 
@@ -180,7 +180,7 @@
         android:drawableLeft="@drawable/ic_logout"
         android:drawablePadding="@dimen/horizontal_margin"
         android:paddingBottom="@dimen/vertical_margin"
-        android:text="Выйти"
+        android:text="@string/logout"
         android:textColor="@drawable/button_state_color"
         android:textSize="@dimen/text_normal" />
 

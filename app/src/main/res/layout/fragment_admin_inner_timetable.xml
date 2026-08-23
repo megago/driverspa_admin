@@ -58,7 +58,7 @@
                         android:layout_marginRight="@dimen/horizontal_margin"
                         android:layout_marginTop="@dimen/vertical_margin"
                         android:gravity="center"
-                        android:text="Бронь не может быть продолжен. Нет данных на сегодня, или произошла ошибка при получении график работы мойки"
+                        android:text="@string/booking_cannot_continue"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_medium"
                         android:visibility="gone" />

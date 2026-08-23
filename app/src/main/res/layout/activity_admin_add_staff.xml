@@ -42,7 +42,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="ФИО"
+                    android:text="@string/full_name"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -56,7 +56,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="ФИО"
+                    android:hint="@string/full_name"
                     android:imeOptions="actionNext"
                     android:inputType="text|textMultiLine|textCapSentences"
                     android:lines="1"
@@ -78,7 +78,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Номер телефона"
+                    android:text="@string/login_phone"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -124,7 +124,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Уровень доступа"
+                    android:text="@string/access_level"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -154,7 +154,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Статус"
+                    android:text="@string/status"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -184,7 +184,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Дата рождения"
+                    android:text="@string/birth_date"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal"
                     android:visibility="gone" />
@@ -199,7 +199,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Дата рождения"
+                    android:hint="@string/birth_date"
                     android:imeOptions="actionNext"
                     android:inputType="text|textMultiLine|textCapSentences"
                     android:lines="1"
@@ -223,7 +223,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Зарплата %"
+                    android:text="@string/salary_percent"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -237,7 +237,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Зарплата %"
+                    android:hint="@string/salary_percent"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:lines="1"
@@ -273,7 +273,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="5dp"
-                    android:text="Сохранить"
+                    android:text="@string/save"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_normal" />
             </LinearLayout>

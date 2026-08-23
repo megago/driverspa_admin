@@ -39,7 +39,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:visibility="gone"
-                android:text="Открыть смену"
+                android:text="@string/open_shift"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_small" />
 

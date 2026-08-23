@@ -21,7 +21,7 @@
             android:background="@color/button_blue_background2"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Закрыть"
+            android:text="@string/close"
             android:textColor="#fff" />
 
     </FrameLayout>

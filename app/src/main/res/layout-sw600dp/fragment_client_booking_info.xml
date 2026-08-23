@@ -53,7 +53,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Как только администратор мойки подтвердит вашу бронь вам придёт push-уведомление."
+                            android:text="@string/booking_confirm_push"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -64,7 +64,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/vertical_margin"
                             android:gravity="center"
-                            android:text="Для подтверждения брони Вам за 15 до начала мойки позвонит администратор автомойки для окончательного уточнения."
+                            android:text="@string/booking_confirm_call_15"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal"
                            />
@@ -76,7 +76,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/horizontal_margin"
                             android:gravity="center"
-                            android:text="Спасибо, что выбрали нас!"
+                            android:text="@string/thanks_for_choosing"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -120,7 +120,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Адрес:"
+                            android:text="@string/address_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -145,7 +145,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Телефон:"
+                            android:text="@string/phone_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -171,7 +171,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Имя:"
+                            android:text="@string/name_label_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -196,7 +196,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Телефон:"
+                            android:text="@string/phone_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -221,7 +221,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Авто:"
+                            android:text="@string/car_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -247,7 +247,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Авто:"
+                            android:text="@string/car_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -272,7 +272,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Тип авто:"
+                            android:text="@string/car_type_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -297,7 +297,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Услуга:"
+                            android:text="@string/service_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -322,7 +322,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Стоймость:"
+                            android:text="@string/cost_colon_typo"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -347,7 +347,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Дата:"
+                            android:text="@string/date_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -372,7 +372,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Время:"
+                            android:text="@string/time_colon"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -397,7 +397,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="Статус"
+                            android:text="@string/status"
                             android:textColor="@color/White"
                             android:textSize="@dimen/text_normal" />
 
@@ -422,7 +422,7 @@
                         android:paddingLeft="60dp"
                         android:paddingRight="60dp"
                         android:paddingTop="10dp"
-                        android:text="Вернуться к меню"
+                        android:text="@string/back_to_menu"
                         android:textColor="@drawable/button_state_color"
                         android:textSize="@dimen/text_normal" />
 
@@ -439,7 +439,7 @@
                         android:paddingLeft="60dp"
                         android:paddingRight="60dp"
                         android:paddingTop="10dp"
-                        android:text="ПРОЛОЖИТЬ МАРШРУТ"
+                        android:text="@string/build_route"
                         android:textColor="@drawable/button_state_color"
                         android:textSize="@dimen/text_normal" />
 
@@ -465,7 +465,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="Изменить"
+                            android:text="@string/edit"
                             android:textColor="@drawable/button_state_color"
                             android:textSize="@dimen/text_normal"
                             android:visibility="gone" />
@@ -481,7 +481,7 @@
                             android:paddingLeft="60dp"
                             android:paddingRight="60dp"
                             android:paddingTop="10dp"
-                            android:text="Отменить"
+                            android:text="@string/cancel"
                             android:textColor="@color/Red"
                             android:textSize="@dimen/text_normal" />
                     </LinearLayout>

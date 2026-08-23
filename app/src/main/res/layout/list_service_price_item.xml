@@ -22,7 +22,7 @@
             android:layout_weight="1.1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Седан"
+            android:text="@string/sedan"
             android:textColor="@color/BlueLight2"
             android:textSize="@dimen/text_small" />
 
@@ -35,7 +35,7 @@
             android:gravity="start"
             android:maxLines="1"
             android:paddingStart="8dp"
-            android:text="1500 ₸ · 30 мин"
+            android:text="@string/price_time_example"
             android:textColor="@color/White"
             android:textSize="@dimen/text_small" />
 
@@ -50,7 +50,7 @@
             android:paddingRight="14dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:text="Изменить"
+            android:text="@string/edit"
             android:textAllCaps="false"
             android:textColor="@color/White"
             android:textSize="@dimen/text_smaller"

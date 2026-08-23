@@ -23,7 +23,7 @@
         android:layout_marginRight="@dimen/horizontal_margin"
         android:layout_marginTop="@dimen/vertical_margin_half"
         android:gravity="center"
-        android:text="Цены"
+        android:text="@string/prices"
         android:visibility="gone"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal" />

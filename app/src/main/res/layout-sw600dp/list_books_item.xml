@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:text="Мойка"
+                android:text="@string/wash"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:text="Номер машины: x001xxx"
+                android:text="@string/car_number_example"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:text="Закончен"
+                android:text="@string/finished"
                 android:textColor="@color/Light"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>

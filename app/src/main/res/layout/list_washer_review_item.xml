@@ -55,7 +55,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_toRightOf="@id/starLayout"
         android:gravity="center"
-        android:text="Роман"
+        android:text="@string/name_roman"
         android:textColor="@color/White"
         android:textSize="@dimen/text_small" />
 
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/starLayout"
         android:layout_marginTop="@dimen/vertical_margin_half"
-        android:text="Качество радует! Одна из моих любимых автомоек!"
+        android:text="@string/review_example"
         android:textColor="@color/White"
         android:textSize="@dimen/text_small" />
 

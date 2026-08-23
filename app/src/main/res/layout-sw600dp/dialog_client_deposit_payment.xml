@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Депозит клиента"
+                android:text="@string/client_deposit"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
@@ -86,7 +86,7 @@
                 android:background="@drawable/background_button_borderless"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="Оплата"
+                android:text="@string/payment"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_small" />
 
@@ -101,7 +101,7 @@
                 android:background="@drawable/background_button_borderless"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="Внести"
+                android:text="@string/deposit_action"
                 android:visibility="gone"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_small" />

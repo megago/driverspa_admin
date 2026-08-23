@@ -113,7 +113,7 @@
                     android:id="@+id/txtBookKey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Автозавершение через "
+                    android:text="@string/auto_finish_after"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
 
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:gravity="bottom"
-                    android:text="Закончен"
+                    android:text="@string/finished"
                     android:textColor="@color/Light"
                     android:textSize="@dimen/text_small" />
 

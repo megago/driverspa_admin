@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Тип операции"
+        android:text="@string/operation_type"
         android:textColor="@color/White"
         android:textSize="@dimen/text_small"
         android:textStyle="bold" />
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/operationType"
-        android:text="Назначение:"
+        android:text="@string/purpose_colon"
         android:textColor="@color/White"
         android:textSize="@dimen/text_small" />
 
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="На сумму"
+                android:text="@string/for_amount_2"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small" />
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linearLayout"
                 android:gravity="right"
-                android:text="Ержан Танатов"
+                android:text="@string/name_yerzhan"
                 android:textColor="@drawable/button_state_color"
                 android:textSize="@dimen/text_small" />
 

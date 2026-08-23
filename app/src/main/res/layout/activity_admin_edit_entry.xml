@@ -45,7 +45,7 @@
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="Бронь на 08:00"
+                    android:text="@string/booking_at_0800"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold"
@@ -104,7 +104,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Гос. номер авто"
+                            android:text="@string/car_plate"
                             android:textColor="@color/BlueLight"
                             android:textSize="@dimen/text_smaller" />
 
@@ -116,7 +116,7 @@
                             android:background="@drawable/bg_v2_plate"
                             android:fontFamily="sans-serif-black"
                             android:gravity="center"
-                            android:hint="Номер машины"
+                            android:hint="@string/car_number"
                             android:paddingTop="14dp"
                             android:paddingBottom="14dp"
                             android:paddingLeft="16dp"
@@ -139,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
-                            android:text="Марка автомобиля"
+                            android:text="@string/car_brand"
                             android:textColor="@color/BlueLight"
                             android:textSize="@dimen/text_smaller" />
 
@@ -150,7 +150,7 @@
                             android:layout_marginTop="4dp"
                             android:background="@drawable/bg_v2_field"
                             android:enabled="false"
-                            android:hint="Марка автомобиля"
+                            android:hint="@string/car_brand"
                             android:imeOptions="actionNext"
                             android:inputType="textAutoComplete|textCapWords"
                             android:paddingLeft="12dp"
@@ -177,7 +177,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Имя клиента"
+                                android:hint="@string/client_name"
                                 android:imeOptions="actionNext"
                                 android:inputType="textAutoComplete|textCapWords"
                                 android:textColor="@color/White"
@@ -233,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Тип авто"
+                        android:text="@string/car_type"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
@@ -268,7 +268,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Мини"
+                                android:text="@string/mini"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -296,7 +296,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Седан"
+                                android:text="@string/sedan"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -324,7 +324,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Универсал"
+                                android:text="@string/wagon"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -352,7 +352,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Кроссовер"
+                                android:text="@string/crossover"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -380,7 +380,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Мини джип"
+                                android:text="@string/mini_jeep"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -408,7 +408,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Джип"
+                                android:text="@string/jeep"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -436,7 +436,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Мотоцикл"
+                                android:text="@string/motorcycle"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -464,7 +464,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Минивэн"
+                                android:text="@string/minivan"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -492,7 +492,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:gravity="center"
-                                android:text="Микроавтобус"
+                                android:text="@string/minibus"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_smaller" />
                         </LinearLayout>
@@ -511,7 +511,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Услуги"
+                        android:text="@string/services"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
@@ -554,7 +554,7 @@
                         android:gravity="center"
                         android:paddingTop="14dp"
                         android:paddingBottom="14dp"
-                        android:text="Нет доступных услуг"
+                        android:text="@string/no_available_services"
                         android:textColor="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -575,7 +575,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Бокс"
+                        android:text="@string/box"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
@@ -603,7 +603,7 @@
                         android:gravity="center"
                         android:paddingTop="14dp"
                         android:paddingBottom="14dp"
-                        android:text="Нет боксов для создания очереди"
+                        android:text="@string/no_boxes_for_queue"
                         android:textColor="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -621,7 +621,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Сотрудники"
+                        android:text="@string/employees"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
@@ -649,7 +649,7 @@
                         android:gravity="center"
                         android:paddingTop="14dp"
                         android:paddingBottom="14dp"
-                        android:text="Нет сотрудников (мойщиков)"
+                        android:text="@string/no_employees"
                         android:textColor="@color/BlueLight"
                         android:textIsSelectable="false"
                         android:textSize="@dimen/text_small" />
@@ -667,7 +667,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Оплата"
+                        android:text="@string/payment"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
@@ -697,7 +697,7 @@
                                     android:id="@+id/paid_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Клиент оплатил за мойку"
+                                    android:text="@string/client_paid_for_wash"
                                     android:textColor="@color/White"
                                     android:textIsSelectable="false"
                                     android:textSize="@dimen/text_normal"
@@ -707,7 +707,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
-                                    android:text="Включите, если оплата получена заранее"
+                                    android:text="@string/enable_if_prepaid"
                                     android:textColor="@color/BlueLight"
                                     android:textSize="@dimen/text_smaller" />
                             </LinearLayout>
@@ -744,7 +744,7 @@
                                 android:layout_weight="1"
                                 android:paddingTop="10dp"
                                 android:paddingBottom="10dp"
-                                android:text="Оплата по карте"
+                                android:text="@string/card_payment"
                                 android:textColor="@color/White"
                                 android:textIsSelectable="false"
                                 android:textSize="@dimen/text_normal" />
@@ -773,7 +773,7 @@
                         android:layout_marginTop="8dp"
                         android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
                         android:gravity="center_vertical"
-                        android:text="Скидки и прочее"
+                        android:text="@string/discounts_and_other"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small"
                         android:visibility="gone" />
@@ -798,7 +798,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Скидка"
+                                android:text="@string/discount"
                                 android:textColor="@color/White"
                                 android:textSize="@dimen/text_normal" />
 
@@ -895,7 +895,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Наличные"
+                                    android:text="@string/cash"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
 
@@ -912,7 +912,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Карта (Каспи, Халык)"
+                                    android:text="@string/card_kaspi_halyk"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
 
@@ -929,7 +929,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Бонусы"
+                                    android:text="@string/bonuses"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
 
@@ -946,7 +946,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Перечисление"
+                                    android:text="@string/transfer"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
 
@@ -963,7 +963,7 @@
                                     android:paddingRight="14dp"
                                     android:paddingTop="8dp"
                                     android:paddingBottom="8dp"
-                                    android:text="Разделить"
+                                    android:text="@string/split"
                                     android:textColor="@color/White"
                                     android:textSize="@dimen/text_small" />
                             </LinearLayout>
@@ -982,7 +982,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Сумма"
+                                android:text="@string/amount"
                                 android:textColor="@color/BlueLight"
                                 android:textSize="@dimen/text_small" />
 
@@ -1035,7 +1035,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Наличные"
+                                    android:text="@string/cash"
                                     android:textColor="@color/BlueLight"
                                     android:textSize="@dimen/text_small" />
 
@@ -1070,7 +1070,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Карта"
+                                    android:text="@string/card"
                                     android:textColor="@color/BlueLight"
                                     android:textSize="@dimen/text_small" />
 
@@ -1109,14 +1109,14 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Бонусы"
+                                        android:text="@string/bonuses"
                                         android:textColor="@color/BlueLight"
                                         android:textSize="@dimen/text_small" />
                                     <TextView
                                         android:id="@+id/clientBonusAmount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="из 0 ₸"
+                                        android:text="@string/of_zero_tenge"
                                         android:textColor="@color/BlueLight2"
                                         android:textSize="@dimen/text_smaller" />
                                 </LinearLayout>
@@ -1156,14 +1156,14 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Перечисление"
+                                        android:text="@string/transfer"
                                         android:textColor="@color/BlueLight"
                                         android:textSize="@dimen/text_small" />
                                     <TextView
                                         android:id="@+id/clientDepositAmount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="из 0 ₸"
+                                        android:text="@string/of_zero_tenge"
                                         android:textColor="@color/BlueLight2"
                                         android:textSize="@dimen/text_smaller" />
                                 </LinearLayout>
@@ -1199,7 +1199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Комментарий"
+                            android:text="@string/comment"
                             android:textColor="@color/BlueLight"
                             android:textSize="@dimen/text_smaller" />
 
@@ -1209,7 +1209,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:background="@drawable/bg_v2_field"
-                            android:hint="Комментарий"
+                            android:hint="@string/comment"
                             android:imeOptions="actionDone"
                             android:inputType="textCapSentences"
                             android:paddingLeft="12dp"
@@ -1286,7 +1286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="0 мин"
+                        android:text="@string/zero_min"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
@@ -1301,7 +1301,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Остаток "
+                        android:text="@string/balance_sp"
                         android:textColor="@color/BlueLight"
                         android:textSize="@dimen/text_smaller" />
 
@@ -1323,7 +1323,7 @@
                 android:minHeight="44dp"
                 android:paddingLeft="22dp"
                 android:paddingRight="22dp"
-                android:text="Изменить"
+                android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="@dimen/text_small"

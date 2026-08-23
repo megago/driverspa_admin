@@ -76,7 +76,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin_double"
         android:layout_marginRight="@dimen/horizontal_margin_double"
         android:gravity="center"
-        android:text="Еще не создали уведомление для клиентов"
+        android:text="@string/no_notifications_created"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"
         android:visibility="gone" />

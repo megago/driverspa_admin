@@ -23,7 +23,7 @@
         android:layout_marginRight="@dimen/horizontal_margin"
         android:layout_marginTop="@dimen/vertical_margin_half"
         android:gravity="center"
-        android:text="Дополнительно"
+        android:text="@string/additional"
         android:textColor="@color/White"
         android:textSize="@dimen/text_normal"
         android:visibility="gone" />
@@ -48,7 +48,7 @@
                 android:layout_weight="5"
                 android:background="#50000000"
                 android:paddingLeft="@dimen/horizontal_margin_half"
-                android:text="Название:"
+                android:text="@string/name_colon"
                 android:textColor="@color/White"
                 android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_margin_half"
                 android:layout_marginTop="@dimen/vertical_margin_half"
-                android:hint="Например Мойка кузова"
+                android:hint="@string/example_body_wash"
                 android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
                 android:lines="1"
@@ -89,7 +89,7 @@
                 android:layout_weight="5"
                 android:background="#50000000"
                 android:paddingLeft="@dimen/horizontal_margin_half"
-                android:text="Цена и время:"
+                android:text="@string/price_and_time"
                 android:textColor="@color/White"
                 android:textColorHint="@color/BlueLight"
                 android:textIsSelectable="false"
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
             android:layout_marginRight="@dimen/horizontal_margin_third"
-            android:text="Цена"
+            android:text="@string/price"
             android:textSize="@dimen/text_normal"
             android:textColor="@color/White" />
 
@@ -155,7 +155,7 @@
             android:layout_gravity="bottom|left"
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin_third"
-            android:text="Время"
+            android:text="@string/time_word"
             android:textSize="@dimen/text_normal"
             android:textColor="@color/White" />
 
@@ -179,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
             android:layout_marginLeft="@dimen/horizontal_margin_third"
-            android:text="мин."
+            android:text="@string/min_dot"
             android:textSize="@dimen/text_normal"
             android:textColor="@color/White" />
     </LinearLayout>

@@ -51,7 +51,7 @@
             android:paddingLeft="@dimen/horizontal_margin_double"
             android:paddingRight="@dimen/horizontal_margin_double"
             android:visibility="gone"
-            android:text="ДАЛЕЕ"
+            android:text="@string/next_caps"
             android:textColor="@drawable/button_state_color"
             android:textSize="16sp" />
 

@@ -43,7 +43,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="ФИО"
+                    android:text="@string/full_name"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -57,7 +57,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="ФИО"
+                    android:hint="@string/full_name"
                     android:imeOptions="actionNext"
                     android:inputType="text|textMultiLine|textCapSentences"
                     android:lines="1"
@@ -79,7 +79,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Номер телефона"
+                    android:text="@string/login_phone"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -134,7 +134,7 @@
                 <!--android:paddingBottom="@dimen/vertical_margin_third"-->
                 <!--android:paddingLeft="@dimen/horizontal_margin"-->
                 <!--android:paddingTop="@dimen/vertical_margin_third"-->
-                <!--android:text="Пол"-->
+                <!--android:text="@string/gender"-->
                 <!--android:textColor="@color/White"-->
                 <!--android:textSize="@dimen/text_normal" />-->
 
@@ -165,7 +165,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Дата рождения"
+                    android:text="@string/birth_date"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal"
                     android:visibility="gone" />
@@ -180,7 +180,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Дата рождения"
+                    android:hint="@string/birth_date"
                     android:imeOptions="actionNext"
                     android:inputType="text|textMultiLine|textCapSentences"
                     android:lines="1"
@@ -204,7 +204,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Скидка %"
+                    android:text="@string/discount_percent"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -218,7 +218,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Скидка %"
+                    android:hint="@string/discount_percent"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:lines="1"
@@ -240,7 +240,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Бонус %"
+                    android:text="@string/bonus_percent"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -254,7 +254,7 @@
                     android:layout_marginRight="@dimen/horizontal_margin"
                     android:layout_marginTop="@dimen/vertical_margin_third"
                     android:gravity="top|left"
-                    android:hint="Процент начисления бонусов"
+                    android:hint="@string/bonus_accrual_percent"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:lines="1"
@@ -277,7 +277,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Запретить начисление бонусов"
+                    android:text="@string/disable_bonus_accrual"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -296,7 +296,7 @@
                         android:layout_weight="5"
                         android:paddingBottom="@dimen/vertical_margin_half"
                         android:paddingTop="@dimen/vertical_margin_half"
-                        android:text="Запретить начисление бонусов"
+                        android:text="@string/disable_bonus_accrual"
                         android:textColor="@drawable/button_state_color"
                         android:textColorHint="@color/BlueLight"
                         android:textIsSelectable="false"
@@ -332,7 +332,7 @@
                     android:paddingBottom="@dimen/vertical_margin_third"
                     android:paddingLeft="@dimen/horizontal_margin"
                     android:paddingTop="@dimen/vertical_margin_third"
-                    android:text="Машины клиента"
+                    android:text="@string/client_cars"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_normal" />
 
@@ -374,7 +374,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="5dp"
-                    android:text="Изменить"
+                    android:text="@string/edit"
                     android:textColor="@drawable/button_state_color"
                     android:textSize="@dimen/text_normal" />
             </LinearLayout>
