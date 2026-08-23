@@ -38,7 +38,14 @@ public class AdminProfileActivity extends BaseActivity implements AdminProfileFr
 		  if( savedInstanceState == null ) {
         	fragment = new AdminProfileFragment();
         	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commitAllowingStateLoss();
-		}        
+		}
+		  else {
+			// On recreation (e.g. after a language switch calls
+			// setApplicationLocales) the FragmentManager restores the fragment, but
+			// the field would stay null and both back handlers are guarded on it —
+			// leaving back unresponsive. Re-acquire the existing instance.
+			fragment = (AdminProfileFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		}
 	  }
 
 	@Override
