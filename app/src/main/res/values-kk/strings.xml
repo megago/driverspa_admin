@@ -36,6 +36,24 @@
     <!-- settings -->
     <string name="settings_language">Тіл</string>
 
+    <!-- admin profile / settings screen -->
+    <string name="profile_title">Профиль</string>
+    <string name="address">Мекенжай</string>
+    <string name="hint_washer_name">Автожуу атауы</string>
+    <string name="washer_active">Автожуу белсенді</string>
+    <string name="car_types">Көлік түрлері</string>
+    <string name="services">Қызметтер</string>
+    <string name="services_and_prices">Қызметтер мен бағалар</string>
+    <string name="complex_services">Кешенді қызметтер</string>
+    <string name="work_time_and_info">Жұмыс уақыты және қосымша ақпарат</string>
+    <string name="extra_settings">Қосымша баптаулар</string>
+    <string name="boxes">Бокстар</string>
+    <string name="additional">Қосымша</string>
+    <string name="boxes_settings">Бокстарды баптау</string>
+    <string name="receive_notifications">Хабарламаларды алу</string>
+    <string name="save">Сақтау</string>
+    <string name="request_in_progress">Сұрауыңыз өңделуде...</string>
+
     <!-- shared -->
     <string name="no_records">Ештеңе табылмады</string>
     <string name="retry">ҚАЙТАЛАУ</string>

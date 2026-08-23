@@ -33,6 +33,24 @@
     <!-- settings -->
     <string name="settings_language">Язык</string>
 
+    <!-- admin profile / settings screen -->
+    <string name="profile_title">Профиль</string>
+    <string name="address">Адрес</string>
+    <string name="hint_washer_name">Название мойки</string>
+    <string name="washer_active">Мойка активна</string>
+    <string name="car_types">Типы машин</string>
+    <string name="services">Услуги</string>
+    <string name="services_and_prices">Услуги и цены</string>
+    <string name="complex_services">Комплексные услуги</string>
+    <string name="work_time_and_info">Время работы и доп. информация</string>
+    <string name="extra_settings">Дополнительные настройки</string>
+    <string name="boxes">Боксы</string>
+    <string name="additional">Дополнительно</string>
+    <string name="boxes_settings">Настройка боксов</string>
+    <string name="receive_notifications">Получать уведомления</string>
+    <string name="save">Сохранить</string>
+    <string name="request_in_progress">Ваш запрос находится в обработке...</string>
+
     <string name="no_records">Ничего не найдено</string>
     <string name="retry">ПОВТОРИТЬ</string>
     <string name="connection_error">Ошибка соединения</string>

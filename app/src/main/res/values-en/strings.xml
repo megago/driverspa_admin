@@ -35,6 +35,24 @@
     <!-- settings -->
     <string name="settings_language">Language</string>
 
+    <!-- admin profile / settings screen -->
+    <string name="profile_title">Profile</string>
+    <string name="address">Address</string>
+    <string name="hint_washer_name">Car wash name</string>
+    <string name="washer_active">Car wash is active</string>
+    <string name="car_types">Car types</string>
+    <string name="services">Services</string>
+    <string name="services_and_prices">Services and prices</string>
+    <string name="complex_services">Package services</string>
+    <string name="work_time_and_info">Working hours and extra info</string>
+    <string name="extra_settings">Additional settings</string>
+    <string name="boxes">Boxes</string>
+    <string name="additional">Additional</string>
+    <string name="boxes_settings">Box settings</string>
+    <string name="receive_notifications">Receive notifications</string>
+    <string name="save">Save</string>
+    <string name="request_in_progress">Your request is being processed...</string>
+
     <!-- shared -->
     <string name="no_records">Nothing found</string>
     <string name="retry">RETRY</string>

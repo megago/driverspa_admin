@@ -163,7 +163,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		ButterKnife.bind(this, view);
 		Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
-		titleView.setText("Профиль");
+		titleView.setText(getString(R.string.profile_title));
 
 		txtCurrentLanguage.setText(LocaleManager.displayName(LocaleManager.current()));
 
