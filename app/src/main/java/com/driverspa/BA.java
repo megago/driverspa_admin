@@ -63,12 +63,21 @@ public class BA extends BaseApplication {
 	 * context, on all supported API levels.
 	 */
 	public static String str(int resId) {
+		return localizedResources().getString(resId);
+	}
+
+	/** Locale-aware {@link #str(int)} with format arguments. */
+	public static String str(int resId, Object... formatArgs) {
+		return localizedResources().getString(resId, formatArgs);
+	}
+
+	private static android.content.res.Resources localizedResources() {
 		Context ctx = getContext();
 		LocaleListCompat locales = AppCompatDelegate.getApplicationLocales();
 		Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
 		Configuration cfg = new Configuration(ctx.getResources().getConfiguration());
 		cfg.setLocale(locale);
-		return ctx.createConfigurationContext(cfg).getResources().getString(resId);
+		return ctx.createConfigurationContext(cfg).getResources();
 	}
 
 	@Subscribe

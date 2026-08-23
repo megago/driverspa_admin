@@ -250,7 +250,7 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
 
     /** The message body the user sends: instructions wrapping the token. */
     private String buildMessageText() {
-        return getString(R.string.whatsapp_message_template, waToken);
+        return BA.str(R.string.whatsapp_message_template, waToken);
     }
 
     /** Digits of the destination number, from the backend field or the wa_link. */
