@@ -485,6 +485,54 @@
                             android:src="@drawable/ic_arrow_right" />
                     </LinearLayout>
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@color/BlueTransparent"></FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/language_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/horizontal_margin"
+                        android:layout_marginRight="@dimen/horizontal_margin"
+                        android:background="@drawable/background_list_item_buttons"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/vertical_margin_half"
+                        android:paddingTop="@dimen/vertical_margin_half">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:paddingLeft="@dimen/horizontal_margin_half"
+                            android:text="@string/settings_language"
+                            android:textColor="@color/White"
+                            android:textColorHint="@color/BlueLight"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/text_normal" />
+
+                        <TextView
+                            android:id="@+id/txtCurrentLanguage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:paddingRight="@dimen/horizontal_margin_half"
+                            android:textColor="@color/BlueLight"
+                            android:textSize="@dimen/text_normal" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_arrow_right" />
+                    </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/boxes"
                         android:layout_width="match_parent"

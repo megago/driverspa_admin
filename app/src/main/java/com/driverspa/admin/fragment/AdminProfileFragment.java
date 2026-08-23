@@ -57,6 +57,8 @@ import com.driverspa.admin.activity.AdminGroupServicePriceActivity;
 import com.driverspa.admin.activity.AdminPricesActivity;
 import com.driverspa.admin.activity.AdminServicePriceActivity;
 import com.driverspa.admin.activity.ExtraSettingsActivity;
+import com.driverspa.dialog.LanguageDialog;
+import com.driverspa.util.LocaleManager;
 import com.driverspa.admin.activity.TimeShortDefinitionActivity;
 import com.driverspa.dialog.MultipleSelectDialog;
 import com.driverspa.dialog.SingleSelectDialog;
@@ -115,6 +117,8 @@ public class AdminProfileFragment extends AdminBaseFragment{
 	TextView txtServices;
 	@BindView(R.id.txtBoxes)
 	TextView txtBoxes;
+	@BindView(R.id.txtCurrentLanguage)
+	TextView txtCurrentLanguage;
 	@BindView(R.id.public_washer)
 	CheckBox publicWasher;
 	@BindView(R.id.images_count)
@@ -160,6 +164,8 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
 		TextView titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
 		titleView.setText("Профиль");
+
+		txtCurrentLanguage.setText(LocaleManager.displayName(LocaleManager.current()));
 
 		companyName.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -735,6 +741,12 @@ public class AdminProfileFragment extends AdminBaseFragment{
 		Intent intent = new Intent(getActivity(), ExtraSettingsActivity.class);
 		startActivityForResult(intent, ActivityForResult.ACTIVITY_PRICE);
 		overridePendingTransitionWithCommoOpeningTransition(getActivity());
+	}
+
+	@OnClick (R.id.language_settings)
+	public void onLanguageClicked() {
+		closeKeyboard();
+		LanguageDialog.show(getActivity());
 	}
 
 	@OnClick (R.id.group_prices)

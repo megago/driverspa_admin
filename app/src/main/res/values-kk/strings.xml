@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Kazakh (default language).
+
+    NOTE: These are initial, machine-assisted translations of the onboarding/
+    registration flow provided as a working seed. Please have a native Kazakh
+    speaker review them before release. The bulk of the app's strings are still
+    hardcoded in Java/XML and will be added here during the extraction phase.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- main -->
+    <string name="welcome_text">Қош келдіңіз!</string>
+    <string name="user_start">Мен автокөлік иесімін, көлігімді жуғым келеді</string>
+    <string name="washer_start">Мен автожуу әкімшісімін</string>
+
+    <!-- registration -->
+    <string name="hint_login">Логин</string>
+    <string name="enter_number_text">Телефон нөміріңізді\n енгізіңіз:</string>
+    <string name="enter_code_text">СМС арқылы жіберілген\n кодты енгізіңіз:</string>
+    <string name="kazakhstan_number_text">Қазақстан (+7)</string>
+    <string name="button_ok">ОК</string>
+    <string name="button_next">Жалғастыру</string>
+    <string name="whatsapp_register_info">WhatsApp-ты ашып, кодпен хабарлама жіберу үшін төмендегі түймені басыңыз. Хабарламаны сіз тіркеп жатқан нөмірден жіберу қажет.</string>
+    <string name="whatsapp_send_button">WhatsApp арқылы жіберу</string>
+    <!-- WhatsApp message body. %1$s is the verification token; it must stay in the
+         message unchanged so the backend can match it. -->
+    <string name="whatsapp_message_template">DriverSpa қосымшасына жылдам кіру үшін осы хабарламаны өзгеріссіз жіберіңіз. Жібергеннен кейін қосымшаға оралыңыз.\n\n%1$s</string>
+    <string name="whatsapp_waiting">Растауды күтудеміз…</string>
+    <string name="whatsapp_retry">Қайталау</string>
+    <string name="verification_code">Растау коды</string>
+    <string name="button_retry">Кодты қайта жіберу</string>
+    <string name="login_phone">Телефон нөмірі</string>
+    <string name="login_company_name">Компания атауы</string>
+
+    <!-- settings -->
+    <string name="settings_language">Тіл</string>
+
+    <!-- shared -->
+    <string name="no_records">Ештеңе табылмады</string>
+    <string name="retry">ҚАЙТАЛАУ</string>
+    <string name="connection_error">Байланыс қатесі</string>
+    <string name="textview_loading_data">жүктелуде…</string>
+    <string name="list_empty">Ештеңе табылмады</string>
+
+</resources>

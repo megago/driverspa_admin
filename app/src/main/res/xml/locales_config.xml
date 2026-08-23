@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Languages the app ships. Kazakh (kk) is the default; Russian lives in the
+     base values/ folder, English in values-en/. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="kk" />
+    <locale android:name="ru" />
+    <locale android:name="en" />
+</locale-config>

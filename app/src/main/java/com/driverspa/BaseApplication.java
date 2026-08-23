@@ -2,17 +2,15 @@ package com.driverspa;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
 //import android.support.multidex.MultiDex;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.ThreadEnforcer;
 
-import java.util.Locale;
-
 import com.driverspa.model.NotificationType;
 import com.driverspa.util.HttpClient;
 import com.driverspa.util.JsonUtil;
+import com.driverspa.util.LocaleManager;
 import com.driverspa.util.MainOttoThreadBus;
 import com.driverspa.util.UserPreferences;
 
@@ -62,27 +60,23 @@ public class BaseApplication extends Application {
 		return HttpClient.getHttpClient();
 	}
 
-	public static void setLocale(String lang){		
-		Locale locale = new Locale(Reference.EN);
-		Locale.setDefault(locale);
-		Configuration config = new Configuration();
-		config.locale = locale;
-		context.getResources().updateConfiguration(config,context.getResources().getDisplayMetrics());
-		UserPreferences.onLocaleChange(context, lang);
-		
+	/**
+	 * Switch the app UI language. Delegates to {@link LocaleManager}, which uses the
+	 * AndroidX per-app language API (persisted + auto-applied to every activity).
+	 *
+	 * @param lang a resource tag: {@link LocaleManager#KK}, {@link LocaleManager#RU}
+	 *             or {@link LocaleManager#EN}.
+	 */
+	public static void setLocale(String lang){
+		LocaleManager.apply(lang);
 	}
-	
-	public static void initLocale(){		
-		String defaultLocale;
-		 if(Locale.getDefault().toString().indexOf(Reference.RU) != -1)
-			 defaultLocale = Reference.RU;
-		 else if(Locale.getDefault().toString().indexOf(Reference.EN) != -1)
-			 defaultLocale = Reference.EN;
-		 else if(Locale.getDefault().toString().indexOf(Reference.KZ) != -1)
-			 defaultLocale = Reference.KZ;
-		 else
-			 defaultLocale = Reference.RU;
-		 setLocale(Reference.RU);
+
+	/**
+	 * Called once at startup. Defaults fresh installs to Kazakh and keeps the
+	 * backend Accept-Language code in sync with the chosen UI language.
+	 */
+	public static void initLocale(){
+		LocaleManager.ensureDefault(context);
 	}
 
 	@Override

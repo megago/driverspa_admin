@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    English.
+
+    NOTE: Covers the onboarding/registration flow as an initial seed. The bulk of
+    the app's strings are still hardcoded in Java/XML and will be added here during
+    the extraction phase.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- main -->
+    <string name="welcome_text">Welcome!</string>
+    <string name="user_start">I\'m a driver, I want to wash my car</string>
+    <string name="washer_start">I\'m a car wash administrator</string>
+
+    <!-- registration -->
+    <string name="hint_login">Login</string>
+    <string name="enter_number_text">Please enter\n your phone number:</string>
+    <string name="enter_code_text">Please enter the code\n sent via SMS:</string>
+    <string name="kazakhstan_number_text">Kazakhstan (+7)</string>
+    <string name="button_ok">OK</string>
+    <string name="button_next">Continue</string>
+    <string name="whatsapp_register_info">Tap the button below to open WhatsApp and send a message with the code. The message must be sent from the same number you are registering.</string>
+    <string name="whatsapp_send_button">Send via WhatsApp</string>
+    <!-- WhatsApp message body. %1$s is the verification token; it must stay in the
+         message unchanged so the backend can match it. -->
+    <string name="whatsapp_message_template">To quickly sign in to the DriverSpa app, send this message unchanged. After sending, return to the app.\n\n%1$s</string>
+    <string name="whatsapp_waiting">Waiting for confirmation…</string>
+    <string name="whatsapp_retry">Retry</string>
+    <string name="verification_code">Verification code</string>
+    <string name="button_retry">Send the code again</string>
+    <string name="login_phone">Phone number</string>
+    <string name="login_company_name">Company name</string>
+
+    <!-- settings -->
+    <string name="settings_language">Language</string>
+
+    <!-- shared -->
+    <string name="no_records">Nothing found</string>
+    <string name="retry">RETRY</string>
+    <string name="connection_error">Connection error</string>
+    <string name="textview_loading_data">loading…</string>
+    <string name="list_empty">Nothing found</string>
+
+</resources>
