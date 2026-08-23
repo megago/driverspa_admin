@@ -19,6 +19,20 @@
             android:textColor="@color/White"
             android:textSize="@dimen/text_large"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/settings_language"
+            android:padding="4dp"
+            android:src="@drawable/ic_language" />
     </FrameLayout>
 
     <FrameLayout

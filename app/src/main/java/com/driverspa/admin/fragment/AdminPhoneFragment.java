@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
+import com.driverspa.dialog.LanguageDialog;
 import com.driverspa.model.api.request.AuthAdminRegistrationRequest;
 import com.driverspa.model.api.request.CheckPhoneRequest;
 import com.driverspa.model.api.request.ResendActivationRequest;
@@ -54,7 +55,7 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 
 	// Local-use flag: when true, skip the check_phone backend call and always
 	// force the password screen. Set back to false before shipping.
-	private static final boolean LOCAL_FORCE_PASSWORD = true;
+	private static final boolean LOCAL_FORCE_PASSWORD = false;
 
 	public interface ActivityActions {
 		void openPasswordLogin(String phone);
@@ -177,6 +178,11 @@ public class AdminPhoneFragment extends AdminBaseFragment {
 	private void updateEmailVisibility() {
 		boolean isEmail = UserPreferences.CHANNEL_EMAIL.equals(selectedChannel());
 		emailContainer.setVisibility(isEmail ? View.VISIBLE : View.GONE);
+	}
+
+	@OnClick(R.id.btnLanguage)
+	protected void onLanguageClicked() {
+		LanguageDialog.show(getActivity());
 	}
 
 	@OnClick(R.id.btnOk)
