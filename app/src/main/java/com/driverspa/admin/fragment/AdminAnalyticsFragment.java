@@ -31,6 +31,7 @@ import com.driverspa.R;
 import com.driverspa.adapter.AnalyticsListAdapter;
 import com.driverspa.model.Statistic;
 import com.driverspa.model.Washer;
+import com.driverspa.util.StatisticLabels;
 import com.driverspa.util.otto.ws.WasherGetResponseEvent;
 import com.driverspa.view.ExpandableListView;
 import com.driverspa.view.PieChartView;
@@ -158,7 +159,7 @@ public class AdminAnalyticsFragment extends AdminBaseFragment {
 
 		for (int i = 0; i < count; i++) {
 			try {
-				entries1.add(new PieEntry(Float.parseFloat(chartStatistics.get(i).getItemValue()), chartStatistics.get(i).getItemName()));
+				entries1.add(new PieEntry(Float.parseFloat(chartStatistics.get(i).getItemValue()), StatisticLabels.localize(chartStatistics.get(i).getItemName())));
 			}
 			catch(Exception e){}
 		}
@@ -175,7 +176,7 @@ public class AdminAnalyticsFragment extends AdminBaseFragment {
 //		d.setValueTypeface(tf);
 //
 
-		PieDataSet dataSet = new PieDataSet(entries1, statistic.getTitle());
+		PieDataSet dataSet = new PieDataSet(entries1, StatisticLabels.localize(statistic.getTitle()));
 		dataSet.setDrawIcons(false);
 		dataSet.setSliceSpace(3f);
 		dataSet.setIconsOffset(new MPPointF(0, 40));
@@ -220,7 +221,7 @@ public class AdminAnalyticsFragment extends AdminBaseFragment {
 	}
 
 	private SpannableString generateCenterText() {
-		SpannableString s = new SpannableString(statistic.getTitle());
+		SpannableString s = new SpannableString(StatisticLabels.localize(statistic.getTitle()));
 //		s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
 //		s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
 //		s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);

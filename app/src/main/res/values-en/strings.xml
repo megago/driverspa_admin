@@ -907,4 +907,10 @@
     <string name="password_one_letter">The password must contain at least one letter</string>
     <string name="password_one_digit">The password must contain at least one digit</string>
     <string name="passwords_dont_match">The passwords don\'t match</string>
+
+    <!-- analytics labels (client-side translation of backend text) -->
+    <string name="stat_total_statistics">Total statistics</string>
+    <string name="stat_avg_wash_time">Average wash time</string>
+    <string name="stat_number_of_washes">Number of washes</string>
+    <string name="stat_net_profit">Net profit</string>
 </resources>

@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
 import com.driverspa.model.Statistic;
+import com.driverspa.util.StatisticLabels;
 
 public class AnalyticsListAdapter extends BaseDataAdapter<Statistic.StatisticDetail> {
 
@@ -30,7 +31,7 @@ public class AnalyticsListAdapter extends BaseDataAdapter<Statistic.StatisticDet
         }
 
         Statistic.StatisticDetail item = getItem(position);
-        holder.itemName.setText(item.getItemName());
+        holder.itemName.setText(StatisticLabels.localize(item.getItemName()));
         if(item.getItemValueString().contains(".0"))
           holder.itemValue.setText(item.getItemValueString().replace(".0",""));
         else

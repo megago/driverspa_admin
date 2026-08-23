@@ -920,4 +920,10 @@
     <string name="password_one_letter">Пароль должен содержать хотя бы одну букву</string>
     <string name="password_one_digit">Пароль должен содержать хотя бы одну цифру</string>
     <string name="passwords_dont_match">Пароли не совпадают</string>
+
+    <!-- analytics labels (client-side translation of backend text) -->
+    <string name="stat_total_statistics">Общая статистика</string>
+    <string name="stat_avg_wash_time">Среднее время мойки</string>
+    <string name="stat_number_of_washes">Количество моек</string>
+    <string name="stat_net_profit">Чистая прибыль</string>
 </resources>

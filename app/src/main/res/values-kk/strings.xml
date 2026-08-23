@@ -908,4 +908,10 @@
     <string name="password_one_letter">Құпиясөзде кемінде бір әріп болуы керек</string>
     <string name="password_one_digit">Құпиясөзде кемінде бір сан болуы керек</string>
     <string name="passwords_dont_match">Құпиясөздер сәйкес келмейді</string>
+
+    <!-- analytics labels (client-side translation of backend text) -->
+    <string name="stat_total_statistics">Жалпы статистика</string>
+    <string name="stat_avg_wash_time">Орташа жуу уақыты</string>
+    <string name="stat_number_of_washes">Жуулар саны</string>
+    <string name="stat_net_profit">Таза пайда</string>
 </resources>
