@@ -107,11 +107,11 @@ import retrofit.mime.TypedFile;
 
 public class RetrofitClient {
 
-//	public static String API_URL = "https://api.driverspa.kz/api/"; // api url
-//	public static String API_URL_IMAGES = "https://api.driverspa.kz"; // api url
+	public static String API_URL = "https://api.driverspa.kz/api/"; // api url
+	public static String API_URL_IMAGES = "https://api.driverspa.kz"; // api url
 
-	public static String API_URL = "http://192.168.31.177:8002/api/"; // api url
-	public static String API_URL_IMAGES = "http://192.168.31.177:8002"; // api url
+//	public static String API_URL = "http://192.168.31.177:8002/api/"; // api url
+//	public static String API_URL_IMAGES = "http://192.168.31.177:8002"; // api url
 
 	/**
 	 * Interface for connecting to DriverSpa API
