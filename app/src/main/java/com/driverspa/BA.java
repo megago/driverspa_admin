@@ -73,8 +73,11 @@ public class BA extends BaseApplication {
 
 	private static android.content.res.Resources localizedResources() {
 		Context ctx = getContext();
-		LocaleListCompat locales = AppCompatDelegate.getApplicationLocales();
-		Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		// Use the persisted language (single source of truth) rather than
+		// AppCompatDelegate.getApplicationLocales(), which can be empty/out of sync
+		// on API < 33 and would make code-side strings fall back to the system
+		// language while layout resources show the chosen one (a mix).
+		Locale locale = new Locale(com.driverspa.util.LocaleManager.current());
 		Configuration cfg = new Configuration(ctx.getResources().getConfiguration());
 		cfg.setLocale(locale);
 		return ctx.createConfigurationContext(cfg).getResources();

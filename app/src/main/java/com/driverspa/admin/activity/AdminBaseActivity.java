@@ -32,6 +32,12 @@ import com.driverspa.listener.OnActionbarTitleChange;
 @SuppressLint("NewApi")
 public class AdminBaseActivity extends AppCompatActivity implements OnActionbarTitleChange {
 
+	@Override
+	protected void attachBaseContext(android.content.Context newBase) {
+		super.attachBaseContext(com.driverspa.util.LocaleManager.wrap(newBase));
+	}
+
+
     private ProgressDialog pd;
 	private final String TAG = "YERZHAN";
 	public static final String OPENING_ANIMATION = "OPENING_ANIMATION";
