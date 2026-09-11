@@ -81,7 +81,11 @@ public class BaseApplication extends Application {
 
 	@Override
 	protected void attachBaseContext(Context context) {
-		super.attachBaseContext(context);
+		// Wrap the application context so app-context resource reads follow the
+		// chosen language too (not only activities). On API 33+ this matters:
+		// without it the application context stays on the system language while
+		// wrapped activity contexts show the chosen one, producing a mix.
+		super.attachBaseContext(LocaleManager.wrap(context));
 //		MultiDex.install(this);
 	}
 

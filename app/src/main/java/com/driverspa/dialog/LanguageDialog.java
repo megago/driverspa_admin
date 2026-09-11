@@ -2,19 +2,16 @@ package com.driverspa.dialog;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.util.LocaleManager;
-import com.driverspa.util.otto.ws.AboutUSRequestEvent;
-import com.driverspa.util.otto.ws.InitRequestEvent;
 
 /**
- * Simple single-choice language picker. Applying a choice switches the app UI
- * language via {@link LocaleManager} (AppCompat recreates the visible activity
- * automatically to render the new locale).
+ * Simple single-choice language picker. Applying a choice persists the language and fully
+ * restarts the app process so every context rebuilds in the new locale.
  */
 public final class LanguageDialog {
 
@@ -39,17 +36,27 @@ public final class LanguageDialog {
                         dialog.dismiss();
                         String selected = tags[which];
                         if (!selected.equals(LocaleManager.current())) {
-                            // Apply first so the stored language (used by the request
-                            // interceptor) is updated before we refresh, then re-fetch
-                            // the server-provided reference dictionary (roles, statuses,
-                            // car/payment types, etc.) so it comes back localized.
                             LocaleManager.apply(selected);
-                            BA.getEventBus().post(new InitRequestEvent(LocaleManager.backendCode(selected)));
-                            BA.getEventBus().post(new AboutUSRequestEvent());
+                            restartApp(activity);
                         }
                     }
                 })
                 .setNegativeButton(R.string.button_ok, null)
                 .show();
+    }
+
+    /**
+     * Fully restarts the app process so every context (including the Application) is rebuilt in
+     * the newly chosen language, and the splash re-fetches the reference dictionary in it. A
+     * process restart is required because {@code Application.attachBaseContext} — where the locale
+     * is applied — only runs once per process.
+     */
+    private static void restartApp(Activity activity) {
+        Intent launch = activity.getPackageManager()
+                .getLaunchIntentForPackage(activity.getPackageName());
+        if (launch != null && launch.getComponent() != null) {
+            activity.startActivity(Intent.makeRestartActivityTask(launch.getComponent()));
+        }
+        Runtime.getRuntime().exit(0);
     }
 }

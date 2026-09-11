@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.LocaleListCompat;
-
 import com.driverspa.BA;
 
 import java.util.Locale;
@@ -14,13 +11,15 @@ import java.util.Locale;
 /**
  * Single source of truth for the app's UI language.
  *
- * <p>The chosen language is persisted in {@link UserPreferences} and applied explicitly by
- * wrapping each activity's base context in {@link #wrap(Context)} (called from the base
- * activities' {@code attachBaseContext}). This is deterministic across all API levels and does
- * not rely on AppCompat's per-app-locale auto-store, which on API &lt; 33 could leave activity
- * resources on the system language while code-side {@code getString} used the chosen one —
- * producing a mix. {@link AppCompatDelegate#setApplicationLocales} is still called so it triggers
- * the activity recreation on change and keeps the framework in sync.
+ * <p>The chosen language is persisted in {@link UserPreferences} and applied by wrapping every
+ * context — the {@code Application} and each activity — in {@link #wrap(Context)} from their
+ * {@code attachBaseContext}. This is fully deterministic across all API levels.
+ *
+ * <p>Deliberately does NOT use the platform per-app locale
+ * ({@code AppCompatDelegate.setApplicationLocales}). Running both at once caused conflicts on
+ * API 33+, where the OS-managed application-context locale diverged from the wrapped activity
+ * contexts, producing an English-first mix and unreliable switching. Persisted-value +
+ * attachBaseContext is the only mechanism.
  *
  * <p>The backend (washme_be LocaleMiddleware) special-cases {@code kk} for Kazakh and resolves
  * {@code ru}/{@code en} via Django, so the Android resource tag and the Accept-Language code are
@@ -59,52 +58,58 @@ public final class LocaleManager {
         return resourceTag; // kk / ru / en match the backend's Accept-Language codes
     }
 
-    /** The persisted resource tag (kk/ru/en), falling back to {@link #DEFAULT}. */
-    public static String current() {
-        String saved = UserPreferences.getUserLocale(BA.getContext());
-        if (!TextUtils.isEmpty(saved)) {
-            for (String tag : SUPPORTED) {
-                if (tag.equals(saved)) return tag;
+    /** Reads the persisted resource tag from a context, falling back to {@link #DEFAULT}. */
+    private static String resolveTag(Context context) {
+        try {
+            String saved = UserPreferences.getUserLocale(context);
+            if (!TextUtils.isEmpty(saved)) {
+                for (String tag : SUPPORTED) {
+                    if (tag.equals(saved)) return tag;
+                }
             }
+        } catch (Exception ignored) {
         }
         return DEFAULT;
     }
 
-    /**
-     * Applies {@code resourceTag} as the app language: persists it (used by
-     * {@link #wrap(Context)} and the request interceptor) and asks AppCompat to recreate the
-     * visible activities so they re-read the new locale.
-     */
-    public static void apply(String resourceTag) {
-        UserPreferences.putUserLocale(BA.getContext(), backendCode(resourceTag));
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(resourceTag));
+    /** The persisted resource tag (kk/ru/en), falling back to {@link #DEFAULT}. */
+    public static String current() {
+        return resolveTag(BA.getContext());
     }
 
     /**
-     * Ensures a language is selected on first launch. If the user has never chosen one,
-     * the app defaults to Kazakh (rather than following the system locale).
+     * Persists {@code resourceTag} as the app language. The change takes effect once contexts are
+     * re-created (see {@code LanguageDialog}, which relaunches the task after calling this).
+     */
+    public static void apply(String resourceTag) {
+        UserPreferences.putUserLocale(BA.getContext(), backendCode(resourceTag));
+    }
+
+    /**
+     * Ensures a language is persisted on first launch. If the user has never chosen one, the app
+     * defaults to Kazakh (rather than following the system locale).
      */
     public static void ensureDefault(Context context) {
-        String saved = UserPreferences.getUserLocale(context);
-        boolean valid = false;
-        if (!TextUtils.isEmpty(saved)) {
-            for (String tag : SUPPORTED) {
-                if (tag.equals(saved)) { valid = true; break; }
-            }
-        }
-        if (!valid) {
+        if (!isSupported(UserPreferences.getUserLocale(context))) {
             UserPreferences.putUserLocale(context, DEFAULT);
         }
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(current()));
+    }
+
+    private static boolean isSupported(String tag) {
+        if (TextUtils.isEmpty(tag)) return false;
+        for (String s : SUPPORTED) {
+            if (s.equals(tag)) return true;
+        }
+        return false;
     }
 
     /**
      * Wraps a base context so its resources resolve in the persisted language. Called from the
-     * base activities' {@code attachBaseContext}, this is what actually forces every screen onto
-     * the chosen language regardless of the device's system language.
+     * {@code attachBaseContext} of the Application and every activity, this is what forces the
+     * whole UI onto the chosen language regardless of the device's system language.
      */
     public static Context wrap(Context base) {
-        Locale locale = new Locale(current());
+        Locale locale = new Locale(resolveTag(base));
         Locale.setDefault(locale);
         Configuration config = new Configuration(base.getResources().getConfiguration());
         config.setLocale(locale);
