@@ -2,6 +2,7 @@ package com.driverspa.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 import com.driverspa.BA;
@@ -34,7 +35,7 @@ public final class LocaleManager {
     /** English — resource tag (values-en). */
     public static final String EN = "en";
 
-    /** Default language for fresh installs. */
+    /** Fallback when the device's system language is none of the supported ones. */
     public static final String DEFAULT = KK;
 
     /** Supported languages, in the order they should appear in the picker. */
@@ -58,15 +59,25 @@ public final class LocaleManager {
         return resourceTag; // kk / ru / en match the backend's Accept-Language codes
     }
 
-    /** Reads the persisted resource tag from a context, falling back to {@link #DEFAULT}. */
+    /** Reads the persisted resource tag from a context, falling back to the system language. */
     private static String resolveTag(Context context) {
         try {
             String saved = UserPreferences.getUserLocale(context);
-            if (!TextUtils.isEmpty(saved)) {
-                for (String tag : SUPPORTED) {
-                    if (tag.equals(saved)) return tag;
-                }
-            }
+            if (isSupported(saved)) return saved;
+        } catch (Exception ignored) {
+        }
+        return systemTag();
+    }
+
+    /**
+     * The device's system language mapped to a supported tag (en/kk/ru), or {@link #DEFAULT}
+     * when the system language is none of them. Read from {@link Resources#getSystem()}, which
+     * is unaffected by our own locale wrapping, so it always reflects the real device setting.
+     */
+    public static String systemTag() {
+        try {
+            Locale sys = Resources.getSystem().getConfiguration().getLocales().get(0);
+            if (sys != null && isSupported(sys.getLanguage())) return sys.getLanguage();
         } catch (Exception ignored) {
         }
         return DEFAULT;
@@ -87,11 +98,12 @@ public final class LocaleManager {
 
     /**
      * Ensures a language is persisted on first launch. If the user has never chosen one, the app
-     * defaults to Kazakh (rather than following the system locale).
+     * defaults to the device's system language (English/Kazakh/Russian), falling back to
+     * {@link #DEFAULT} for any other system language. The in-app picker still overrides this.
      */
     public static void ensureDefault(Context context) {
         if (!isSupported(UserPreferences.getUserLocale(context))) {
-            UserPreferences.putUserLocale(context, DEFAULT);
+            UserPreferences.putUserLocale(context, systemTag());
         }
     }
 
