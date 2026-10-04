@@ -4,25 +4,32 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- DriverSPA car-wash mark (matches landing page logo), white line art -->
+    <!-- DriverSPA Admin: car-wash mark + gear badge, white line art -->
+    <!-- car-wash mark (water spray + car), shifted up-left to make room for the badge -->
     <group
-        android:translateX="22.8"
-        android:translateY="28.5"
-        android:scaleX="2.6"
-        android:scaleY="2.6">
-        <!-- water spray -->
+        android:translateX="20.0"
+        android:translateY="24.5"
+        android:scaleX="2.4"
+        android:scaleY="2.4">
         <path
             android:pathData="M8,2 l-1.3,2.4 M12,1.6 l-1.3,2.6 M16,2 l-1.3,2.4"
             android:strokeColor="#FFFFFFFF"
-            android:strokeWidth="1.6"
+            android:strokeWidth="1.733"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
-        <!-- car body + wheels -->
         <path
             android:pathData="M5,14 l1.5,-4.5 A2,2 0 0 1 8.4,8 h7.2 a2,2 0 0 1 1.9,1.5 L19,14 m-14,0 h14 m-14,0 v4 m14,-4 v4 M7,18 h0.01 M17,18 h0.01"
             android:strokeColor="#FFFFFFFF"
-            android:strokeWidth="1.6"
+            android:strokeWidth="1.733"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
     </group>
+    <!-- admin badge: gear knocked out of a white disc -->
+    <path
+        android:pathData="M81.5,69 A12.5,12.5 0 1 0 56.5,69 A12.5,12.5 0 1 0 81.5,69Z"
+        android:fillColor="#FFFFFFFF" />
+    <path
+        android:pathData="M75.70,69.00 L77.56,69.81 L77.22,71.53 L75.19,71.56 L73.74,73.74 L74.48,75.63 L73.02,76.60 L71.56,75.19 L69.00,75.70 L68.19,77.56 L66.47,77.22 L66.44,75.19 L64.26,73.74 L62.37,74.48 L61.40,73.02 L62.81,71.56 L62.30,69.00 L60.44,68.19 L60.78,66.47 L62.81,66.44 L64.26,64.26 L63.52,62.37 L64.98,61.40 L66.44,62.81 L69.00,62.30 L69.81,60.44 L71.53,60.78 L71.56,62.81 L73.74,64.26 L75.63,63.52 L76.60,64.98 L75.19,66.44Z M71.90,69.00 A2.9,2.9 0 1 0 66.10,69.00 A2.9,2.9 0 1 0 71.90,69.00Z"
+        android:fillColor="#FF047857"
+        android:fillType="evenOdd" />
 </vector>

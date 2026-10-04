@@ -4,23 +4,29 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Themed (monochrome) layer: same car mark, system applies the tint -->
+    <!-- Themed (monochrome) layer: same car mark + gear, system applies the tint -->
+    <!-- car-wash mark (water spray + car), shifted up-left to make room for the badge -->
     <group
-        android:translateX="22.8"
-        android:translateY="28.5"
-        android:scaleX="2.6"
-        android:scaleY="2.6">
+        android:translateX="20.0"
+        android:translateY="24.5"
+        android:scaleX="2.4"
+        android:scaleY="2.4">
         <path
             android:pathData="M8,2 l-1.3,2.4 M12,1.6 l-1.3,2.6 M16,2 l-1.3,2.4"
             android:strokeColor="#FF000000"
-            android:strokeWidth="1.6"
+            android:strokeWidth="1.733"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
         <path
             android:pathData="M5,14 l1.5,-4.5 A2,2 0 0 1 8.4,8 h7.2 a2,2 0 0 1 1.9,1.5 L19,14 m-14,0 h14 m-14,0 v4 m14,-4 v4 M7,18 h0.01 M17,18 h0.01"
             android:strokeColor="#FF000000"
-            android:strokeWidth="1.6"
+            android:strokeWidth="1.733"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
     </group>
+    <!-- admin badge: gear -->
+    <path
+        android:pathData="M77.20,69.00 L79.45,69.99 L79.04,72.09 L76.58,72.14 L74.80,74.80 L75.69,77.09 L73.91,78.28 L72.14,76.58 L69.00,77.20 L68.01,79.45 L65.91,79.04 L65.86,76.58 L63.20,74.80 L60.91,75.69 L59.72,73.91 L61.42,72.14 L60.80,69.00 L58.55,68.01 L58.96,65.91 L61.42,65.86 L63.20,63.20 L62.31,60.91 L64.09,59.72 L65.86,61.42 L69.00,60.80 L69.99,58.55 L72.09,58.96 L72.14,61.42 L74.80,63.20 L77.09,62.31 L78.28,64.09 L76.58,65.86Z M72.60,69.00 A3.6,3.6 0 1 0 65.40,69.00 A3.6,3.6 0 1 0 72.60,69.00Z"
+        android:fillColor="#FF000000"
+        android:fillType="evenOdd" />
 </vector>
