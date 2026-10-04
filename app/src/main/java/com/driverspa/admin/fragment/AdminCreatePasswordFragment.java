@@ -2,7 +2,6 @@ package com.driverspa.admin.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ import com.driverspa.R;
 import com.driverspa.model.api.request.SetPasswordRequest;
 import com.driverspa.util.PasswordUtil;
 import com.driverspa.util.ToastUtil;
-import com.driverspa.util.UserPreferences;
-import com.driverspa.util.otto.ws.AdminBootstrapRequestEvent;
 import com.driverspa.util.otto.ws.AuthAdminVerificationResponseEvent;
 import com.driverspa.util.otto.ws.SetPasswordRequestEvent;
 import com.driverspa.util.otto.ws.SetPasswordResponseEvent;
@@ -30,16 +27,14 @@ import com.driverspa.util.otto.ws.SetPasswordResponseEvent;
  * (token stored by activate). After set_password succeeds we collect the city,
  * then trigger the carwash bootstrap and enter the app.
  */
-public class AdminCreatePasswordFragment extends AdminBaseFragment {
+public class AdminCreatePasswordFragment extends AdminAuthBaseFragment {
 
 	public interface ActivityActions {
-		void showChooseCity();
 		void openAdminHomeActivity();
 		void openWizardActivity();
 	}
 
 	private ActivityActions activityActions;
-	private boolean awaitingCity = false;
 
 	@BindView(R.id.password)
 	EditText password;
@@ -85,8 +80,7 @@ public class AdminCreatePasswordFragment extends AdminBaseFragment {
 				&& event.getData().getResponse() != null && event.getData().getResponse().isOk()) {
 			// Password saved. Now collect the city (needed to create the carwash),
 			// then continue from onResume once the city activity returns.
-			awaitingCity = true;
-			activityActions.showChooseCity();
+			chooseCityThenBootstrap();
 		} else {
 			ToastUtil.display(getActivity(), event.getData() != null && event.getData().getMessage() != null
 					? event.getData().getMessage() : BA.str(R.string.err_try_again));
@@ -97,6 +91,8 @@ public class AdminCreatePasswordFragment extends AdminBaseFragment {
 	public void onBootstrapResponse(AuthAdminVerificationResponseEvent event) {
 		setWaitScreen(false);
 		if (event.getAuthLoginResponse() != null && BaseAssist.isSuccess(event.getAuthLoginResponse())) {
+			if (handleCityRequired(event))
+				return;
 			if (event.isActiveCarwash())
 				activityActions.openAdminHomeActivity();
 			else
@@ -110,12 +106,6 @@ public class AdminCreatePasswordFragment extends AdminBaseFragment {
 	public void onResume() {
 		super.onResume();
 		BA.getEventBus().register(this);
-		// Returning from the city picker: kick off the carwash bootstrap.
-		if (awaitingCity && !TextUtils.isEmpty(UserPreferences.getCity(BA.getContext()))) {
-			awaitingCity = false;
-			setWaitScreen(true);
-			BA.getEventBus().post(new AdminBootstrapRequestEvent());
-		}
 	}
 
 	@Override

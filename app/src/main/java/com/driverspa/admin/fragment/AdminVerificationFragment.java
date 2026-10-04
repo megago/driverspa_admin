@@ -42,7 +42,7 @@ import com.driverspa.util.otto.ws.AuthAdminVerificationResponseEvent;
 import com.driverspa.util.otto.ws.ResendActivationRequestEvent;
 import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 
-public class AdminVerificationFragment extends AdminBaseFragment {
+public class AdminVerificationFragment extends AdminAuthBaseFragment {
 	public interface ActivityActions {
 		public void openAdminHomeActivity();
 		public void openWizardActivity();
@@ -157,6 +157,8 @@ public class AdminVerificationFragment extends AdminBaseFragment {
 			UserPreferences.putRecoverySmsSentTime(getActivity(), 0);
             if(event.isPasswordRequired())
                activityActions.openCreatePassword();
+            else if(handleCityRequired(event))
+               return;
             else if(event.isActiveCarwash())
     		   activityActions.openAdminHomeActivity();
 			else

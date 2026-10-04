@@ -1,6 +1,8 @@
 package com.driverspa.assist;
 import com.driverspa.R;
 
+import android.text.TextUtils;
+
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -230,14 +232,23 @@ public class AuthVerificationAssist extends BaseAssist {
 						});
 					} else {
 						// No carwash yet — create an initial one using the chosen city.
+						String city = UserPreferences.getCity(BA.getContext());
+						if (TextUtils.isEmpty(city)) {
+							// Signed in via a path that skipped the city step (e.g. the
+							// number was registered in the client app first, so it goes
+							// straight to password login). Stay signed in and let the UI
+							// collect a city, then it re-posts AdminBootstrapRequestEvent.
+							getEventsBus().post(buildCityRequiredEvent());
+							return;
+						}
 						InitialWasherCreateRequest request = new InitialWasherCreateRequest();
 						double LAT = 43.240008;
 						double LON = 76.912231;
 						ArrayList<Double> lonLat = new ArrayList<Double>();
+						request.setCity(city);
 						try {
-							request.setCity(UserPreferences.getCity(BA.getContext()));
 							Reference.City selectedCity = BA.getReference().getCities().stream()
-									.filter(city -> city.getCode().equals(request.getCity()))
+									.filter(c -> c.getCode().equals(city))
 									.findFirst()
 									.orElse(null);
 							if (selectedCity != null) {
@@ -245,7 +256,7 @@ public class AuthVerificationAssist extends BaseAssist {
 								LON = Double.parseDouble(selectedCity.getLonLat().get(0));
 							}
 						} catch (Exception e) {
-							request.setCity("almaty");
+							L.e("bootstrapAdmin: city lookup failed for " + city + ": " + e);
 						}
 
 						lonLat.add(LON);
@@ -302,6 +313,18 @@ public class AuthVerificationAssist extends BaseAssist {
 				getEventsBus().post(new AuthAdminVerificationResponseEvent((AuthAdminVerificationResponseHolder) null));
 			}
 		});
+	}
+
+	/**
+	 * Success event flagged cityRequired: the user is signed in but no carwash
+	 * exists and no city is stored, so the UI must open the city picker first.
+	 */
+	private AuthAdminVerificationResponseEvent buildCityRequiredEvent() {
+		AuthAdminVerificationResponseHolder holder = new AuthAdminVerificationResponseHolder();
+		holder.setStatus("success");
+		AuthAdminVerificationResponseEvent ev = new AuthAdminVerificationResponseEvent(holder);
+		ev.setCityRequired(true);
+		return ev;
 	}
 
 	@Subscribe

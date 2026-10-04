@@ -29,7 +29,7 @@ import com.driverspa.util.otto.ws.ResetPasswordRequestEvent;
  * Forgot-password completion: OTP code + new password (reset_password). On
  * success the user is signed in with the new password.
  */
-public class AdminResetPasswordFragment extends AdminBaseFragment {
+public class AdminResetPasswordFragment extends AdminAuthBaseFragment {
 
 	public static final String ARG_PHONE = "ARG_PHONE";
 
@@ -97,6 +97,8 @@ public class AdminResetPasswordFragment extends AdminBaseFragment {
 		setWaitScreen(false);
 		if (event.getAuthLoginResponse() != null) {
 			if (BaseAssist.isSuccess(event.getAuthLoginResponse())) {
+				if (handleCityRequired(event))
+					return;
 				if (event.isActiveCarwash())
 					activityActions.openAdminHomeActivity();
 				else

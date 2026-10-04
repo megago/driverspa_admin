@@ -45,7 +45,7 @@ import com.driverspa.util.otto.ws.WhatsappVerifiedPushEvent;
  * user must have WhatsApp on that SIM; otherwise the status stays unverified and
  * after {@link #TIMEOUT_MS} we offer a Retry.
  */
-public class AdminWhatsappFragment extends AdminBaseFragment {
+public class AdminWhatsappFragment extends AdminAuthBaseFragment {
 
     private static final String TAG = "WhatsappFragment";
 
@@ -357,6 +357,8 @@ public class AdminWhatsappFragment extends AdminBaseFragment {
             if (BaseAssist.isSuccess(event.getAuthLoginResponse())) {
                 if (event.isPasswordRequired()) {
                     activityActions.openCreatePassword();
+                } else if (handleCityRequired(event)) {
+                    return;
                 } else if (event.isActiveCarwash()) {
                     activityActions.openAdminHomeActivity();
                 } else {

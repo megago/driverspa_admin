@@ -11,6 +11,9 @@ public class AuthAdminVerificationResponseEvent{
    // true when activate succeeded but the user must still create a password
    // (new password flow). In that case no carwash bootstrap has happened yet.
    private boolean passwordRequired;
+   // true when the user is signed in but has no carwash yet and no city is
+   // stored, so the UI must collect a city before the bootstrap can create one.
+   private boolean cityRequired;
 	public AuthAdminVerificationResponseEvent(BaseResponseHolder data, boolean isActiveCarwash){
 		authVerificationResponse = new AuthAdminVerificationResponseHolder();
 		authVerificationResponse.setMessage(data.getMessage());
@@ -36,5 +39,13 @@ public class AuthAdminVerificationResponseEvent{
 
 	public void setPasswordRequired(boolean passwordRequired) {
 		this.passwordRequired = passwordRequired;
+	}
+
+	public boolean isCityRequired() {
+		return cityRequired;
+	}
+
+	public void setCityRequired(boolean cityRequired) {
+		this.cityRequired = cityRequired;
 	}
 }

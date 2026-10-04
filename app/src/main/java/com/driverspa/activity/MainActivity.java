@@ -239,9 +239,4 @@ public class MainActivity extends BaseActivity implements
 		return true;
 	}
 
-	@Override
-	public void showChooseCity() {
-		startActivity(new Intent(this, CityChooseActivity.class));
-	}
-
 }

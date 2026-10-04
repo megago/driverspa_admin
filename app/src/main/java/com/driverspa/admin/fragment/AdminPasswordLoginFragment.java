@@ -37,7 +37,7 @@ import com.driverspa.util.otto.ws.ResendActivationResponseEvent;
 /**
  * Password login for returning users (check_phone -> has_password == true).
  */
-public class AdminPasswordLoginFragment extends AdminBaseFragment {
+public class AdminPasswordLoginFragment extends AdminAuthBaseFragment {
 
 	public static final String ARG_PHONE = "ARG_PHONE";
 	// Server message that means "phone known but no password yet" -> OTP flow.
@@ -114,6 +114,8 @@ public class AdminPasswordLoginFragment extends AdminBaseFragment {
 		setWaitScreen(false);
 		if (event.getAuthLoginResponse() != null) {
 			if (BaseAssist.isSuccess(event.getAuthLoginResponse())) {
+				if (handleCityRequired(event))
+					return;
 				if (event.isActiveCarwash())
 					activityActions.openAdminHomeActivity();
 				else
