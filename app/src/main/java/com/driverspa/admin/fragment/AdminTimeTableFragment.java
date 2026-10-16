@@ -83,6 +83,7 @@ import com.driverspa.model.api.response.WasherTimeTableResponse.BoxItem;
 import com.driverspa.util.Functions;
 import com.driverspa.util.ToastUtil;
 import com.driverspa.util.otto.NewBookingPushResponseEvent;
+import com.driverspa.util.otto.PushUpdateListRequestEvent;
 import com.driverspa.util.otto.SwipeActionEvent;
 import com.driverspa.util.otto.ws.AdminBookApproveRequestEvent;
 import com.driverspa.util.otto.ws.AdminBookApproveResponseEvent;
@@ -836,9 +837,14 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	public void onBookingPushReceived(NewBookingPushResponseEvent event){
 		if (event != null && event.getPush() != null) {
 			bookingPushData = event.getPush().getData();
-			if(washer != null) {
-				loadTimeTableDataWithoutLoader();
-			}
+		}
+	}
+
+	/** A booking push arrived (new, changed or cancelled): reload the timetable. */
+	@Subscribe
+	public void onPushUpdateListRequested(PushUpdateListRequestEvent event){
+		if(washer != null) {
+			loadTimeTableDataWithoutLoader();
 		}
 	}
 

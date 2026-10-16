@@ -598,6 +598,8 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 
 	@Subscribe
 	public void onPushUpdateListRequested(PushUpdateListRequestEvent event){
+			if(washer == null)
+				return; // carwash not loaded yet; the initial load will pick it up
 			if(Functions.checkOnline(getActivity())){
 				numberPage = 0;
 				loadDataWithoutLoader();

@@ -33,6 +33,7 @@ import com.driverspa.util.otto.ws.WhatsappVerifiedPushEvent;
 import com.driverspa.util.otto.NewBookingPushRequestEvent;
 import com.driverspa.util.otto.NewInformationPushRequestEvent;
 import com.driverspa.util.otto.NewReviewPushRequestEvent;
+import com.driverspa.util.otto.PushUpdateListRequestEvent;
 import com.driverspa.util.otto.RemoveBookingPushRequestEvent;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -186,12 +187,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void dispatchEvent(PushData pushData) {
         String type = pushData.getType();
         try {
-            if (type.contains("book") || type.contains("serving") || type.contains("express")) {
+            // Cancel/removed first: "booking_canceled" also contains "book" and
+            // must clear the unread badge, not add to it.
+            if (type.contains("cancel") || type.contains("removed")) {
+                BA.getEventBus().post(new RemoveBookingPushRequestEvent(pushData));
+                BA.getEventBus().post(new PushUpdateListRequestEvent());
+            } else if (type.contains("book") || type.contains("serving") || type.contains("express")) {
                 BA.getEventBus().post(new NewBookingPushRequestEvent(pushData));
+                // Reload the open bookings list / timetable so the change shows
+                // up without a manual refresh.
+                BA.getEventBus().post(new PushUpdateListRequestEvent());
             } else if (type.contains("review")) {
                 BA.getEventBus().post(new NewReviewPushRequestEvent(pushData));
-            } else if (type.contains("cancel") || type.contains("removed")) {
-                BA.getEventBus().post(new RemoveBookingPushRequestEvent(pushData));
             } else if (type.contains("info")) {
                 BA.getEventBus().post(new NewInformationPushRequestEvent(pushData));
             }
