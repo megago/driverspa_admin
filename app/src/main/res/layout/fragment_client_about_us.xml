@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="#00659f">
+    android:background="#1A2332">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,13 +15,13 @@
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:background="#00659f"
+        android:background="#1A2332"
         android:layout_height="match_parent"></WebView>
     <FrameLayout
         android:id="@+id/cover_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00659f"/>
+        android:background="#1A2332"/>
 
         <TextView
             android:id="@+id/textViewVersion"

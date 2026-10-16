@@ -33,6 +33,9 @@ public class AdminAboutUSFragment extends AdminBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_about_us, container, false);
         ButterKnife.bind(this,view);
+        // Paint the page's own dark background (#1A2332) before the HTML renders,
+        // so there's no flash of a different color while it loads.
+        webView.setBackgroundColor(0xFF1A2332);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDefaultTextEncodingName("utf-8");
