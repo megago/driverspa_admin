@@ -63,6 +63,14 @@
         <item>Изменить</item>
         <item>Детали</item>
     </string-array>
+    <string-array name="admin_approved_book_not_paid_options"  translatable="false">
+        <item>Клиент оплатил за мойку</item>
+        <item>Услуга оказана</item>
+        <item>Клиент не явился</item>
+        <item>Отменить бронь</item>
+        <item>Изменить бронь</item>
+        <item>Детали</item>
+    </string-array>
     <string-array name="admin_not_paid_options"  translatable="false">
         <item>Клиент оплатил за мойку</item>
         <item>Детали</item>

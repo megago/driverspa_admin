@@ -60,6 +60,14 @@
         <item>Өзгерту</item>
         <item>Мәліметтер</item>
     </string-array>
+    <string-array name="admin_approved_book_not_paid_options">
+        <item>Клиент жуу үшін төледі</item>
+        <item>Қызмет көрсетілді</item>
+        <item>Клиент келмеді</item>
+        <item>Брондауды болдырмау</item>
+        <item>Брондауды өзгерту</item>
+        <item>Мәліметтер</item>
+    </string-array>
     <string-array name="admin_not_paid_options">
         <item>Клиент жуу үшін төледі</item>
         <item>Мәліметтер</item>

@@ -249,14 +249,11 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				subTitle.setBackground(Functions.getBookStatusBGColor(getActivity(),book.getStatus()));
 				subTitle.setTextColor(Functions.getBookStatusTextColor(getActivity(),book.getStatus()));
 
-				noPaid.setVisibility(View.GONE);
+				noPaid.setVisibility(Boolean.TRUE.equals(book.getPaid()) ? View.GONE : View.VISIBLE);
 				if(!book.isQueued()) {
 					titleView.setText(BA.str(R.string.booking_word));
 				}
 				  else{
-					if(!book.getPaid()) {
-						noPaid.setVisibility(View.VISIBLE);
-					}
 					titleView.setText(BA.str(R.string.wash));
 				}
 
@@ -744,9 +741,21 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 //							&& book.getServerTime().getTime() > book.getEndTime().getTime()
 					) {
 				AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-				b.setItems(R.array.admin_approved_book_options, new OnClickListener() {
+				final boolean bookPaid = Boolean.TRUE.equals(book.getPaid());
+				b.setItems(bookPaid ? R.array.admin_approved_book_options : R.array.admin_approved_book_not_paid_options, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
+						if (!bookPaid) {
+							if (i == 0) {
+								setWaitScreen(true);
+								BookingRequest request = new BookingRequest();
+								request.setId(book.getId());
+								request.setPaid(true);
+								BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
+								return;
+							}
+							i--;
+						}
 						switch (i) {
 							case 0:
 								setWaitScreen(true);

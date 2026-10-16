@@ -1308,10 +1308,6 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		finalPriceDifference = finalPrice - cash - card - bonus - deposit;
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
 
-		if (paid != null && (cash > 0 || card > 0)) {
-			paid.setChecked(false);
-		}
-
 		priceDetails.clear();
 		if (cash > 0) {
 			BookInfo.PriceDetail pdCash = new BookInfo.PriceDetail();
@@ -1742,10 +1738,6 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 		}
 
 		txtPriceDifference.setText(finalPriceDifference + " ₸");
-
-		if (paid != null && (cash > 0 || card > 0)) {
-			paid.setChecked(false);
-		}
 
 		priceDetails.clear();
 		if (cash > 0) {
