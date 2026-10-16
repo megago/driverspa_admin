@@ -24,3 +24,4 @@ local.properties
 # Claude Code local config
 .claude/
 /app/release/
+app/release

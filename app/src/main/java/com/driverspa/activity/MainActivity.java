@@ -111,6 +111,11 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void openCreatePassword() {
+		// The phone is verified at this point: drop the WhatsApp / OTP pages so
+		// Back can't return to a finished verification screen.
+		if (!getSupportFragmentManager().isStateSaved()) {
+			getSupportFragmentManager().popBackStackImmediate(AdminPhoneFragment.class.getName(), 0);
+		}
 		replaceFragment(new AdminCreatePasswordFragment());
 	}
 

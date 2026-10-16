@@ -156,3 +156,8 @@
 -dontwarn javax.inject.**
 -dontwarn com.squareup.javawriter.**
 -dontwarn org.ocpsoft.prettytime.**
+
+# PrettyTime loads its per-language bundles (Resources_ru, Resources_kk, ...)
+# by name via ResourceBundle.getBundle, so R8 must not strip or rename them.
+-keep class org.ocpsoft.prettytime.** { *; }
+-dontwarn org.ocpsoft.prettytime.**
