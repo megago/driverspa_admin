@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -269,7 +268,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 //				txtBookingStatus.setBackground(Functions.getBookStatusBGColor(getActivity(),book.getStatus()));
 //				txtBookingStatus.setTextColor(Functions.getBookStatusTextColor(getActivity(),book.getStatus()));
 
-				HashMap<String,String> timeMap = Functions.formatUTCDate(book.getTime());
+				HashMap<String,String> timeMap = Functions.formatDateTime(book.getTime(), Functions.getCarwashZone());
 //			    titleView.setText(timeMap.get(Functions.DATE)+" в "+timeMap.get(Functions.TIME));
 
 				if(book.getStatus().equals(APPROVED) && book.getServerTime().isAfter(book.getEndTime()) ) {
@@ -367,7 +366,7 @@ public class AdminBookingInfoFragment extends AdminBaseFragment {
 				}
 				txtDiscount.setText((book.getDiscount()!=null?book.getDiscount():"0")+" %");
 
-				if(DateUtils.isToday(book.getTime().toEpochMilli()))
+				if(Functions.isToday(book.getTime(), Functions.getCarwashZone()))
 	    		  clientServiceDate.setText(BA.str(R.string.today_paren)+timeMap.get(Functions.DATE)+")");
 				else clientServiceDate.setText(timeMap.get(Functions.DATE));
 

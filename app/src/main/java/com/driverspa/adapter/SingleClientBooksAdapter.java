@@ -25,6 +25,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -120,7 +121,8 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 		}
 		final BookInfo item = mData.get(position);
 		Instant bookDateTime = item.getTime();
-		HashMap<String,String> timeMap = Functions.formatDateTime(bookDateTime);
+		ZoneId carwashZone = Functions.getCarwashZone();
+		HashMap<String,String> timeMap = Functions.formatDateTime(bookDateTime, carwashZone);
 		holder.parentView.setHasTransientState(true);
 		if(holder.parentView.getAnimation() != null)
 			holder.parentView.getAnimation().cancel();
@@ -140,16 +142,16 @@ public class SingleClientBooksAdapter extends  RecyclerViewAdapter<SingleClientB
 		Calendar bookTS = Calendar.getInstance();
 		bookTS.setTimeInMillis(item.getTs().toEpochMilli());
 		holder.bookTS.setVisibility(View.VISIBLE);
-		if(Functions.isToday(bookDateTime)) {
+		if(Functions.isToday(bookDateTime, carwashZone)) {
 			holder.bookTS.setText(p.format(bookTS));
 		}
 		else{
-			HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs());
+			HashMap<String,String> timeTSMap = Functions.formatDateTime(item.getTs(), carwashZone);
 			holder.bookTS.setText(timeTSMap.get(Functions.DATE)+BA.str(R.string.nl_at)+timeTSMap.get(Functions.TIME));
 		}
 
 		//For tomorrow or different date bookings
-		if(!Functions.isToday(bookDateTime) && Instant.now().isBefore(bookDateTime)) {
+		if(!Functions.isToday(bookDateTime, carwashZone) && Instant.now().isBefore(bookDateTime)) {
 			holder.bookTS.setText(""+timeMap.get(Functions.TIME));
 			holder.bookTime.setText(BA.str(R.string.tomorrow));
 		}

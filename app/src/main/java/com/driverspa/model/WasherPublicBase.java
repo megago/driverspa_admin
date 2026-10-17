@@ -40,6 +40,9 @@ public abstract class WasherPublicBase extends WasherBase {
 
 	private String status;
 
+	@SerializedName("carwash_tz")
+	private String carwashTimeZone; // readonly
+
     @DatabaseField
     @SerializedName("resource_uri")
 	private String resourceUri;
@@ -106,5 +109,13 @@ public abstract class WasherPublicBase extends WasherBase {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getCarwashTimeZone() {
+		return carwashTimeZone;
+	}
+
+	public void setCarwashTimeZone(String carwashTimeZone) {
+		this.carwashTimeZone = carwashTimeZone;
 	}
 }

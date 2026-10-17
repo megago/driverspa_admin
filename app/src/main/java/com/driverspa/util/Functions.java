@@ -17,9 +17,11 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonParseException;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +47,8 @@ public class Functions {
 
 	private static final String PREF = "JewUPPPref";
 	private static final ZoneId SYSTEM_ZONE = ZoneId.systemDefault();
+	private static String carwashZoneSource;
+	private static ZoneId carwashZone;
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 	private static final DateTimeFormatter HOUR_FORMATTER = DateTimeFormatter.ofPattern("HH");
@@ -292,7 +296,35 @@ public class Functions {
 		return instant;
 	}
 
+	/**
+	 * Zone of the carwash being managed; booking times are shown and entered in it.
+	 * The backend sends it as a fixed UTC offset ("GMT+05:00") worked out with its own
+	 * tz rules, so a phone whose tz database still puts Asia/Almaty at UTC+6 (no 2024
+	 * tzdata update) can't shift bookings by an hour. Until the stored carwash carries
+	 * that field, the device zone is used.
+	 */
+	public static synchronized ZoneId getCarwashZone() {
+		String washerData = UserPreferences.getWasherData(BA.getContext());
+		if (!TextUtils.equals(washerData, carwashZoneSource)) {
+			carwashZoneSource = washerData;
+			carwashZone = null;
+			try {
+				Washer washer = TextUtils.isEmpty(washerData) ? null : Washer.deserialize(washerData);
+				if (washer != null && !TextUtils.isEmpty(washer.getCarwashTimeZone())) {
+					carwashZone = ZoneId.of(washer.getCarwashTimeZone());
+				}
+			} catch (JsonParseException | DateTimeException ignored) {
+				// unreadable carwash data or zone id: keep the device zone
+			}
+		}
+		return carwashZone != null ? carwashZone : SYSTEM_ZONE;
+	}
+
 	public static HashMap<String, String> formatDateTime(Instant instant) {
+		return formatDateTime(instant, SYSTEM_ZONE);
+	}
+
+	public static HashMap<String, String> formatDateTime(Instant instant, ZoneId zone) {
 		HashMap<String, String> returnMap = new HashMap<>();
 		if (instant == null) {
 			returnMap.put(DATE, "");
@@ -302,8 +334,8 @@ public class Functions {
 			return returnMap;
 		}
 
-		// Backend dates come as UTC instants; show them in device local timezone.
-		ZonedDateTime zonedDateTime = instant.atZone(SYSTEM_ZONE);
+		// Backend dates come as UTC instants; show them in the given zone.
+		ZonedDateTime zonedDateTime = instant.atZone(zone);
 		returnMap.put(DATE, DATE_FORMATTER.format(zonedDateTime));
 		returnMap.put(TIME, TIME_FORMATTER.format(zonedDateTime));
 		returnMap.put(HOUR, HOUR_FORMATTER.format(zonedDateTime));
@@ -312,10 +344,14 @@ public class Functions {
 	}
 
 	public static boolean isToday(Instant instant) {
+		return isToday(instant, SYSTEM_ZONE);
+	}
+
+	public static boolean isToday(Instant instant, ZoneId zone) {
 		if (instant == null) {
 			return false;
 		}
-		return instant.atZone(SYSTEM_ZONE).toLocalDate().equals(LocalDate.now(SYSTEM_ZONE));
+		return instant.atZone(zone).toLocalDate().equals(LocalDate.now(zone));
 	}
 
 	public static Instant getStartOfDay(Instant instant) {

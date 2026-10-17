@@ -65,6 +65,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -476,7 +477,8 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 
 	public void createGridList(final Washer washer, List<String> slots){
 		gridList = new ArrayList<HashMap<String,String>>();
-		Calendar calendar = Calendar.getInstance();
+		ZoneId carwashZone = Functions.getCarwashZone();
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(carwashZone.getId()));
 
 		if(serverTime != null) calendar.setTimeInMillis(serverTime.toEpochMilli());
 
@@ -524,7 +526,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							//More than 0 books at the grid
 							BookInfo gridBook = gridBooks.get(k);
 							if(gridBook.getBoxId() != null && boxId != null && gridBook.getBoxId().equals(boxId)) {
-								ZonedDateTime gridBookTime = gridBook.getTime().atZone(ZoneId.systemDefault());
+								ZonedDateTime gridBookTime = gridBook.getTime().atZone(carwashZone);
 								int hour = gridBookTime.getHour();
 								int minute = gridBookTime.getMinute();
 								HashMap<String, String> gridBookMap = new HashMap<String, String>();
@@ -542,7 +544,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								}
 								gridList.add(gridBookMap);
 								gridIndex++;
-								ZonedDateTime gridEndBookTime = gridBook.getEndTime().atZone(ZoneId.systemDefault());
+								ZonedDateTime gridEndBookTime = gridBook.getEndTime().atZone(carwashZone);
 								int endHour = gridEndBookTime.getHour();
 								int endMinute = gridEndBookTime.getMinute();
 
@@ -769,7 +771,7 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						HashMap<String,String> selectedTimeMap = gridList.get(position);
 						int hour = Integer.parseInt(selectedTimeMap.get(GRID_ID))/60;
 						int minut = Integer.parseInt(selectedTimeMap.get(GRID_ID))%60;
-						Calendar cal = Calendar.getInstance();
+						Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(carwashZone.getId()));
 						if(selectedDay.equals(TOMORROW)) cal.add(Calendar.DATE, 1);
 						cal.set(Calendar.HOUR_OF_DAY,hour);
 						cal.set(Calendar.MINUTE,minut);
@@ -953,12 +955,13 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	private HashMap<Integer,List<BookInfo>> getGridBooks(HashMap<String,BookInfo> bookingObjects){
 		HashMap<Integer,List<BookInfo>> gridBooks = new HashMap<Integer,List<BookInfo>>();
 		if(bookingObjects != null && bookingObjects.size() > 0) {
+			ZoneId carwashZone = Functions.getCarwashZone();
 			bookingObjects.values().stream()
 					.filter(book -> !book.getStatus().equals(REJECTED)
 							&& !book.getStatus().equals(CANCELED)
 							&& !book.getStatus().equals(QUEUED_REJECTED))
 					.forEach(book -> {
-						ZonedDateTime bookTime = book.getTime().atZone(ZoneId.systemDefault());
+						ZonedDateTime bookTime = book.getTime().atZone(carwashZone);
 						int hour = bookTime.getHour();
 						int minute = bookTime.getMinute();
 						int gridTime = hour * 60 + (minute < 30 ? 0 : 30);

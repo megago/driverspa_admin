@@ -15,7 +15,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -875,7 +874,7 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 					if (selectedDay.equals(PENDING) && !book.getStatus().equals(PENDING)) {
 						java.time.Instant bookDateTime = Functions.getUTCDate(book.getTime());
 						long bookDateTimeMillis = bookDateTime.toEpochMilli();
-						if (!DateUtils.isToday(bookDateTimeMillis) && System.currentTimeMillis() < bookDateTimeMillis) {
+						if (!Functions.isToday(bookDateTime, Functions.getCarwashZone()) && System.currentTimeMillis() < bookDateTimeMillis) {
 							iter.remove();
 						}
 					}
