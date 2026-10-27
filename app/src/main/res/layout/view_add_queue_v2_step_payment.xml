@@ -8,9 +8,11 @@
     android:paddingTop="12dp"
     android:paddingBottom="16dp">
 
-    <!-- "Already paid" toggle -->
+    <!-- "Already paid" toggle. Hidden: payment is taken when the order is finished
+         (PaymentFlow); kept for the bindings of AdminAddQueuedBookActivityOld. -->
     <LinearLayout
         android:id="@+id/paidLayout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_v2_card"
@@ -161,8 +163,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Payment method card -->
+    <!-- Payment method card. Hidden: payment is taken when the order is finished
+         (PaymentFlow); kept for the bindings of AdminAddQueuedBookActivityOld. -->
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -43,7 +43,11 @@ import com.driverspa.util.ToastUtil;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.ws.AdminCarwashTransactionsRequestEvent;
 import com.driverspa.util.otto.ws.AdminCarwashTransactionsResponseEvent;
+import com.driverspa.util.otto.ws.UserGetSelfResponseEvent;
 import com.driverspa.util.otto.ws.WasherGetResponseEvent;
+import com.driverspa.admin.shop.Shop;
+import com.driverspa.admin.shop.ShopSaleDialog;
+import com.driverspa.model.User;
 import com.driverspa.view.NDSpinner;
 
 
@@ -53,6 +57,8 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     public static final String START_DATE="START_DATE";
     public static final String END_DATE="END_DATE";
     public static final String OPERATION_TYPE="OPERATION_TYPE";
+    /** An account code (e.g. "1000"): only operations that debit or credit it. */
+    public static final String ACCOUNT="ACCOUNT";
     public static final String INFORMATION_TEXT="INFORMATION_TEXT";
 
     boolean fromWorkshift = false;
@@ -76,6 +82,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
     TextView informationText;
 
     Washer washer;
+    User user;
     AdminCarwashTransactionsAdapter adapter;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault());
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZoneId.systemDefault());
@@ -145,6 +152,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
         if(!TextUtils.isEmpty(getIntent().getStringExtra(OPERATION_TYPE))){
 //            selectedOperationType = getIntent().getIntExtra(OPERATION_TYPE,0);
             filter.setOperationType(getIntent().getStringExtra(OPERATION_TYPE));
+            filter.setAccount(getIntent().getStringExtra(ACCOUNT));
             spinner.setSelection(selectedOperationType);
         }
 
@@ -263,15 +271,25 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
             listView.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
-
+                    // A shop transaction (ops 15-18) opens its sale.
+                    if (adapter == null || arg2 < 0 || arg2 >= adapter.getCount()) return;
+                    CarwashTransaction transaction = adapter.getItem(arg2);
+                    if (transaction != null && !TextUtils.isEmpty(transaction.getShopSale())) {
+                        ShopSaleDialog.open(AdminTransactionsActivity.this, transaction.getShopSale(), Shop.isManager(washer, user));
+                    }
                 }
             });
         }
     }
 
+    @Subscribe
+    public void onUserReceived(UserGetSelfResponseEvent event) {
+        user = event.getUser();
+    }
+
     private void createActionBarSpinner(){
         if(spinner != null) {
-            LinkedHashMap<Integer,String> operationTypes =  BA.getReference().getOperationTypes();
+            LinkedHashMap<Integer,String> operationTypes =  BA.getReference().getAllOperationTypes();
             String[] valuesArray = new String[operationTypes.size()+1];
             final Integer[] keysArray = new Integer[operationTypes.size()+1];
 
@@ -293,6 +311,7 @@ public class AdminTransactionsActivity extends AdminBaseActivity implements Date
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                     if (!isSpinnerTouched) return;
+                    filter.setAccount(null); // a type picked here: no account filter from the finance row
                     if(pos == 0) filter.setOperationType(null);
                     else filter.setOperationType(Integer.toString(keysArray[pos]));
                     loadData(washer,startTimeDt,endTimeDt);

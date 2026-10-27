@@ -25,7 +25,8 @@ public class AdminCarwashTransactionsAdapter extends BaseDataAdapter<CarwashTran
 	LinkedHashMap<Integer,String> operationTypes;
 	public AdminCarwashTransactionsAdapter(Context context) {
 		super(context);
-		operationTypes = BA.getReference().getOperationTypes();
+		// Shop transactions (15-18) are named from shop_operation_types.
+		operationTypes = BA.getReference().getAllOperationTypes();
 	}
 		
 	@Override
@@ -52,7 +53,10 @@ public class AdminCarwashTransactionsAdapter extends BaseDataAdapter<CarwashTran
 		holder.operationType.setText(operationTypes.get(item.getOperationType()));
 		holder.description.setText(item.getDescription());
 		holder.user.setText("("+userName+")");
-		holder.amount.setText(formatter.format(item.getAmount())+" ₸");
+		// A canceled shop sale (op 18) reverses the sale: shown as money going the other way.
+		boolean reversal = item.getOperationType() != null && item.getOperationType() == 18;
+		double amount = item.getAmount() != null ? item.getAmount() : 0;
+		holder.amount.setText((reversal ? "−" : "") + formatter.format(reversal ? Math.abs(amount) : amount)+" ₸");
 		if(item.getTranDate()!=null){
 			HashMap<String,String> startTime = Functions.formatUTCDate(item.getTranDate());
 			holder.tranDate.setText(startTime.get(Functions.DATE)+BA.str(R.string.space_at_space)+startTime.get(Functions.TIME));

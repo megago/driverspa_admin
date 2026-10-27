@@ -25,9 +25,14 @@ import com.driverspa.model.api.request.CheckPhoneRequest;
 import com.driverspa.model.api.request.ClientCreateRequest;
 import com.driverspa.model.api.request.ForgotPasswordRequest;
 import com.driverspa.model.api.request.LoginPasswordRequest;
+import com.driverspa.model.api.request.PaymentQrDeleteRequest;
 import com.driverspa.model.api.request.ResendActivationRequest;
 import com.driverspa.model.api.request.ResetPasswordRequest;
 import com.driverspa.model.api.request.SetPasswordRequest;
+import com.driverspa.model.api.request.ShopItemRequest;
+import com.driverspa.model.api.request.ShopSaleCancelRequest;
+import com.driverspa.model.api.request.ShopSaleRequest;
+import com.driverspa.model.api.request.ShopStockRequest;
 import com.driverspa.model.api.request.CloseWorkshiftRequest;
 import com.driverspa.model.api.request.FareRequestBid;
 import com.driverspa.model.api.request.GroupMenuOperationRequest;
@@ -70,9 +75,16 @@ import com.driverspa.model.api.response.BooksResponseHolder;
 import com.driverspa.model.api.response.ClientResponseHolder;
 import com.driverspa.model.api.response.ClientsResponseHolder;
 import com.driverspa.model.api.response.NotificationNewsResponseHolder;
+import com.driverspa.model.api.response.PaymentQrResponseHolder;
 import com.driverspa.model.api.response.PhotoResponseHolder;
 import com.driverspa.model.api.response.QueuedBooksResponseHolder;
 import com.driverspa.model.api.response.ReferenceResponseHolder;
+import com.driverspa.model.api.response.ShopItemResponseHolder;
+import com.driverspa.model.api.response.ShopItemsResponseHolder;
+import com.driverspa.model.api.response.ShopMovesResponseHolder;
+import com.driverspa.model.api.response.ShopReportResponseHolder;
+import com.driverspa.model.api.response.ShopSaleResponseHolder;
+import com.driverspa.model.api.response.ShopSalesResponseHolder;
 import com.driverspa.model.api.response.SingleClientBooksResponseHolder;
 import com.driverspa.model.api.response.UserResponseHolder;
 import com.driverspa.model.api.response.WasherResponseHolder;
@@ -99,6 +111,7 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.http.QueryMap;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 /**
  * HTTP client for connecting to REST API
@@ -324,6 +337,20 @@ public class RetrofitClient {
 				@Part("image") TypedFile photo,
 				@Part("carwash") String washerId,
 				Callback<PhotoResponseHolder> callback);
+
+		/** The car wash's payment QR (kind "kaspi_qr"); replaces the previous one. */
+		@Multipart
+		@POST("/v1/image_upload/payment_qr")
+		void uploadPaymentQr(
+				@Part("carwash") TypedString washerId,
+				@Part("kind") TypedString kind,
+				@Part("image") TypedFile image,
+				Callback<PaymentQrResponseHolder> callback);
+
+		@POST("/v1/image_upload/payment_qr/delete")
+		void deletePaymentQr(
+				@Body PaymentQrDeleteRequest body,
+				Callback<PaymentQrResponseHolder> callback);
 		
 		@GET("/v1/company_carwash/{washerid}")
 		void adminWasherInfo(
@@ -725,6 +752,77 @@ public class RetrofitClient {
 				@Body FareRequestBid request,
 				Callback<BaseResponseHolder> callback);
 
+		// Shop (docs/shop.md): the catalog, stock moves, sales and the report.
+		@GET("/v1/shop_item/")
+		void shopItems(
+				@Query("carwash") String washerId,
+				Callback<ShopItemsResponseHolder> callback);
+
+		@POST("/v1/shop_item/")
+		void shopItemCreate(
+				@Body ShopItemRequest body,
+				Callback<ShopItemResponseHolder> callback);
+
+		@PATCH("/v1/shop_item/{id}/")
+		void shopItemUpdate(
+				@Path("id") String id,
+				@Body ShopItemRequest body,
+				Callback<ShopItemResponseHolder> callback);
+
+		@DELETE("/v1/shop_item/{id}/")
+		void shopItemDelete(
+				@Path("id") String id,
+				Callback<BaseResponseHolder> callback);
+
+		@POST("/v1/shop_item/{id}/purchase")
+		void shopItemPurchase(
+				@Path("id") String id,
+				@Body ShopStockRequest body,
+				Callback<ShopItemResponseHolder> callback);
+
+		@POST("/v1/shop_item/{id}/writeoff")
+		void shopItemWriteoff(
+				@Path("id") String id,
+				@Body ShopStockRequest body,
+				Callback<ShopItemResponseHolder> callback);
+
+		@GET("/v1/shop_item/{id}/moves")
+		void shopItemMoves(
+				@Path("id") String id,
+				@Query("limit") Integer limit,
+				@Query("offset") Integer offset,
+				Callback<ShopMovesResponseHolder> callback);
+
+		@POST("/v1/shop_sale/")
+		void shopSaleCreate(
+				@Body ShopSaleRequest body,
+				Callback<ShopSaleResponseHolder> callback);
+
+		@GET("/v1/shop_sale/")
+		void shopSales(
+				@Query("carwash") String washerId,
+				@Query("day") String day,
+				@Query("date") Long date,
+				Callback<ShopSalesResponseHolder> callback);
+
+		@GET("/v1/shop_sale/{id}/")
+		void shopSale(
+				@Path("id") String id,
+				Callback<ShopSaleResponseHolder> callback);
+
+		@POST("/v1/shop_sale/{id}/cancel")
+		void shopSaleCancel(
+				@Path("id") String id,
+				@Body ShopSaleCancelRequest body,
+				Callback<ShopSaleResponseHolder> callback);
+
+		@GET("/v1/shop_sale/report")
+		void shopReport(
+				@Query("carwash") String washerId,
+				@Query("from") Long from,
+				@Query("to") Long to,
+				Callback<ShopReportResponseHolder> callback);
+
 		@PUT("/v1/location/{locationText}")
 		void updateLocation(
 				@Path("locationText") String locationText,
@@ -792,7 +890,7 @@ public class RetrofitClient {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 		.setEndpoint(API_URL)
 		.setRequestInterceptor(requestInterceptor)
-		.setConverter(new GsonConverter(Converters.gsonWithDate()))
+		.setConverter(new GsonConverter(Converters.gsonForApi()))
 		.setExecutors(executor, executor)		
 		.setClient(new OkClient(BA.getHttpClient()))
 //		.setLogLevel(RestAdapter.LogLevel.FULL)

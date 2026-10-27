@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -55,12 +57,33 @@ public class Converters {
 	}
 
 	public static Gson gsonWithDate() {
-		final GsonBuilder builder = new GsonBuilder();		
+		return builderWithDate().create();
+	}
+
+	/** {@link #gsonWithDate()} for API requests: fields marked {@link ApiReadOnly} are not sent. */
+	public static Gson gsonForApi() {
+		return builderWithDate()
+				.addSerializationExclusionStrategy(new ExclusionStrategy() {
+					@Override
+					public boolean shouldSkipField(FieldAttributes f) {
+						return f.getAnnotation(ApiReadOnly.class) != null;
+					}
+
+					@Override
+					public boolean shouldSkipClass(Class<?> clazz) {
+						return false;
+					}
+				})
+				.create();
+	}
+
+	private static GsonBuilder builderWithDate() {
+		final GsonBuilder builder = new GsonBuilder();
 //		builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 //		builder.excludeFieldsWithoutExposeAnnotation();
 		builder.registerTypeAdapter(Instant.class, new InstantSerializer());
-		return builder.create();
+		return builder;
 	}
 //	
 	public static Instant parseInstant(String rawValue) {

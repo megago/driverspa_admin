@@ -165,4 +165,87 @@
 
     <style name="SpinnerThemeOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <!-- Payment window (dialog_payment): tab chips and the "mixed" amount rows -->
+    <style name="PaymentTab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:background">@drawable/bg_v2_chip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingLeft">14dp</item>
+        <item name="android:paddingRight">14dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="PaymentMixedRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="PaymentMixedLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/BlueLight</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="PaymentMixedField">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_v2_field</item>
+        <item name="android:gravity">end</item>
+        <item name="android:hint">0</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">7</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textColorHint">@color/BlueLight</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <!-- Shop screens (docs/shop.md): form labels and fields, list rows -->
+    <style name="ShopLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textColor">@color/BlueLight</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="ShopField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@drawable/bg_v2_field</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textColorHint">@color/BlueLight</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="ShopCardValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

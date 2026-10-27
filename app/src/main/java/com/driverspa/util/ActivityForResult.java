@@ -14,6 +14,7 @@ public class ActivityForResult {
 	public static final int ACTIVITY_PRICE = 22;
 	public static final int ACTIVITY_PRICE_DETAIL = 23;
 	public static final int ACTIVITY_ADDITIONAL_INFO = 24;
+	public static final int KASPI_QR_UPLOAD = 28;
 
 	public static final int ACTIVITY_SEARCH = 77;
 	public static final int ACTIVITY_SEARCH_HAS_RESULT = 78;

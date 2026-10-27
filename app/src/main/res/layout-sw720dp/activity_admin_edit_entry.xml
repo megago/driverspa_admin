@@ -667,12 +667,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/payment"
+                        android:text="@string/discounts_and_other"
                         android:textColor="@color/White"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
+                    <!-- Hidden: payment is taken when the order is finished (PaymentFlow). -->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/paidLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -855,6 +857,7 @@
 
                         <!-- Payment method chips (horizontally scrollable) -->
                         <HorizontalScrollView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
@@ -956,7 +959,9 @@
                         </HorizontalScrollView>
 
                         <!-- Single amount field (default) -->
+                        <!-- Hidden: payment is taken when the order is finished (PaymentFlow). -->
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/singleAmountLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1277,7 +1282,9 @@
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
 
+                <!-- Hidden: payment is taken when the order is finished (PaymentFlow). -->
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"

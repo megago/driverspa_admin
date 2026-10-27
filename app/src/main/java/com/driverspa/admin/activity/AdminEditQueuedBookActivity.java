@@ -128,15 +128,9 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 	TextView extraButton;
 	@BindView(R.id.extraLayout)
 	View extraLayout;
-	@BindView(R.id.paid)
-	CheckBox paid;
 	@BindView(R.id.washCountCampaignDescription)
 	TextView washCountCampaignDescription;
 
-	@BindView(R.id.nocashLayout)
-	View nocashLayout;
-	@BindView(R.id.nocash)
-	CheckBox nocash;
 	@BindView(R.id.discountSpinner)
 	NDSpinner spinner;
 	@BindView(R.id.discountAmount)
@@ -394,14 +388,6 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 	public void onWasherReceived(WasherGetResponseEvent event) {
 		washer = event.getWasher();
 		if (washer != null) {
-
-			if(washer.getPayOptions() != null && washer.getPayOptions().size() > 0){
-				for(String options : washer.getPayOptions()){
-					if(!options.equals("cash")){
-						nocashLayout.setVisibility(View.VISIBLE);
-					}
-				}
-			}
 
 			if(book!=null) {
 				AdminSearchFilter filter = new AdminSearchFilter();
@@ -822,9 +808,11 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 		request.setQueued(true);
 		request.setDirectWash(true);
 		request.setCarMark(carMark.getText().toString());
-		request.setPaid(paid.isChecked());
+		// Paid when it is finished: "Завершить" opens the payment window (PaymentFlow).
+		request.setPaid(false);
+		request.setPriceDetails(new ArrayList<BookInfo.PriceDetail>());
 		request.setComment(comment.getText().toString());
-		request.setNocash(nocash.isChecked());
+		request.setNocash(false);
 
 		if(selectedItem == 1) {
 			try {
@@ -864,16 +852,6 @@ public class AdminEditQueuedBookActivity extends AdminBaseActivity {
 			extraLayout.setVisibility(View.GONE);
 			extraButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down_white_24dp, 0);
 		}
-	}
-
-	@OnClick(R.id.paid_text)
-	public void onPaidTextClicked(){
-		paid.setChecked(!paid.isChecked());
-	}
-
-	@OnClick(R.id.nocashText)
-	public void onNocashTextClicked() {
-		nocash.setChecked(!nocash.isChecked());
 	}
 
 

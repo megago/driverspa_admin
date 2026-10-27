@@ -23,6 +23,7 @@ import com.driverspa.assist.BoxAssist;
 import com.driverspa.assist.ClientReviewAssist;
 import com.driverspa.assist.InitilizeAssist;
 import com.driverspa.assist.LocationAssist;
+import com.driverspa.assist.ShopAssist;
 import com.driverspa.assist.UserPhotoPostAssist;
 import com.driverspa.assist.UserSelfAssist;
 import com.driverspa.assist.WasherAssist;
@@ -69,6 +70,7 @@ public class Singleton {
 	private UserSelfAssist userSelfAssist;
 	private BoxAssist boxAssist;
 	private WhatsappAuthAssist whatsappAuthAssist;
+	private ShopAssist shopAssist;
 	private User user;
 	private Washer washer;
 	private SearchFilter searchFilter;
@@ -89,6 +91,7 @@ public class Singleton {
 		userSelfAssist = new UserSelfAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		boxAssist = new BoxAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 		whatsappAuthAssist = new WhatsappAuthAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
+		shopAssist = new ShopAssist(RetrofitClient.getRestAdapterWithBody(), BA.getEventBus());
 
 		BA.getEventBus().register(authClientRegistrationAssist);
 		BA.getEventBus().register(authClientVerificationAssist);
@@ -102,6 +105,7 @@ public class Singleton {
 		BA.getEventBus().register(userSelfAssist);
 		BA.getEventBus().register(boxAssist);
 		BA.getEventBus().register(whatsappAuthAssist);
+		BA.getEventBus().register(shopAssist);
 		BA.getEventBus().register(this);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

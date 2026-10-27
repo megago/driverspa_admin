@@ -256,12 +256,18 @@ public class AdminFinancialActivity extends AdminBaseActivity implements AdminMo
 
 	//	@OnClick(R.id.transactions)
 	public void transactionsHistoryClicked(String transactionCode, String informationText) {
+		transactionsHistoryClicked(transactionCode, null, informationText);
+	}
+
+	/** The operations of a finance row, limited to those that touch {@code account} when given. */
+	public void transactionsHistoryClicked(String transactionCode, String account, String informationText) {
 		Intent intent = new Intent(this,AdminTransactionsActivity.class);
 		intent.putExtra(AdminTransactionsActivity.FROM_WORKSHIFT,true);
 		intent.putExtra(AdminTransactionsActivity.START_DATE, startTimeDt.toEpochMilli());
 		intent.putExtra(AdminTransactionsActivity.END_DATE, endTimeDt.toEpochMilli());
 		intent.putExtra(AdminTransactionsActivity.OPERATION_TYPE,transactionCode);
 		intent.putExtra(AdminTransactionsActivity.INFORMATION_TEXT,informationText);
+		if (account != null) intent.putExtra(AdminTransactionsActivity.ACCOUNT, account);
 		startActivity(intent);
 	}
 

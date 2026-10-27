@@ -1,6 +1,7 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +31,7 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import com.driverspa.BA;
 import com.driverspa.R;
+import com.driverspa.admin.payment.KaspiQrBlock;
 import com.driverspa.dialog.MultipleSelectDialog;
 import com.driverspa.model.Washer;
 import com.driverspa.util.Functions;
@@ -101,6 +103,7 @@ public class WasherCreateStep4 extends WizardStep {
 
     MultipleSelectDialog paymentDialog;
     MultipleSelectDialog addInfoDialog;
+    KaspiQrBlock kaspiQrBlock;
 
     @BindView(R.id.phone)
     EditText phone;
@@ -149,6 +152,18 @@ public class WasherCreateStep4 extends WizardStep {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+        kaspiQrBlock = new KaspiQrBlock(getActivity(), view.findViewById(R.id.kaspiQrBlock), new KaspiQrBlock.Host() {
+            @Override
+            public void startActivityForResult(Intent intent, int requestCode) {
+                WasherCreateStep4.this.startActivityForResult(intent, requestCode);
+            }
+
+            @Override
+            public void onPaymentQrChanged() {
+                // Keeps the entered hours and contacts and redraws the payment options.
+                saveData();
+            }
+        });
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
         ((TextView)(mToolbar.findViewById(R.id.action_done))).setText(BA.str(R.string.logout));
@@ -166,6 +181,12 @@ public class WasherCreateStep4 extends WizardStep {
 //        }
 //    }
 //
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (kaspiQrBlock != null) kaspiQrBlock.onActivityResult(requestCode, resultCode, data);
+    }
 
     @OnClick(R.id.addinfo)
     public void onAddInfoClicked(){
@@ -357,12 +378,14 @@ public class WasherCreateStep4 extends WizardStep {
     public void onResume() {
         super.onResume();
         BA.getEventBus().register(this);
+        if (kaspiQrBlock != null) kaspiQrBlock.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         BA.getEventBus().unregister(this);
+        if (kaspiQrBlock != null) kaspiQrBlock.onPause();
         if(washer != null) {
             saveData();
         }
@@ -372,6 +395,7 @@ public class WasherCreateStep4 extends WizardStep {
     public void onWasherReceived(WasherGetResponseEvent event) {
         washer = event.getWasher();
         if (washer != null) {
+            if (kaspiQrBlock != null) kaspiQrBlock.bind(washer);
 
             if(washer.getSchedule() != null){
                 Washer.Schedule schedule = washer.getSchedule();

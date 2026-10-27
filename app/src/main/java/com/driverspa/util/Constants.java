@@ -55,8 +55,17 @@ public class Constants {
     public static final String EXPRESS_REJECTED = "express_approved";
     public static final String EXPRESS_CANCELED = "express_rejected";
 
-    public static final String ONLINE = "online";    
-    public static final String OFFLINE = "offline";    
+    /** Payment types of a booking's price_details. */
+    public static final String PAYMENT_CASH = "C";
+    public static final String PAYMENT_CARD = "CD";
+    public static final String PAYMENT_KASPI_QR = "QR";
+    public static final String PAYMENT_DEPOSIT = "DA";
+    public static final String PAYMENT_BONUS = "B";
+    /** Kind of a car wash's payment QR (image_upload/payment_qr). */
+    public static final String PAYMENT_QR_KASPI = "kaspi_qr";
+
+    public static final String ONLINE = "online";
+    public static final String OFFLINE = "offline";
     public static final String HYBRID = "hybrid";
     public static final String BOTH = "both";
 

@@ -34,6 +34,7 @@ import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
+import com.driverspa.admin.payment.PaymentFlow;
 import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.model.BookInfo;
@@ -129,7 +130,7 @@ public class AdminBooksAdapter extends  RecyclerViewAdapter<AdminBooksAdapter.Bo
 
 		holder.txtBoxName.setVisibility(View.GONE);
 
-		if(!item.getPaid()){
+		if(PaymentFlow.isFinishedUnpaid(item)){ // open orders are unpaid until "Завершить"
 			holder.notPaid.setVisibility(View.VISIBLE);
 		}
 		else{

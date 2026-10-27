@@ -505,6 +505,9 @@ public class Functions {
 						case "CD":
 							result += BA.str(R.string.card_short_pre);
 							break;
+						case "QR":
+							result += BA.str(R.string.kaspi_qr_short_pre);
+							break;
 					}
 					result += decimalFormatter.format(p.getAmount())+" ₸"+", ";
 					if(i == priceDetails.size()-1) {

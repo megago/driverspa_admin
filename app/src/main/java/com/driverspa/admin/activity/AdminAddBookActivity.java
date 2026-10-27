@@ -110,8 +110,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	@BindView(R.id.btnMoto)
 	View buttonMoto;
 
-	@BindView(R.id.paid)
-	CheckBox paid;
 
 	@BindView(R.id.txtBookTime)
 	TextView txtBookTime;
@@ -167,25 +165,9 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	View clientInformationsLayout;
 	@BindView(R.id.grid_staffs)
 	ExpandableGridView gridStaffs;
-	@BindView(R.id.cashAmount)
-	EditText cashAmount;
-	@BindView(R.id.cardAmount)
-	EditText cardAmount;
-	@BindView(R.id.bonusAmount)
-	EditText bonusAmount;
-	@BindView(R.id.depositAmount)
-	EditText depositAmount;
-	@BindView(R.id.clientBonusAmount)
-	TextView clientBonusAmount;
-	@BindView(R.id.clientDepositAmount)
-	TextView clientDepositAmount;
-	@BindView(R.id.txtPriceDifference)
-	TextView txtPriceDifference;
 	private StaffGridAdapter staffGridAdapter;
 	ClientInfo selectedClient;
 	Double finalPrice;
-	Double finalPriceDifference;
-	List<BookInfo.PriceDetail> priceDetails = new ArrayList<>();
 	boolean isSpinnerTouched = false;
 	TextWatcher discountAmountWatcher;
 	AdminSearchFilter filter = new AdminSearchFilter();
@@ -208,21 +190,13 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	private TextView stepLabel1, stepLabel2, stepLabel3;
 	private View stepConnector12, stepConnector23;
 	private View stepCarHost, stepServicesHost, stepPaymentHost;
-	private View singleAmountLayout, splitAmountLayout;
-	private EditText singleAmount;
-	private View chipCash, chipCard, chipBonus, chipDeposit, chipSplit;
 
 	private static final int STEP_CAR = 0;
 	private static final int STEP_SERVICES = 1;
 	private static final int STEP_PAYMENT = 2;
 
 	private int currentStep = STEP_CAR;
-	/** 0=cash, 1=card, 2=bonus, 3=deposit, -1=split (advanced layout) */
-	private int currentPaymentField = 0;
-	/** Guards mirroring between singleAmount and the four backing fields. */
-	private boolean amountSyncing = false;
 	private boolean settingCarTypeFromClient = false;
-	private boolean depositPromptShown = false;
 
 	@Override
     protected void onCreate(Bundle arg0) {
@@ -254,57 +228,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 
 		titleView.setText(boxName +" - "+ (bookDay.equals(TODAY)?BA.str(R.string.today_at_lc)+gridTitle:BA.str(R.string.tomorrow_at_lc)+gridTitle));
 		txtBookTime.setText(bookDay.equals(TODAY)?BA.str(R.string.today_at)+gridTitle:BA.str(R.string.tomorrow_at)+gridTitle);
-
-		//Deposit and Bonus amounts
-		depositAmount.setEnabled(false);
-		bonusAmount.setEnabled(false);
-		clientDepositAmount.setText(BA.str(R.string.of_0));
-		clientBonusAmount.setText(BA.str(R.string.of_0));
-		depositAmount.setText("0");
-		bonusAmount.setText("0");
-		bonusAmount.setSelection(bonusAmount.getText().length());
-		depositAmount.setSelection(depositAmount.getText().length());
-
-		cashAmount.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void afterTextChanged(Editable s) {
-				calculatePaymentTypesTransactionAmount(cashAmount,this);
-			}
-		});
-		cardAmount.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void afterTextChanged(Editable s) {
-				calculatePaymentTypesTransactionAmount(cardAmount,this);
-			}
-		});
-		bonusAmount.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void afterTextChanged(Editable s) {
-				calculatePaymentTypesTransactionAmount(bonusAmount,this);
-			}
-		});
-		depositAmount.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void afterTextChanged(Editable s) {
-				calculatePaymentTypesTransactionAmount(depositAmount,this);
-			}
-		});
 
 
 		discount.addTextChangedListener(new TextWatcher() {
@@ -421,20 +344,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		stepCarHost = findViewById(R.id.stepCarHost);
 		stepServicesHost = findViewById(R.id.stepServicesHost);
 		stepPaymentHost = findViewById(R.id.stepPaymentHost);
-		singleAmountLayout = findViewById(R.id.singleAmountLayout);
-		splitAmountLayout = findViewById(R.id.splitAmountLayout);
-		singleAmount = findViewById(R.id.singleAmount);
-		chipCash = findViewById(R.id.chipCash);
-		chipCard = findViewById(R.id.chipCard);
-		chipBonus = findViewById(R.id.chipBonus);
-		chipDeposit = findViewById(R.id.chipDeposit);
-		chipSplit = findViewById(R.id.chipSplit);
-
-		// Booking is always "paid" (future reservation flow) and the toggle is
-		// hidden — preserve the original behaviour from the old layout.
-		View paidLayout = findViewById(R.id.paidLayout);
-		if (paidLayout != null) paidLayout.setVisibility(View.GONE);
-		if (paid != null) paid.setChecked(true);
 
 		// Booking time slot shown as a banner in the car step.
 		if (txtBookTime != null) txtBookTime.setVisibility(View.VISIBLE);
@@ -470,82 +379,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			});
 		}
 
-		setupPaymentChips();
 		showStep(STEP_CAR);
-	}
-
-	private void setupPaymentChips() {
-		View.OnClickListener chipListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int id = v.getId();
-				if (id == R.id.chipCash) selectPaymentChip(0, true);
-				else if (id == R.id.chipCard) selectPaymentChip(1, true);
-				else if (id == R.id.chipBonus) selectPaymentChip(2, true);
-				else if (id == R.id.chipDeposit) selectPaymentChip(3, true);
-				else if (id == R.id.chipSplit) selectPaymentChip(-1, true);
-			}
-		};
-		if (chipCash != null) chipCash.setOnClickListener(chipListener);
-		if (chipCard != null) chipCard.setOnClickListener(chipListener);
-		if (chipBonus != null) chipBonus.setOnClickListener(chipListener);
-		if (chipDeposit != null) chipDeposit.setOnClickListener(chipListener);
-		if (chipSplit != null) chipSplit.setOnClickListener(chipListener);
-
-		if (singleAmount != null) {
-			singleAmount.addTextChangedListener(new TextWatcher() {
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {}
-				@Override
-				public void afterTextChanged(Editable s) {
-					if (amountSyncing) return;
-					String v = s.toString();
-					if (v.length() == 0) v = "0";
-					mirrorSingleAmount(v);
-				}
-			});
-		}
-		// Default to cash visually, without writing amounts (finalPrice is null
-		// until a service is picked — writing would trip the price watchers).
-		selectPaymentChip(0, false);
-	}
-
-	/**
-	 * Routes the value from the single "Сумма" field into the underlying
-	 * cash/card/bonus/deposit EditTexts that the existing price logic watches.
-	 */
-	private void mirrorSingleAmount(String value) {
-		if (finalPrice == null) return;
-		amountSyncing = true;
-		try {
-			if (cashAmount != null) cashAmount.setText(currentPaymentField == 0 ? value : "0");
-			if (cardAmount != null) cardAmount.setText(currentPaymentField == 1 ? value : "0");
-			if (bonusAmount != null) bonusAmount.setText(currentPaymentField == 2 ? value : "0");
-			if (depositAmount != null) depositAmount.setText(currentPaymentField == 3 ? value : "0");
-		} finally {
-			amountSyncing = false;
-		}
-	}
-
-	private void selectPaymentChip(int idx, boolean syncAmounts) {
-		currentPaymentField = idx;
-		if (chipCash != null) chipCash.setSelected(idx == 0);
-		if (chipCard != null) chipCard.setSelected(idx == 1);
-		if (chipBonus != null) chipBonus.setSelected(idx == 2);
-		if (chipDeposit != null) chipDeposit.setSelected(idx == 3);
-		if (chipSplit != null) chipSplit.setSelected(idx == -1);
-
-		boolean split = (idx == -1);
-		if (singleAmountLayout != null) singleAmountLayout.setVisibility(split ? View.GONE : View.VISIBLE);
-		if (splitAmountLayout != null) splitAmountLayout.setVisibility(split ? View.VISIBLE : View.GONE);
-
-		if (syncAmounts && !split && singleAmount != null) {
-			String v = singleAmount.getText() != null ? singleAmount.getText().toString() : "0";
-			if (v.length() == 0) v = "0";
-			mirrorSingleAmount(v);
-		}
 	}
 
 	private void onWizardNext() {
@@ -572,55 +406,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		if (btnNext != null) btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
 		if (buttonBook != null) buttonBook.setVisibility(isLast ? View.VISIBLE : View.GONE);
 
-		if (step == STEP_PAYMENT) {
-			maybePromptUseDepositBonus();
-		}
-	}
-
-	private void maybePromptUseDepositBonus() {
-		if (depositPromptShown || selectedClient == null) return;
-		if (finalPrice == null || finalPrice <= 0) return;
-		final double deposit = selectedClient.getDepositAmount() != null ? selectedClient.getDepositAmount() : 0d;
-		final double bonus = selectedClient.getAccruedBonuses() != null ? selectedClient.getAccruedBonuses() : 0d;
-		if (deposit <= 0 && bonus <= 0) return;
-		depositPromptShown = true;
-
-		StringBuilder msg = new StringBuilder(BA.str(R.string.client_has));
-		if (deposit > 0) msg.append(BA.str(R.string.transfer_pre)).append((int) deposit).append(" ₸");
-		if (deposit > 0 && bonus > 0) msg.append(BA.str(R.string.and_word));
-		if (bonus > 0) msg.append(BA.str(R.string.bonuses_pre)).append((int) bonus).append(" ₸");
-		msg.append(BA.str(R.string.use_for_payment_q));
-
-		new MaterialAlertDialogBuilder(this)
-				.setTitle(BA.str(R.string.client_funds))
-				.setMessage(msg.toString())
-				.setNegativeButton(BA.str(R.string.no_word), null)
-				.setPositiveButton(BA.str(R.string.yes_word), (dialog, which) -> applyDepositBonus(deposit, bonus))
-				.show();
-	}
-
-	private void applyDepositBonus(double deposit, double bonus) {
-		if (finalPrice == null) return;
-		double remaining = finalPrice;
-		double useDeposit = Math.min(deposit, remaining);
-		remaining -= useDeposit;
-		double useBonus = Math.min(bonus, remaining);
-
-		selectPaymentChip(-1, true);
-		amountSyncing = true;
-		try {
-			cashAmount.setText("0");
-			cardAmount.setText("0");
-			depositAmount.setText((int) useDeposit + "");
-			bonusAmount.setText((int) useBonus + "");
-		} finally {
-			amountSyncing = false;
-		}
-		calculatePaymentTypesTransactionAmount();
-
-		if (paid != null && finalPriceDifference != null && finalPriceDifference <= 0) {
-			paid.setChecked(true);
-		}
 	}
 
 	private void applyHeaderState(View dot, TextView label, boolean selected) {
@@ -639,132 +424,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		}
 	}
 
-	protected void calculatePaymentTypesTransactionAmount() {
-		double cash = 0, card = 0, bonus = 0, deposit = 0, price = 0;
-
-		try {
-			cash = Double.parseDouble(cashAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			cash = 0;
-		}
-		try {
-			card = Double.parseDouble(cardAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			card = 0;
-		}
-		try {
-			bonus = Double.parseDouble(bonusAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			bonus = 0;
-		}
-		try {
-			deposit = Double.parseDouble(depositAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			deposit = 0;
-		}
-
-		finalPriceDifference = finalPrice - cash - card - bonus - deposit;
-		txtPriceDifference.setText(finalPriceDifference + " ₸");
-
-		if (paid != null && (cash > 0 || card > 0)) {
-			paid.setChecked(false);
-		}
-
-		priceDetails.clear();
-		if (cash > 0) {
-			BookInfo.PriceDetail pdCash = new BookInfo.PriceDetail();
-			pdCash.setAmount(cash);
-			pdCash.setPaymentType("C");
-			priceDetails.add(pdCash);
-		}
-		if (card > 0) {
-			BookInfo.PriceDetail pdCard = new BookInfo.PriceDetail();
-			pdCard.setAmount(card);
-			pdCard.setPaymentType("CD");
-			priceDetails.add(pdCard);
-		}
-		if (bonus > 0) {
-			BookInfo.PriceDetail pdBonus = new BookInfo.PriceDetail();
-			pdBonus.setAmount(bonus);
-			pdBonus.setPaymentType("B");
-			priceDetails.add(pdBonus);
-		}
-		if (deposit > 0) {
-			BookInfo.PriceDetail pdDeposit = new BookInfo.PriceDetail();
-			pdDeposit.setAmount(deposit);
-			pdDeposit.setPaymentType("DA");
-			priceDetails.add(pdDeposit);
-		}
-		request.setPriceDetails(priceDetails);
-	}
-
-
-	protected void calculatePaymentTypesTransactionAmount(EditText enteringEditText, TextWatcher watcher) {
-		double cash = 0, card = 0, bonus = 0, deposit = 0, price = 0;
-
-		try {
-			cash = Double.parseDouble(cashAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			cash = 0;
-		}
-		try {
-			card = Double.parseDouble(cardAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			card = 0;
-		}
-		try {
-			bonus = Double.parseDouble(bonusAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			bonus = 0;
-		}
-		try {
-			deposit = Double.parseDouble(depositAmount.getText().toString());
-		} catch (NumberFormatException e) {
-			deposit = 0;
-		}
-
-		finalPriceDifference = finalPrice - cash - card - bonus - deposit;
-
-		if(finalPriceDifference < 0){
-			if(enteringEditText != cashAmount) cashAmount.setText("0");
-			if(enteringEditText != cardAmount) cardAmount.setText("0");
-			if(enteringEditText != bonusAmount) bonusAmount.setText("0");
-			if(enteringEditText != depositAmount) depositAmount.setText("0");
-		}
-
-		txtPriceDifference.setText(finalPriceDifference + " ₸");
-
-		if (paid != null && (cash > 0 || card > 0)) {
-			paid.setChecked(false);
-		}
-
-		priceDetails.clear();
-		if (cash > 0) {
-			BookInfo.PriceDetail pdCash = new BookInfo.PriceDetail();
-			pdCash.setAmount(cash);
-			pdCash.setPaymentType("C");
-			priceDetails.add(pdCash);
-		}
-		if (card > 0) {
-			BookInfo.PriceDetail pdCard = new BookInfo.PriceDetail();
-			pdCard.setAmount(card);
-			pdCard.setPaymentType("CD");
-			priceDetails.add(pdCard);
-		}
-		if (bonus > 0) {
-			BookInfo.PriceDetail pdBonus = new BookInfo.PriceDetail();
-			pdBonus.setAmount(bonus);
-			pdBonus.setPaymentType("B");
-			priceDetails.add(pdBonus);
-		}
-		if (deposit > 0) {
-			BookInfo.PriceDetail pdDeposit = new BookInfo.PriceDetail();
-			pdDeposit.setAmount(deposit);
-			pdDeposit.setPaymentType("DA");
-			priceDetails.add(pdDeposit);
-		}
-		request.setPriceDetails(priceDetails);
-	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -1083,24 +742,12 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 	protected void resetPriceAndTime() {
 		txtPrice.setText("0 ₸");
 		finalPrice = 0d;
-		cashAmount.setText(finalPrice.intValue() + "");
-		cashAmount.setSelection(cashAmount.getText().toString().length());
 		txtTime.setText(BA.str(R.string.zero_min));
 		request.setServices(new ArrayList<Integer>());
 		request.setGroupServices(new ArrayList<String>());
-		cashAmount.setText("0");
-		cardAmount.setText("0");
-		bonusAmount.setText("0");
-		depositAmount.setText("0");
-		calculatePaymentTypesTransactionAmount();
 	}
 
 	public void calculatePriceAndTime(ArrayList<ServiceItem> data, ArrayList<Washer.GroupMenu> groupData) {
-		cashAmount.setText("0");
-		cashAmount.setSelection(cashAmount.getText().toString().length());
-		cardAmount.setText("0");
-		bonusAmount.setText("0");
-		depositAmount.setText("0");
 		txtPrice.setText("0 ₸");
 		finalPrice = 0d;
 		txtTime.setText(BA.str(R.string.zero_min));
@@ -1173,31 +820,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 				request.setServiceTotalTime(totalTime);
 
 		}
-		calculatePaymentTypesTransactionAmount();
-		autofillCashWhenNoClientFunds();
-	}
-
-	private void autofillCashWhenNoClientFunds() {
-		if (finalPrice == null || finalPrice <= 0) return;
-		boolean hasFunds = selectedClient != null
-				&& ((selectedClient.getDepositAmount() != null && selectedClient.getDepositAmount() > 0)
-					|| (selectedClient.getAccruedBonuses() != null && selectedClient.getAccruedBonuses() > 0));
-		if (hasFunds) return;
-		selectPaymentChip(0, false);
-		amountSyncing = true;
-		try {
-			if (singleAmount != null) {
-				singleAmount.setText(finalPrice.intValue() + "");
-				singleAmount.setSelection(singleAmount.getText().length());
-			}
-			cashAmount.setText(finalPrice.intValue() + "");
-			cardAmount.setText("0");
-			bonusAmount.setText("0");
-			depositAmount.setText("0");
-		} finally {
-			amountSyncing = false;
-		}
-		calculatePaymentTypesTransactionAmount();
 	}
 
 
@@ -1243,7 +865,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 
 	@OnClick(R.id.btnBook)
 	public void createBookingRequest(){
-		calculatePaymentTypesTransactionAmount();
 
 		if(selectedCarType == null) {
 			ToastUtil.displayAtTop(this, BA.str(R.string.select_car));
@@ -1278,11 +899,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			return;
 		}
 
-		if (finalPriceDifference != 0) {
-			ToastUtil.displayAtTop(this, BA.str(R.string.balance_not_zero));
-			return;
-		}
-
 		request.setMobile(TextUtils.isEmpty(phoneStr) ? "" : "+7" + phoneStr);
 		request.setCarMark(сarMarkStr);
 		request.setCarNo(сarNoStr);
@@ -1294,7 +910,10 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 			request.setClientKey(сarNoStr);
 		request.setCarType(selectedCarType.getValue());
         request.setBoxId(boxId);
-		request.setPaid(paid.isChecked());
+		// Paid when it is finished: "Завершить" opens the payment window (PaymentFlow).
+		request.setPaid(false);
+		request.setNocash(false);
+		request.setPriceDetails(new ArrayList<BookInfo.PriceDetail>());
 		request.setTime(Instant.ofEpochMilli(gridTime));
 		request.setCarwash(URL_PREFIX+washer.getId());
 		request.setOffline(true);
@@ -1532,7 +1151,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 
 	protected void setData(ClientInfo client) {
 		this.selectedClient = client;
-		depositPromptShown = false;
 		request.setCompanyClient(URL_COMPANY_CLIENT_PREFIX + client.getId());
 		if(selectedClient.getDiscount() > 0){
 			discount.setText(selectedClient.getDiscount()+"");
@@ -1637,14 +1255,6 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		clientInformationsLayout.setVisibility(View.GONE);
 		selectedClientInformationText.setText(clientInformationText);
 
-		clientDepositAmount.setText(BA.str(R.string.of_sp) + client.getDepositAmount());
-		clientBonusAmount.setText(BA.str(R.string.of_sp) + client.getAccruedBonuses());
-		depositAmount.setText("0");
-		bonusAmount.setText("0");
-		bonusAmount.setSelection(bonusAmount.getText().length());
-		depositAmount.setSelection(depositAmount.getText().length());
-		depositAmount.setEnabled(true);
-		bonusAmount.setEnabled(true);
 		closeKeyboard();
 		queryText = "";
 	}
@@ -1656,16 +1266,7 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		clientInformationsLayout.setVisibility(View.VISIBLE);
 		selectedClientInformationText.setText("");
 		selectedClient = null;
-		depositPromptShown = false;
 		request.setCompanyClient("");
-		depositAmount.setEnabled(false);
-		bonusAmount.setEnabled(false);
-		clientDepositAmount.setText(BA.str(R.string.of_0));
-		clientBonusAmount.setText(BA.str(R.string.of_0));
-		depositAmount.setText("0");
-		bonusAmount.setText("0");
-		bonusAmount.setSelection(bonusAmount.getText().length());
-		depositAmount.setSelection(depositAmount.getText().length());
 
 		spinner.setVisibility(View.VISIBLE);
 		discount.setText("0");
@@ -1872,57 +1473,4 @@ public class AdminAddBookActivity extends AdminBaseActivity {
 		}
 	}
 
-	@OnFocusChange(R.id.bonusAmount)
-	public void onFocusChangeBonus(boolean focus) {
-		if (!focus) {
-			if (TextUtils.isEmpty(bonusAmount.getText().toString()))
-				bonusAmount.setText("0");
-			calculatePaymentTypesTransactionAmount();
-		} else {
-			if (!TextUtils.isEmpty(bonusAmount.getText().toString()) && bonusAmount.getText().toString().equals("0")) {
-				bonusAmount.setText("");
-			}
-		}
-	}
-
-	@OnFocusChange(R.id.depositAmount)
-	public void onFocusChangeDeposit(boolean focus) {
-		if (!focus) {
-			if (TextUtils.isEmpty(depositAmount.getText().toString()))
-				depositAmount.setText("0");
-			calculatePaymentTypesTransactionAmount();
-		} else {
-			if (!TextUtils.isEmpty(depositAmount.getText().toString()) && depositAmount.getText().toString().equals("0")) {
-				depositAmount.setText("");
-			}
-		}
-	}
-
-	@OnFocusChange(R.id.cashAmount)
-	public void onFocusChangeCash(boolean focus) {
-		if (!focus) {
-			if (TextUtils.isEmpty(cashAmount.getText().toString()))
-				cashAmount.setText("0");
-			calculatePaymentTypesTransactionAmount();
-			cashAmount.clearFocus();
-		} else {
-			if (!TextUtils.isEmpty(cashAmount.getText().toString()) && cashAmount.getText().toString().equals("0")) {
-				cashAmount.setText("");
-			}
-		}
-
-	}
-
-	@OnFocusChange(R.id.cardAmount)
-	public void onFocusChangeCard(boolean focus) {
-		if (!focus) {
-			if (TextUtils.isEmpty(cardAmount.getText().toString()))
-				cardAmount.setText("0");
-			calculatePaymentTypesTransactionAmount();
-		} else {
-			if (!TextUtils.isEmpty(cardAmount.getText().toString()) && cardAmount.getText().toString().equals("0")) {
-				cardAmount.setText("");
-			}
-		}
-	}
 }

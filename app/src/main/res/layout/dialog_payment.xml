@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The payment window (PaymentDialog): how the client pays the order, chosen at "Завершить". -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_v2_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/paymentTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payment"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/paymentSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/BlueLight"
+                android:textSize="@dimen/text_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/payment_due"
+                    android:textColor="@color/BlueLight"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/paymentAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/White"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Tabs: one way of paying at a time (horizontally scrollable so they never overflow) -->
+            <HorizontalScrollView
+                android:id="@+id/paymentTabsScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tabCash"
+                        style="@style/PaymentTab"
+                        android:text="@string/cash" />
+
+                    <TextView
+                        android:id="@+id/tabCard"
+                        style="@style/PaymentTab"
+                        android:text="@string/card" />
+
+                    <TextView
+                        android:id="@+id/tabQr"
+                        style="@style/PaymentTab"
+                        android:text="@string/kaspi_qr" />
+
+                    <TextView
+                        android:id="@+id/tabDeposit"
+                        style="@style/PaymentTab"
+                        android:text="@string/deposit" />
+
+                    <TextView
+                        android:id="@+id/tabMixed"
+                        style="@style/PaymentTab"
+                        android:text="@string/payment_mixed" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/paymentNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/BlueLight2"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+            <!-- Kaspi QR: shown to the client to scan -->
+            <LinearLayout
+                android:id="@+id/qrLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/White"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/qrImage"
+                        android:layout_width="240dp"
+                        android:layout_height="240dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/kaspi_qr"
+                        android:scaleType="fitCenter" />
+
+                    <ProgressBar
+                        android:id="@+id/qrProgress"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/qrHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <!-- Mixed: an amount for each way of paying -->
+            <LinearLayout
+                android:id="@+id/mixedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout style="@style/PaymentMixedRow">
+
+                    <TextView
+                        style="@style/PaymentMixedLabel"
+                        android:text="@string/cash" />
+
+                    <EditText
+                        android:id="@+id/mixedCash"
+                        style="@style/PaymentMixedField" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/PaymentMixedRow">
+
+                    <TextView
+                        style="@style/PaymentMixedLabel"
+                        android:text="@string/card" />
+
+                    <EditText
+                        android:id="@+id/mixedCard"
+                        style="@style/PaymentMixedField" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mixedQrRow"
+                    style="@style/PaymentMixedRow">
+
+                    <TextView
+                        style="@style/PaymentMixedLabel"
+                        android:text="@string/kaspi_qr" />
+
+                    <EditText
+                        android:id="@+id/mixedQr"
+                        style="@style/PaymentMixedField" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mixedDepositRow"
+                    style="@style/PaymentMixedRow">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/deposit"
+                            android:textColor="@color/BlueLight"
+                            android:textSize="@dimen/text_small" />
+
+                        <TextView
+                            android:id="@+id/mixedDepositAvailable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/BlueLight2"
+                            android:textSize="@dimen/text_smaller" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/mixedDeposit"
+                        style="@style/PaymentMixedField" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mixedBonusRow"
+                    style="@style/PaymentMixedRow">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bonuses"
+                            android:textColor="@color/BlueLight"
+                            android:textSize="@dimen/text_small" />
+
+                        <TextView
+                            android:id="@+id/mixedBonusAvailable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/BlueLight2"
+                            android:textSize="@dimen/text_smaller" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/mixedBonus"
+                        style="@style/PaymentMixedField" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/mixedRemaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/BlueLight2"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/paymentError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/OrangeRed"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="end|center_vertical"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/paymentProgress"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/paymentCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_v2_btn_ghost"
+                    android:minHeight="44dp"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:text="@string/cancel_word"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small" />
+
+                <Button
+                    android:id="@+id/paymentConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_v2_btn_primary"
+                    android:minHeight="44dp"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:text="@string/payment_paid_and_finish"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

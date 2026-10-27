@@ -297,6 +297,17 @@ public class AdminSearchFilter implements Cloneable {
 		this.operationType = operationType;
 	}
 
+	/** carwash_money_transaction: only entries that debit or credit this account (old servers ignore it). */
+	private String account;
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
 	/**
 	 * This map will be used to query search from server
 	 * @return map - data to query
@@ -317,6 +328,8 @@ public class AdminSearchFilter implements Cloneable {
 		else if(!TextUtils.isEmpty(operationType) && operationType.contains(",")){
 			result.put("operation_type__in", operationType);
 		}
+		if(!TextUtils.isEmpty(account))
+			result.put("account", account);
 
 		if(!TextUtils.isEmpty(companyClient))
 			result.put("company_client", companyClient);

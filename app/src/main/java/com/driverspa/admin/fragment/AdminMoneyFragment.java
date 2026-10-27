@@ -1,6 +1,7 @@
 package com.driverspa.admin.fragment;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.BA;
 import com.driverspa.R;
+import com.driverspa.admin.activity.AdminFinancialActivity;
 import com.driverspa.model.CarwashCashFinancial;
 import com.driverspa.model.NotificationType;
 import com.driverspa.model.User;
@@ -50,6 +52,8 @@ public class AdminMoneyFragment extends AdminBaseFragment {
 	TextView totalRevenue;
 	@BindView(R.id.salaryExpense)
 	TextView salaryExpense;
+	@BindView(R.id.goodsCost)
+	TextView goodsCost;
 	@BindView(R.id.otherExpense)
 	TextView otherExpense;
 	@BindView(R.id.totalExpense)
@@ -71,6 +75,17 @@ public class AdminMoneyFragment extends AdminBaseFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		ButterKnife.bind(this, view);
+		// The shop's rows open their operations, as the cash rows do.
+		goodsRevenue.setPaintFlags(goodsRevenue.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+		goodsCost.setPaintFlags(goodsCost.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+		goodsRevenue.setOnClickListener(v -> {
+			if (getActivity() instanceof AdminFinancialActivity)
+				((AdminFinancialActivity) getActivity()).transactionsHistoryClicked("15,18", "6003", BA.str(R.string.goods_revenue_pre) + goodsRevenue.getText());
+		});
+		goodsCost.setOnClickListener(v -> {
+			if (getActivity() instanceof AdminFinancialActivity)
+				((AdminFinancialActivity) getActivity()).transactionsHistoryClicked("17,18", "8000", BA.str(R.string.goods_cost_pre) + goodsCost.getText());
+		});
 	}
 
 	@Override
@@ -111,7 +126,8 @@ public class AdminMoneyFragment extends AdminBaseFragment {
 
 		if(cashFinancial != null) {
 			serviceRevenue.setText(formatter.format(cashFinancial.getServiceRevenue()) + " ₸");
-//			goodsRevenue.setText(formatter.format(cashFinancial.()) + " ₸");
+			goodsRevenue.setText(formatter.format(cashFinancial.getGoodsRevenue()) + " ₸");
+			goodsCost.setText(formatter.format(cashFinancial.getGoodsCost()) + " ₸");
 			otherRevenue.setText(formatter.format(cashFinancial.getOtherRevenue()) + " ₸");
 			unearnedRevenue.setText(formatter.format(cashFinancial.getUnearnedRevenue()) + " ₸");
 			totalRevenue.setText(formatter.format(cashFinancial.getTotalRevenue()) + " ₸");

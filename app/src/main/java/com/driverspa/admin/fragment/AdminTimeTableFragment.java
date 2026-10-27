@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.driverspa.adapter.AdminWasherTimeTableAdapter;
+import com.driverspa.admin.payment.PaymentFlow;
 import com.driverspa.adapter.TabBarAdapter;
 import com.driverspa.assist.BaseAssist;
 import com.google.android.material.appbar.AppBarLayout;
@@ -604,8 +605,8 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 									public void onClick(DialogInterface dialogInterface, int i) {
 										switch (i) {
 											case 0:
-												setWaitScreen(true);
-												BA.getEventBus().post(new AdminBookStopRequestEvent(book.getId()));
+												// Takes the payment first when none is recorded.
+												PaymentFlow.finish(getActivity(), book, washer, 0, null);
 												break;
 											case 1:
 												setWaitScreen(true);
@@ -650,120 +651,55 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 								b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 								b.show();
 							}
+							else if(PaymentFlow.isFinishedUnpaid(book)) {
+								showFinishedUnpaidMenu(book);
+							}
 							else {
 								activityActions.openBookInfo(book.getId());
 							}
 						}
 						else{
-							//Queued booking
+							//Queued booking. Payment is taken by "Завершить" (PaymentFlow), so every car
+							//in a box gets the same menu, paid or not.
 							if(book.getStatus().equals(QUEUED_APPROVED)){
 								AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-								if(book.getPaid()) {
-									b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialogInterface, int i) {
-											switch (i) {
-												case 0:
-													setWaitScreen(true);
-													BookingRequest request = new BookingRequest();
-													request.setId(book.getId());
-													request.setDuration(10);
-													BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
-													break;
-												case 1:
-													setWaitScreen(true);
-													request = new BookingRequest();
-													request.setId(book.getId());
-													BA.getEventBus().post(new AdminFinishQueueRequestEvent(request));
-													break;
-												case 2:
-													setWaitScreen(true);
-													request = new BookingRequest();
-													request.setId(book.getId());
-													BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
-													break;
-												case 3:
-													activityActions.editEntry(book);
-													break;
-												case 4:
-													activityActions.openBookInfo(book.getId());
-													break;
-											}
+								b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										switch (i) {
+											case 0:
+												setWaitScreen(true);
+												BookingRequest request = new BookingRequest();
+												request.setId(book.getId());
+												request.setDuration(10);
+												BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
+												break;
+											case 1:
+												PaymentFlow.finish(getActivity(), book, washer, 0, null);
+												break;
+											case 2:
+												setWaitScreen(true);
+												request = new BookingRequest();
+												request.setId(book.getId());
+												BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
+												break;
+											case 3:
+												activityActions.editEntry(book);
+												break;
+											case 4:
+												activityActions.openBookInfo(book.getId());
+												break;
 										}
-									});
-								}
-								else{
-									b.setItems(R.array.admin_approved_queue_not_paid_options, new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialogInterface, int i) {
-											switch (i) {
-												case 0:
-													setWaitScreen(true);
-													BookingRequest request = new BookingRequest();
-													request.setId(book.getId());
-													request.setPaid(true);
-													BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
-													break;
-												case 1:
-													setWaitScreen(true);
-													request = new BookingRequest();
-													request.setId(book.getId());
-													request.setDuration(10);
-													BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
-													break;
-												case 2:
-													setWaitScreen(true);
-													request = new BookingRequest();
-													request.setId(book.getId());
-													BA.getEventBus().post(new AdminFinishQueueRequestEvent(request));
-													break;
-												case 3:
-													setWaitScreen(true);
-													request = new BookingRequest();
-													request.setId(book.getId());
-													BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
-													break;
-												case 4:
-													activityActions.editEntry(book);
-													break;
-												case 5:
-													activityActions.openBookInfo(book.getId());
-													break;
-											}
-										}
-									});
-
-								}
+									}
+								});
 								b.setTitle(BA.str(R.string.op_client)+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
 								b.show();
 							}
+							else if(PaymentFlow.isFinishedUnpaid(book)) {
+								showFinishedUnpaidMenu(book);
+							}
 							else{
-								if(!book.getPaid()) {
-									AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-									b.setItems(R.array.admin_not_paid_options, new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialogInterface, int i) {
-											switch (i) {
-												case 0:
-													setWaitScreen(true);
-													BookingRequest request = new BookingRequest();
-													request.setId(book.getId());
-													request.setPaid(true);
-													BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
-													break;
-												case 1:
-													activityActions.openBookInfo(book.getId());
-													break;
-											}
-										}
-									});
-									b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
-									b.show();
-								}
-								else{
-									activityActions.openBookInfo(book.getId());
-								}
-
+								activityActions.openBookInfo(book.getId());
 							}
 						}
 					}
@@ -825,6 +761,20 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 			washerNoTime.setVisibility(View.VISIBLE);
 			buttonRepeat.setVisibility(View.VISIBLE);
 		}
+	}
+
+	/** An old order finished without payment: "Оплата" opens the payment window (no finish). */
+	private void showFinishedUnpaidMenu(final BookInfo book){
+		AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
+		b.setItems(R.array.admin_finished_not_paid_options, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				if (i == 0) PaymentFlow.pay(getActivity(), book, washer, null);
+				else activityActions.openBookInfo(book.getId());
+			}
+		});
+		b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
+		b.show();
 	}
 
 	public void onBookButtonClicked(){

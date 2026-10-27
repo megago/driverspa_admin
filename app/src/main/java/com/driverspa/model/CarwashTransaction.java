@@ -27,6 +27,20 @@ public class CarwashTransaction {
     Instant ts;
     @SerializedName("manual_entry")
     Boolean manualEntry;
+    /** The shop sale this entry belongs to (ops 15, 17, 18), or null. */
+    @SerializedName("shop_sale")
+    String shopSale;
+    /** The shop item of a purchase or write-off (ops 16, 17), or null. */
+    @SerializedName("shop_item")
+    String shopItem;
+
+    public String getShopSale() {
+        return shopSale;
+    }
+
+    public String getShopItem() {
+        return shopItem;
+    }
 
     public User getUser() {
         return user;

@@ -126,4 +126,10 @@
     </string-array>
 
 
+    <!-- An old order that was finished without payment: take the payment, or open it. -->
+    <string-array name="admin_finished_not_paid_options"  translatable="false">
+        <item>Оплата</item>
+        <item>Детали</item>
+    </string-array>
+
 </resources>

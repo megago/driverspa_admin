@@ -597,7 +597,9 @@
                 </LinearLayout>
 
                 <!-- Payment card -->
+                <!-- Hidden: payment is taken when the order is finished (PaymentFlow). -->
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

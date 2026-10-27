@@ -1,8 +1,13 @@
 package com.driverspa.model;
 
 import android.location.Location;
+import android.text.TextUtils;
 
+import com.driverspa.util.ApiReadOnly;
+import com.driverspa.util.Constants;
+import com.driverspa.util.RetrofitClient;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -54,6 +59,15 @@ public class Washer extends WasherPublic {
 
 	@SerializedName("role_tran")
 	RoleTran roleTransactions;
+
+	/**
+	 * Payment QRs by kind: {"kaspi_qr": {"url": "/media/upload/qr/….png", "size": [w, h]}}, or {}
+	 * when there are none. Managed by image_upload/payment_qr, so it is never sent back with the
+	 * car wash. Kept as raw JSON: an unexpected shape must not break parsing the whole car wash.
+	 */
+	@ApiReadOnly
+	@SerializedName("payment_qr")
+	private JsonElement paymentQr;
 
 	public static class RoleTran {
 		@SerializedName("director_role")
@@ -624,6 +638,34 @@ public class Washer extends WasherPublic {
 
 	public void setStaffs(List<Staff> staffs) {
 		this.staffs = staffs;
+	}
+
+	public JsonElement getPaymentQr() {
+		return paymentQr;
+	}
+
+	public void setPaymentQr(JsonElement paymentQr) {
+		this.paymentQr = paymentQr;
+	}
+
+	/** Full URL of the car wash's Kaspi QR image, or null when it has none. */
+	public String getKaspiQrUrl() {
+		return paymentQrUrl(paymentQr, Constants.PAYMENT_QR_KASPI);
+	}
+
+	/** The image URL of one QR kind in a payment_qr object ({"kaspi_qr": {"url": …}}), or null. */
+	public static String paymentQrUrl(JsonElement paymentQr, String kind) {
+		if (paymentQr == null || !paymentQr.isJsonObject()) return null;
+		JsonElement qr = paymentQr.getAsJsonObject().get(kind);
+		String url = null;
+		if (qr != null && qr.isJsonObject()) {
+			JsonElement value = qr.getAsJsonObject().get("url");
+			if (value != null && value.isJsonPrimitive()) url = value.getAsString();
+		} else if (qr != null && qr.isJsonPrimitive()) {
+			url = qr.getAsString();
+		}
+		if (TextUtils.isEmpty(url)) return null;
+		return url.startsWith("http") ? url : RetrofitClient.API_URL_IMAGES + url;
 	}
 
 	// GSON

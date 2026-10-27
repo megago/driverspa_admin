@@ -232,6 +232,8 @@
                 android:background="@color/BlueTransparent"></FrameLayout>
 
 
+            <include layout="@layout/view_kaspi_qr_block" />
+
             <LinearLayout
                 android:id="@+id/addinfo"
                 android:layout_width="match_parent"

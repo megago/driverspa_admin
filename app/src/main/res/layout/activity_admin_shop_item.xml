@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The add / edit form of a shop item (AdminShopItemActivity) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_admin_detail_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:paddingRight="@dimen/horizontal_margin"
+            android:paddingBottom="@dimen/vertical_margin">
+
+            <TextView
+                style="@style/ShopLabel"
+                android:text="@string/shop_name" />
+
+            <EditText
+                android:id="@+id/name"
+                style="@style/ShopField"
+                android:inputType="textCapSentences"
+                android:maxLength="60" />
+
+            <TextView
+                style="@style/ShopLabel"
+                android:text="@string/shop_category" />
+
+            <AutoCompleteTextView
+                android:id="@+id/category"
+                style="@style/ShopField"
+                android:completionThreshold="0"
+                android:inputType="textCapSentences"
+                android:maxLength="40"
+                android:popupBackground="@color/spinner_popup_background" />
+
+            <TextView
+                style="@style/ShopLabel"
+                android:text="@string/shop_price" />
+
+            <EditText
+                android:id="@+id/price"
+                style="@style/ShopField"
+                android:inputType="number"
+                android:maxLength="10" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/trackStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/shop_track_stock"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout
+                android:id="@+id/stockLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/initialLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ShopLabel"
+                        android:text="@string/shop_initial_stock" />
+
+                    <EditText
+                        android:id="@+id/initialStock"
+                        style="@style/ShopField"
+                        android:inputType="number"
+                        android:maxLength="6" />
+
+                    <TextView
+                        style="@style/ShopLabel"
+                        android:text="@string/shop_unit_cost" />
+
+                    <EditText
+                        android:id="@+id/unitCost"
+                        style="@style/ShopField"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13" />
+
+                    <TextView
+                        style="@style/ShopLabel"
+                        android:text="@string/shop_paid_by" />
+
+                    <LinearLayout
+                        android:id="@+id/paidBy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/ShopLabel"
+                    android:text="@string/shop_low_threshold" />
+
+                <EditText
+                    android:id="@+id/lowStock"
+                    style="@style/ShopField"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLength="7" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/active"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:checked="true"
+                android:text="@string/shop_active"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal" />
+
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/OrangeRed"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_v2_btn_primary"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

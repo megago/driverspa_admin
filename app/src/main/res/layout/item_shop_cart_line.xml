@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A line of the cart: name, price x qty, - / + and remove. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/BlueLight2"
+            android:textSize="@dimen/text_smaller" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/minus"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_v2_chip"
+        android:gravity="center"
+        android:text="−"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/qty"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_normal"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/plus"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_v2_chip"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text_medium" />
+
+    <ImageView
+        android:id="@+id/remove"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/bg_v2_tab"
+        android:contentDescription="@string/shop_action_delete"
+        android:padding="8dp"
+        android:src="@drawable/ic_close_white_24dp" />
+</LinearLayout>

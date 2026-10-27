@@ -120,4 +120,9 @@
         <item>Pay salary</item>
     </string-array>
 
+    <string-array name="admin_finished_not_paid_options">
+        <item>Payment</item>
+        <item>Details</item>
+    </string-array>
+
 </resources>

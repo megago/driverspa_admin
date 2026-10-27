@@ -1,5 +1,6 @@
 package com.driverspa.admin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.driverspa.BA;
 import com.driverspa.R;
+import com.driverspa.admin.payment.KaspiQrBlock;
 import com.driverspa.dialog.MultipleSelectDialog;
 import com.driverspa.model.Washer;
 import com.driverspa.model.Washer.Contact;
@@ -35,6 +37,7 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 	Washer washer;
 	MultipleSelectDialog paymentDialog;
 	MultipleSelectDialog addInfoDialog;
+	KaspiQrBlock kaspiQrBlock;
 
 	@BindView(R.id.phone)
 	EditText phone;
@@ -83,7 +86,25 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 		});
 
 		ButterKnife.bind(this);
-    } 
+		kaspiQrBlock = new KaspiQrBlock(this, findViewById(R.id.kaspiQrBlock), new KaspiQrBlock.Host() {
+			@Override
+			public void startActivityForResult(Intent intent, int requestCode) {
+				AdditionalInformationActivity.this.startActivityForResult(intent, requestCode);
+			}
+
+			@Override
+			public void onPaymentQrChanged() {
+				// Keeps the edited contacts and redraws the payment options from the washer.
+				saveData();
+			}
+		});
+    }
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		kaspiQrBlock.onActivityResult(requestCode, resultCode, data);
+	}
 
 
     @Override
@@ -158,12 +179,14 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 	public void onResume() {
 		super.onResume();
 		BA.getEventBus().register(this);
+		kaspiQrBlock.onResume();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		BA.getEventBus().unregister(this);
+		kaspiQrBlock.onPause();
 		if(washer != null){
 			saveData();
 		}
@@ -173,6 +196,7 @@ public class AdditionalInformationActivity extends AdminBaseActivity {
 	public void onWasherReceived(WasherGetResponseEvent event) {
 		washer = event.getWasher();
 		if(washer != null) {
+			kaspiQrBlock.bind(washer);
 
 
 			if(washer.getPayOptions() != null && washer.getPayOptions().size() > 0){

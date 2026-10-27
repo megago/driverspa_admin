@@ -73,6 +73,10 @@ public class AdminCashFragment extends AdminBaseFragment  {
 	TextView total;
 	@BindView(R.id.unearnedRevenue)
 	TextView unearnedRevenue;
+	@BindView(R.id.goodsCash)
+	TextView goodsCash;
+	@BindView(R.id.goodsPurchasesCash)
+	TextView goodsPurchasesCash;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -96,6 +100,8 @@ public class AdminCashFragment extends AdminBaseFragment  {
 		otherRevenue.setPaintFlags(otherRevenue.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 		unearnedRevenue.setPaintFlags(unearnedRevenue.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 		otherExpense.setPaintFlags(otherExpense.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+		goodsCash.setPaintFlags(goodsCash.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+		goodsPurchasesCash.setPaintFlags(goodsPurchasesCash.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 
 		manualCashService.setPaintFlags(manualCashService.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 		manualCashOut.setPaintFlags(manualCashOut.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
@@ -161,6 +167,8 @@ public class AdminCashFragment extends AdminBaseFragment  {
 			otherRevenue.setText(formatter.format(cashFinancial.getOtherRevenue()) + " ₸");
 			otherExpense.setText(formatter.format(cashFinancial.getOtherExpense()) + " ₸");
 			unearnedRevenue.setText(formatter.format(cashFinancial.getUnearnedRevenue()) + " ₸");
+			goodsCash.setText(formatter.format(cashFinancial.getGoodsCash()) + " ₸");
+			goodsPurchasesCash.setText(formatter.format(cashFinancial.getGoodsPurchasesCash()) + " ₸");
 			total.setText(formatter.format(cashFinancial.getTotalCash()) + " ₸");
 		}
 	}
@@ -210,6 +218,18 @@ public class AdminCashFragment extends AdminBaseFragment  {
 //		startActivity(new Intent(getActivity(), AdminAddCarwashTransactionActivity.class).putExtra(AdminAddCarwashTransactionActivity.TRANSACTION_CODE,2));
 	}
 
+
+	/** The shop's cash: sales less canceled ones (ops 15 and 18). */
+	@OnClick(R.id.goodsCash)
+	public void goodsCashTransactions(){
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("15,18","1000",BA.str(R.string.shop_cash_pre)+goodsCash.getText());
+	}
+
+	/** Goods purchases (op 16). */
+	@OnClick(R.id.goodsPurchasesCash)
+	public void goodsPurchasesTransactions(){
+		((AdminFinancialActivity)(getActivity())).transactionsHistoryClicked("16","1000",BA.str(R.string.goods_purchases_pre)+goodsPurchasesCash.getText());
+	}
 
 	@OnClick(R.id.manualCashService)
 	public void manualCash(){

@@ -120,4 +120,9 @@
         <item>Жалақы беру</item>
     </string-array>
 
+    <string-array name="admin_finished_not_paid_options">
+        <item>Төлем</item>
+        <item>Мәліметтер</item>
+    </string-array>
+
 </resources>

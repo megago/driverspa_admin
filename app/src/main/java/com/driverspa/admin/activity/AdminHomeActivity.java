@@ -301,7 +301,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                     if (!TextUtils.isEmpty(bookId))
                         openBookInfo(bookId);
                 } else if (pushType.contains("review_created")) {
-                    onNavigationDrawerItemSelected(6);
+                    onNavigationDrawerItemSelected(7); // settings, as before the shop item was added
                 }
             }
         }
@@ -490,25 +490,30 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 //                        .putExtra(OPENING_ANIMATION,false)
 //                );
 //                break;
-            case 4: //statistics
+            case 4: //shop
+                startActivity(new Intent(this,AdminShopActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        .putExtra(OPENING_ANIMATION,false)
+                );
+                break;
+            case 5: //statistics
 
                 startActivity(new Intent(this,AdminAnalyticsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 5: //review
+            case 6: //review
                 startActivity(new Intent(this,AdminWasherReviewActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
 
                 break;
-            case 6: //settings
+            case 7: //settings
                 if(!Functions.isUserHasAccess(washer,user,this)) return;
                 startActivity(new Intent(this,AdminProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 7: //About us
+            case 8: //About us
                 startActivity(new Intent(this,AdminAboutUSActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );

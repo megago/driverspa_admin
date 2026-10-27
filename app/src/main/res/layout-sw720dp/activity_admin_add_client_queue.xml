@@ -836,7 +836,9 @@
                         android:layout_marginTop="@dimen/vertical_margin_half"
                         android:background="@color/BlueTransparent" />
 
+                    <!-- Hidden: payment is taken when the order is finished (PaymentFlow). -->
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_margin"

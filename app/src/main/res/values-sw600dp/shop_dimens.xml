@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shop sale screen: the smallest tile width; the grid takes as many columns as fit -->
+    <dimen name="shop_tile_min_width">140dp</dimen>
+    <!-- Width of the cart beside the grid on wide screens -->
+    <dimen name="shop_cart_width">300dp</dimen>
+</resources>

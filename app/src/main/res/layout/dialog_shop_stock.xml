@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Приход / Списать of a shop item (ShopItemsFragment) -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="8dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@+id/stockInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/BlueLight2"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            style="@style/ShopLabel"
+            android:text="@string/shop_qty" />
+
+        <EditText
+            android:id="@+id/stockQty"
+            style="@style/ShopField"
+            android:inputType="number"
+            android:maxLength="6" />
+
+        <LinearLayout
+            android:id="@+id/purchaseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ShopLabel"
+                android:text="@string/shop_unit_cost" />
+
+            <EditText
+                android:id="@+id/stockUnitCost"
+                style="@style/ShopField"
+                android:inputType="numberDecimal"
+                android:maxLength="13" />
+
+            <TextView
+                style="@style/ShopLabel"
+                android:text="@string/shop_paid_by" />
+
+            <LinearLayout
+                android:id="@+id/stockPaidBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/stockCommentLabel"
+            style="@style/ShopLabel"
+            android:text="@string/shop_comment" />
+
+        <EditText
+            android:id="@+id/stockComment"
+            style="@style/ShopField"
+            android:inputType="textCapSentences"
+            android:maxLength="300" />
+
+        <TextView
+            android:id="@+id/stockSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/stockError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/OrangeRed"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

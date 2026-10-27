@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.driverspa.adapter.AdminBooksAdapter;
+import com.driverspa.admin.payment.PaymentFlow;
 import com.driverspa.assist.BaseAssist;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -904,8 +905,8 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 					   public void onClick(DialogInterface dialogInterface, int i) {
 						   switch (i) {
 							   case 0:
-								   setWaitScreen(true);
-								   BA.getEventBus().post(new AdminBookStopRequestEvent(book.getId()));
+								   // Takes the payment first when none is recorded.
+								   PaymentFlow.finish(getActivity(), book, washer, 0, null);
 								   break;
 							   case 1:
 								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
@@ -980,167 +981,89 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 				   b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
 				   b.show();
 			   }
+			   else if(PaymentFlow.isFinishedUnpaid(book)){
+				   showFinishedUnpaidMenu(book);
+			   }
 			   else{
 				   activityActions.openBookInfo(book.getId());
 			   }
 		   }
 		   else{
-			   //Queued booking
+			   //Queued booking. Payment is taken by "Завершить" (PaymentFlow), so every car in a
+			   //box gets the same menu, paid or not.
 			   if(book.getStatus().equals(QUEUED_APPROVED)){
 				   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-				   if(book.getPaid()) {
-					   b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
-						   @Override
-						   public void onClick(DialogInterface dialogInterface, int i) {
-							   switch (i) {
-								   case 0:
-									   setWaitScreen(true);
-									   BookingRequest request = new BookingRequest();
-									   request.setId(book.getId());
-									   request.setDuration(10);
-									   BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
-									   break;
-								   case 1:
-									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle(BA.str(R.string.finish_order_q));
-									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
-									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
-										   @Override
-										   public void onClick(DialogInterface dialog, int which) {
-											   setWaitScreen(true);
-											   BookingRequest request = new BookingRequest();
-											   request.setId(book.getId());
-											   BA.getEventBus().post(new AdminFinishQueueRequestEvent(request));
-										   }
-									   });
-									   dialog.show();
-									   break;
-								   case 2:
-									   dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle(BA.str(R.string.cancel_order_q));
-									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
-									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
-										   @Override
-										   public void onClick(DialogInterface dialog, int which) {
-											   setWaitScreen(true);
-											   BookingRequest request = new BookingRequest();
-											   request.setId(book.getId());
-											   BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
-										   }
-									   });
-									   dialog.show();
-									   break;
-								   case 3:
-									   loadWithUpdate = true;
-									   activityActions.editEntry(book);
-									   break;
-								   case 4:
-									   loadWithUpdate = true;
-									   activityActions.openBookInfo(book.getId());
-									   break;
-							   }
+				   b.setItems(R.array.admin_approved_queue_options, new DialogInterface.OnClickListener() {
+					   @Override
+					   public void onClick(DialogInterface dialogInterface, int i) {
+						   switch (i) {
+							   case 0:
+								   setWaitScreen(true);
+								   BookingRequest request = new BookingRequest();
+								   request.setId(book.getId());
+								   request.setDuration(10);
+								   BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
+								   break;
+							   case 1:
+								   PaymentFlow.finish(getActivity(), book, washer, R.string.finish_order_q, null);
+								   break;
+							   case 2:
+								   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
+								   dialog.setTitle(BA.str(R.string.cancel_order_q));
+								   dialog.setNeutralButton(BA.str(R.string.no_word), null);
+								   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
+									   @Override
+									   public void onClick(DialogInterface dialog, int which) {
+										   setWaitScreen(true);
+										   BookingRequest request = new BookingRequest();
+										   request.setId(book.getId());
+										   BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
+									   }
+								   });
+								   dialog.show();
+								   break;
+							   case 3:
+								   loadWithUpdate = true;
+								   activityActions.editEntry(book);
+								   break;
+							   case 4:
+								   loadWithUpdate = true;
+								   activityActions.openBookInfo(book.getId());
+								   break;
 						   }
-					   });
-				   }
-				   else{
-					   b.setItems(R.array.admin_approved_queue_not_paid_options, new DialogInterface.OnClickListener() {
-						   @Override
-						   public void onClick(DialogInterface dialogInterface, int i) {
-							   switch (i) {
-								   case 0:
-									   setWaitScreen(true);
-									   BookingRequest request = new BookingRequest();
-									   request.setId(book.getId());
-									   request.setPaid(true);
-									   loadWithUpdate = true;
-									   BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
-									   break;
-								   case 1:
-									   setWaitScreen(true);
-									   request = new BookingRequest();
-									   request.setId(book.getId());
-									   request.setDuration(10);
-									   BA.getEventBus().post(new AdminPostponeQueueRequestEvent(request));
-									   break;
-								   case 2:
-									   AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle(BA.str(R.string.finish_order_q));
-									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
-									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
-										   @Override
-										   public void onClick(DialogInterface dialog, int which) {
-											   setWaitScreen(true);
-											   BookingRequest request = new BookingRequest();
-											   request.setId(book.getId());
-											   BA.getEventBus().post(new AdminFinishQueueRequestEvent(request));
-										   }
-									   });
-									   dialog.show();
-									   break;
-								   case 3:
-									   dialog = new MaterialAlertDialogBuilder(getActivity());
-									   dialog.setTitle(BA.str(R.string.cancel_order_q));
-									   dialog.setNeutralButton(BA.str(R.string.no_word), null);
-									   dialog.setPositiveButton(BA.str(R.string.yes_word), new DialogInterface.OnClickListener() {
-										   @Override
-										   public void onClick(DialogInterface dialog, int which) {
-											   setWaitScreen(true);
-											   BookingRequest request = new BookingRequest();
-											   request.setId(book.getId());
-											   BA.getEventBus().post(new AdminRejectQueueRequestEvent(request));
-										   }
-									   });
-									   dialog.show();
-									   break;
-								   case 4:
-									   loadWithUpdate = true;
-									   activityActions.editEntry(book);
-									   break;
-								   case 5:
-									   loadWithUpdate = true;
-									   activityActions.openBookInfo(book.getId());
-									   break;
-							   }
-						   }
-					   });
-
-				   }
+					   }
+				   });
 				   b.setTitle(BA.str(R.string.op_client)+book.getClientKey().replaceAll("\\(","").replaceAll("\\)","")+"");
 				   b.show();
 			   }
+			   else if(PaymentFlow.isFinishedUnpaid(book)){
+				   showFinishedUnpaidMenu(book);
+			   }
 			   else{
-				   if(!book.getPaid()) {
-					   AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-					   b.setItems(R.array.admin_not_paid_options, new DialogInterface.OnClickListener() {
-						   @Override
-						   public void onClick(DialogInterface dialogInterface, int i) {
-							   switch (i) {
-								   case 0:
-									   setWaitScreen(true);
-									   BookingRequest request = new BookingRequest();
-									   request.setId(book.getId());
-									   request.setPaid(true);
-									   loadWithUpdate = true;
-									   BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
-									   break;
-								   case 1:
-									   loadWithUpdate = true;
-									   activityActions.openBookInfo(book.getId());
-									   break;
-							   }
-						   }
-					   });
-					   b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
-					   b.show();
-				   }
-				   else{
-					   loadWithUpdate = true;
-					   activityActions.openBookInfo(book.getId());
-				   }
-
+				   loadWithUpdate = true;
+				   activityActions.openBookInfo(book.getId());
 			   }
 		   }
 	   }
+	}
+
+	/** An old order finished without payment: "Оплата" opens the payment window (no finish). */
+	private void showFinishedUnpaidMenu(final BookInfo book){
+		AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
+		b.setItems(R.array.admin_finished_not_paid_options, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				if (i == 0) {
+					PaymentFlow.pay(getActivity(), book, washer, null);
+				}
+				else {
+					loadWithUpdate = true;
+					activityActions.openBookInfo(book.getId());
+				}
+			}
+		});
+		b.setTitle(BA.str(R.string.op_booking_client)+book.getClientKey()+"");
+		b.show();
 	}
 
 }

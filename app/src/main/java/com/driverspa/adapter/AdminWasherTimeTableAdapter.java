@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
+import com.driverspa.admin.payment.PaymentFlow;
 import com.driverspa.R;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.Washer;
@@ -109,7 +110,7 @@ public class AdminWasherTimeTableAdapter extends BaseAdapter {
 			holder.imageCar.setVisibility(View.GONE);
 
 			BookInfo item = bookingObjects.get(gridList.get(position).get(GRID_BOOK_ID));
-			if(!item.getPaid()){
+			if(PaymentFlow.isFinishedUnpaid(item)){ // open orders are unpaid until "Завершить"
 				holder.notPaid.setVisibility(View.VISIBLE);
 			}
 			else{

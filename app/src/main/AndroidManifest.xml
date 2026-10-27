@@ -382,6 +382,16 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
+            android:name=".admin.activity.AdminShopActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminShopItemActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
             android:name=".admin.activity.ExtraSettingsActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />

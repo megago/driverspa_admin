@@ -43,6 +43,10 @@ public class Reference {
 	@SerializedName("operation_types")
 	private LinkedHashMap<Integer,String> operationTypes;
 
+	/** The shop's operation types (15-18), kept apart from operation_types (docs/shop.md). */
+	@SerializedName("shop_operation_types")
+	private LinkedHashMap<Integer,String> shopOperationTypes;
+
 	@SerializedName("roles")
 	private LinkedHashMap<String,String> roles;
 
@@ -134,6 +138,25 @@ public class Reference {
 
 	public void setOperationTypes(LinkedHashMap<Integer, String> operationTypes) {
 		this.operationTypes = operationTypes;
+	}
+
+	public LinkedHashMap<Integer, String> getShopOperationTypes() {
+		return shopOperationTypes;
+	}
+
+	public void setShopOperationTypes(LinkedHashMap<Integer, String> shopOperationTypes) {
+		this.shopOperationTypes = shopOperationTypes;
+	}
+
+	/**
+	 * operation_types followed by shop_operation_types, for naming any transaction. Not for the
+	 * manual-entry list, which offers operation_types only.
+	 */
+	public LinkedHashMap<Integer, String> getAllOperationTypes() {
+		LinkedHashMap<Integer, String> all = new LinkedHashMap<>();
+		if (operationTypes != null) all.putAll(operationTypes);
+		if (shopOperationTypes != null) all.putAll(shopOperationTypes);
+		return all;
 	}
 
 	public LinkedHashMap<String, String> getRoles() {

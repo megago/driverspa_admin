@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car wash's Kaspi QR (KaspiQrBlock): shown to the client in the payment window. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kaspiQrBlock"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/horizontal_margin_half"
+        android:paddingTop="@dimen/vertical_margin_half"
+        android:paddingBottom="@dimen/vertical_margin_half">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kaspi_qr"
+            android:textColor="@color/White"
+            android:textSize="@dimen/text_normal" />
+
+        <FrameLayout
+            android:id="@+id/kaspiQrPreviewFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/White"
+            android:padding="4dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/kaspiQrPreview"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:contentDescription="@string/kaspi_qr"
+                android:scaleType="fitCenter" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/kaspiQrNone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/kaspi_qr_none"
+            android:textColor="@color/BlueLight"
+            android:textSize="@dimen/text_small" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/kaspiQrUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_v2_btn_primary"
+                android:minHeight="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/kaspi_qr_upload"
+                android:textAllCaps="false"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small" />
+
+            <Button
+                android:id="@+id/kaspiQrDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_v2_btn_ghost"
+                android:minHeight="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/delete"
+                android:textAllCaps="false"
+                android:textColor="@color/White"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/BlueTransparent" />
+</LinearLayout>

@@ -63,6 +63,50 @@ public class CarwashCashFinancial {
     @SerializedName("total_cash")
     Double totalCash;
 
+    // The shop (docs/shop.md): goods sales, cost of goods sold, and the shop's cash.
+    @SerializedName("goods_revenue")
+    Double goodsRevenue;
+    @SerializedName("goods_cost")
+    Double goodsCost;
+    @SerializedName("goods_cash")
+    Double goodsCash;
+    @SerializedName("goods_card")
+    Double goodsCard;
+    @SerializedName("goods_purchases")
+    Double goodsPurchases;
+    @SerializedName("goods_purchases_cash")
+    Double goodsPurchasesCash;
+
+    /** Goods sales less canceled ones (ops 15 and 18); 0 when the backend doesn't send it. */
+    public double getGoodsRevenue() {
+        return goodsRevenue != null ? goodsRevenue : 0;
+    }
+
+    /** Cost of goods sold and written off (op 17, less cancellations). */
+    public double getGoodsCost() {
+        return goodsCost != null ? goodsCost : 0;
+    }
+
+    /** Cash taken by the shop less canceled sales. */
+    public double getGoodsCash() {
+        return goodsCash != null ? goodsCash : 0;
+    }
+
+    /** Card and Kaspi QR shop sales (not part of the cash). */
+    public double getGoodsCard() {
+        return goodsCard != null ? goodsCard : 0;
+    }
+
+    /** All goods purchases (op 16). */
+    public double getGoodsPurchases() {
+        return goodsPurchases != null ? goodsPurchases : 0;
+    }
+
+    /** Goods purchases paid in cash. */
+    public double getGoodsPurchasesCash() {
+        return goodsPurchasesCash != null ? goodsPurchasesCash : 0;
+    }
+
     public String getCarwash() {
         return carwash;
     }

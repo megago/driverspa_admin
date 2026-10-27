@@ -4,9 +4,16 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import com.driverspa.BA;
+import com.driverspa.model.api.request.PaymentQrDeleteRequest;
 import com.driverspa.model.api.response.BaseResponseHolder;
+import com.driverspa.model.api.response.PaymentQrResponseHolder;
 import com.driverspa.model.api.response.PhotoResponseHolder;
+import com.driverspa.util.Constants;
 import com.driverspa.util.RetrofitClient.DriverSpaApi;
+import com.driverspa.util.otto.ws.AdminPaymentQrDeleteRequestEvent;
+import com.driverspa.util.otto.ws.AdminPaymentQrDeleteResponseEvent;
+import com.driverspa.util.otto.ws.AdminPaymentQrUploadRequestEvent;
+import com.driverspa.util.otto.ws.AdminPaymentQrUploadResponseEvent;
 import com.driverspa.util.otto.ws.AdminPhotoPostRequestEvent;
 import com.driverspa.util.otto.ws.AdminPhotoPostResponseEvent;
 import com.driverspa.util.otto.ws.ClientPhotoPostRequestEvent;
@@ -17,6 +24,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 /**
  * Assistant class for uploading photo to server
@@ -97,6 +105,48 @@ public class UserPhotoPostAssist extends BaseAssist {
 			}
 		} );
 	}
-	
-	
+
+	/** Uploads the car wash's Kaspi QR; the text parts go as plain text, not JSON strings. */
+	@Subscribe
+	public void onPaymentQrUploadRequested(final AdminPaymentQrUploadRequestEvent event) {
+		String mimeType = event.getMimeType();
+		if (mimeType == null) {
+			mimeType = getMimeType(event.getFile().getAbsolutePath());
+		}
+		if (mimeType == null) {
+			mimeType = "image/jpeg";
+		}
+		getApi().uploadPaymentQr(new TypedString(event.getWasherId()),
+				new TypedString(Constants.PAYMENT_QR_KASPI),
+				new TypedFile(mimeType, event.getFile()),
+				new Callback<PaymentQrResponseHolder>() {
+					@Override
+					public void success(PaymentQrResponseHolder data, Response response) {
+						BA.getEventBus().post(new AdminPaymentQrUploadResponseEvent(data));
+					}
+
+					@Override
+					public void failure(RetrofitError error) {
+						BA.getEventBus().post(new AdminPaymentQrUploadResponseEvent(null));
+						onRetrofitError(error);
+					}
+				});
+	}
+
+	@Subscribe
+	public void onPaymentQrDeleteRequested(final AdminPaymentQrDeleteRequestEvent event) {
+		getApi().deletePaymentQr(new PaymentQrDeleteRequest(event.getWasherId(), Constants.PAYMENT_QR_KASPI),
+				new Callback<PaymentQrResponseHolder>() {
+					@Override
+					public void success(PaymentQrResponseHolder data, Response response) {
+						BA.getEventBus().post(new AdminPaymentQrDeleteResponseEvent(data));
+					}
+
+					@Override
+					public void failure(RetrofitError error) {
+						BA.getEventBus().post(new AdminPaymentQrDeleteResponseEvent(null));
+						onRetrofitError(error);
+					}
+				});
+	}
 }
