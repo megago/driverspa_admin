@@ -60,13 +60,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -479,12 +477,12 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	public void createGridList(final Washer washer, List<String> slots){
 		gridList = new ArrayList<HashMap<String,String>>();
 		ZoneId carwashZone = Functions.getCarwashZone();
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(carwashZone.getId()));
+		// java.time, not TimeZone.getTimeZone(): that silently falls back to GMT for
+		// zone ids it doesn't know (e.g. "+05:00"), shifting slots by the offset.
+		ZonedDateTime now = (serverTime != null ? serverTime : Instant.now()).atZone(carwashZone);
 
-		if(serverTime != null) calendar.setTimeInMillis(serverTime.toEpochMilli());
-
-		int currHour = calendar.get(Calendar.HOUR_OF_DAY);
-		int currMin = calendar.get(Calendar.MINUTE);
+		int currHour = now.getHour();
+		int currMin = now.getMinute();
 
 		int todayStartTime = currHour*60+currMin;
 		int startTime = 0, endTime = 0;
@@ -719,13 +717,10 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 						HashMap<String,String> selectedTimeMap = gridList.get(position);
 						int hour = Integer.parseInt(selectedTimeMap.get(GRID_ID))/60;
 						int minut = Integer.parseInt(selectedTimeMap.get(GRID_ID))%60;
-						Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(carwashZone.getId()));
-						if(selectedDay.equals(TOMORROW)) cal.add(Calendar.DATE, 1);
-						cal.set(Calendar.HOUR_OF_DAY,hour);
-						cal.set(Calendar.MINUTE,minut);
-						cal.set(Calendar.SECOND,0);
-						cal.set(Calendar.MILLISECOND,0);
-						long bookDate = cal.getTimeInMillis();
+						ZonedDateTime slot = ZonedDateTime.now(carwashZone)
+								.withHour(hour).withMinute(minut).withSecond(0).withNano(0);
+						if(selectedDay.equals(TOMORROW)) slot = slot.plusDays(1);
+						long bookDate = slot.toInstant().toEpochMilli();
 						if(!selectedDay.equals(FOR_DATE) && System.currentTimeMillis() <= bookDate) {
 							adapter.setSelectedPosition(position);
 							if((adapter.getSelectedView() != null && v != adapter.getSelectedView())||adapter.getSelectedView() == null) {
