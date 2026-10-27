@@ -600,9 +600,21 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 							//Bookings
 							if(book.getStatus().equals(APPROVED)) {
 								AlertDialog.Builder b = new MaterialAlertDialogBuilder(getActivity());
-								b.setItems(R.array.admin_approved_book_options, new DialogInterface.OnClickListener() {
+								final boolean bookPaid = Boolean.TRUE.equals(book.getPaid());
+								b.setItems(bookPaid ? R.array.admin_approved_book_options : R.array.admin_approved_book_not_paid_options, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i) {
+										if (!bookPaid) {
+											if (i == 0) {
+												setWaitScreen(true);
+												BookingRequest request = new BookingRequest();
+												request.setId(book.getId());
+												request.setPaid(true);
+												BA.getEventBus().post(new AdminMarkAsClientPaidRequestEvent(request));
+												return;
+											}
+											i--;
+										}
 										switch (i) {
 											case 0:
 												// Takes the payment first when none is recorded.
