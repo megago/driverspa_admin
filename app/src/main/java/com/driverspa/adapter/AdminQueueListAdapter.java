@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.BindView;
 import com.driverspa.R;
 import com.driverspa.activity.BaseActivity;
-import com.driverspa.admin.activity.AdminEditQueuedBookActivity;
+import com.driverspa.admin.activity.AdminAddQueuedBookActivity;
 import com.driverspa.model.BookInfo;
 
 
@@ -64,7 +64,7 @@ public class AdminQueueListAdapter extends BaseDataAdapter<BookInfo> {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, copyHolder.order, transitionName);
                 }
-                Intent intent = new Intent(context,AdminEditQueuedBookActivity.class);
+                Intent intent = new Intent(context,AdminAddQueuedBookActivity.class);
                 intent.putExtra(EXTRA_BOOK, item.serialize() );
                 intent.putExtra(BaseActivity.OPENING_ANIMATION,false);
 //                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

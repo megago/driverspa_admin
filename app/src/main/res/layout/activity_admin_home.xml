@@ -69,6 +69,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- Speed dial of the + button: scrim and options, animated in AdminHomeActivity -->
+                <View
+                    android:id="@+id/speedDialScrim"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#99000000"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/speedDialMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="157dp"
+                    android:layout_marginRight="28dp"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/speedDialQueue"
+                        style="@style/SpeedDialRow">
+
+                        <TextView
+                            style="@style/SpeedDialLabel"
+                            android:text="@string/add_to_queue" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/speedDialQueueFab"
+                            style="@style/SpeedDialFab"
+                            android:src="@drawable/ic_queue_white_24dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/speedDialBox"
+                        style="@style/SpeedDialRow">
+
+                        <TextView
+                            style="@style/SpeedDialLabel"
+                            android:text="@string/send_to_box" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/speedDialBoxFab"
+                            style="@style/SpeedDialFab"
+                            android:src="@drawable/ic_local_car_wash_white_18dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/button_queue_book"
                     android:layout_width="wrap_content"

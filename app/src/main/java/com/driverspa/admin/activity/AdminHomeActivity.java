@@ -39,6 +39,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.view.animation.Interpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -253,6 +257,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         Mint.initAndStartSession(this.getApplication(), "fa7fe554");
         Mint.setUserIdentifier(UserPreferences.getUserPhone(this));
         ButterKnife.bind(this);
+        setupSpeedDial();
 
         // Android 13+ blocks notifications until POST_NOTIFICATIONS is granted
         // at runtime. Ask once here, on the main authenticated screen, so FCM
@@ -273,6 +278,8 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         pagerTab.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                // The + button is hidden on some tabs, its options must go with it.
+                closeSpeedDial(false);
                 selectedTab = position;
                 setTabButtons(position);
                 invalidateOptionsMenu();
@@ -523,7 +530,9 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     @Override
     public void onBackPressed() {
-        if (mNavigationDrawerFragment.isDrawerOpen())
+        if (speedDialOpen)
+            closeSpeedDial(true);
+        else if (mNavigationDrawerFragment.isDrawerOpen())
             mNavigationDrawerFragment.closeDrawer();
         else
             super.onBackPressed();
@@ -539,7 +548,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     @Override
     public void openQueueInfo(BookInfo bookInfo) {
-        Intent intent = new Intent(this,AdminEditQueuedBookActivity.class);
+        Intent intent = new Intent(this,AdminAddQueuedBookActivity.class);
         intent.putExtra(EXTRA_BOOK, bookInfo.serialize() );
         startActivity(intent);
     }
@@ -548,7 +557,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     public void openQueueInfoWithTransition(BookInfo bookInfo, View sharedView) {
         String transitionName = "title_transition";
         ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, transitionName);
-        Intent intent = new Intent(this,AdminEditQueuedBookActivity.class);
+        Intent intent = new Intent(this,AdminAddQueuedBookActivity.class);
         intent.putExtra(EXTRA_BOOK, bookInfo.serialize() );
         startActivity(intent,transitionActivityOptions.toBundle ());
     }
@@ -592,9 +601,120 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     @Override
     public void openAddQuee(){
-        Intent intent = new Intent(this,AdminAddQueuedBookActivity.class);
-        intent.putExtra(OPENING_ANIMATION,false);
-        startActivity(intent);
+        if (speedDialOpen) closeSpeedDial(true);
+        else openSpeedDial();
+    }
+
+    // -------------------------------------------------------------------------
+    // Speed dial of the + button: send to box / add to queue
+    // -------------------------------------------------------------------------
+
+    private static final long SPEED_DIAL_DURATION = 200;
+    private static final long SPEED_DIAL_STAGGER = 40;
+
+    private View speedDialFab, speedDialScrim, speedDialMenu;
+    private View[] speedDialRows;
+    private boolean speedDialOpen = false;
+
+    private void setupSpeedDial() {
+        speedDialFab = findViewById(R.id.button_queue_book);
+        speedDialScrim = findViewById(R.id.speedDialScrim);
+        speedDialMenu = findViewById(R.id.speedDialMenu);
+        // Bottom-up: the row nearest the + button appears first.
+        speedDialRows = new View[]{
+                findViewById(R.id.speedDialBox),
+                findViewById(R.id.speedDialQueue)};
+
+        speedDialScrim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { closeSpeedDial(true); }
+        });
+        bindSpeedDialOption(R.id.speedDialBox, R.id.speedDialBoxFab, AdminAddQueuedBookActivity.MODE_BOX);
+        bindSpeedDialOption(R.id.speedDialQueue, R.id.speedDialQueueFab, AdminAddQueuedBookActivity.MODE_QUEUE);    }
+
+    private void bindSpeedDialOption(int rowId, int fabId, final int mode) {
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeSpeedDial(false);
+                Intent intent = new Intent(AdminHomeActivity.this, AdminAddQueuedBookActivity.class);
+                intent.putExtra(OPENING_ANIMATION, false);
+                intent.putExtra(AdminAddQueuedBookActivity.EXTRA_MODE, mode);
+                startActivity(intent);
+            }
+        };
+        findViewById(rowId).setOnClickListener(listener);
+        findViewById(fabId).setOnClickListener(listener);
+    }
+
+    private void openSpeedDial() {
+        speedDialOpen = true;
+        Interpolator interpolator = new FastOutSlowInInterpolator();
+        float offset = 24 * getResources().getDisplayMetrics().density;
+
+        speedDialFab.animate().rotation(45f).setDuration(SPEED_DIAL_DURATION).setInterpolator(interpolator).start();
+
+        speedDialScrim.animate().cancel();
+        speedDialScrim.setAlpha(0f);
+        speedDialScrim.setVisibility(View.VISIBLE);
+        speedDialScrim.animate().alpha(1f).setDuration(SPEED_DIAL_DURATION).setListener(null).start();
+
+        speedDialMenu.setVisibility(View.VISIBLE);
+        for (int i = 0; i < speedDialRows.length; i++) {
+            View row = speedDialRows[i];
+            row.animate().cancel();
+            row.setAlpha(0f);
+            row.setTranslationY(offset);
+            row.setScaleX(0.8f);
+            row.setScaleY(0.8f);
+            row.animate().alpha(1f).translationY(0f).scaleX(1f).scaleY(1f)
+                    .setStartDelay(i * SPEED_DIAL_STAGGER)
+                    .setDuration(SPEED_DIAL_DURATION)
+                    .setInterpolator(interpolator)
+                    .start();
+        }
+    }
+
+    private void closeSpeedDial(boolean animate) {
+        if (!speedDialOpen) return;
+        speedDialOpen = false;
+
+        if (!animate) {
+            speedDialFab.animate().cancel();
+            speedDialFab.setRotation(0f);
+            speedDialScrim.animate().cancel();
+            speedDialScrim.setVisibility(View.GONE);
+            for (View row : speedDialRows) row.animate().cancel();
+            speedDialMenu.setVisibility(View.GONE);
+            return;
+        }
+
+        Interpolator interpolator = new FastOutSlowInInterpolator();
+        float offset = 24 * getResources().getDisplayMetrics().density;
+
+        speedDialFab.animate().rotation(0f).setDuration(SPEED_DIAL_DURATION).setInterpolator(interpolator).start();
+
+        speedDialScrim.animate().alpha(0f).setDuration(SPEED_DIAL_DURATION)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        speedDialScrim.animate().setListener(null);
+                        // Reopened while closing: leave the views shown.
+                        if (speedDialOpen) return;
+                        speedDialScrim.setVisibility(View.GONE);
+                        speedDialMenu.setVisibility(View.GONE);
+                    }
+                }).start();
+
+        // Top-down, the reverse of opening.
+        for (int i = 0; i < speedDialRows.length; i++) {
+            speedDialRows[speedDialRows.length - 1 - i].animate()
+                    .alpha(0f).translationY(offset).scaleX(0.8f).scaleY(0.8f)
+                    .setStartDelay(i * SPEED_DIAL_STAGGER / 2)
+                    .setDuration(SPEED_DIAL_DURATION - SPEED_DIAL_STAGGER)
+                    .setInterpolator(interpolator)
+                    .start();
+        }
     }
 
     @Override

@@ -248,4 +248,37 @@
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!-- Speed dial of the + button on the home screen (activity_admin_home) -->
+    <style name="SpeedDialRow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="SpeedDialLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">@drawable/bg_speed_dial_label</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColor">#DE000000</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="SpeedDialFab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fabSize">mini</item>
+        <item name="backgroundTint">@color/White</item>
+        <item name="tint">@color/Red</item>
+    </style>
 </resources>

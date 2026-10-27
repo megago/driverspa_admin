@@ -84,6 +84,10 @@ import com.driverspa.util.otto.ws.AdminBookResponseEvent;
 import com.driverspa.util.otto.ws.AdminClientResponseEvent;
 import com.driverspa.util.otto.ws.AdminClientsRequestEvent;
 import com.driverspa.util.otto.ws.AdminClientsResponseEvent;
+import com.driverspa.util.otto.ws.AdminRejectQueueRequestEvent;
+import com.driverspa.util.otto.ws.AdminRejectQueueResponseEvent;
+import com.driverspa.util.otto.ws.AdminStartQueueRequestEvent;
+import com.driverspa.util.otto.ws.AdminStartQueueResponseEvent;
 import com.driverspa.util.otto.ws.WasherGetResponseEvent;
 import com.driverspa.view.DelayAutoCompleteTextView;
 import com.driverspa.view.ExpandableGridView;
@@ -196,6 +200,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     View selectedClientInformationLayout;
     @BindView(R.id.selectedClientInformationText)
     TextView selectedClientInformationText;
+    @BindView(R.id.closeClient)
+    View closeClient;
 
     @BindView(R.id.clientInformationsLayout)
     View clientInformationsLayout;
@@ -215,9 +221,12 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     private static final int STEP_SERVICES = 1;
     private static final int STEP_PAYMENT = 2;
 
-    private static final int MODE_BOX = 0;
-    private static final int MODE_QUEUE = 1;
+    public static final int MODE_BOX = 0;
+    public static final int MODE_QUEUE = 1;
+    /** "Other services" is replaced by the shop: it can no longer be opened (its tab is hidden). */
     private static final int MODE_OTHER = 2;
+    /** Which of MODE_BOX / MODE_QUEUE the screen opens in (MODE_BOX by default). */
+    public static final String EXTRA_MODE = "add_mode";
 
     private int currentStep = STEP_CAR;
     private int wizardMode = MODE_BOX;
@@ -248,6 +257,10 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     boolean isSpinnerTouched = false;
     private String queryText = "";
 
+    /** The queued car being sent to a box (opened with Constants.EXTRA_BOOK), null when adding. */
+    private BookInfo queuedBook;
+    private static final int MENU_DELETE_QUEUE = 1;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -277,6 +290,149 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
 
         prepareInitialViews();
         setupWizard();
+
+        String bookExtra = getIntent().getStringExtra(Constants.EXTRA_BOOK);
+        if (!TextUtils.isEmpty(bookExtra)) {
+            queuedBook = BookInfo.deserialize(bookExtra);
+            showQueuedBook();
+            return;
+        }
+
+        int mode = getIntent().getIntExtra(EXTRA_MODE, MODE_BOX);
+        if (mode == MODE_QUEUE) onTomorrowButtonClick();
+    }
+
+    // -------------------------------------------------------------------------
+    // Opened from the live queue: the "send to box" flow for that queued car
+    // -------------------------------------------------------------------------
+
+    /** Fills the car step from the queued car. Car type, client and discount wait for the washer. */
+    private void showQueuedBook() {
+        titleView.setText(BA.str(R.string.number_pre) + queuedBook.getOrder());
+        buttonBook.setText(BA.str(R.string.send_to_box));
+        // The car is already chosen: no client search, the plate is fixed.
+        searchLayout.setVisibility(View.GONE);
+        closeClient.setVisibility(View.GONE);
+
+        String clientKey = queuedBook.getClientKey() != null ? queuedBook.getClientKey() : "";
+        String plate = clientKey;
+        String name = "";
+        if (clientKey.contains("(")) {
+            plate = clientKey.substring(0, clientKey.indexOf("("));
+            name = clientKey.substring(clientKey.indexOf("(")).replaceAll("\\(", "").replaceAll("\\)", "");
+        }
+        carNo.setText(plate.trim(), false);
+        carNo.setEnabled(false);
+        clientName.setText(name.trim());
+        if (!TextUtils.isEmpty(queuedBook.getMobile()) && queuedBook.getMobile().length() > 2)
+            mobile.setText(queuedBook.getMobile().substring(2));
+        if (!TextUtils.isEmpty(queuedBook.getCarMark()))
+            carMark.setText(queuedBook.getCarMark());
+        if (!TextUtils.isEmpty(queuedBook.getComment()))
+            comment.setText(queuedBook.getComment());
+
+        ClientInfo client = queuedBook.getCompanyClient();
+        if (client != null) {
+            // A client's car: shown as the selected client, nothing to edit.
+            selectedClient = client;
+            if (!TextUtils.isEmpty(client.getId()))
+                request.setCompanyClient(URL_COMPANY_CLIENT_PREFIX + client.getId());
+            String info = (name.trim() + " " + plate.trim()).trim();
+            if (!TextUtils.isEmpty(queuedBook.getMobile()) && queuedBook.getMobile().length() > 2)
+                info = info + " " + queuedBook.getMobile();
+            selectedClientInformationText.setText(info);
+            selectedClientInformationLayout.setVisibility(View.VISIBLE);
+            clientInformationsLayout.setVisibility(View.GONE);
+        }
+    }
+
+    /** Called once the washer (menu, boxes, staff) is loaded. */
+    private void applyQueuedBookWasherData() {
+        if (!TextUtils.isEmpty(queuedBook.getCartype())) {
+            try {
+                selectCarType(CarType.toEnum(Integer.parseInt(queuedBook.getCartype())));
+            } catch (NumberFormatException e) {
+            }
+        }
+
+        Integer queuedDiscount = queuedBook.getDiscount();
+        if (queuedDiscount != null && queuedDiscount > 0) {
+            discount.setText(queuedDiscount + "");
+            if (selectedClient != null) {
+                // A client's discount is not edited here (as when the client is selected).
+                spinner.setVisibility(View.GONE);
+                discount.setEnabled(false);
+            }
+        }
+        if (selectedClient != null)
+            analyzeWasherCountCampaign(selectedClient);
+    }
+
+    /** Selects a car type button as if by the client (allowed while a client is selected). */
+    private void selectCarType(CarType carType) {
+        View button = null;
+        if (carType != null) {
+            switch (carType) {
+                case Mini: button = buttonMini; break;
+                case Sedan: button = buttonSedan; break;
+                case Universal: button = buttonUniversal; break;
+                case Crossover: button = buttonCrossover; break;
+                case MiniJeep: button = buttonMiniJeep; break;
+                case Jeep: button = buttonBigJeep; break;
+                case Minivan: button = buttonMiniVan; break;
+                case Minibus: button = buttonMinbus; break;
+                case Moto: button = buttonMoto; break;
+                default: break;
+            }
+        }
+        if (button == null || button.getVisibility() != View.VISIBLE)
+            return;
+        settingCarTypeFromClient = true;
+        button.performClick();
+        settingCarTypeFromClient = false;
+    }
+
+    private void confirmDeleteQueue() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(BA.str(R.string.delete_queue_q))
+                .setNegativeButton(BA.str(R.string.no_word), null)
+                .setPositiveButton(BA.str(R.string.yes_word), (dialog, which) -> {
+                    if (washer == null) return;
+                    BookingRequest rejectRequest = new BookingRequest();
+                    rejectRequest.setId(queuedBook.getId());
+                    rejectRequest.setMobile(queuedBook.getMobile());
+                    rejectRequest.setTime(Instant.now());
+                    rejectRequest.setCarwash(URL_PREFIX + washer.getId());
+                    rejectRequest.setOffline(true);
+                    rejectRequest.setQueued(true);
+                    rejectRequest.setDirectWash(false);
+                    BA.getEventBus().post(new AdminRejectQueueRequestEvent(rejectRequest));
+                    setWaitScreen(true);
+                })
+                .show();
+    }
+
+    @Subscribe
+    public void onAdminStartQueueResponseReceived(AdminStartQueueResponseEvent event) {
+        onQueueActionResponse(event.getResult());
+    }
+
+    @Subscribe
+    public void onAdminRejectQueueResponseReceived(AdminRejectQueueResponseEvent event) {
+        onQueueActionResponse(event.getResult());
+    }
+
+    private void onQueueActionResponse(com.driverspa.model.api.response.BookResponseHolder result) {
+        setWaitScreen(false);
+        if (result != null) {
+            if (BaseAssist.isSuccess(result)) {
+                finish();
+                overridePendingTransitionWithCommonCloseTransition();
+            } else
+                ToastUtil.display(this, result.getMessage());
+        } else {
+            ToastUtil.display(this, BA.str(R.string.err_add_queue));
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -468,6 +624,10 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        if (queuedBook != null) {
+            menu.add(Menu.NONE, MENU_DELETE_QUEUE, Menu.NONE, BA.str(R.string.delete))
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
         return true;
     }
 
@@ -489,7 +649,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         clientInformationsLayout.setVisibility(View.VISIBLE);
         selectedClientInformationLayout.setVisibility(View.GONE);
         selectedClient = null;
-        createService(selectedCarType.getValue());
+        // Before the washer arrives onWasherReceived() builds the services for selectedCarType.
+        if (washer != null) createService(selectedCarType.getValue());
         buttonBook.setText(BA.str(R.string.send_to_box));
         setWizardMode(MODE_BOX);
     }
@@ -505,7 +666,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         clientInformationsLayout.setVisibility(View.GONE);
         selectedClientInformationLayout.setVisibility(View.GONE);
         selectedClient = null;
-        createService(selectedCarType.getValue());
+        // Before the washer arrives onWasherReceived() builds the services for selectedCarType.
+        if (washer != null) createService(selectedCarType.getValue());
         buttonToBox.setSelected(false);
         buttonOtherServices.setSelected(true);
         buttonToQueue.setSelected(false);
@@ -532,8 +694,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         boxesLayout.setVisibility(View.VISIBLE);
         searchLayout.setVisibility(View.VISIBLE);
         carTypesLayout.setVisibility(View.VISIBLE);
-        clientInformationsLayout.setVisibility(View.VISIBLE);
-        selectedClientInformationLayout.setVisibility(View.GONE);
+        clientInformationsLayout.setVisibility(selectedClient == null ? View.VISIBLE : View.GONE);
+        selectedClientInformationLayout.setVisibility(selectedClient == null ? View.GONE : View.VISIBLE);
         setWizardMode(MODE_QUEUE);
     }
 
@@ -543,6 +705,9 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(0, 0);
+                break;
+            case MENU_DELETE_QUEUE:
+                confirmDeleteQueue();
                 break;
         }
         return true;
@@ -603,6 +768,8 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
                             setData(client);
                         }
                     });
+
+                    if (queuedBook != null) applyQueuedBookWasherData();
                 }
             }, 200);
         }
@@ -613,30 +780,45 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
         carNo.setError(null);
         closeKeyboard();
         String сarNoStr = carNo.getText().toString();
-        if (TextUtils.isEmpty(сarNoStr)) {
-            ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
-            if (carNo.hasFocus())
-                carNo.setError(null);
-            else
-                carNo.setError("");
-            titleView.requestFocus();
-            return;
-        }
-
         String phoneStr = mobile.getText().toString();
         phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
+
+        if (selectedClient == null) {
+            if (TextUtils.isEmpty(сarNoStr)) {
+                ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
+                if (carNo.hasFocus())
+                    carNo.setError(null);
+                else
+                    carNo.setError("");
+                titleView.requestFocus();
+                return;
+            }
+            request.setCarMark(carMark.getText().toString());
+        } else {
+            // The plate/phone inputs are hidden once a client is chosen: take them from the client.
+            сarNoStr = selectedClient.getCarNo();
+            if (!TextUtils.isEmpty(selectedClient.getPhone()) && selectedClient.getPhone().length() > 3) {
+                phoneStr = selectedClient.getPhone().substring(2);
+            }
+            request.setCarMark(selectedClient.getCarMark());
+        }
 
         request.setCarNo(сarNoStr);
         request.setMobile(TextUtils.isEmpty(phoneStr) ? "" : "+7" + phoneStr);
         request.setClientKey(сarNoStr);
-        if (!TextUtils.isEmpty(clientName.getText().toString().trim()))
-            request.setClientKey(сarNoStr.trim() + " (" + clientName.getText().toString() + ")");
+        String nameStr = selectedClient != null ? selectedClient.getName() : clientName.getText().toString();
+        if (!TextUtils.isEmpty(nameStr) && !TextUtils.isEmpty(nameStr.trim()))
+            request.setClientKey(сarNoStr.trim() + " (" + nameStr.trim() + ")");
             request.setTime(Instant.now());
         request.setCarwash(URL_PREFIX + washer.getId());
         request.setOffline(true);
         request.setQueued(true);
         request.setDirectWash(false);
-        request.setCarMark(carMark.getText().toString());
+        // Queued without a box: drop one left over from a failed "send to box" attempt.
+        request.setBoxId(null);
+        // Kept so the queued car opens with its car type when it is sent to a box later.
+        if (selectedCarType != null && selectedCarType != CarType.Unknown)
+            request.setCarType(selectedCarType.getValue());
         request.setPaid(false); // paid when it is finished (PaymentFlow)
         request.setNocash(false);
         request.setPriceDetails(new ArrayList<BookInfo.PriceDetail>());
@@ -666,7 +848,7 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             String phoneStr = mobile.getText().toString();
             phoneStr = phoneStr.replaceAll("\\+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
 
-            if (selectedClient == null) {
+            if (selectedClient == null || queuedBook != null) {
                 if (TextUtils.isEmpty(сarNoStr)) {
                     ToastUtil.displayAtTop(this, BA.str(R.string.enter_car_plate));
                     carNo.setError("");
@@ -700,8 +882,9 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             request.setCarNo(сarNoStr);
             request.setMobile(TextUtils.isEmpty(phoneStr) ? "" : "+7" + phoneStr);
             request.setClientKey(сarNoStr);
-            if (!TextUtils.isEmpty(clientName.getText().toString()))
-                request.setClientKey(сarNoStr.trim() + " (" + clientName.getText().toString() + ")");
+            String nameStr = selectedClient != null && queuedBook == null ? selectedClient.getName() : clientName.getText().toString();
+            if (!TextUtils.isEmpty(nameStr) && !TextUtils.isEmpty(nameStr.trim()))
+                request.setClientKey(сarNoStr.trim() + " (" + nameStr.trim() + ")");
             request.setCarType(selectedCarType.getValue());
             request.setBoxId(boxId);
                   request.setTime(Instant.now());
@@ -782,7 +965,12 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             }
         }
 
-        BA.getEventBus().post(new AdminBookRequestEvent(request));
+        if (queuedBook != null) {
+            request.setId(queuedBook.getId());
+            BA.getEventBus().post(new AdminStartQueueRequestEvent(request));
+        } else {
+            BA.getEventBus().post(new AdminBookRequestEvent(request));
+        }
         setWaitScreen(true);
     }
 
