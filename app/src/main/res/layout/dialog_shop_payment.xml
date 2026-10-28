@@ -76,20 +76,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tabCash"
-                        style="@style/PaymentTab"
-                        android:text="@string/cash" />
-
+                    <!-- Card first: it shows the car wash's QR (a QR payment is a card payment) -->
                     <TextView
                         android:id="@+id/tabCard"
                         style="@style/PaymentTab"
                         android:text="@string/card" />
 
                     <TextView
+                        android:id="@+id/tabCash"
+                        style="@style/PaymentTab"
+                        android:text="@string/cash" />
+
+                    <!-- Never shown: QR is paid on the card tab; kept for ShopPaymentDialog's indices -->
+                    <TextView
                         android:id="@+id/tabQr"
                         style="@style/PaymentTab"
-                        android:text="@string/kaspi_qr" />
+                        android:text="@string/kaspi_qr"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tabMixed"
@@ -128,7 +131,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Kaspi QR: shown to the client to scan -->
+            <!-- Card tab: the car wash's QR (Kaspi, Halyk...), shown to the client to scan -->
             <LinearLayout
                 android:id="@+id/qrLayout"
                 android:layout_width="match_parent"
@@ -137,6 +140,15 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/payment_qr_title"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -161,10 +173,19 @@
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/qrHint"
+                    android:id="@+id/qrAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/White"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/qrHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:textColor="@color/White"
                     android:textSize="@dimen/text_small" />
@@ -183,18 +204,6 @@
 
                     <TextView
                         style="@style/PaymentMixedLabel"
-                        android:text="@string/cash" />
-
-                    <EditText
-                        android:id="@+id/mixedCash"
-                        style="@style/PaymentMixedField"
-                        android:maxLength="10" />
-                </LinearLayout>
-
-                <LinearLayout style="@style/PaymentMixedRow">
-
-                    <TextView
-                        style="@style/PaymentMixedLabel"
                         android:text="@string/card" />
 
                     <EditText
@@ -203,9 +212,22 @@
                         android:maxLength="10" />
                 </LinearLayout>
 
+                <LinearLayout style="@style/PaymentMixedRow">
+
+                    <TextView
+                        style="@style/PaymentMixedLabel"
+                        android:text="@string/cash" />
+
+                    <EditText
+                        android:id="@+id/mixedCash"
+                        style="@style/PaymentMixedField"
+                        android:maxLength="10" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/mixedQrRow"
-                    style="@style/PaymentMixedRow">
+                    style="@style/PaymentMixedRow"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/PaymentMixedLabel"

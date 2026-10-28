@@ -27,9 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The payment window of a shop sale: Наличные (with an optional "Получено" and the change),
- * Карта, Kaspi QR (only when the car wash has one uploaded) and Смешанная. A sale is paid in
- * full; there is no deposit or bonus. The window stays open on an error.
+ * The payment window of a shop sale: Карта (opened first; it shows the car wash's QR, Kaspi,
+ * Halyk..., since a QR payment is a card payment), Наличные (with an optional "Получено" and the
+ * change) and Смешанная. A sale is paid in full; there is no deposit or bonus. The window stays
+ * open on an error.
  */
 public class ShopPaymentDialog {
 
@@ -48,20 +49,20 @@ public class ShopPaymentDialog {
 	private final Listener listener;
 	private final long due;
 	private final String qrUrl;
-	private int tab = TAB_CASH;
+	private int tab = TAB_CARD;
 	private boolean busy;
 	private boolean qrRequested;
 
 	private final View[] tabs;
 	private final View cashLayout, qrLayout, qrProgress, mixedLayout, mixedQrRow, progress;
-	private final TextView cashChange, qrHint, mixedRemaining, error;
+	private final TextView cashChange, qrHint, qrAmount, mixedRemaining, error;
 	private final ImageView qrImage;
 	private final EditText cashReceived, mixedCash, mixedCard, mixedQr;
 	private final Button cancel, confirm;
 
 	/**
 	 * @param subtitle what is sold, in short
-	 * @param qrUrl    the car wash's Kaspi QR image, or null when none is uploaded
+	 * @param qrUrl    the car wash's payment QR image, or null when none is uploaded
 	 */
 	public ShopPaymentDialog(Activity activity, long due, String subtitle, String qrUrl, Listener listener) {
 		this.listener = listener;
@@ -91,6 +92,8 @@ public class ShopPaymentDialog {
 		qrImage = root.findViewById(R.id.qrImage);
 		qrProgress = root.findViewById(R.id.qrProgress);
 		qrHint = root.findViewById(R.id.qrHint);
+		qrAmount = root.findViewById(R.id.qrAmount);
+		qrAmount.setText(Shop.money(due));
 		mixedLayout = root.findViewById(R.id.mixedLayout);
 		mixedCash = root.findViewById(R.id.mixedCash);
 		mixedCard = root.findViewById(R.id.mixedCard);
@@ -102,9 +105,8 @@ public class ShopPaymentDialog {
 		cancel = root.findViewById(R.id.paymentCancel);
 		confirm = root.findViewById(R.id.paymentConfirm);
 
-		boolean hasQr = qrUrl != null;
-		tabs[TAB_QR].setVisibility(hasQr ? View.VISIBLE : View.GONE);
-		mixedQrRow.setVisibility(hasQr ? View.VISIBLE : View.GONE);
+		tabs[TAB_QR].setVisibility(View.GONE);
+		mixedQrRow.setVisibility(View.GONE);
 
 		for (int i = 0; i < tabs.length; i++) {
 			final int index = i;
@@ -127,7 +129,7 @@ public class ShopPaymentDialog {
 		}
 		cancel.setOnClickListener(v -> dialog.cancel());
 		confirm.setOnClickListener(v -> submit());
-		selectTab(TAB_CASH);
+		selectTab(TAB_CARD);
 		updateAmounts();
 	}
 
@@ -163,9 +165,9 @@ public class ShopPaymentDialog {
 		for (int i = 0; i < tabs.length; i++) tabs[i].setSelected(i == index);
 		error.setVisibility(View.GONE);
 		cashLayout.setVisibility(index == TAB_CASH ? View.VISIBLE : View.GONE);
-		qrLayout.setVisibility(index == TAB_QR ? View.VISIBLE : View.GONE);
+		qrLayout.setVisibility(index == TAB_CARD && qrUrl != null ? View.VISIBLE : View.GONE);
 		mixedLayout.setVisibility(index == TAB_MIXED ? View.VISIBLE : View.GONE);
-		if (index == TAB_QR) loadQr();
+		if (index == TAB_CARD) loadQr();
 	}
 
 	private void loadQr() {

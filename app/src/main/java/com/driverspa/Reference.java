@@ -124,6 +124,23 @@ public class Reference {
 		this.carType = carType;
 	}
 
+	/**
+	 * The car types prices are set for: all but "other services" (6), as goods are sold in the
+	 * shop now. getCarType() keeps it, so older orders of that type still show their type name.
+	 */
+	public LinkedHashMap<Integer,String> getPriceCarTypes ()
+	{
+		LinkedHashMap<Integer,String> types = new LinkedHashMap<Integer,String>();
+		if (carType == null) return types;
+		for (java.util.Map.Entry<Integer,String> e : carType.entrySet()) {
+			if (e.getKey() != null && e.getKey() != OTHER_SERVICES_CAR_TYPE) types.put(e.getKey(), e.getValue());
+		}
+		return types;
+	}
+
+	/** The old "other services" car type (CarType.Other). */
+	public static final int OTHER_SERVICES_CAR_TYPE = 6;
+
 	public LinkedHashMap<Integer, String> getAccountNumbers() {
 		return accountNumbers;
 	}

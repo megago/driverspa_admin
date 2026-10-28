@@ -29,9 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The payment window: how the client pays the order's price. Tabs Наличные / Карта / Kaspi QR
- * (only with an uploaded QR) / Депозит (only when the client's deposit covers the price) /
- * Смешанная. The amount due is the order's price from the backend, not recomputed.
+ * The payment window: how the client pays the order's price. Tabs Карта (opened first; it shows
+ * the car wash's QR, Kaspi, Halyk..., since a QR payment is a card payment) / Наличные / Депозит
+ * (only when the client's deposit covers the price) / Смешанная. The amount due is the order's
+ * price from the backend, not recomputed. QR as a type of its own is left for older orders only.
  */
 class PaymentDialog {
 
@@ -53,12 +54,12 @@ class PaymentDialog {
 	private final String qrUrl;
 	private final double depositBalance;
 	private final double bonusBalance;
-	private int tab = TAB_CASH;
+	private int tab = TAB_CARD;
 	private boolean busy;
 	private boolean qrRequested;
 
 	private final View[] tabs;
-	private final TextView note, qrHint, mixedRemaining, error;
+	private final TextView note, qrHint, qrAmount, mixedRemaining, error;
 	private final View qrLayout, qrProgress, mixedLayout, mixedQrRow, mixedDepositRow, mixedBonusRow;
 	private final ImageView qrImage;
 	private final EditText mixedCash, mixedCard, mixedQr, mixedDeposit, mixedBonus;
@@ -97,6 +98,8 @@ class PaymentDialog {
 		qrImage = root.findViewById(R.id.qrImage);
 		qrProgress = root.findViewById(R.id.qrProgress);
 		qrHint = root.findViewById(R.id.qrHint);
+		qrAmount = root.findViewById(R.id.qrAmount);
+		qrAmount.setText(money(due));
 		mixedLayout = root.findViewById(R.id.mixedLayout);
 		mixedCash = root.findViewById(R.id.mixedCash);
 		mixedCard = root.findViewById(R.id.mixedCard);
@@ -127,11 +130,11 @@ class PaymentDialog {
 		}
 		long storedBonus = stored[TAB_MIXED]; // tabOf maps bonuses to the "mixed" slot
 
-		boolean hasQr = qrUrl != null;
 		boolean depositTab = client != null && due > 0 && depositBalance >= due;
-		tabs[TAB_QR].setVisibility(hasQr ? View.VISIBLE : View.GONE);
+		tabs[TAB_QR].setVisibility(View.GONE);
 		tabs[TAB_DEPOSIT].setVisibility(depositTab ? View.VISIBLE : View.GONE);
-		mixedQrRow.setVisibility(hasQr || stored[TAB_QR] > 0 ? View.VISIBLE : View.GONE);
+		// QR as a part of its own only for an older order stored that way; it is paid by card now.
+		mixedQrRow.setVisibility(stored[TAB_QR] > 0 ? View.VISIBLE : View.GONE);
 		mixedDepositRow.setVisibility(depositBalance > 0 || stored[TAB_DEPOSIT] > 0 ? View.VISIBLE : View.GONE);
 		mixedBonusRow.setVisibility(bonusBalance > 0 || storedBonus > 0 ? View.VISIBLE : View.GONE);
 		((TextView) root.findViewById(R.id.mixedDepositAvailable)).setText(BA.str(R.string.payment_available, money(depositBalance)));
@@ -171,7 +174,7 @@ class PaymentDialog {
 				if (stored[i] == due && tabs[i].getVisibility() == View.VISIBLE) start = i;
 			}
 		}
-		if (start < 0 && storedTypes == 0) start = TAB_CASH;
+		if (start < 0 && storedTypes == 0) start = TAB_CARD;
 		if (start < 0) {
 			start = TAB_MIXED;
 			setAmount(mixedCash, stored[TAB_CASH]);
@@ -214,9 +217,9 @@ class PaymentDialog {
 		boolean single = due > 0 && index != TAB_MIXED;
 		note.setVisibility(single && index == TAB_DEPOSIT ? View.VISIBLE : View.GONE);
 		note.setText(BA.str(R.string.payment_deposit_balance, money(depositBalance)));
-		qrLayout.setVisibility(due > 0 && index == TAB_QR ? View.VISIBLE : View.GONE);
+		qrLayout.setVisibility(due > 0 && index == TAB_CARD && qrUrl != null ? View.VISIBLE : View.GONE);
 		mixedLayout.setVisibility(due > 0 && index == TAB_MIXED ? View.VISIBLE : View.GONE);
-		if (index == TAB_QR) loadQr();
+		if (index == TAB_CARD) loadQr();
 	}
 
 	private void loadQr() {

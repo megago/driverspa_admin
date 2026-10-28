@@ -373,7 +373,7 @@ public class AdminProfileFragment extends AdminBaseFragment{
 			final HashMap<Integer,String> allCarTypes = BA.getReference().getCarType();
 			List<HashMap<String,String>> selectedCarTypeMapList = new ArrayList<HashMap<String,String>>();
 
-			carTypeMapList = allCarTypes.entrySet().stream()
+			carTypeMapList = BA.getReference().getPriceCarTypes().entrySet().stream()
 					.map(entry -> toDialogItem(entry.getKey(), entry.getValue()))
 					.collect(Collectors.toList());
 

@@ -301,7 +301,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         items.add(new NavigationItem(getString(R.string.menu_shop), getResources().getDrawable(R.drawable.ic_shop_white_24dp)));
         items.add(new NavigationItem(getString(R.string.menu_clients), getResources().getDrawable(R.drawable.ic_clients)));
         items.add(new NavigationItem(getString(R.string.menu_employees), getResources().getDrawable(R.drawable.ic_clients_normal)));
-        // Shifts and the cash drawer (docs/shift.md); position 3 in AdminHomeActivity.
+        // Shifts and the cash drawer (docs/shift.md); position 4 in AdminHomeActivity.
         items.add(new NavigationItem(getString(R.string.shift_menu), getResources().getDrawable(R.drawable.ic_work_shifts)));
         items.add(new NavigationItem(getString(R.string.menu_finance), getResources().getDrawable(R.drawable.ic_finance)));
 //        items.add(new NavigationItem("Акция", getResources().getDrawable(R.drawable.ic_tab_campaign_normal)));

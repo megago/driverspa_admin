@@ -926,15 +926,17 @@
     <string name="stat_number_of_washes">Количество моек</string>
     <string name="stat_net_profit">Чистая прибыль</string>
 
-    <!-- Payment taken at "Завершить" (PaymentFlow, PaymentDialog) and the Kaspi QR in settings -->
-    <string name="kaspi_qr" translatable="false">Kaspi QR</string>
-    <string name="kaspi_qr_short_pre" translatable="false">"Kaspi QR "</string>
+    <!-- Payment taken at "Завершить" (PaymentFlow, PaymentDialog) and the payment QR in settings.
+         A QR payment is a card payment: the card tab shows the QR. -->
+    <string name="kaspi_qr" translatable="false">QR</string>
+    <string name="kaspi_qr_short_pre" translatable="false">"QR "</string>
+    <string name="payment_qr_title" translatable="false">Kaspi/Halyk QR</string>
     <string name="payment_mixed">Смешанная</string>
     <string name="payment_due">К оплате</string>
     <string name="payment_paid">Оплачено</string>
     <string name="payment_paid_and_finish">Оплачено и завершить</string>
     <string name="payment_saved">Оплата сохранена</string>
-    <string name="payment_kaspi_hint">Клиент сканирует QR в приложении Kaspi и вводит сумму %1$s</string>
+    <string name="payment_kaspi_hint">Клиент сканирует QR в приложении банка и платит %1$s. Или картой через терминал</string>
     <string name="payment_qr_load_error">Не удалось загрузить QR</string>
     <string name="payment_deposit_balance">Депозит клиента: %1$s</string>
     <string name="payment_available">доступно: %1$s</string>
@@ -942,10 +944,10 @@
     <string name="payment_not_enough_bonuses">Недостаточно бонусов</string>
     <string name="payment_reset_warning">Сумма изменилась — оплата будет принята заново при завершении</string>
     <string name="wizard_step_extra">Скидка</string>
-    <string name="kaspi_qr_none">QR не загружен. Загрузите QR из Kaspi Pay — он появится в окне оплаты</string>
+    <string name="kaspi_qr_none">QR не загружен. Загрузите QR для оплаты (Kaspi, Halyk и другие) — он появится во вкладке «Карта» окна оплаты</string>
     <string name="kaspi_qr_upload">Загрузить QR</string>
     <string name="kaspi_qr_replace">Заменить</string>
-    <string name="kaspi_qr_delete_q">Удалить Kaspi QR?</string>
+    <string name="kaspi_qr_delete_q">Удалить QR?</string>
     <string name="kaspi_qr_uploaded">QR загружен</string>
     <string name="kaspi_qr_deleted">QR удалён</string>
 

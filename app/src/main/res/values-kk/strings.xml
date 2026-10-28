@@ -921,7 +921,7 @@
     <string name="payment_paid">Төленді</string>
     <string name="payment_paid_and_finish">Төленді, аяқтау</string>
     <string name="payment_saved">Төлем сақталды</string>
-    <string name="payment_kaspi_hint">Клиент Kaspi қосымшасында QR-ды сканерлеп, %1$s соманы енгізеді</string>
+    <string name="payment_kaspi_hint">Клиент QR-ды банк қосымшасында сканерлеп, %1$s төлейді. Немесе терминал арқылы картамен</string>
     <string name="payment_qr_load_error">QR жүктелмеді</string>
     <string name="payment_deposit_balance">Клиент депозиті: %1$s</string>
     <string name="payment_available">қолжетімді: %1$s</string>
@@ -929,10 +929,10 @@
     <string name="payment_not_enough_bonuses">Бонустар жеткіліксіз</string>
     <string name="payment_reset_warning">Сома өзгерді — төлем тапсырыс аяқталғанда қайта қабылданады</string>
     <string name="wizard_step_extra">Жеңілдік</string>
-    <string name="kaspi_qr_none">QR жүктелмеген. Kaspi Pay-ден QR-ды жүктеңіз — ол төлем терезесінде көрсетіледі</string>
+    <string name="kaspi_qr_none">QR жүктелмеген. Төлеуге арналған QR-ды жүктеңіз (Kaspi, Halyk т.б.) — ол төлем терезесінің «Карта» қойындысында көрсетіледі</string>
     <string name="kaspi_qr_upload">QR жүктеу</string>
     <string name="kaspi_qr_replace">Ауыстыру</string>
-    <string name="kaspi_qr_delete_q">Kaspi QR жойылсын ба?</string>
+    <string name="kaspi_qr_delete_q">QR жойылсын ба?</string>
     <string name="kaspi_qr_uploaded">QR жүктелді</string>
     <string name="kaspi_qr_deleted">QR жойылды</string>
 

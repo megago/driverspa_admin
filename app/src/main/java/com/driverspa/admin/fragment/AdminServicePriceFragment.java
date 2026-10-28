@@ -109,7 +109,8 @@ public class AdminServicePriceFragment extends AdminBaseFragment {
                                 .flatMap(menu -> {
                                     Integer carType = menu.getKey();
                                     ArrayList<Washer.Prices> prices = menu.getValue();
-                                    if (prices == null || prices.isEmpty()) {
+                                    if (prices == null || prices.isEmpty()
+                                            || (carType != null && carType == com.driverspa.Reference.OTHER_SERVICES_CAR_TYPE)) {
                                         return java.util.stream.Stream.empty();
                                     }
                                     return prices.stream()

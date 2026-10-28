@@ -2,7 +2,7 @@
 <!-- Shifts and the cash drawer (driverspa_web/docs/shift.md). Generated with the web's wording. -->
 <resources>
     <string name="shift_menu">Ауысымдар</string>
-    <string name="shift_tab_current">Ағымдағы ауысым</string>
+    <string name="shift_tab_current">Ағымдағы</string>
     <string name="shift_tab_history">Тарих</string>
     <string name="shift_tab_settings">Баптаулар</string>
     <string name="shift_load_error">Ауысымды жүктеу мүмкін болмады</string>
@@ -56,7 +56,7 @@
     <string name="shift_revenue_shop">Дүкен</string>
     <string name="shift_pay_cash">Қолма-қол</string>
     <string name="shift_pay_card">Карта</string>
-    <string name="shift_pay_qr">Kaspi QR</string>
+    <string name="shift_pay_qr">QR</string>
     <string name="shift_pay_deposit">Депозит</string>
     <string name="shift_pay_bonus">Бонустар</string>
     <string name="shift_washes">Жуу</string>

@@ -243,7 +243,7 @@ public class AdminAddOwnServicePriceActivity extends AdminBaseActivity {
     private void preparePriceView(){
         priceLayout.removeAllViews();
         //Will be listed all cartypes
-        final HashMap<Integer,String> allCarTypes = BA.getReference().getCarType();
+        final HashMap<Integer,String> allCarTypes = BA.getReference().getPriceCarTypes();
 
         //Iterate all cartypes
         for (Map.Entry<Integer,String> entry : allCarTypes.entrySet()) {

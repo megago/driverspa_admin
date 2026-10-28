@@ -506,41 +506,30 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 if(mNavigationDrawerFragment!=null)
                     mNavigationDrawerFragment.closeDrawer();
                 break;
-            case 1: //clients
+            // Positions follow NavigationDrawerFragment.getMenu(): orders, shop, clients, staff,
+            // shifts, finance, analytics, reviews, settings, about.
+            case 1: //shop
+                startActivity(new Intent(this,AdminShopActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        .putExtra(OPENING_ANIMATION,false)
+                );
+                break;
+            case 2: //clients
                 startActivity(new Intent(this,AdminClientsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 2: //staff
+            case 3: //staff
                 startActivity(new Intent(this,AdminStaffsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-
-//            case 2: //work shifts
-//                startActivity(new Intent(this,AdminWorkShiftsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//                        .putExtra(OPENING_ANIMATION,false)
-//                );
-
-//                break;
-            case 3: //shifts (docs/shift.md)
+            case 4: //shifts (docs/shift.md)
                 startActivity(new Intent(this,AdminShiftActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 4: //financial
+            case 5: //financial
                 startActivity(new Intent(this,AdminFinancialActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-//            case 4: //campaign
-//                if(!Functions.isUserHasAccess(washer,user,this)) return;
-//                startActivity(new Intent(this,AdminCampaignActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//                        .putExtra(OPENING_ANIMATION,false)
-//                );
-//                break;
-            case 5: //shop
-                startActivity(new Intent(this,AdminShopActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;

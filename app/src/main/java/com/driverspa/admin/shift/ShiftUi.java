@@ -187,9 +187,12 @@ public final class ShiftUi {
 	public static LinearLayout buttons(Context c, TextView... items) {
 		LinearLayout row = new LinearLayout(c);
 		row.setOrientation(LinearLayout.HORIZONTAL);
+		// No baseline alignment: a label that wraps to two lines would be pushed down and clipped.
+		row.setBaselineAligned(false);
 		row.setLayoutParams(wide(dp(c, 10)));
 		for (int i = 0; i < items.length; i++) {
-			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+			// MATCH_PARENT keeps the buttons equally tall when one label wraps.
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
 			if (i > 0) lp.leftMargin = dp(c, 8);
 			items[i].setLayoutParams(lp);
 			row.addView(items[i]);

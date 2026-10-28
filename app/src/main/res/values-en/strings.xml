@@ -920,7 +920,7 @@
     <string name="payment_paid">Paid</string>
     <string name="payment_paid_and_finish">Paid, finish</string>
     <string name="payment_saved">Payment saved</string>
-    <string name="payment_kaspi_hint">The client scans the QR in the Kaspi app and enters %1$s</string>
+    <string name="payment_kaspi_hint">The client scans the QR in their bank app and pays %1$s. Or by card at the terminal</string>
     <string name="payment_qr_load_error">Could not load the QR</string>
     <string name="payment_deposit_balance">Client deposit: %1$s</string>
     <string name="payment_available">available: %1$s</string>
@@ -928,10 +928,10 @@
     <string name="payment_not_enough_bonuses">Not enough bonuses</string>
     <string name="payment_reset_warning">The total changed — payment will be taken again when the order is finished</string>
     <string name="wizard_step_extra">Discount</string>
-    <string name="kaspi_qr_none">No QR uploaded. Upload the QR from Kaspi Pay — it will be shown in the payment window</string>
+    <string name="kaspi_qr_none">No QR uploaded. Upload a payment QR (Kaspi, Halyk and others) — it will be shown on the Card tab of the payment window</string>
     <string name="kaspi_qr_upload">Upload QR</string>
     <string name="kaspi_qr_replace">Replace</string>
-    <string name="kaspi_qr_delete_q">Delete the Kaspi QR?</string>
+    <string name="kaspi_qr_delete_q">Delete the QR?</string>
     <string name="kaspi_qr_uploaded">QR uploaded</string>
     <string name="kaspi_qr_deleted">QR deleted</string>
 

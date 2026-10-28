@@ -56,7 +56,7 @@
     <string name="shift_revenue_shop">Магазин</string>
     <string name="shift_pay_cash">Наличные</string>
     <string name="shift_pay_card">Карта</string>
-    <string name="shift_pay_qr">Kaspi QR</string>
+    <string name="shift_pay_qr">QR</string>
     <string name="shift_pay_deposit">Депозит</string>
     <string name="shift_pay_bonus">Бонусы</string>
     <string name="shift_washes">Мойка</string>

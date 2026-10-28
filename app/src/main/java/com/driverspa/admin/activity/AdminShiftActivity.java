@@ -130,6 +130,8 @@ public class AdminShiftActivity extends AdminBaseActivity {
 			tab.setTextColor(ContextCompat.getColorStateList(this, R.drawable.button_bar_state_color));
 			tab.setTypeface(tab.getTypeface(), android.graphics.Typeface.BOLD);
 			tab.setMaxLines(1);
+			// Ellipsize so a long translation shows "…" instead of silently losing words.
+			tab.setEllipsize(android.text.TextUtils.TruncateAt.END);
 			tab.setText(BA.str(tabTitle(tabKinds.get(i))));
 			tab.setOnClickListener(v -> viewPager.setCurrentItem(position));
 			tabBar.addView(tab);
