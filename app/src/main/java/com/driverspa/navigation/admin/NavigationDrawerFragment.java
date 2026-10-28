@@ -297,13 +297,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         String city = Functions.getCityDescription(UserPreferences.getCity(getActivity()));
         String orders = getString(R.string.menu_orders);
         items.add(new NavigationItem(TextUtils.isEmpty(city)?orders:orders+"("+city+")", getResources().getDrawable(R.drawable.ic_business_white_24dp)));
+        // The shop (docs/shop.md), for all working staff. AdminHomeActivity numbers the items.
+        items.add(new NavigationItem(getString(R.string.menu_shop), getResources().getDrawable(R.drawable.ic_shop_white_24dp)));
         items.add(new NavigationItem(getString(R.string.menu_clients), getResources().getDrawable(R.drawable.ic_clients)));
         items.add(new NavigationItem(getString(R.string.menu_employees), getResources().getDrawable(R.drawable.ic_clients_normal)));
         // Shifts and the cash drawer (docs/shift.md); position 3 in AdminHomeActivity.
         items.add(new NavigationItem(getString(R.string.shift_menu), getResources().getDrawable(R.drawable.ic_work_shifts)));
         items.add(new NavigationItem(getString(R.string.menu_finance), getResources().getDrawable(R.drawable.ic_finance)));
-        // The shop (docs/shop.md), for all working staff. AdminHomeActivity numbers the items.
-        items.add(new NavigationItem(getString(R.string.menu_shop), getResources().getDrawable(R.drawable.ic_shop_white_24dp)));
 //        items.add(new NavigationItem("Акция", getResources().getDrawable(R.drawable.ic_tab_campaign_normal)));
         items.add(new NavigationItem(getString(R.string.menu_analytics), getResources().getDrawable(R.drawable.ic_assessment_white_24dp)));
         items.add(new NavigationItem(getString(R.string.menu_reviews), getResources().getDrawable(R.drawable.ic_tab_comment_normal)));
