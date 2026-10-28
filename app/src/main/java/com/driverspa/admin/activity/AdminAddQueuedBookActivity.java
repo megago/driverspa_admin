@@ -57,6 +57,7 @@ import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.adapter.FilterableClientsAdapter;
 import com.driverspa.adapter.StaffGridAdapter;
+import com.driverspa.admin.shift.ShiftCrew;
 import com.driverspa.model.AdminSearchFilter;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.Box;
@@ -1531,7 +1532,12 @@ public class AdminAddQueuedBookActivity extends AdminBaseActivity {
             }
 
         //Box adapter
+        // While a shift is open with a crew, the crew (plus anyone already picked) is offered (docs/shift.md).
+        ArrayList<String> chosen = new ArrayList<String>();
+        if (request != null && request.getStaffs() != null) chosen.addAll(request.getStaffs());
+        items = ShiftCrew.filter(gridStaffs, washer != null ? washer.getId() : null, items, chosen, () -> createStaffGrid(washer));
         staffGridAdapter = new StaffGridAdapter(this, items);
+        if (request != null && request.getStaffs() != null && !request.getStaffs().isEmpty()) ShiftCrew.reselect(staffGridAdapter, request.getStaffs());
         gridStaffs.setAdapter(staffGridAdapter);
         gridStaffs.setExpanded(true);
         gridStaffs.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,0 +1,5 @@
+{
+ "message": "You cannot open a shift, close the open one first",
+ "status": "error",
+ "status_code": 400
+}

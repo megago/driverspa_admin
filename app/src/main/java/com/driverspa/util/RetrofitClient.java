@@ -12,6 +12,7 @@ import com.driverspa.model.Settings;
 import com.driverspa.model.UserLocation;
 import com.driverspa.model.Washer;
 import com.driverspa.model.WasherBase;
+import com.driverspa.model.shift.ShiftResponses;
 import com.driverspa.model.api.request.AddReviewRequest;
 import com.driverspa.model.api.request.AddWorkshiftRequest;
 import com.driverspa.model.api.request.AdminNotificationNewsRequest;
@@ -822,6 +823,71 @@ public class RetrofitClient {
 				@Query("from") Long from,
 				@Query("to") Long to,
 				Callback<ShopReportResponseHolder> callback);
+
+		// Shifts: the cash drawer (docs/shift.md). The old work_shift calls above stay for older
+		// screens; these are additive.
+		@GET("/v1/work_shift/current")
+		void shiftCurrent(
+				@Query("carwash") String washerId,
+				Callback<ShiftResponses.Current> callback);
+
+		@POST("/v1/work_shift/open")
+		void shiftOpen(
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.One> callback);
+
+		@GET("/v1/work_shift/history")
+		void shiftHistory(
+				@Query("carwash") String washerId,
+				@Query("offset") Integer offset,
+				@Query("limit") Integer limit,
+				@Query("shortage") String shortage,
+				Callback<ShiftResponses.History> callback);
+
+		@GET("/v1/work_shift/settings")
+		void shiftSettings(
+				@Query("carwash") String washerId,
+				Callback<ShiftResponses.Settings> callback);
+
+		@POST("/v1/work_shift/settings")
+		void shiftSettingsSave(
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.Settings> callback);
+
+		@GET("/v1/work_shift/{id}/report")
+		void shiftReport(
+				@Path("id") String id,
+				Callback<ShiftResponses.Report> callback);
+
+		@POST("/v1/work_shift/{id}/count")
+		void shiftCount(
+				@Path("id") String id,
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.Count> callback);
+
+		@POST("/v1/work_shift/{id}/close")
+		void shiftClose(
+				@Path("id") String id,
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.Closed> callback);
+
+		@POST("/v1/work_shift/{id}/cash")
+		void shiftCash(
+				@Path("id") String id,
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.Cash> callback);
+
+		@POST("/v1/work_shift/{id}/crew")
+		void shiftCrew(
+				@Path("id") String id,
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.One> callback);
+
+		@POST("/v1/work_shift/{id}/correction")
+		void shiftCorrection(
+				@Path("id") String id,
+				@Body Map<String, Object> body,
+				Callback<ShiftResponses.One> callback);
 
 		@PUT("/v1/location/{locationText}")
 		void updateLocation(

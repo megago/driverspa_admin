@@ -1,0 +1,25 @@
+{
+ "data": {
+  "comment_required": false,
+  "counted_cash": 9500,
+  "difference": -200,
+  "expected_cash": 9700,
+  "limit": 300,
+  "open_orders": {
+   "in_box": [
+    {
+     "box_id": "box2",
+     "box_name": "Бокс 2",
+     "client_key": "AFbox2AA02",
+     "id": "6ae1244310ba357c6c78519b",
+     "price": 3000,
+     "status": "queued_approved",
+     "time": "2026-10-27T22:22:59Z"
+    }
+   ],
+   "unpaid": []
+  }
+ },
+ "status": "success",
+ "status_code": 200
+}

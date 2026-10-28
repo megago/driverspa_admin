@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ShiftFileProvider: the shift Z-report PDFs written to the cache (ShiftPdf). -->
+<paths>
+    <cache-path
+        name="shifts"
+        path="shifts/" />
+</paths>

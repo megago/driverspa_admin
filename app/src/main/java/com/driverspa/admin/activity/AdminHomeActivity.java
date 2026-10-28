@@ -66,6 +66,8 @@ import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import butterknife.ButterKnife;
+import com.driverspa.admin.shift.ShiftState;
+import com.driverspa.admin.shift.Shifts;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.driverspa.BA;
@@ -257,6 +259,10 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         Mint.initAndStartSession(this.getApplication(), "fa7fe554");
         Mint.setUserIdentifier(UserPreferences.getUserPhone(this));
         ButterKnife.bind(this);
+        shiftBanner = findViewById(R.id.shiftBanner);
+        if (shiftBanner != null) {
+            shiftBanner.setOnClickListener(v -> startActivity(new Intent(this, AdminShiftActivity.class)));
+        }
         setupSpeedDial();
 
         // Android 13+ blocks notifications until POST_NOTIFICATIONS is granted
@@ -308,7 +314,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                     if (!TextUtils.isEmpty(bookId))
                         openBookInfo(bookId);
                 } else if (pushType.contains("review_created")) {
-                    onNavigationDrawerItemSelected(7); // settings, as before the shop item was added
+                    onNavigationDrawerItemSelected(8); // settings (after the shop and shift items were added)
                 }
             }
         }
@@ -379,6 +385,8 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         }
 
         applyWasherAccessState();
+        ShiftState.addListener(shiftListener);
+        refreshShift();
     }
 
     @Override
@@ -386,6 +394,35 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         super.onPause();
         BA.setNotificationType(NotificationType.NOTHING);
         BA.getEventBus().unregister(this);
+        ShiftState.removeListener(shiftListener);
+    }
+
+    // ---- the shift notice (docs/shift.md) ----
+
+    private TextView shiftBanner;
+    private final ShiftState.Listener shiftListener = this::updateShiftBanner;
+
+    /** Reads the current shift for the notice and the washer pickers (staff the backend serves). */
+    private void refreshShift() {
+        if (washer != null && Shifts.mayUse(washer, user)) ShiftState.refresh(washer.getId());
+        updateShiftBanner();
+    }
+
+    /** "Смена не открыта" when an open shift is required, or "пора закрыть" when it is overdue. */
+    private void updateShiftBanner() {
+        if (shiftBanner == null) return;
+        String washerId = washer != null ? washer.getId() : null;
+        String text = null;
+        if (washerId != null && Shifts.mayUse(washer, user)) {
+            if (ShiftState.blocked(washerId)) {
+                text = BA.str(R.string.shift_banner_required);
+            } else {
+                com.driverspa.model.shift.Shift overdue = ShiftState.overdue(washerId);
+                if (overdue != null) text = BA.str(R.string.shift_banner_overdue, overdue.getNumberText(), Shifts.time(overdue.getDueTime()));
+            }
+        }
+        shiftBanner.setText(text != null ? text : "");
+        shiftBanner.setVisibility(text != null ? View.VISIBLE : View.GONE);
     }
 
     private void setTabButtons(int position){
@@ -486,7 +523,12 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 //                );
 
 //                break;
-            case 3: //financial
+            case 3: //shifts (docs/shift.md)
+                startActivity(new Intent(this,AdminShiftActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        .putExtra(OPENING_ANIMATION,false)
+                );
+                break;
+            case 4: //financial
                 startActivity(new Intent(this,AdminFinancialActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
@@ -497,30 +539,30 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 //                        .putExtra(OPENING_ANIMATION,false)
 //                );
 //                break;
-            case 4: //shop
+            case 5: //shop
                 startActivity(new Intent(this,AdminShopActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 5: //statistics
+            case 6: //statistics
 
                 startActivity(new Intent(this,AdminAnalyticsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 6: //review
+            case 7: //review
                 startActivity(new Intent(this,AdminWasherReviewActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
 
                 break;
-            case 7: //settings
+            case 8: //settings
                 if(!Functions.isUserHasAccess(washer,user,this)) return;
                 startActivity(new Intent(this,AdminProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
                 break;
-            case 8: //About us
+            case 9: //About us
                 startActivity(new Intent(this,AdminAboutUSActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .putExtra(OPENING_ANIMATION,false)
                 );
@@ -795,6 +837,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     public void onUserReceived(UserGetSelfResponseEvent event) {
         user = event.getUser();
         applyWasherAccessState();
+        refreshShift();
     }
 
     @Subscribe
@@ -809,6 +852,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                 createWasherListSpinner("",washer.getId());
             }
             applyWasherAccessState();
+            refreshShift();
             /*
             if(washer.getStatus().equals(APPROVED)){
                 applyWasherAccessState();

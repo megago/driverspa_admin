@@ -1,0 +1,185 @@
+{
+ "data": {
+  "carwash": "6ae0e86f10ba352964b28601",
+  "cash_left": 3000,
+  "cash_removed": 6500,
+  "close_comment": "не хватает 200",
+  "close_kind": "operator",
+  "closed_user": "6ae0e86d10ba350c80f5d49a",
+  "closed_user_name": "Olzhas Operator",
+  "corrections": [],
+  "counted_cash": 9500,
+  "counts": [
+   {
+    "counted": 9500,
+    "difference": -200,
+    "expected": 9700,
+    "ts": "2026-10-27T22:22:59Z",
+    "user": "6ae0e86d10ba350c80f5d49a",
+    "user_name": "Olzhas Operator"
+   }
+  ],
+  "crew": [
+   {
+    "name": "Aidos Washer",
+    "uid": "st1"
+   },
+   {
+    "name": "Berik Washer",
+    "uid": "st2"
+   }
+  ],
+  "difference": -200,
+  "due_time": null,
+  "duration": 0,
+  "end_time": "2026-10-27T22:22:59Z",
+  "expected_cash": 9700,
+  "id": "6ae1244210ba357c6c785183",
+  "legacy": false,
+  "number": 1,
+  "opening_cash": 5000,
+  "opening_comment": null,
+  "opening_difference": null,
+  "opening_expected": null,
+  "overdue": false,
+  "previous_shift": null,
+  "report": {
+   "boxes": [
+    {
+     "avg_minutes": 0,
+     "box_id": "box1",
+     "cars": 1,
+     "name": "Бокс 1"
+    }
+   ],
+   "cancellations": 0,
+   "cash": {
+    "counted": 9500,
+    "difference": -200,
+    "expected": 9700,
+    "flows": {
+     "cash_in": 2000,
+     "cash_out": 0,
+     "deposits": 0,
+     "expenses": 0,
+     "other": 0,
+     "other_income": 0,
+     "payouts": -300,
+     "purchases": 0,
+     "refunds": 0,
+     "shop": 0,
+     "washes": 3000
+    },
+    "left": 3000,
+    "opening": 5000,
+    "removed": 6500
+   },
+   "cash_moves": [
+    {
+     "amount": 300,
+     "id": "6ae1244210ba357c6c785185",
+     "kind": "payout",
+     "reason": "аванс",
+     "staff_name": "Aidos Washer",
+     "staff_uid": "st1",
+     "ts": "2026-10-27T22:22:58Z",
+     "user": "6ae0e86d10ba350c80f5d49a",
+     "user_name": "Olzhas Operator"
+    },
+    {
+     "amount": 2000,
+     "id": "6ae1244210ba357c6c78518b",
+     "kind": "in",
+     "reason": "размен",
+     "staff_name": null,
+     "staff_uid": null,
+     "ts": "2026-10-27T22:22:58Z",
+     "user": "6ae0e86d10ba350c80f5d49a",
+     "user_name": "Olzhas Operator"
+    }
+   ],
+   "close_kind": "operator",
+   "comment": "не хватает 200",
+   "expenses": {
+    "cash": 0,
+    "items": [],
+    "total": 0
+   },
+   "final": true,
+   "from": "2026-10-27T22:22:58Z",
+   "no_shows": 0,
+   "number": 1,
+   "refunds": {
+    "deposits": 0,
+    "shop": 0,
+    "total": 0
+   },
+   "revenue": {
+    "by_payment": {
+     "B": 0,
+     "C": 3000,
+     "CD": 0,
+     "DA": 0,
+     "QR": 0
+    },
+    "shop": 0,
+    "total": 3000,
+    "washes": 3000
+   },
+   "shift": "6ae1244210ba357c6c785183",
+   "shop": {
+    "by_payment": {
+     "C": 0,
+     "CD": 0,
+     "QR": 0
+    },
+    "canceled": 0,
+    "refunds": 0,
+    "revenue": 0,
+    "sales": 0
+   },
+   "to": "2026-10-27T22:22:59Z",
+   "washers": [
+    {
+     "cars": 1,
+     "earned": 900,
+     "name": "Aidos Washer",
+     "on_shift": true,
+     "paid": 300,
+     "staff_uid": "st1"
+    },
+    {
+     "cars": 0,
+     "earned": 0,
+     "name": "Berik Washer",
+     "on_shift": true,
+     "paid": 0,
+     "staff_uid": "st2"
+    }
+   ],
+   "washes": {
+    "average": 3000,
+    "by_payment": {
+     "B": 0,
+     "C": 3000,
+     "CD": 0,
+     "DA": 0,
+     "QR": 0
+    },
+    "cars": 1,
+    "discounts": 0,
+    "orders": 1,
+    "other_services": 0,
+    "revenue": 3000
+   }
+  },
+  "revenue": 3000,
+  "start_time": "2026-10-27T22:22:58Z",
+  "status": "closed",
+  "telegram_status": "pending",
+  "user": "6ae0e86d10ba350c80f5d49a",
+  "user_name": "Olzhas Operator"
+ },
+ "status": "success",
+ "status_code": 200
+}

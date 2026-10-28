@@ -55,6 +55,25 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <!-- Shift notice (docs/shift.md): "require an open shift" with none open, or the
+                         open shift past its closing time; opens Смены. Filled in AdminHomeActivity. -->
+                    <TextView
+                        android:id="@+id/shiftBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#33FF8C00"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minHeight="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="gone" />
+
                     <com.driverspa.view.CustomViewPager
                         android:id="@+id/pager"
                         android:layout_width="match_parent"

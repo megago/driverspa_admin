@@ -47,6 +47,7 @@ import butterknife.OnFocusChange;
 import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.adapter.StaffGridAdapter;
+import com.driverspa.admin.shift.ShiftCrew;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.Box;
 import com.driverspa.model.CarType;
@@ -952,7 +953,13 @@ public class AdminEditEntryActivity extends AdminBaseActivity {
 			}
 
 		//Box adapter
+		// While a shift is open with a crew, the crew (plus anyone already picked) is offered (docs/shift.md).
+		ArrayList<String> chosen = new ArrayList<String>();
+		if (request != null && request.getStaffs() != null) chosen.addAll(request.getStaffs());
+		if (book != null && book.getStaffs() != null) for (String uid : book.getStaffs()) if (!chosen.contains(uid)) chosen.add(uid);
+		items = ShiftCrew.filter(gridStaffs, washer != null ? washer.getId() : null, items, chosen, () -> createStaffGrid(washer));
 		staffGridAdapter = new StaffGridAdapter(this, items);
+		if (request != null && request.getStaffs() != null && !request.getStaffs().isEmpty()) ShiftCrew.reselect(staffGridAdapter, request.getStaffs());
 		gridStaffs.setAdapter(staffGridAdapter);
 		gridStaffs.setExpanded(true);
 

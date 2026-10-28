@@ -1,0 +1,66 @@
+{
+ "data": {
+  "previous": null,
+  "settings": {
+   "auto_close": false,
+   "auto_close_after": 60,
+   "carwash": "6ae0e86f10ba352964b28601",
+   "close_time": null,
+   "discrepancy_limit": 300,
+   "report_chat_id": null,
+   "required": false
+  },
+  "shift": {
+   "carwash": "6ae0e86f10ba352964b28601",
+   "cash_left": null,
+   "cash_removed": null,
+   "close_comment": null,
+   "close_kind": null,
+   "closed_user": null,
+   "closed_user_name": null,
+   "corrections": [],
+   "counted_cash": null,
+   "counts": [],
+   "crew": [
+    {
+     "name": "Aidos Washer",
+     "uid": "st1"
+    }
+   ],
+   "difference": null,
+   "due_time": null,
+   "duration": 0,
+   "end_time": null,
+   "expected_cash": 9700,
+   "id": "6ae1244210ba357c6c785183",
+   "legacy": false,
+   "number": 1,
+   "opening_cash": 5000,
+   "opening_comment": null,
+   "opening_difference": null,
+   "opening_expected": null,
+   "overdue": false,
+   "previous_shift": null,
+   "revenue": null,
+   "start_time": "2026-10-27T22:22:58Z",
+   "status": "open",
+   "telegram_status": null,
+   "user": "6ae0e86d10ba350c80f5d49a",
+   "user_name": "Olzhas Operator"
+  },
+  "washers": [
+   {
+    "name": "Aidos Washer",
+    "status": "works",
+    "uid": "st1"
+   },
+   {
+    "name": "Berik Washer",
+    "status": "works",
+    "uid": "st2"
+   }
+  ]
+ },
+ "status": "success",
+ "status_code": 200
+}

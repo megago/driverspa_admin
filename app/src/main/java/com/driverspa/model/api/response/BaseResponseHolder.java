@@ -17,7 +17,17 @@ public class BaseResponseHolder {
 		return status;
 	}
 
+	/**
+	 * The server's message. The shift messages (docs/shift.md) come in English; they are shown in
+	 * the app's language wherever a screen shows the message (payment, finish, shop, finance).
+	 */
 	public String getMessage() {
+		try {
+			String localized = com.driverspa.admin.shift.Shifts.localize(message);
+			if (localized != null) return localized;
+		} catch (RuntimeException ignored) {
+			// no resources (e.g. a unit test): the message as it came
+		}
 		return message;
 	}	
 	

@@ -1,0 +1,13 @@
+{
+ "data": {
+  "auto_close": false,
+  "auto_close_after": 60,
+  "carwash": "6ae0e86f10ba352964b28601",
+  "close_time": null,
+  "discrepancy_limit": 300,
+  "report_chat_id": null,
+  "required": false
+ },
+ "status": "success",
+ "status_code": 200
+}

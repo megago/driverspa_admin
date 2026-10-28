@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Dialogs of the shift screens (ShiftUi.dialog): the screens' dark card surface instead of
+        the app theme's light one, so the white text and fields of ShiftUi stay readable.
+    -->
+    <style name="ThemeOverlay.DriverSpa.ShiftDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">#1F2A3F</item>
+        <item name="colorOnSurface">@color/White</item>
+        <item name="colorPrimary">#8FB8FF</item>
+        <item name="colorAccent">#8FB8FF</item>
+        <item name="android:colorBackground">#1F2A3F</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/BlueLight</item>
+        <item name="android:textColorHint">@color/BlueLight</item>
+    </style>
+</resources>

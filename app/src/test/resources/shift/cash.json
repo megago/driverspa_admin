@@ -1,0 +1,16 @@
+{
+ "data": {
+  "applied": true,
+  "move": {
+   "amount": 300,
+   "id": "6ae1244210ba357c6c785185",
+   "kind": "payout",
+   "operation_type": 4,
+   "reason": "аванс",
+   "staff_uid": "st1",
+   "ts": "2026-10-27T22:22:58Z"
+  }
+ },
+ "status": "success",
+ "status_code": 200
+}

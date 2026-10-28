@@ -391,6 +391,28 @@
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
+        <!-- Shifts: the cash drawer (docs/shift.md) -->
+        <activity
+            android:name=".admin.activity.AdminShiftActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".admin.activity.AdminShiftReportActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- Files the app shares (the shift Z-report PDF), from its cache -->
+        <provider
+            android:name=".admin.shift.ShiftFileProvider"
+            android:authorities="${applicationId}.shiftfiles"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/shift_file_paths" />
+        </provider>
+
         <activity
             android:name=".admin.activity.ExtraSettingsActivity"
             android:screenOrientation="sensorPortrait"

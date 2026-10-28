@@ -1,0 +1,66 @@
+{
+ "data": {
+  "carwash": "6ae0e86f10ba352964b28601",
+  "cash_left": 3000,
+  "cash_removed": 6500,
+  "close_comment": "не хватает 200",
+  "close_kind": "operator",
+  "closed_user": "6ae0e86d10ba350c80f5d49a",
+  "closed_user_name": "Olzhas Operator",
+  "corrections": [
+   {
+    "amount": 200,
+    "comment": "списать",
+    "kind": "writeoff",
+    "transaction": "6ae1244310ba357c6c78519c",
+    "ts": "2026-10-27T22:22:59Z",
+    "uid": "4cf7c80d-f2ae-4312-8b12-9d8192e2071f",
+    "user": "6ae0e86d10ba350c80f5d498",
+    "user_name": "+77010000401"
+   }
+  ],
+  "counted_cash": 9500,
+  "counts": [
+   {
+    "counted": 9500,
+    "difference": -200,
+    "expected": 9700,
+    "ts": "2026-10-27T22:22:59Z",
+    "user": "6ae0e86d10ba350c80f5d49a",
+    "user_name": "Olzhas Operator"
+   }
+  ],
+  "crew": [
+   {
+    "name": "Aidos Washer",
+    "uid": "st1"
+   },
+   {
+    "name": "Berik Washer",
+    "uid": "st2"
+   }
+  ],
+  "difference": -200,
+  "due_time": null,
+  "duration": 0,
+  "end_time": "2026-10-27T22:22:59Z",
+  "expected_cash": 9700,
+  "id": "6ae1244210ba357c6c785183",
+  "legacy": false,
+  "number": 1,
+  "opening_cash": 5000,
+  "opening_comment": null,
+  "opening_difference": null,
+  "opening_expected": null,
+  "overdue": false,
+  "previous_shift": null,
+  "revenue": 3000,
+  "start_time": "2026-10-27T22:22:58Z",
+  "status": "closed",
+  "telegram_status": "skipped",
+  "user": "6ae0e86d10ba350c80f5d49a",
+  "user_name": "Olzhas Operator"
+ },
+ "status": "success",
+ "status_code": 200
+}
