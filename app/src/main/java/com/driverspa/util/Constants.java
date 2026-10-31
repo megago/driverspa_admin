@@ -61,6 +61,8 @@ public class Constants {
     public static final String PAYMENT_KASPI_QR = "QR";
     public static final String PAYMENT_DEPOSIT = "DA";
     public static final String PAYMENT_BONUS = "B";
+    /** On account of a corporate client (docs/corporate-clients.md): no money taken. */
+    public static final String PAYMENT_CORPORATE = "CO";
     /** Kind of a car wash's payment QR (image_upload/payment_qr). */
     public static final String PAYMENT_QR_KASPI = "kaspi_qr";
 

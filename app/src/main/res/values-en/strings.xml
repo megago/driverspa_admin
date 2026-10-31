@@ -916,6 +916,8 @@
 
     <!-- Payment taken at "Завершить" (PaymentFlow, PaymentDialog) and the Kaspi QR in settings -->
     <string name="payment_mixed">Mixed</string>
+    <string name="payment_corporate">Company account</string>
+    <string name="payment_corporate_hint">No payment taken: the wash goes on %1$s\'s monthly statement.</string>
     <string name="payment_due">To pay</string>
     <string name="payment_paid">Paid</string>
     <string name="payment_paid_and_finish">Paid, finish</string>

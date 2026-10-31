@@ -77,6 +77,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <!-- Only for a car in a corporate client's list (docs/corporate-clients.md) -->
+                    <TextView
+                        android:id="@+id/tabCorporate"
+                        style="@style/PaymentTab"
+                        android:text="@string/payment_corporate"
+                        android:visibility="gone" />
+
                     <!-- Card first: it shows the car wash's QR (a QR payment is a card payment) -->
                     <TextView
                         android:id="@+id/tabCard"

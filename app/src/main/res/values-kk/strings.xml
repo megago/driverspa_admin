@@ -917,6 +917,8 @@
 
     <!-- Payment taken at "Завершить" (PaymentFlow, PaymentDialog) and the Kaspi QR in settings -->
     <string name="payment_mixed">Аралас</string>
+    <string name="payment_corporate">Компания есебіне</string>
+    <string name="payment_corporate_hint">Төлем алынбайды: жуу «%1$s» компаниясының айлық шотына кіреді.</string>
     <string name="payment_due">Төлеуге</string>
     <string name="payment_paid">Төленді</string>
     <string name="payment_paid_and_finish">Төленді, аяқтау</string>

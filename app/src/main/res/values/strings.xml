@@ -932,6 +932,8 @@
     <string name="kaspi_qr_short_pre" translatable="false">"QR "</string>
     <string name="payment_qr_title" translatable="false">Kaspi/Halyk QR</string>
     <string name="payment_mixed">Смешанная</string>
+    <string name="payment_corporate">На счёт компании</string>
+    <string name="payment_corporate_hint">Оплату не берём: мойка войдёт в счёт компании «%1$s» за месяц.</string>
     <string name="payment_due">К оплате</string>
     <string name="payment_paid">Оплачено</string>
     <string name="payment_paid_and_finish">Оплачено и завершить</string>

@@ -12,6 +12,7 @@ import com.driverspa.BA;
 import com.driverspa.R;
 import com.driverspa.assist.BaseAssist;
 import com.driverspa.model.BookInfo;
+import com.driverspa.model.CorporateFind;
 import com.driverspa.model.Washer;
 import com.driverspa.model.api.request.BookingRequest;
 import com.driverspa.model.api.response.BookInfoResponseHolder;
@@ -71,6 +72,10 @@ public final class PaymentFlow {
 	private String loadError;
 	private boolean carwashLoaded;
 	private String qrUrl;
+	/** The company of the order's car (null: none), looked up once before the window opens. */
+	private String corporateName;
+	private Double corporatePrice;
+	private boolean corporateChecked;
 	private boolean done;
 
 	private PaymentFlow(Activity activity, String bookingId, Washer washer, int mode, int confirmQuestion, OnDone onDone) {
@@ -189,7 +194,41 @@ public final class PaymentFlow {
 			confirmAndFinish();
 			return;
 		}
+		if (!corporateChecked && washer != null) {
+			lookupCorporate();
+			return;
+		}
 		openPaymentWindow();
+	}
+
+	/** Whether the car is in a corporate client's list; any failure opens the usual window. */
+	private void lookupCorporate() {
+		corporateChecked = true;
+		showProgress();
+		String plate = book.getClientKey() == null ? "" : book.getClientKey().split("\\(", 2)[0].trim();
+		api().corporateFind(washer.getId(), plate, book.getCartype(), new Callback<CorporateFind>() {
+			@Override
+			public void success(final CorporateFind data, Response response) {
+				MAIN.post(() -> {
+					if (data != null && BaseAssist.isSuccess(data) && data.getData() != null
+							&& data.getData().getClient() != null) {
+						corporateName = data.getData().getClient().getName();
+						corporatePrice = data.getData().getPrice();
+					}
+					resumeAfterCorporate();
+				});
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				MAIN.post(PaymentFlow.this::resumeAfterCorporate);
+			}
+		});
+	}
+
+	private void resumeAfterCorporate() {
+		hideProgress();
+		if (alive()) openPaymentWindow();
 	}
 
 	// ---- an order that needs no payment: finish as before ----
@@ -214,7 +253,7 @@ public final class PaymentFlow {
 	// ---- the payment window ----
 
 	private void openPaymentWindow() {
-		paymentDialog = new PaymentDialog(activity, book, qrUrl, mode != MODE_PAY, new PaymentDialog.Listener() {
+		paymentDialog = new PaymentDialog(activity, book, qrUrl, corporateName, corporatePrice, mode != MODE_PAY, new PaymentDialog.Listener() {
 			@Override
 			public void onSubmit(List<BookInfo.PriceDetail> parts) {
 				savePayment(parts);

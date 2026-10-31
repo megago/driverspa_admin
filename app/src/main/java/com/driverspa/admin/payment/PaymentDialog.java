@@ -47,10 +47,16 @@ class PaymentDialog {
 	private static final int TAB_QR = 2;
 	private static final int TAB_DEPOSIT = 3;
 	private static final int TAB_MIXED = 4;
+	/** On account of a corporate client: shown first when the car is in a company's list. */
+	private static final int TAB_CORPORATE = 5;
 
 	private final Dialog dialog;
 	private final Listener listener;
 	private final long due;
+	/** The order's price, or the company's contract price on the corporate tab. */
+	private final long corporateDue;
+	private final String corporateName;
+	private final TextView amountView;
 	private final String qrUrl;
 	private final double depositBalance;
 	private final double bonusBalance;
@@ -69,10 +75,13 @@ class PaymentDialog {
 	/**
 	 * @param finishing the order is finished after paying ("Оплачено и завершить"), not only paid
 	 */
-	PaymentDialog(Activity activity, BookInfo book, String qrUrl, boolean finishing, Listener listener) {
+	PaymentDialog(Activity activity, BookInfo book, String qrUrl, String corporateName, Double corporatePrice,
+				  boolean finishing, Listener listener) {
 		this.listener = listener;
 		this.qrUrl = qrUrl;
 		this.due = Math.max(0, Math.round(PaymentFlow.price(book)));
+		this.corporateName = corporateName;
+		this.corporateDue = corporatePrice != null ? Math.max(0, Math.round(corporatePrice)) : due;
 		ClientInfo client = book.getCompanyClient();
 		depositBalance = client != null && client.getDepositAmount() != null ? Math.max(0, client.getDepositAmount()) : 0;
 		bonusBalance = client != null && client.getAccruedBonuses() != null ? Math.max(0, client.getAccruedBonuses()) : 0;
@@ -90,9 +99,12 @@ class PaymentDialog {
 		dialog.setOnCancelListener(d -> this.listener.onCancel());
 
 		((TextView) root.findViewById(R.id.paymentSubtitle)).setText(carNumber(book.getClientKey()));
-		((TextView) root.findViewById(R.id.paymentAmount)).setText(money(due));
+		amountView = root.findViewById(R.id.paymentAmount);
+		amountView.setText(money(due));
 		tabs = new View[]{root.findViewById(R.id.tabCash), root.findViewById(R.id.tabCard),
-				root.findViewById(R.id.tabQr), root.findViewById(R.id.tabDeposit), root.findViewById(R.id.tabMixed)};
+				root.findViewById(R.id.tabQr), root.findViewById(R.id.tabDeposit), root.findViewById(R.id.tabMixed),
+				root.findViewById(R.id.tabCorporate)};
+		tabs[TAB_CORPORATE].setVisibility(corporateName != null ? View.VISIBLE : View.GONE);
 		note = root.findViewById(R.id.paymentNote);
 		qrLayout = root.findViewById(R.id.qrLayout);
 		qrImage = root.findViewById(R.id.qrImage);
@@ -117,7 +129,7 @@ class PaymentDialog {
 		confirm.setText(BA.str(finishing ? R.string.payment_paid_and_finish : R.string.payment_paid));
 
 		// The split already stored on the order (made by an older app version), per type.
-		long[] stored = new long[5];
+		long[] stored = new long[6];
 		int storedTypes = 0;
 		if (book.getPriceDetails() != null) {
 			for (BookInfo.PriceDetail p : book.getPriceDetails()) {
@@ -140,7 +152,7 @@ class PaymentDialog {
 		((TextView) root.findViewById(R.id.mixedDepositAvailable)).setText(BA.str(R.string.payment_available, money(depositBalance)));
 		((TextView) root.findViewById(R.id.mixedBonusAvailable)).setText(BA.str(R.string.payment_available, money(bonusBalance)));
 
-		if (due == 0) {
+		if (due == 0 && corporateName == null) {
 			// A 100 % discount: nothing to choose, the button records the payment with no parts.
 			root.findViewById(R.id.paymentTabsScroll).setVisibility(View.GONE);
 		}
@@ -183,7 +195,8 @@ class PaymentDialog {
 			setAmount(mixedDeposit, stored[TAB_DEPOSIT]);
 			setAmount(mixedBonus, storedBonus);
 		}
-		selectTab(due == 0 ? TAB_CASH : start);
+		if (corporateName != null && (storedTypes == 0 || stored[TAB_CORPORATE] > 0)) start = TAB_CORPORATE;
+		selectTab(due == 0 && corporateName == null ? TAB_CASH : start);
 		updateRemaining();
 	}
 
@@ -215,8 +228,11 @@ class PaymentDialog {
 		for (int i = 0; i < tabs.length; i++) tabs[i].setSelected(i == index);
 		error.setVisibility(View.GONE);
 		boolean single = due > 0 && index != TAB_MIXED;
-		note.setVisibility(single && index == TAB_DEPOSIT ? View.VISIBLE : View.GONE);
-		note.setText(BA.str(R.string.payment_deposit_balance, money(depositBalance)));
+		amountView.setText(money(index == TAB_CORPORATE ? corporateDue : due));
+		note.setVisibility((single && index == TAB_DEPOSIT) || index == TAB_CORPORATE ? View.VISIBLE : View.GONE);
+		note.setText(index == TAB_CORPORATE
+				? BA.str(R.string.payment_corporate_hint, corporateName)
+				: BA.str(R.string.payment_deposit_balance, money(depositBalance)));
 		qrLayout.setVisibility(due > 0 && index == TAB_CARD && qrUrl != null ? View.VISIBLE : View.GONE);
 		mixedLayout.setVisibility(due > 0 && index == TAB_MIXED ? View.VISIBLE : View.GONE);
 		if (index == TAB_CARD) loadQr();
@@ -255,7 +271,10 @@ class PaymentDialog {
 	private void submit() {
 		if (busy) return;
 		List<BookInfo.PriceDetail> parts = new ArrayList<>();
-		if (due > 0) {
+		if (tab == TAB_CORPORATE) {
+			// The whole order on account of the company (at its contract price, if it has one).
+			parts.add(part(Constants.PAYMENT_CORPORATE, corporateDue));
+		} else if (due > 0) {
 			switch (tab) {
 				case TAB_CARD:
 					parts.add(part(Constants.PAYMENT_CARD, due));
@@ -327,6 +346,7 @@ class PaymentDialog {
 		if (Constants.PAYMENT_KASPI_QR.equals(type)) return TAB_QR;
 		if (Constants.PAYMENT_DEPOSIT.equals(type) || "T".equals(type)) return TAB_DEPOSIT;
 		if (Constants.PAYMENT_BONUS.equals(type)) return TAB_MIXED;
+		if (Constants.PAYMENT_CORPORATE.equals(type)) return TAB_CORPORATE;
 		return -1;
 	}
 

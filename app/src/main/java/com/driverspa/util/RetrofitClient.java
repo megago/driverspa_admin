@@ -824,6 +824,14 @@ public class RetrofitClient {
 				@Query("to") Long to,
 				Callback<ShopReportResponseHolder> callback);
 
+		// Corporate clients (docs/corporate-clients.md): the company of a car at "Завершить".
+		@GET("/v1/corporate_client/find")
+		void corporateFind(
+				@Query("carwash") String washerId,
+				@Query("plate") String plate,
+				@Query("car_type") String carType,
+				Callback<com.driverspa.model.CorporateFind> callback);
+
 		// Shifts: the cash drawer (docs/shift.md). The old work_shift calls above stay for older
 		// screens; these are additive.
 		@GET("/v1/work_shift/current")
