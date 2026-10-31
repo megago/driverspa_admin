@@ -244,4 +244,14 @@
 	<color name="Black">#FFFFFF</color>
 	<color name="LightBlue">#334155</color>
 
+	<!-- Bottom navigation and the More tab -->
+	<color name="nav_bar_background">#111925</color>
+	<color name="nav_item_selected">#FFFFFF</color>
+	<color name="nav_item_normal">#8593A3</color>
+	<color name="more_card">#232E40</color>
+	<color name="more_card_raised">#2E3A4F</color>
+	<color name="more_avatar">#E83E74</color>
+	<color name="more_section_label">#8593A3</color>
+	<color name="more_logout">#FF6B6B</color>
+
 </resources>

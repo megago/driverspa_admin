@@ -125,7 +125,8 @@ public class AdminRegisteredClientsFragment extends AdminBaseFragment implements
         actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
         actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
         titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
-        titleView.setText(BA.str(R.string.menu_clients));
+        if(fragmentVisible)
+            titleView.setText(BA.str(R.string.menu_clients));
 //        addClientButton = getActivity().findViewById(R.id.button_add_client);
         if(fragmentVisible && actionBarRefreshButton != null)
             actionBarRefreshButton.setVisibility(View.GONE);

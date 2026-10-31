@@ -1091,4 +1091,10 @@
     <string name="shop_check_sales">Ответ не получен. Проверьте список продаж, прежде чем повторять.</string>
     <string name="shop_check_items">Ответ не получен. Проверьте список товаров, прежде чем повторять.</string>
     <string name="shop_load_more">Показать ещё</string>
+    <!-- Bottom navigation and the More tab -->
+    <string name="tab_timetable">Расписание</string>
+    <string name="tab_more">Ещё</string>
+    <string name="new_order">Новый заказ</string>
+    <string name="switch_washer">Сменить мойку</string>
+
 </resources>

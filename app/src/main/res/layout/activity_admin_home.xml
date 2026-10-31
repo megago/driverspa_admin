@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bg">
@@ -78,7 +77,7 @@
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/home_menu_height" />
+                        android:layout_marginBottom="@dimen/home_nav_height" />
                     <!-- android:background="@drawable/background_menu_buttons" -->
                 </LinearLayout>
 
@@ -98,365 +97,220 @@
                     android:focusable="true"
                     android:visibility="gone" />
 
+                <!-- Each row is label | button | spacer so the buttons line up above the + -->
                 <LinearLayout
                     android:id="@+id/speedDialMenu"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="157dp"
-                    android:layout_marginRight="28dp"
-                    android:gravity="end"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/home_nav_overlay_margin"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/speedDialQueue"
-                        style="@style/SpeedDialRow">
+                        style="@style/SpeedDialRow"
+                        android:layout_width="match_parent">
 
-                        <TextView
-                            style="@style/SpeedDialLabel"
-                            android:text="@string/add_to_queue" />
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/SpeedDialLabel"
+                                android:layout_gravity="end|center_vertical"
+                                android:text="@string/add_to_queue" />
+                        </FrameLayout>
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/speedDialQueueFab"
                             style="@style/SpeedDialFab"
                             android:src="@drawable/ic_queue_white_24dp" />
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/speedDialBox"
-                        style="@style/SpeedDialRow">
+                        style="@style/SpeedDialRow"
+                        android:layout_width="match_parent">
 
-                        <TextView
-                            style="@style/SpeedDialLabel"
-                            android:text="@string/send_to_box" />
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/SpeedDialLabel"
+                                android:layout_gravity="end|center_vertical"
+                                android:text="@string/send_to_box" />
+                        </FrameLayout>
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/speedDialBoxFab"
                             style="@style/SpeedDialFab"
                             android:src="@drawable/ic_local_car_wash_white_18dp" />
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/button_queue_book"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="85dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_add_white_18dp"
-                    app:backgroundTint="@color/Red"
-                    app:fabSize="normal" />
-
+                <!-- Books the selected timetable slot; shown by AdminTimeTableFragment -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/button_add_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="85dp"
+                    android:layout_marginBottom="@dimen/home_nav_overlay_margin"
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_timer_white_24dp"
+                    android:visibility="gone"
                     app:backgroundTint="#00d039"
                     app:fabSize="normal" />
 
-                <LinearLayout
+                <!-- Adds a client; shown on the Clients tab -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/button_add_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="@dimen/home_nav_overlay_margin"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_person_add_white_24dp"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/Red"
+                    app:fabSize="normal" />
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_menu_height"
+                    android:layout_height="1dp"
                     android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/home_nav_height"
+                    android:background="@color/menu_buttons_delimeter" />
+
+                <!-- Bottom navigation: Orders | Timetable | + | Clients | More -->
+                <LinearLayout
+                    android:id="@+id/bottomNav"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_nav_height"
+                    android:layout_gravity="bottom"
+                    android:background="@color/nav_bar_background"
+                    android:clickable="true"
                     android:orientation="horizontal">
 
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        android:visibility="gone">
+                    <LinearLayout
+                        android:id="@+id/button_orders"
+                        style="@style/NavTab">
 
                         <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/home_menu_sub_height"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1"
-                            android:background="#091e38">
-                            <!---->
-
-                            <RelativeLayout
-                                android:id="@+id/button_express"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/background_menu_buttons"
-                                android:clickable="true">
-
-                                <ImageView
-                                    android:id="@+id/tab_express"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:background="@null"
-                                    android:src="@drawable/background_menu_express_button" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/tab_express"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:text="@string/orders_caps"
-                                    android:textSize="@dimen/text_smaller"
-                                    android:visibility="gone"
-                                    android:textColor="@color/White" />
-
-                            </RelativeLayout>
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:id="@+id/newExpressMessageCountLayout"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center|top"
-                            android:layout_marginLeft="@dimen/horizontal_margin"
-                            android:background="@drawable/admin_new_messages">
-
-                            <TextView
-                                android:id="@+id/newExpressMessageCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="13"
-                                android:textColor="@color/White"
-                                android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
-                        </FrameLayout>
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/home_menu_height"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1"
-                            android:background="#091e38">
-                            <!---->
-
-                            <RelativeLayout
-                                android:id="@+id/button_orders"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/background_menu_buttons"
-                                android:clickable="true">
-
-                                <ImageView
-                                    android:id="@+id/tab_orders"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:background="@null"
-                                    android:src="@drawable/background_menu_timer_button" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/tab_orders"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="@dimen/vertical_margin_half"
-                                    android:text="@string/orders_caps"
-                                    android:textSize="@dimen/text_smaller"
-                                    android:visibility="gone"
-                                    android:textColor="@color/White" />
-
-                            </RelativeLayout>
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:id="@+id/newMessageCountLayout"
-                            android:layout_width="@dimen/badge_dimension"
-                            android:layout_height="@dimen/badge_dimension"
-                            android:layout_gravity="center|top"
-                            android:layout_marginLeft="@dimen/horizontal_margin"
-                            android:background="@drawable/admin_new_messages">
-
-                            <TextView
-                                android:id="@+id/newMessageCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="13"
-                                android:textColor="@color/White"
-                                android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
-                        </FrameLayout>
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:background="#091e38">
-
-                        <FrameLayout
-                            android:layout_width="1dp"
-                            android:layout_height="@dimen/home_menu_height"
-                            android:layout_gravity="bottom"
-                            android:background="@color/menu_buttons_delimeter" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        android:background="#091e38">
-
-                        <RelativeLayout
-                            android:id="@+id/button_timetable"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_menu_buttons"
-                            android:clickable="true">
+                            android:layout_width="44dp"
+                            android:layout_height="28dp">
 
                             <ImageView
-                                android:id="@+id/tab_timetable"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="12dp"
-                                android:background="@null"
-                                android:src="@drawable/background_menu_timetable_button" />
+                                style="@style/NavTabIcon"
+                                android:src="@drawable/ic_nav_orders" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tab_timetable"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:gravity="center"
-                                android:text="@string/table_caps"
-                                android:textSize="@dimen/text_smaller"
-                                android:visibility="gone"
-                                android:textColor="@color/White" />
-                        </RelativeLayout>
+                            <FrameLayout
+                                android:id="@+id/newMessageCountLayout"
+                                android:layout_width="@dimen/badge_dimension"
+                                android:layout_height="@dimen/badge_dimension"
+                                android:layout_gravity="top|right"
+                                android:background="@drawable/admin_new_messages"
+                                android:visibility="gone">
 
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:background="#091e38">
-
-                        <FrameLayout
-                            android:layout_width="1dp"
-                            android:layout_height="@dimen/home_menu_height"
-                            android:layout_gravity="bottom"
-                            android:background="@color/menu_buttons_delimeter" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/home_menu_height"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        android:visibility="gone"
-                        android:background="#091e38">
-
-                        <RelativeLayout
-                            android:id="@+id/button_clients"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_menu_buttons"
-                            android:clickable="true">
-
-                            <ImageView
-                                android:id="@+id/tab_clients"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:background="@null"
-                                android:src="@drawable/background_menu_auction_button" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tab_clients"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="@dimen/vertical_margin_half"
-                                android:text="@string/reviews_caps"
-                                android:textSize="@dimen/text_smaller"
-                                android:visibility="gone"
-                                android:textColor="@color/White" />
-                        </RelativeLayout>
-
-                        <FrameLayout
-                            android:id="@+id/requestsCountLayout"
-                            android:layout_width="@dimen/badge_dimension"
-                            android:layout_height="@dimen/badge_dimension"
-                            android:layout_gravity="center|top"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/admin_new_messages">
-
-                            <TextView
-                                android:id="@+id/requestsCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="13"
-                                android:textColor="@color/White"
-                                android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/newMessageCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:textColor="@color/White"
+                                    android:textSize="@dimen/text_smaller"
+                                    android:textStyle="bold" />
+                            </FrameLayout>
                         </FrameLayout>
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/menu_buttons_delimeter"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:id="@+id/button_statistics"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/background_menu_buttons"
-                        android:clickable="true"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/tab_statistics"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/vertical_margin_half"
-                            android:background="@null"
-                            android:src="@drawable/ic_assessment_white_24dp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tab_statistics"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/vertical_margin_half"
-                            android:text="@string/statistics_caps"
-                            android:textSize="@dimen/text_smaller"
-                            android:textColor="@color/White" />
-                    </RelativeLayout>
+                            style="@style/NavTabLabel"
+                            android:text="@string/menu_orders" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/button_timetable"
+                        style="@style/NavTab">
+
+                        <ImageView
+                            style="@style/NavTabIcon"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:src="@drawable/ic_nav_timetable" />
+
+                        <TextView
+                            style="@style/NavTabLabel"
+                            android:text="@string/tab_timetable" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <!-- New order: opens the speed dial (send to box / add to queue) -->
+                        <FrameLayout
+                            android:id="@+id/button_new_order"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_nav_plus"
+                            android:clickable="true"
+                            android:contentDescription="@string/new_order"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:id="@+id/button_new_order_icon"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_nav_add"
+                                app:tint="@color/nav_bar_background" />
+                        </FrameLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/button_clients"
+                        style="@style/NavTab">
+
+                        <ImageView
+                            style="@style/NavTabIcon"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:src="@drawable/ic_nav_clients" />
+
+                        <TextView
+                            style="@style/NavTabLabel"
+                            android:text="@string/menu_clients" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/button_more"
+                        style="@style/NavTab">
+
+                        <ImageView
+                            style="@style/NavTabIcon"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:src="@drawable/ic_nav_more" />
+
+                        <TextView
+                            style="@style/NavTabLabel"
+                            android:text="@string/tab_more" />
+                    </LinearLayout>
                 </LinearLayout>
             </FrameLayout>
 
@@ -898,26 +752,4 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
-
-    <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
-    <com.driverspa.view.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/scrimInsetsFrameLayout"
-        android:layout_width="@dimen/navigation_drawer_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:elevation="10dp"
-        android:fitsSystemWindows="true"
-        app:insetForeground="@color/background_transparent_main">
-
-        <fragment
-            android:id="@+id/fragment_drawer"
-            android:name="com.driverspa.navigation.admin.NavigationDrawerFragment"
-            android:layout_width="@dimen/navigation_drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:clickable="true"
-            app:layout="@layout/fragment_navigation_drawer" />
-    </com.driverspa.view.ScrimInsetsFrameLayout>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</FrameLayout>

@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.driverspa.admin.fragment.AdminBooksFragment;
 import com.driverspa.admin.fragment.AdminFareRequestFragment;
+import com.driverspa.admin.fragment.AdminMoreFragment;
+import com.driverspa.admin.fragment.AdminRegisteredClientsFragment;
 import com.driverspa.admin.fragment.AdminTimeTableFragment;
 
 /**
@@ -33,6 +35,12 @@ public class AdminTabPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 //Fragment promo washers
                 return new AdminFareRequestFragment();
+            case 3:
+                //More tab: what the left menu used to hold
+                return new AdminMoreFragment();
+            case 4:
+                //Clients tab
+                return new AdminRegisteredClientsFragment();
 //            case 3:
 //                //Fragment favourite washers
 //                return new AdminStatisticsFragment();
@@ -41,6 +49,6 @@ public class AdminTabPagerAdapter extends FragmentStatePagerAdapter {
     }
     @Override
     public int getCount() {
-        return 3; //No of Tabs
+        return 5; //No of Tabs
     }
 }

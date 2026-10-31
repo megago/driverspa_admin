@@ -1075,4 +1075,10 @@
     <string name="shop_check_sales">No answer received. Check the sales list before trying again.</string>
     <string name="shop_check_items">No answer received. Check the item list before trying again.</string>
     <string name="shop_load_more">Show more</string>
+    <!-- Bottom navigation and the More tab -->
+    <string name="tab_timetable">Timetable</string>
+    <string name="tab_more">More</string>
+    <string name="new_order">New order</string>
+    <string name="switch_washer">Switch car wash</string>
+
 </resources>

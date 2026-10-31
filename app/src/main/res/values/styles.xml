@@ -281,4 +281,85 @@
         <item name="backgroundTint">@color/White</item>
         <item name="tint">@color/Red</item>
     </style>
+
+    <!-- Bottom navigation of the home screen -->
+    <style name="NavTab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="NavTabIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="tint">@color/nav_item_color</item>
+    </style>
+
+    <style name="NavTabLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/nav_item_color</item>
+        <item name="android:textSize">@dimen/text_smaller</item>
+    </style>
+
+    <!-- Rows of the More tab -->
+    <style name="MoreCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:background">@drawable/bg_more_card</item>
+        <item name="android:clipToOutline">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MoreRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">12dp</item>
+    </style>
+
+    <style name="MoreRowIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="tint">@color/White</item>
+    </style>
+
+    <style name="MoreRowTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="MoreRowChevron">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:src">@drawable/ic_chevron_right</item>
+        <item name="tint">@color/nav_item_normal</item>
+    </style>
+
+    <style name="MoreDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginLeft">56dp</item>
+        <item name="android:background">#14FFFFFF</item>
+    </style>
 </resources>

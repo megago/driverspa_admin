@@ -1076,4 +1076,10 @@
     <string name="shop_check_sales">Жауап алынбады. Қайталамас бұрын сатылымдар тізімін тексеріңіз.</string>
     <string name="shop_check_items">Жауап алынбады. Қайталамас бұрын тауарлар тізімін тексеріңіз.</string>
     <string name="shop_load_more">Тағы көрсету</string>
+    <!-- Bottom navigation and the More tab -->
+    <string name="tab_timetable">Кесте</string>
+    <string name="tab_more">Тағы</string>
+    <string name="new_order">Жаңа тапсырыс</string>
+    <string name="switch_washer">Жуу орнын ауыстыру</string>
+
 </resources>

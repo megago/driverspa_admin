@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The centre + of the bottom navigation: new order (send to box / add to queue) -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33000000">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/White" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</ripple>

@@ -11,6 +11,7 @@ import static com.driverspa.util.Constants.EXTRA_PUSH_TYPE;
 import static com.driverspa.util.Constants.GRID_TIME;
 import static com.driverspa.util.Constants.GRID_TITLE;
 import static com.driverspa.util.Constants.RESIGNED;
+import static com.driverspa.util.Constants.TEST;
 import static com.driverspa.util.Constants.URL_PREFIX;
 import static com.driverspa.util.Constants.VACATION;
 
@@ -30,8 +31,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.core.view.MenuItemCompat;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import android.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
@@ -85,7 +87,6 @@ import com.driverspa.admin.fragment.AdminTimeTableFragment;
 import com.driverspa.model.BookInfo;
 import com.driverspa.model.ClientInfo;
 import com.driverspa.model.FareRequest;
-import com.driverspa.model.FareRequestList;
 import com.driverspa.model.NotificationType;
 import com.driverspa.model.PushData;
 import com.driverspa.model.User;
@@ -93,8 +94,6 @@ import com.driverspa.model.Washer;
 import com.driverspa.model.WasherList;
 import com.driverspa.model.WasherPublic;
 import com.driverspa.model.api.request.FareRequestBid;
-import com.driverspa.navigation.admin.NavigationDrawerCallbacks;
-import com.driverspa.navigation.admin.NavigationDrawerFragment;
 import com.driverspa.util.Constants;
 import com.driverspa.util.Functions;
 import com.driverspa.util.HttpClient;
@@ -104,7 +103,6 @@ import com.driverspa.util.TransformationCircle;
 import com.driverspa.util.UserPreferences;
 import com.driverspa.util.otto.FareRequestBidAcceptedEvent;
 import com.driverspa.util.otto.FareRequestBidNotAcceptedEvent;
-import com.driverspa.util.otto.FareRequestUpdateEvent;
 import com.driverspa.util.otto.LocalWasherChangeRequestEvent;
 import com.driverspa.util.otto.LocalWasherChangeResponseEvent;
 import com.driverspa.util.otto.MakeBidForRequestEvent;
@@ -129,7 +127,7 @@ import com.driverspa.view.NDSpinner;
  */
 
 @SuppressLint("NewApi")
-public class AdminHomeActivity extends AdminBaseActivity implements NavigationDrawerCallbacks,MenuItemCompat.OnActionExpandListener,
+public class AdminHomeActivity extends AdminBaseActivity implements MenuItemCompat.OnActionExpandListener,
         AdminBooksFragment.ActivityActions,AdminSettingsFragment.ActivityActions,AdminStatisticsFragment.ActivityActions,
         AdminTimeTableFragment.ActivityActions,AdminClientsFragment.ActivityActions, AdminRegisteredClientsFragment.ActivityActions, AdminNotRegisteredClientsFragment.ActivityActions,
         AdminExpressWashFragment.ActivityActions,
@@ -141,16 +139,25 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     CustomViewPager pagerTab;
     int selectedTab;
 
-    @BindView(R.id.button_express)
-    View expressButton;
+    // Bottom navigation: Orders | Timetable | + | Clients | More. Pager pages:
+    // 0 orders, 1 timetable, 2 fare requests (no tab), 3 more, 4 clients.
+    static final int TAB_ORDERS = 0;
+    static final int TAB_TIMETABLE = 1;
+    static final int TAB_MORE = 3;
+    static final int TAB_CLIENTS = 4;
+
     @BindView(R.id.button_orders)
     View orderButton;
     @BindView(R.id.button_timetable)
     View timetableButton;
     @BindView(R.id.button_clients)
     View clientButton;
-    @BindView(R.id.button_statistics)
-    View statisticsButton;
+    @BindView(R.id.button_more)
+    View moreButton;
+    @BindView(R.id.button_add_client)
+    View addClientButton;
+    @BindView(R.id.appbar)
+    View appBar;
 
     @BindView(R.id.toolbar_actionbar)
     View toolbarActionBar;
@@ -160,10 +167,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     View newMessageCountLayout;
     @BindView(R.id.newMessageCount)
     TextView newMessageCount;
-    @BindView(R.id.requestsCountLayout)
-    View requestsCountLayout;
-    @BindView(R.id.requestsCount)
-    TextView requestsCount;
 
     @BindView(R.id.fragment_container)
     View fragmentContainer;
@@ -220,17 +223,14 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     HashMap<String,PushData> reviewPushData;
 
     private Toolbar mToolbar;
-    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     //Search menu
     Menu menu;
-    private int selectedMenu;
     boolean isSearchable = false;
     String innerQuery = "";
     MenuItem searchMenuItem;
     private SearchView mSearchView;
     long lastSearchTime = (Calendar.getInstance()).getTimeInMillis();
-    DrawerLayout drawerLayout;
     @BindView(R.id.washer_home_spinner)
     NDSpinner spinner;
     private boolean isSpinnerTouched = false;
@@ -275,16 +275,12 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.fragment_drawer);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        mNavigationDrawerFragment.setup(R.id.fragment_drawer,drawerLayout, mToolbar);
         titleView = (TextView) mToolbar.findViewById(R.id.action_bar_title);
 
         TabAdapter = new AdminTabPagerAdapter(getSupportFragmentManager());
         pagerTab.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                // The + button is hidden on some tabs, its options must go with it.
                 closeSpeedDial(false);
                 selectedTab = position;
                 setTabButtons(position);
@@ -292,9 +288,10 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             }
         });
 
-        pagerTab.setOffscreenPageLimit(2);
+        // Keep every page alive so orders does not reload when coming back from the last tabs.
+        pagerTab.setOffscreenPageLimit(TAB_CLIENTS);
         pagerTab.setAdapter(TabAdapter);
-        selectedTab = 0;
+        selectedTab = TAB_ORDERS;
         pagerTab.setCurrentItem(selectedTab);
         setTabButtons(selectedTab);
 
@@ -314,7 +311,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
                     if (!TextUtils.isEmpty(bookId))
                         openBookInfo(bookId);
                 } else if (pushType.contains("review_created")) {
-                    onNavigationDrawerItemSelected(8); // settings (after the shop and shift items were added)
+                    openSettings();
                 }
             }
         }
@@ -339,14 +336,17 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             case 1: //Timetable
                 getMenuInflater().inflate(R.menu.menu_clean, menu);
                 break;
-            case 2: //Clients
+            case TAB_CLIENTS:
+                getMenuInflater().inflate(R.menu.menu_main, menu);
+                searchMenuItem = menu.findItem(R.id.action_search);
+                mSearchView = (SearchView) searchMenuItem.getActionView();
+                // One tap on the search icon opens the text field, not a second icon.
+                mSearchView.setIconifiedByDefault(false);
+                mSearchView.setOnQueryTextListener(this);
+                MenuItemCompat.setOnActionExpandListener(searchMenuItem, this);
+                break;
+            default:
                 getMenuInflater().inflate(R.menu.menu_clean, menu);
-//                getMenuInflater().inflate(R.menu.menu_main, menu);
-//                getMenuInflater().inflate(R.menu.menu_options_home, menu);
-//                searchMenuItem = menu.findItem(R.id.action_search);
-//                mSearchView = (SearchView) searchMenuItem.getActionView();
-//                mSearchView.setOnQueryTextListener(this);
-//                MenuItemCompat.setOnActionExpandListener(searchMenuItem, this);
                 break;
         }
         return true;
@@ -368,7 +368,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     protected void onResume() {
         super.onResume();
         setWaitScreen(false);
-        setRequestsCountLayout();
         BA.getEventBus().post(new StopPlayRingtoneRequestEvent());
 
         boolean isLoggedIn = UserPreferences.isAdminLoggedIn(this);
@@ -426,145 +425,77 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     }
 
     private void setTabButtons(int position){
-        switch(position){
-//            case 0:
-//                expressButton.setSelected(true);
-//                orderButton.setSelected(false);
-//                timetableButton.setSelected(false);
-//                clientButton.setSelected(false);
-//                statisticsButton.setSelected(false);
-//                break;
-            case 0:
-                expressButton.setSelected(false);
-                orderButton.setSelected(true);
-                timetableButton.setSelected(false);
-                clientButton.setSelected(false);
-                statisticsButton.setSelected(false);
-                titleView.setText("");
-                titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                break;
-            case 1:
-                expressButton.setSelected(false);
-                orderButton.setSelected(false);
-                timetableButton.setSelected(true);
-                clientButton.setSelected(false);
-                statisticsButton.setSelected(false);
-//                titleView.setText("");
-                break;
-            case 2:
-                expressButton.setSelected(false);
-                orderButton.setSelected(false);
-                timetableButton.setSelected(false);
-                clientButton.setSelected(true);
-                statisticsButton.setSelected(false);
-//                titleView.setText("Отзывы");
-                break;
-            case 3:
-                expressButton.setSelected(false);
-                orderButton.setSelected(false);
-                timetableButton.setSelected(false);
-                clientButton.setSelected(false);
-                statisticsButton.setSelected(true);
-                titleView.setText(BA.str(R.string.statistics));
-                break;
+        orderButton.setSelected(position == TAB_ORDERS);
+        timetableButton.setSelected(position == TAB_TIMETABLE);
+        clientButton.setSelected(position == TAB_CLIENTS);
+        moreButton.setSelected(position == TAB_MORE);
+        addClientButton.setVisibility(position == TAB_CLIENTS ? View.VISIBLE : View.GONE);
+        // The clients page hides the shared refresh button; the order tabs need it back.
+        View refresh = mToolbar.findViewById(R.id.refresh);
+        if (position == TAB_ORDERS || position == TAB_TIMETABLE) refresh.setVisibility(View.VISIBLE);
+        // The More tab draws its own header instead of the toolbar. The scrolling
+        // behavior would keep offsetting the pages by the hidden toolbar's height.
+        boolean more = position == TAB_MORE;
+        appBar.setVisibility(more ? View.GONE : View.VISIBLE);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) homeContainer.getLayoutParams();
+        if (more != (params.getBehavior() == null)) {
+            params.setBehavior(more ? null : new AppBarLayout.ScrollingViewBehavior());
+            homeContainer.requestLayout();
+        }
+        if (position == TAB_ORDERS) {
+            titleView.setText("");
+            titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
     }
 
     @OnClick(R.id.button_orders)
     public void onOrderButtonClicked(){
-        pagerTab.setCurrentItem(0);
+        pagerTab.setCurrentItem(TAB_ORDERS);
     }
 
     @OnClick(R.id.button_timetable)
     public void onTimetableButtonClicked(){
-        pagerTab.setCurrentItem(1);
+        pagerTab.setCurrentItem(TAB_TIMETABLE);
     }
 
     @OnClick(R.id.button_clients)
     public void onClientButtonClicked(){
-        pagerTab.setCurrentItem(2);
+        pagerTab.setCurrentItem(TAB_CLIENTS);
     }
 
-    @OnClick(R.id.button_statistics)
-    public void onStatisticsButtonClicked(){
-        pagerTab.setCurrentItem(3);
+    @OnClick(R.id.button_add_client)
+    public void onAddClientButtonClicked(){
+        addNewClient();
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        selectedMenu = position;
-        switch (position){
-            case 0: //Home
-                if(homeContainer != null)
-                    homeContainer.setVisibility(View.VISIBLE);
-                if(fragmentContainer != null)
-                    fragmentContainer.setVisibility(View.GONE);
-                if(titleView != null) {
-                    setTabButtons(selectedTab);
-                    titleView.setVisibility(View.VISIBLE);
-                }
-                if(mNavigationDrawerFragment!=null)
-                    mNavigationDrawerFragment.closeDrawer();
-                break;
-            // Positions follow NavigationDrawerFragment.getMenu(): orders, shop, clients, staff,
-            // shifts, finance, analytics, reviews, settings, about.
-            case 1: //shop
-                startActivity(new Intent(this,AdminShopActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 2: //clients
-                startActivity(new Intent(this,AdminClientsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 3: //staff
-                startActivity(new Intent(this,AdminStaffsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 4: //shifts (docs/shift.md)
-                startActivity(new Intent(this,AdminShiftActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 5: //financial
-                startActivity(new Intent(this,AdminFinancialActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 6: //statistics
+    @OnClick(R.id.button_more)
+    public void onMoreButtonClicked(){
+        pagerTab.setCurrentItem(TAB_MORE);
+    }
 
-                startActivity(new Intent(this,AdminAnalyticsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 7: //review
-                startActivity(new Intent(this,AdminWasherReviewActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
+    @OnClick(R.id.button_new_order)
+    public void onNewOrderButtonClicked(){
+        if(washer != null && (APPROVED.equals(washer.getStatus()) || TEST.equals(washer.getStatus())))
+            openAddQuee();
+        else
+            ToastUtil.display(BA.getContext(),BA.str(R.string.wash_not_activated_short));
+    }
 
-                break;
-            case 8: //settings
-                if(!Functions.isUserHasAccess(washer,user,this)) return;
-                startActivity(new Intent(this,AdminProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-            case 9: //About us
-                startActivity(new Intent(this,AdminAboutUSActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        .putExtra(OPENING_ANIMATION,false)
-                );
-                break;
-        }
+    private void openSettings() {
+        if(!Functions.isUserHasAccess(washer,user,this)) return;
+        startActivity(new Intent(this,AdminProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                .putExtra(OPENING_ANIMATION,false)
+        );
     }
 
     @Override
     public void onBackPressed() {
         if (speedDialOpen)
             closeSpeedDial(true);
-        else if (mNavigationDrawerFragment.isDrawerOpen())
-            mNavigationDrawerFragment.closeDrawer();
+        else if (searchMenuItem != null && searchMenuItem.isActionViewExpanded())
+            searchMenuItem.collapseActionView();
+        else if (selectedTab == TAB_MORE || selectedTab == TAB_CLIENTS)
+            pagerTab.setCurrentItem(TAB_ORDERS);
         else
             super.onBackPressed();
     }
@@ -648,7 +579,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     private boolean speedDialOpen = false;
 
     private void setupSpeedDial() {
-        speedDialFab = findViewById(R.id.button_queue_book);
+        speedDialFab = findViewById(R.id.button_new_order_icon);
         speedDialScrim = findViewById(R.id.speedDialScrim);
         speedDialMenu = findViewById(R.id.speedDialMenu);
         // Bottom-up: the row nearest the + button appears first.
@@ -773,6 +704,7 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
 
     @Override
     public void addNewClient() {
+        if(!Functions.isUserHasAccess(washer,user,this)) return;
         Intent intent = new Intent(this,AdminAddClientActivity.class);
         startActivity(intent);
     }
@@ -849,7 +781,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             else{
                 settings.setVisibility(View.VISIBLE);
                 if(user != null && !user.isOwner()){spinnerLayout.setVisibility(View.GONE);}
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 notApprovedLayout.setVisibility(View.VISIBLE);
             }
@@ -1169,33 +1100,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     Timer tmr;
     long bidTime = System.currentTimeMillis();
 
-    @Subscribe
-    public void onFareRequestsUpdateEventReceived(FareRequestUpdateEvent event) {
-        setRequestsCountLayout();
-    }
-
-    private void setRequestsCountLayout(){
-        FareRequestList fareRequestList;
-        if (!TextUtils.isEmpty(UserPreferences.getActiveFareRequest(BA.getContext()))) {
-            fareRequestList = FareRequestList.deserialize(UserPreferences.getActiveFareRequest(BA.getContext()));
-        } else {
-            fareRequestList = new FareRequestList();
-            fareRequestList.setFareRequests(new ArrayList<FareRequest>());
-        }
-        List<FareRequest> fareRequests = fareRequestList.getFareRequests();
-        if (fareRequests == null) {
-            fareRequests = new ArrayList<>();
-        }
-        if(fareRequests.size() >0){
-            requestsCountLayout.setVisibility(View.VISIBLE);
-            requestsCount.setText(fareRequests.size()+"");
-        }
-        else{
-            requestsCountLayout.setVisibility(View.GONE);
-            requestsCount.setText(fareRequests.size()+"");
-        }
-    }
-
     private void applyWasherAccessState() {
         if (washer == null) {
             return;
@@ -1204,7 +1108,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
             if (isRestrictedStaffUser()) {
                 showRestrictedState();
             } else {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 notApprovedLayout.setVisibility(View.GONE);
             }
         }
@@ -1234,7 +1137,6 @@ public class AdminHomeActivity extends AdminBaseActivity implements NavigationDr
     }
 
     private void showRestrictedState() {
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         settings.setVisibility(View.GONE);
         spinnerLayout.setVisibility(View.GONE);
         settings.setPaintFlags(settings.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

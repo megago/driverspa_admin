@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The More tab of the home screen: everything the left menu used to hold. AdminMoreFragment. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- Profile: opens the profile settings -->
+            <LinearLayout
+                android:id="@+id/moreProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp">
+
+                <FrameLayout
+                    android:layout_width="88dp"
+                    android:layout_height="88dp">
+
+                    <TextView
+                        android:id="@+id/moreAvatarInitial"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_more_avatar"
+                        android:gravity="center"
+                        android:textColor="@color/White"
+                        android:textSize="40sp" />
+
+                    <ImageView
+                        android:id="@+id/moreAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/moreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/White"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/moreDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/more_section_label"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <!-- The current car wash; owners switch between theirs or add one -->
+            <LinearLayout
+                android:id="@+id/moreWasher"
+                style="@style/MoreCard"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/moreWasherInitial"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_more_washer_avatar"
+                    android:gravity="center"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/moreWasherName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/White"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/moreWasherCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/more_section_label"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/moreSwitchWasher"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/bg_more_icon_button"
+                    android:clickable="true"
+                    android:contentDescription="@string/switch_washer"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_swap_horiz"
+                    android:visibility="gone"
+                    app:tint="@color/White" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/MoreCard">
+
+                <LinearLayout
+                    android:id="@+id/moreShop"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_shop_white_24dp" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_shop" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+
+                <View style="@style/MoreDivider" />
+
+                <LinearLayout
+                    android:id="@+id/moreStaff"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_clients_normal" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_employees" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+
+                <View style="@style/MoreDivider" />
+
+                <LinearLayout
+                    android:id="@+id/moreShifts"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_work_shifts" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/shift_menu" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/MoreCard">
+
+                <LinearLayout
+                    android:id="@+id/moreFinance"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_finance" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_finance" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+
+                <View style="@style/MoreDivider" />
+
+                <LinearLayout
+                    android:id="@+id/moreAnalytics"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_assessment_white_24dp" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_analytics" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+
+                <View style="@style/MoreDivider" />
+
+                <LinearLayout
+                    android:id="@+id/moreReviews"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_tab_comment_normal" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_reviews" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/MoreCard">
+
+                <LinearLayout
+                    android:id="@+id/moreSettings"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_settings_white_24dp" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_settings" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+
+                <View style="@style/MoreDivider" />
+
+                <LinearLayout
+                    android:id="@+id/moreAbout"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_share_white_24dp" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/menu_about" />
+
+                    <ImageView style="@style/MoreRowChevron" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/MoreCard">
+
+                <LinearLayout
+                    android:id="@+id/moreLogout"
+                    style="@style/MoreRow">
+
+                    <ImageView
+                        style="@style/MoreRowIcon"
+                        android:src="@drawable/ic_more_logout"
+                        app:tint="@color/more_logout" />
+
+                    <TextView
+                        style="@style/MoreRowTitle"
+                        android:text="@string/logout"
+                        android:textColor="@color/more_logout" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Pinned to the bottom centre, above the bottom navigation -->
+    <TextView
+        android:id="@+id/moreVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/more_section_label"
+        android:textSize="@dimen/text_smaller" />
+</LinearLayout>

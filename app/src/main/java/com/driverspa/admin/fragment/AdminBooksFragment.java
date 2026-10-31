@@ -150,7 +150,6 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 	    View actionBarRefreshButton;
 	    boolean visible = false;
 		boolean selectionWithoutUpdate = false;
-	    View addQueueButton;
 		View addBookButton;
 	    boolean loadingWithoutLoader = false;
 		private Handler handler;
@@ -198,19 +197,8 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 			actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
 			actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
 
-			addQueueButton = getActivity().findViewById(R.id.button_queue_book);
+			// The + (send to box / add to queue) lives in the activity's bottom navigation.
 			addBookButton = getActivity().findViewById(R.id.button_add_book);
-
-			addQueueButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-						if(washer != null && (washer.getStatus().equals(APPROVED) || washer.getStatus().equals(TEST))){
-						  activityActions.openAddQuee();
-						}
-						else
-						 ToastUtil.display(BA.getContext(),BA.str(R.string.wash_not_activated_short));
-				    }
-			});
 			actionBarRefreshButton.setOnClickListener(this);
 			addBookButton.setVisibility(View.GONE);
 			createActionBarSpinner();
@@ -838,18 +826,12 @@ public class AdminBooksFragment extends AdminBaseFragment implements View.OnClic
 			   appBarLayout.setExpanded(true, true);
 			if(spinner != null)
 			 createActionBarSpinner();
-			if(addQueueButton != null) {
+			if(addBookButton != null) {
 				actionBarRefreshButton.setOnClickListener(this);
 				spinner.setVisibility(View.VISIBLE);
 				addBookButton.setVisibility(View.GONE);
 				loadDataWithoutLoader();
-				addQueueButton.setVisibility(View.VISIBLE);
 			}
-		}
-		else
-		   if(addQueueButton != null) {
-			   addQueueButton.setVisibility(View.GONE);
-			   addBookButton.setVisibility(View.GONE);
 		}
 	}
 

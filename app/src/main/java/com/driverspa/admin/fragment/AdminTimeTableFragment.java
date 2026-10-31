@@ -176,7 +176,6 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 	AppBarLayout appBarLayout;
 	View actionBarRefreshButton;
 	boolean visible = false;
-	View addQueueButton;
 	View addBookButton;
 	TextView titleView;
 
@@ -220,7 +219,6 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 		spinner = (NDSpinner) toolbar.findViewById(R.id.spinner);
 		actionBarProgress = (ProgressBar) toolbar.findViewById(R.id.progress);
 		actionBarRefreshButton = toolbar.findViewById(R.id.refresh);
-		addQueueButton = getActivity().findViewById(R.id.button_queue_book);
 		addBookButton = getActivity().findViewById(R.id.button_add_book);
 		titleView = (TextView) toolbar.findViewById(R.id.action_bar_title);
 		if (currentTimeInterval == 30) {
@@ -846,7 +844,6 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 				if(!selectedDay.equals(FOR_DATE))
 					loadTimeTableDataWithoutLoader();
 				spinner.setVisibility(View.VISIBLE);
-				addQueueButton.setVisibility(View.GONE);
 				actionBarRefreshButton.setOnClickListener(this);
 				actionBarRefreshButton.setVisibility(View.VISIBLE);
 			}
@@ -856,7 +853,6 @@ public class AdminTimeTableFragment extends AdminBaseFragment implements View.On
 				titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}
 			if(addBookButton != null) {
-				addQueueButton.setVisibility(View.GONE);
 				addBookButton.setVisibility(View.GONE);
 			}
 		}

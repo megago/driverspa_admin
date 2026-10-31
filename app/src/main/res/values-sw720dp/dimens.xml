@@ -48,6 +48,9 @@
 
     <dimen name="home_menu_height">70dp</dimen>
     <dimen name="home_menu_sub_height">65dp</dimen>
+    <dimen name="home_nav_height">72dp</dimen>
+    <!-- Floating views above the bottom navigation: its height plus 16dp -->
+    <dimen name="home_nav_overlay_margin">88dp</dimen>
     <dimen name="badge_dimension">30dp</dimen>
 
     <!-- user -->
